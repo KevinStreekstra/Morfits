@@ -10,9 +10,6 @@ const game = new Phaser.Game({
     width: 1920,
     height: 1080,
     scene: [
-    width: 800,
-    height: 600,
-    scene: [
       BootScene,
       ParallaxScene,
       Healthbar,

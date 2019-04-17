@@ -50,7 +50,7 @@ class Healthbar extends Phaser.Scene {
     }
 
     createSillhouette(srcKey) {
-    this.bmd = game.make.Healthbar()
+    this.bmd = game.make.bitmapData()
     // load texture into the bitmap
     bmd.load(srcKey);
     bmd.processPixelRGB(forEachPixel, this);
