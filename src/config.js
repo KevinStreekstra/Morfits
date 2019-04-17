@@ -3,8 +3,8 @@ const config = {};
 config.game = {
     parent: 'game',
     type: Phaser.AUTO,
-    width: 600,
-    height: 600,
+    width: 1920,
+    height: 1024,
     scene: {},
 }
 
