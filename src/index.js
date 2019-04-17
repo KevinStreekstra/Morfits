@@ -1,25 +1,13 @@
 import Phaser from "phaser";
-import config from "./config";
-import logoImg from "./assets/logo.png";
 
-config.game.scene = {preload, create, update};
+import ParallaxScene from './scenes/ParallaxScene';
 
-const game = new Phaser.Game(config.game);
-
-function preload() {
-  this.load.image("logo", logoImg);
-}
-
-function create() {
-  const logo = this.add.image(270, 480, "logo");
-
-  this.tweens.add({
-    targets: logo,
-    y: 600,
-    duration: 2000,
-    yoyo: true,
-    loop: -1,
-  });
-}
-
-function update() {}
+const game = new Phaser.Game({
+    parent: 'game',
+    type: Phaser.AUTO,
+    width: 1920,
+    height: 1024,
+    scene: [
+      ParallaxScene
+    ],
+});
