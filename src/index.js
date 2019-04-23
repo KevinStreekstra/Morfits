@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 
 import BootScene from './scenes/Boot';
-import Healthbar from './scenes/Healthbar';
+import OverviewScene from './scenes/Overview';
 import ParallaxScene from './scenes/Parallax';
 
 const game = new Phaser.Game({
@@ -11,7 +11,7 @@ const game = new Phaser.Game({
     height: 1080,
     scene: [
       BootScene,
-      ParallaxScene,
-      Healthbar,
+      OverviewScene,
+      ParallaxScene
     ],
 });
