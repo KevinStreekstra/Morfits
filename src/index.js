@@ -4,6 +4,7 @@ import BootScene from './scenes/Boot';
 import OverviewScene from './scenes/Overview';
 import ParallaxScene from './scenes/Parallax';
 
+
 const game = new Phaser.Game({
     parent: 'game',
     type: Phaser.AUTO,
@@ -15,3 +16,11 @@ const game = new Phaser.Game({
       ParallaxScene
     ],
 });
+
+
+
+
+
+
+
+
