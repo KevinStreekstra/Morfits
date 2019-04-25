@@ -7,8 +7,8 @@ import ParallaxScene from './scenes/Parallax';
 const game = new Phaser.Game({
     parent: 'game',
     type: Phaser.AUTO,
-    width: 1920,
-    height: 1080,
+    width: 800,
+    height: 600,
     scene: [
       BootScene,
       OverviewScene,
