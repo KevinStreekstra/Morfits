@@ -17,6 +17,7 @@ class BootScene extends Phaser.Scene {
         this.load.on('complete', () => {
             progress.destroy();
             this.scene.start('ParallaxScene');
+
         });
 
         this.load.image('bg', 'src/assets/bg/background.png');

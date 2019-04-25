@@ -2,6 +2,7 @@ import Phaser from "phaser";
 
 import BootScene from './scenes/Boot';
 import ParallaxScene from './scenes/Parallax';
+import DailyQuiz from './scenes/DailyQuiz';
 
 const game = new Phaser.Game({
     parent: 'game',
@@ -10,7 +11,8 @@ const game = new Phaser.Game({
     height: 600,
     scene: [
       BootScene,
-      ParallaxScene
+      ParallaxScene,
+      DailyQuiz
     ],
 });
 
