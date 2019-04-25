@@ -1,0 +1,14 @@
+Follows the following layer order: front to back.
+- Sky cloud
+- Sun
+- Mountain-depth-0
+- Cloud-depth-1
+- Mountain-depth-1
+- Cloud-depth-2
+- Mountain-depth-2
+- Cloud-depth-3
+- Mountain-depth-3
+- cloud-depth-4
+- Background-mountain-depth-4
+- Background-cloud
+- Background
