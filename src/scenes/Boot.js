@@ -23,6 +23,13 @@ class BootScene extends Phaser.Scene {
             this.scene.start('OverviewScene');
         });
 
+        
+        this.overview_assets();
+
+        new Player().init();
+    }
+
+    overview_assets() {
         this.load.image('bg', 'src/assets/bg/background.png');
         this.load.image('bg_cloud', 'src/assets/bg/Background-cloud.png');
         this.load.image('bg_mntn4', 'src/assets/bg/Background-mountain-depth-4.png');
@@ -32,8 +39,6 @@ class BootScene extends Phaser.Scene {
         this.load.image('bg_mntn0', 'src/assets/bg/Mountain-depth-0.png');
         this.load.image('sun', 'src/assets/bg/Sun.png');
         this.load.image('bg_sky', 'src/assets/bg/Sky cloud.png');
-
-        new Player().init();
     }
 }
 
