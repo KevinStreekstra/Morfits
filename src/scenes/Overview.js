@@ -35,8 +35,7 @@ class OverviewScene extends Phaser.Scene {
         this.add.image(0, 0, 'bg_mntn3').setOrigin(0, 0).setScrollFactor(.60);
         this.add.image(0, 0, 'bg_mntn2').setOrigin(0, 0).setScrollFactor(.60);
         this.add.image(0, 0, 'bg_mntn1').setOrigin(0, 0).setScrollFactor(.60);
-        this.add.image(0, 0, 'bg_mntn0').setOrigin(0, 0).setScrollFactor(.60);
-        this.add.image(0, 0, 'sun').setOrigin(0, 0);
+        this.add.image(0, 450, 'bg_mntn0').setOrigin(0, 0).setScrollFactor(.60);
         this.add.image(0, 0, 'bg_sky').setOrigin(0, 0);
 
         this.energyTxt = this.add.text(20, 20, `Energy: ${this.player.energy}`);

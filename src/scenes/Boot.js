@@ -35,10 +35,11 @@ class BootScene extends Phaser.Scene {
         this.load.image('bg_mntn4', 'src/assets/bg/Background-mountain-depth-4.png');
         this.load.image('bg_mntn3', 'src/assets/bg/mountain-depth-3.png');
         this.load.image('bg_mntn2', 'src/assets/bg/Mountain-depth-2.png');
-        this.load.image('bg_mntn1', 'src/assets/bg/mountain-depth-1.png');
-        this.load.image('bg_mntn0', 'src/assets/bg/Mountain-depth-0.png');
+
         this.load.image('sun', 'src/assets/bg/Sun.png');
         this.load.image('bg_sky', 'src/assets/bg/Sky cloud.png');
+        this.load.image('bg_mntn1', 'src/assets/bg/home/morfit walking.png');
+        this.load.image('bg_mntn0', 'src/assets/bg/home/ground.png');
     }
 }
 
