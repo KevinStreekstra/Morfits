@@ -79,6 +79,11 @@ class AlignGrid {
         obj.y = y2;
         return obj;
     }
+
+    scaleTo(obj, percentage) {
+        obj.displayWidth = this.w * percentage;
+        obj.scaleY = obj.scaleX;
+    }
 }
 
 export default AlignGrid;

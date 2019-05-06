@@ -38,11 +38,7 @@ class BootScene extends Phaser.Scene {
 
         this.load.on('complete', () => {
             progress.destroy();
-            //this.scene.start('OverviewScene');
-
-            
-           
-
+            this.scene.start('OverviewScene');
         });
 
         
