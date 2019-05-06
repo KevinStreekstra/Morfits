@@ -1,4 +1,5 @@
 import Player from '../classes/Player';
+import AlignGrid from '../classes/AlignGrid';
 
 class OverviewScene extends Phaser.Scene {
     constructor() {
@@ -20,6 +21,8 @@ class OverviewScene extends Phaser.Scene {
         this.progressTxt;
 
         this.dailyQuestion = {};
+
+        this.scaleRatio = window.devicePixelRatio / 3;
     } 
 
     preload() {
@@ -29,7 +32,7 @@ class OverviewScene extends Phaser.Scene {
     create() {
         console.log(`Level Progress: ${this._player.getLevelProgress()}%`);
 
-        this.add.image(0, 0, 'bg').setOrigin(0, 0);
+        this.bg = this.add.image(0, 0, 'bg').setOrigin(0, 0);
         this.background_cloud = this.add.tileSprite(0, 0, this.width, this.height, 'bg_cloud').setOrigin(0, 0);
         this.add.image(0, 0, 'bg_mntn4').setOrigin(0, 0).setScrollFactor(.75);
         this.add.image(0, 0, 'bg_mntn3').setOrigin(0, 0).setScrollFactor(.60);
@@ -39,9 +42,19 @@ class OverviewScene extends Phaser.Scene {
         this.add.image(0, 0, 'sun').setOrigin(0, 0);
         this.add.image(0, 0, 'bg_sky').setOrigin(0, 0);
 
-        this.energyTxt = this.add.text(20, 20, `Energy: ${this.player.energy}`);
+        this.grid = new AlignGrid({
+            scene: this, 
+            rows: 11, 
+            cols: 11, 
+            width: this.sys.game.config.width, 
+            height: this.sys.game.config.height
+        });
+
+        this.energyTxt = this.add.text(0, 0, `Energy: ${this.player.energy}`).setOrigin(.5, .5);
         this.foodTxt = this.add.text(20, 40, `Food: ${this.player.food}`);
         this.healthTxt = this.add.text(20, 60, `Health: ${this.player.health}`);
+
+        this.grid.placeAtIndex(60, this.energyTxt);
 
         this.levelTxt = this.add.text(20, 100, `Level: ${this._player.getLevel()}`);
         // this.progressTxt = this.add.text(20, 120, `Progress: ${this._player.getLevelProgress()}`);
