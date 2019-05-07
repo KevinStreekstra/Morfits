@@ -14,7 +14,7 @@ class BootScene extends Phaser.Scene {
         this.grid = new AlignGrid({
             scene: this, 
             rows: 11, 
-            cols: 11, 
+            cols: 11,
             width: this.sys.game.config.width,         
             height: this.sys.game.config.height
         });
@@ -38,7 +38,7 @@ class BootScene extends Phaser.Scene {
 
         this.load.on('complete', () => {
             progress.destroy();
-            this.scene.start('OverviewScene');
+            //this.scene.start('OverviewScene');
         });
 
         
@@ -58,16 +58,20 @@ class BootScene extends Phaser.Scene {
         
         //this.add.image(0, 0, 'bird1').setOrigin(0,0);
         //this.add.image(0, 0, 'bird2').setOrigin(0,0);
-        this.ground = this.add.image(0, 0, 'ground').setScale(0.3).setOrigin(0.5, 0.35);
-        this.ground.setScale(0.5);
-        this.grid.placeAtIndex(104, this.ground);
+        this.ground = this.add.image(0, this.sys.game.config.height, 'ground').setOrigin(0, 1);
+     
+        //  this.grid.placeAtIndex(104, this.ground);
+        this.grid.scaleY(this.ground, .22);
         this.morfitWalking = this.add.image(0, 0, 'morfitWalking').setScale(0.35);
         this.grid.placeAtIndex(71, this.morfitWalking);
         this.loadingText = this.add.image(0, 0, 'loadingText');
-        this.loadingText.displayWidth = 375 * 0.9;
-        this.loadingText.scaleY = this.loadingText.scaleX;
         this.grid.placeAtIndex(115, this.loadingText);
-        // this.grid.showNumbers();
+        this.grid.scaleTo({
+            obj: this.loadingText, 
+            percentage: 0.9,
+            maxWidth: 500
+        });
+          this.grid.showNumbers();
     }
     
 
