@@ -4,6 +4,8 @@ import BootScene from './scenes/Boot';
 import OverviewScene from './scenes/Overview';
 import ParallaxScene from './scenes/Parallax';
 
+const scaleRatio = window.devicePixelRatio / 3;
+
 const game = new Phaser.Game({
     parent: 'game',
     type: Phaser.AUTO,
@@ -15,3 +17,6 @@ const game = new Phaser.Game({
       ParallaxScene,
     ],
 });
+
+// game.config.width = window.innerWidth * window.devicePixelRatio;
+// game.config.height = window.innerHeight * window.devicePixelRatio;
