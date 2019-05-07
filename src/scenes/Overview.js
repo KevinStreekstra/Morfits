@@ -46,7 +46,7 @@ class OverviewScene extends Phaser.Scene {
             scene: this, 
             rows: 11, 
             cols: 11, 
-            width: this.sys.game.config.width, 
+            width: this.sys.game.config.width,         
             height: this.sys.game.config.height
         });
 
