@@ -80,9 +80,29 @@ class AlignGrid {
         return obj;
     }
 
-    scaleTo(obj, percentage) {
-        obj.displayWidth = this.w * percentage;
+    scaleTo(obj, percentage, maxWidth) {
+        let displayWidth = this.w * percentage;
+        if(typeof maxWidth !== 'undefined')
+            displayWidth > maxWidth ? displayWidth = maxWidth : displayWidth; 
+
+        obj.displayWidth = displayWidth;
         obj.scaleY = obj.scaleX;
+    }
+
+    scaleX(obj, percentage, maxWidth) {
+        let displayWidth = this.w * percentage; 
+        if(typeof maxWidth !== 'undefined')
+            displayWidth > maxWidth ? displayWidth = maxWidth : displayWidth;
+
+        obj.displayWidth = displayWidth;
+    }
+
+    scaleY(obj, percentage, maxHeight) {
+        let displayHeight = this.h * percentage;
+        if(typeof maxWidth !== 'undefined')
+            displayHeight > maxHeight ? displayHeight = maxHeight : displayHeight; 
+
+        obj.displayHeight = displayHeight;
     }
 }
 
