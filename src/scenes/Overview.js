@@ -10,6 +10,10 @@ class OverviewScene extends Phaser.Scene {
         this.background_cloud;
 
         this.morfitWalking;
+        this.ground;
+        this.HomePlant;
+        this.HomePlant2;
+        this.SkyPlant;
 
         this._player = new Player();
         this.player = {};
@@ -32,6 +36,15 @@ class OverviewScene extends Phaser.Scene {
     }
       
     create() {
+
+        this.grid = new AlignGrid({
+            scene: this, 
+            rows: 11, 
+            cols: 11, 
+            width: this.sys.game.config.width, 
+            height: this.sys.game.config.height
+        });
+
         console.log(`Level Progress: ${this._player.getLevelProgress()}%`);
 
         this.bg = this.add.image(0, 0, 'bg').setOrigin(0, 0);
@@ -43,18 +56,25 @@ class OverviewScene extends Phaser.Scene {
         this.add.image(0, 450, 'bg_mntn0').setOrigin(0, 0).setScrollFactor(.60);
         this.add.image(0, 0, 'bg_sky').setOrigin(0, 0);
 
-        this.morfitWalking = this.add.image(100, 50, 'morfitWalking');
-        this.morfitWalking.setScale(0.5);
+        this.ground = this.add.image(0, 0, 'ground');
+        this.grid.placeAtIndex(109, this.ground);
 
-      
+        this.HomePlant = this.add.image(0, 0, 'HomePlant');
+        this.grid.scaleTo(this.HomePlant, .4);
+        this.grid.placeAtIndex(86, this.HomePlant);
 
-        this.grid = new AlignGrid({
-            scene: this, 
-            rows: 11, 
-            cols: 11, 
-            width: this.sys.game.config.width, 
-            height: this.sys.game.config.height
-        });
+        this.HomePlant2 = this.add.image(0, 0, 'HomePlant2');
+        this.grid.scaleTo(this.HomePlant2, .4);
+        this.grid.placeAtIndex(78, this.HomePlant2);
+
+        this.SkyPlant = this.add.image(0, 0, 'SkyPlant');
+        this.grid.scaleTo(this.SkyPlant, .5);
+        this.grid.placeAtIndex(24, this.SkyPlant);
+
+        this.morfitWalking = this.add.image(0, 0, 'morfitWalking');
+        this.morfitWalking.flipX = true;
+        this.grid.scaleTo(this.morfitWalking, .5);
+        this.grid.placeAtIndex(60, this.morfitWalking);
 
         this.energyTxt = this.add.text(20, 20, `Energy: ${this.player.energy}`);
         this.foodTxt = this.add.text(20, 40, `Food: ${this.player.food}`);
@@ -68,6 +88,8 @@ class OverviewScene extends Phaser.Scene {
 
         this.dailyQuestion = this._player.getDailyQuestion();
         this.add.text(20, 160, `${this.dailyQuestion.question}`);
+
+        this.grid.showNumbers();
     }
       
     update() {

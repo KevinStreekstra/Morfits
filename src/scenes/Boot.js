@@ -18,6 +18,9 @@ class BootScene extends Phaser.Scene {
         this.load.image('loadingText', 'src/assets/boot/loading-text.png');
         this.load.image('morfitWalking', 'src/assets/boot/Morfit walking.png');
         this.load.image('morfitLogo', 'src/assets/boot/morfit-logo.png');
+        this.load.image('HomePlant', 'src/assets/bg/home/Plant_7.png');
+        this.load.image('HomePlant2', 'src/assets/bg/home/Plant_9.png');
+        this.load.image('SkyPlant', 'src/assets/bg/home/skyPlant.png');
 
         
         this.load.on('progress', (value) => {
