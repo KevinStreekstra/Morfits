@@ -1,12 +1,20 @@
 import Player from '../classes/Player';
+<<<<<<< HEAD
+import { create } from 'domain';
+=======
 import AlignGrid from '../classes/AlignGrid';
+>>>>>>> b817757ee82cb585d2583307d2147f24c9139395
 
 class BootScene extends Phaser.Scene {
     constructor() {
         super({
             key: 'BootScene'
         });
+<<<<<<< HEAD
+        this.morfitWalking;
+=======
         this.morfitLogo;
+>>>>>>> b817757ee82cb585d2583307d2147f24c9139395
     }
 
     preload() {
@@ -29,20 +37,40 @@ class BootScene extends Phaser.Scene {
         this.load.image('loadingText', 'src/assets/boot/loading-text.png');
         this.load.image('morfitWalking', 'src/assets/boot/Morfit walking.png');
         this.load.image('morfitLogo', 'src/assets/boot/morfit-logo.png');
+<<<<<<< HEAD
+        this.load.image('HomePlant', 'src/assets/bg/home/Plant_7.png');
+        this.load.image('HomePlant2', 'src/assets/bg/home/Plant_9.png');
+        this.load.image('SkyPlant', 'src/assets/bg/home/skyPlant.png');
+
+=======
         this.load.image('plant1', 'src/assets/boot/Plant_2.png');
         this.load.image('plant2', 'src/assets/boot/Plant_6.png');
+>>>>>>> b817757ee82cb585d2583307d2147f24c9139395
         
   
 
         this.load.on('progress', (value) => {
             progress.clear();
+<<<<<<< HEAD
+            // this.add.image(0, 0, 'morfitLogo').setOrigin(0, 0);
+            // this.add.image(50, 50, 'morfitWalking').setOrigin(0, 0);
+            // this.add.image(0, 0, 'loadingText').setOrigin(0, 0);
+            //this.add.image(0, 0, 'bird1').setOrigin(0,0);
+            //this.add.image(0, 0, 'bird2').setOrigin(0,0);
+            let test = this.add.image(0, 340, 'ground').setOrigin(0, 0);
+=======
      
+>>>>>>> b817757ee82cb585d2583307d2147f24c9139395
         });
 
         this.load.on('complete', () => {
             progress.destroy();
-            //this.scene.start('OverviewScene');
-        });
+            this.scene.start('OverviewScene');
+
+            
+           
+
+        })
 
         
 
@@ -98,11 +126,13 @@ class BootScene extends Phaser.Scene {
         this.load.image('bg_mntn4', 'src/assets/bg/Background-mountain-depth-4.png');
         this.load.image('bg_mntn3', 'src/assets/bg/mountain-depth-3.png');
         this.load.image('bg_mntn2', 'src/assets/bg/Mountain-depth-2.png');
-        this.load.image('bg_mntn1', 'src/assets/bg/mountain-depth-1.png');
-        this.load.image('bg_mntn0', 'src/assets/bg/Mountain-depth-0.png');
+
         this.load.image('sun', 'src/assets/bg/Sun.png');
         this.load.image('bg_sky', 'src/assets/bg/Sky cloud.png');
-    }
+    //     this.load.image('bg_mntn1', 'src/assets/bg/home/morfit walking.png');
+    //     this.load.image('bg_mntn0', 'src/assets/bg/home/ground.png');
+     }
+
 }
 
 export default BootScene;

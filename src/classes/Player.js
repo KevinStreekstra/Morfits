@@ -83,6 +83,7 @@ class Player {
         ];
         return questions[Math.floor(Math.random() * questions.length)];
     }
+
 }
 
 export default Player;

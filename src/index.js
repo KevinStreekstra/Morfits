@@ -14,7 +14,7 @@ const game = new Phaser.Game({
     scene: [
       BootScene,
       OverviewScene,
-      ParallaxScene
+      ParallaxScene,
     ],
 });
 
