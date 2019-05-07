@@ -92,12 +92,6 @@ class AlignGrid {
         obj.displayHeight = this.h * percentage;
     }
 
-<<<<<<< HEAD
-    scaleX(obj, percentage, maxWidth) {
-        maxWidth ? maxWidth : 1920;
-        obj.displayWidth = this.w * percentage;
-      
-=======
     scaleTo(obj, percentage, maxWidth) {
         let displayWidth = this.w * percentage;
         if(typeof maxWidth !== 'undefined')
@@ -105,7 +99,6 @@ class AlignGrid {
 
         obj.displayWidth = displayWidth;
         obj.scaleY = obj.scaleX;
->>>>>>> 4e5774f503e3d2f0250cb26fc050a1641219df39
     }
 
     scaleX(obj, percentage, maxWidth) {
