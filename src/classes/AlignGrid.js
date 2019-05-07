@@ -80,29 +80,29 @@ class AlignGrid {
         return obj;
     }
 
-    scaleTo(config) {
-        let displayWidth = this.w * config.percentage;
-        if(!isNaN(config.maxWidth)) {
-            displayWidth > config.maxWidth ? displayWidth = config.maxWidth : displayWidth; 
-        }
-        config.obj.displayWidth = displayWidth;
-        config.obj.scaleY = config.obj.scaleX;
+    scaleTo(obj, percentage, maxWidth) {
+        let displayWidth = this.w * percentage;
+        if(typeof maxWidth !== 'undefined')
+            displayWidth > maxWidth ? displayWidth = maxWidth : displayWidth; 
+
+        obj.displayWidth = displayWidth;
+        obj.scaleY = obj.scaleX;
     }
 
-    scaleX(config) {
-        let displayWidth = this.w * config.percentage; 
-        if(!isNaN(config.maxWidth)) {
-            displayWidth > config.maxWidth ? displayWidth = config.maxWidth : displayWidth; 
-        }
-        config.obj.displayWidth = displayWidth;
+    scaleX(obj, percentage, maxWidth) {
+        let displayWidth = this.w * percentage; 
+        if(typeof maxWidth !== 'undefined')
+            displayWidth > maxWidth ? displayWidth = maxWidth : displayWidth;
+
+        obj.displayWidth = displayWidth;
     }
 
-    scaleY(config) {
-        let displayHeight = this.h * config.percentage;
-        if(!isNaN(config.maxHeight)) {
-            displayHeight > config.maxHeight ? displayHeight = config.maxHeight : displayHeight; 
-        }
-        config.obj.displayHeight = displayHeight;
+    scaleY(obj, percentage, maxHeight) {
+        let displayHeight = this.h * percentage;
+        if(typeof maxWidth !== 'undefined')
+            displayHeight > maxHeight ? displayHeight = maxHeight : displayHeight; 
+
+        obj.displayHeight = displayHeight;
     }
 }
 
