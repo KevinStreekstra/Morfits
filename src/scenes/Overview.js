@@ -15,7 +15,7 @@ class OverviewScene extends Phaser.Scene {
         this.ground3;
         this.HomePlant;
         this.HomePlant2;
-        this.SkyPlant;
+        this.nav;
 
 
         this.MentalBar;
@@ -54,7 +54,7 @@ class OverviewScene extends Phaser.Scene {
 
         console.log(`Level Progress: ${this._player.getLevelProgress()}%`);
 
-        this.bg = this.add.image(0, 0, 'bg').setOrigin(0, 0); 
+        this.bg = this.add.image(0, 0, 'overview:bg').setOrigin(0, 0); 
 
         //bottom navbar & ground
         this.ground2 = this.add.image(0, 0, 'overview:ground2').setOrigin(0.5, 0.42);
@@ -71,30 +71,23 @@ class OverviewScene extends Phaser.Scene {
         this.grid.placeAtIndex(127, this.morfitWalking);
 
         this.HomePlant = this.add.image(0, 0, 'overview:HomePlant2');
-        this.grid.scaleTo(this.HomePlant, .4);
         this.grid.placeAtIndex(164, this.HomePlant);
 
         this.HomePlant2 = this.add.image(0, 0, 'overview:HomePlant');
-        this.grid.scaleTo(this.HomePlant2, .4);
         this.grid.placeAtIndex(151, this.HomePlant2);
 
         //top navbar & healthbars
         this.MentalBar = this.add.image(0, 0, 'overview:MentalBar');
-        this.grid.scaleX(this.MentalBar, .3);
-        this.grid.scaleY(this.MentalBar, .06);
         this.grid.placeAtIndex(32, this.MentalBar);
 
         this.EnergyBar = this.add.image(0, 0, 'overview:EnergyBar');
-        this.grid.scaleX(this.EnergyBar, .3);
-        this.grid.scaleY(this.EnergyBar, .06);
         this.grid.placeAtIndex(37, this.EnergyBar);
 
         this.PowerBar = this.add.image(0, 0, 'overview:PowerBar');
-        this.grid.scaleX(this.PowerBar, .3);
-        this.grid.scaleY(this.PowerBar, .06);
         this.grid.placeAtIndex(42, this.PowerBar);
 
-
+        this.nav = this.add.image(0, 0, 'overview:TopNavbar');
+        this.grid.placeAtIndex(7, this.nav);
 
 
 

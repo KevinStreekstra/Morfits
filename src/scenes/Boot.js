@@ -38,13 +38,11 @@ class BootScene extends Phaser.Scene {
         this.load.image('overview:MentalBar', 'src/assets/caracter_page/mental_bar@2x.png');
         this.load.image('overview:EnergyBar', 'src/assets/caracter_page/energie_bar@2x.png');
         this.load.image('overview:PowerBar', 'src/assets/caracter_page/kracht_bar@2x.png');
+        this.load.image('overview:TopNavbar', 'src/assets/caracter_page/nav@2x.png');
 
         this.load.image('overview:BottomNavbar', 'src/assets/caracter_page/nav-bottom_background@2x.png');
         this.load.image('overview:ground2', 'src/assets/caracter_page/ground-bottom@2x.png');
         this.load.image('overview:ground3', 'src/assets/caracter_page/ground-top@2x.png');
-
-        this.load.image('plant1', 'src/assets/boot/Plant_2.png');
-        this.load.image('plant2', 'src/assets/boot/Plant_6.png');
         
         this.load.image('plant1', 'src/assets/boot/Plant_2.png');
         this.load.image('plant2', 'src/assets/boot/Plant_6.png');
@@ -125,7 +123,7 @@ class BootScene extends Phaser.Scene {
 
     overview_assets() {
         // this.load.image('bg_cloud', 'src/assets/boot/bg/terrain-front.png');
-        this.load.image('bg', 'src/assets/caracter_page/background@2x.png');
+        this.load.image('overview:bg', 'src/assets/caracter_page/background@2x.png');
         // this.load.image('bg_mntn4', 'src/assets/boot/bg/Background-mountain-depth-4.png');
         // this.load.image('bg_mntn3', 'src/assets/boot/bg/mountain-depth-3.png');
         // this.load.image('bg_mntn2', 'src/assets/boot/bg/Mountain-depth-2.png');
