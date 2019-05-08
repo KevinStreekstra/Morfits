@@ -6,7 +6,9 @@ class BootScene extends Phaser.Scene {
         super({
             key: 'BootScene'
         });
-   
+        this.boot_morfitWalking;
+        this.boot_morfitLogo;
+        this.boot_ground;
     }
 
     preload() {
@@ -32,7 +34,7 @@ class BootScene extends Phaser.Scene {
         this.load.image('boot_plant1', 'src/assets/boot/Plant_2.png');
         this.load.image('boot_plant2', 'src/assets/boot/Plant_6.png');
         this.load.image('HomePlant', 'src/assets/bg/home/Plant_7.png');
-        this.load.image('Home_plant2', 'src/assets/bg/home/Plant_9.png');
+        this.load.image('Homeboot_plant2', 'src/assets/bg/home/Plant_9.png');
       
   
 
