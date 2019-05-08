@@ -6,7 +6,10 @@ class BootScene extends Phaser.Scene {
         super({
             key: 'BootScene'
         });
+<<<<<<< HEAD
         this.morfitWalking;
+=======
+>>>>>>> d71eec67e56aaa9b076952b2bfc827da8d2009b3
         this.morfitLogo;
     }
 
@@ -45,6 +48,11 @@ class BootScene extends Phaser.Scene {
         this.load.image('plant1', 'src/assets/boot/Plant_2.png');
         this.load.image('plant2', 'src/assets/boot/Plant_6.png');
         
+        this.load.image('plant1', 'src/assets/boot/Plant_2.png');
+        this.load.image('plant2', 'src/assets/boot/Plant_6.png');
+        this.load.image('HomePlant', 'src/assets/bg/home/Plant_7.png');
+        this.load.image('HomePlant2', 'src/assets/bg/home/Plant_9.png');
+        this.load.image('SkyPlant', 'src/assets/bg/home/skyPlant.png');
   
 
         this.load.on('progress', (value) => {
@@ -54,7 +62,7 @@ class BootScene extends Phaser.Scene {
 
         this.load.on('complete', () => {
             progress.destroy();
-            this.scene.start('OverviewScene');
+            //this.scene.start('OverviewScene');
 
             
            
@@ -71,11 +79,19 @@ class BootScene extends Phaser.Scene {
 
     create() {
         // De achtergrond van het scherm
-        this.bg1 = this.add.image(0, 0, 'bg_mntn0');
-        this.grid.placeAtIndex(46 , this.bg1);
+        this.bg = this.add.image(0, 0, 'bg');
+        this.grid.placeAtIndex(60, this.bg); 
+        this.mntn1 = this.add.image(0, 0, 'bg_mntn1').setOrigin(0, 0);
+        this.grid.scaleX(this.mntn1, 2.5);
+        this.mntn2 = this.add.image(0, 0, 'bg_mntn2').setOrigin(0.13, 0);
+        this.bg_trees1 = this.add.image(0, 0, 'bg_trees1').setOrigin(0.13, 0);
+        
+       
+        
+    
         // Het morfit logo aan de bovenkant
-        this.morfitLogo = this.add.image(0, 0, 'morfitLogo');
-        this.grid.placeAtIndex(5, this.morfitLogo); 
+        this.morfitLogo = this.add.image(0, 0, 'morfitLogo').setOrigin(0, 0);
+        this.grid.placeAtIndex(2, this.morfitLogo); 
         this.grid.scaleTo(this.morfitLogo, 0.5, 500);
         // Beide vogels die in de lucht zweven
         this.bird1 = this.add.image(0, 0, 'bird1');
@@ -102,7 +118,7 @@ class BootScene extends Phaser.Scene {
         this.loadingText = this.add.image(0, 0, 'loadingText');
         this.grid.placeAtIndex(115, this.loadingText);
         this.grid.scaleTo(this.loadingText, .9, 500);
-        this.grid.showNumbers();
+        // this.grid.showNumbers();
 
     
         
@@ -118,6 +134,14 @@ class BootScene extends Phaser.Scene {
 
         // this.load.image('sun', 'src/assets/bg/Sun.png');
         // this.load.image('bg_sky', 'src/assets/bg/Sky cloud.png');
+        this.load.image('bg', 'src/assets/boot/bg/background.png');
+        this.load.image('bg_mntn1', 'src/assets/boot/bg/mountain-depth-5.png');
+        this.load.image('bg_mntn2', 'src/assets/boot/bg/mountain-depth-4.png');
+        this.load.image('bg_mntn3', 'src/assets/bg/mountain-depth-3.png');
+        this.load.image('bg_mntn2', 'src/assets/bg/Mountain-depth-2.png');
+        this.load.image('bg_trees1', 'src/assets/boot/bg/trees-depth-4.png');
+        this.load.image('sun', 'src/assets/bg/Sun.png');
+        this.load.image('bg_sky', 'src/assets/bg/Sky cloud.png');
     //     this.load.image('bg_mntn1', 'src/assets/bg/home/morfit walking.png');
     //     this.load.image('bg_mntn0', 'src/assets/bg/home/ground.png');
      }
