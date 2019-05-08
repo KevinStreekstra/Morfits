@@ -6,7 +6,9 @@ class BootScene extends Phaser.Scene {
         super({
             key: 'BootScene'
         });
+        this.morfitWalking;
         this.morfitLogo;
+        this.ground;
     }
 
     preload() {
@@ -25,10 +27,23 @@ class BootScene extends Phaser.Scene {
        
         this.load.image('bird1', 'src/assets/boot/bird-1.png');
         this.load.image('bird2', 'src/assets/boot/bird-2.png');
-        this.load.image('ground', 'src/assets/boot/ground.png');
         this.load.image('loadingText', 'src/assets/boot/loading-text.png');
-        this.load.image('morfitWalking', 'src/assets/boot/Morfit walking.png');
+
+        this.load.image('overview:morfitWalking', 'src/assets/caracter_page/morfit_character@2x.png');
         this.load.image('morfitLogo', 'src/assets/boot/morfit-logo.png');
+
+        this.load.image('overview:HomePlant', 'src/assets/caracter_page/plant-vase@2x.png');
+        this.load.image('overview:HomePlant2', 'src/assets/caracter_page/plant-pot@2x.png');
+
+        this.load.image('overview:MentalBar', 'src/assets/caracter_page/mental_bar@2x.png');
+        this.load.image('overview:EnergyBar', 'src/assets/caracter_page/energie_bar@2x.png');
+        this.load.image('overview:PowerBar', 'src/assets/caracter_page/kracht_bar@2x.png');
+        this.load.image('overview:TopNavbar', 'src/assets/caracter_page/nav@2x.png');
+
+        this.load.image('overview:BottomNavbar', 'src/assets/caracter_page/nav-bottom_background@2x.png');
+        this.load.image('overview:ground2', 'src/assets/caracter_page/ground-bottom@2x.png');
+        this.load.image('overview:ground3', 'src/assets/caracter_page/ground-top@2x.png');
+        
         this.load.image('plant1', 'src/assets/boot/Plant_2.png');
         this.load.image('plant2', 'src/assets/boot/Plant_6.png');
         this.load.image('HomePlant', 'src/assets/bg/home/Plant_7.png');
@@ -43,7 +58,7 @@ class BootScene extends Phaser.Scene {
 
         this.load.on('complete', () => {
             progress.destroy();
-            //this.scene.start('OverviewScene');
+            this.scene.start('OverviewScene');
 
             
            
@@ -107,6 +122,14 @@ class BootScene extends Phaser.Scene {
     
 
     overview_assets() {
+        // this.load.image('bg_cloud', 'src/assets/boot/bg/terrain-front.png');
+        this.load.image('overview:bg', 'src/assets/caracter_page/background@2x.png');
+        // this.load.image('bg_mntn4', 'src/assets/boot/bg/Background-mountain-depth-4.png');
+        // this.load.image('bg_mntn3', 'src/assets/boot/bg/mountain-depth-3.png');
+        // this.load.image('bg_mntn2', 'src/assets/boot/bg/Mountain-depth-2.png');
+
+        // this.load.image('sun', 'src/assets/bg/Sun.png');
+        // this.load.image('bg_sky', 'src/assets/bg/Sky cloud.png');
         this.load.image('bg', 'src/assets/boot/bg/background.png');
         this.load.image('bg_mntn1', 'src/assets/boot/bg/mountain-depth-5.png');
         this.load.image('bg_mntn2', 'src/assets/boot/bg/mountain-depth-4.png');

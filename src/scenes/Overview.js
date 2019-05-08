@@ -10,10 +10,17 @@ class OverviewScene extends Phaser.Scene {
         this.background_cloud;
 
         this.morfitWalking;
-        this.ground;
+        this.BottomNavbar;
+        this.ground2;
+        this.ground3;
         this.HomePlant;
         this.HomePlant2;
-        this.SkyPlant;
+        this.nav;
+
+
+        this.MentalBar;
+        this.EnergyBar;
+        this.PowerBar;
 
         this._player = new Player();
         this.player = {};
@@ -39,70 +46,78 @@ class OverviewScene extends Phaser.Scene {
 
         this.grid = new AlignGrid({
             scene: this, 
-            rows: 11, 
-            cols: 11, 
+            rows: 15, 
+            cols: 15, 
             width: this.sys.game.config.width, 
             height: this.sys.game.config.height
         });
 
         console.log(`Level Progress: ${this._player.getLevelProgress()}%`);
 
-        this.bg = this.add.image(0, 0, 'bg').setOrigin(0, 0);
-        this.background_cloud = this.add.tileSprite(0, 0, this.width, this.height, 'bg_cloud').setOrigin(0, 0);
-        this.add.image(0, 0, 'bg_mntn4').setOrigin(0, 0).setScrollFactor(.75);
-        this.add.image(0, 0, 'bg_mntn3').setOrigin(0, 0).setScrollFactor(.60);
-        this.add.image(0, 0, 'bg_mntn2').setOrigin(0, 0).setScrollFactor(.60);
-        this.add.image(0, 0, 'bg_mntn1').setOrigin(0, 0).setScrollFactor(.60);
-        this.add.image(0, 450, 'bg_mntn0').setOrigin(0, 0).setScrollFactor(.60);
-        this.add.image(0, 0, 'bg_sky').setOrigin(0, 0);
+        this.bg = this.add.image(0, 0, 'overview:bg').setOrigin(0, 0); 
 
-        this.ground = this.add.image(0, 0, 'ground');
-        this.grid.placeAtIndex(109, this.ground);
+        //bottom navbar & ground
+        this.ground2 = this.add.image(0, 0, 'overview:ground2').setOrigin(0.5, 0.42);
+        this.grid.placeAtIndex(187, this.ground2);
 
-        this.HomePlant = this.add.image(0, 0, 'HomePlant');
-        this.grid.scaleTo(this.HomePlant, .4);
-        this.grid.placeAtIndex(86, this.HomePlant);
+        this.ground3 = this.add.image(0, 0, 'overview:ground3');
+        this.grid.placeAtIndex(172, this.ground3);
 
-        this.HomePlant2 = this.add.image(0, 0, 'HomePlant2');
-        this.grid.scaleTo(this.HomePlant2, .4);
-        this.grid.placeAtIndex(78, this.HomePlant2);
+        this.BottomNavbar = this.add.image(0, 0, 'overview:BottomNavbar');
+        this.grid.placeAtIndex(217, this.BottomNavbar);
 
-        this.SkyPlant = this.add.image(0, 0, 'SkyPlant');
-        this.grid.scaleTo(this.SkyPlant, .5);
-        this.grid.placeAtIndex(24, this.SkyPlant);
+        //morfit & plants
+        this.morfitWalking = this.add.image(0, 0, 'overview:morfitWalking');
+        this.grid.placeAtIndex(127, this.morfitWalking);
 
-        this.morfitWalking = this.add.image(0, 0, 'morfitWalking');
-        this.morfitWalking.flipX = true;
-        this.grid.scaleTo(this.morfitWalking, .5);
-        this.grid.placeAtIndex(60, this.morfitWalking);
+        this.HomePlant = this.add.image(0, 0, 'overview:HomePlant2');
+        this.grid.placeAtIndex(164, this.HomePlant);
 
-        this.energyTxt = this.add.text(20, 20, `Energy: ${this.player.energy}`);
-        this.foodTxt = this.add.text(20, 40, `Food: ${this.player.food}`);
-        this.healthTxt = this.add.text(20, 60, `Health: ${this.player.health}`);
+        this.HomePlant2 = this.add.image(0, 0, 'overview:HomePlant');
+        this.grid.placeAtIndex(151, this.HomePlant2);
 
-        this.grid.placeAtIndex(60, this.energyTxt);
+        //top navbar & healthbars
+        this.MentalBar = this.add.image(0, 0, 'overview:MentalBar');
+        this.grid.placeAtIndex(32, this.MentalBar);
 
-        this.levelTxt = this.add.text(20, 100, `Level: ${this._player.getLevel()}`);
-        // this.progressTxt = this.add.text(20, 120, `Progress: ${this._player.getLevelProgress()}`);
-        this.xpTxt = this.add.text(20, 120, `XP: ${this.player.xp}/${this._player.getRequiredXP(this._player.getLevel())}`);
+        this.EnergyBar = this.add.image(0, 0, 'overview:EnergyBar');
+        this.grid.placeAtIndex(37, this.EnergyBar);
 
-        this.dailyQuestion = this._player.getDailyQuestion();
-        this.add.text(20, 160, `${this.dailyQuestion.question}`);
+        this.PowerBar = this.add.image(0, 0, 'overview:PowerBar');
+        this.grid.placeAtIndex(42, this.PowerBar);
 
-        this.grid.showNumbers();
+        this.nav = this.add.image(0, 0, 'overview:TopNavbar');
+        this.grid.placeAtIndex(7, this.nav);
+
+
+
+        // this.energyTxt = this.add.text(20, 20, `Energy: ${this.player.energy}`);
+        // this.foodTxt = this.add.text(20, 40, `Food: ${this.player.food}`);
+        // this.healthTxt = this.add.text(20, 60, `Health: ${this.player.health}`);
+
+        // this.grid.placeAtIndex(60, this.energyTxt);
+
+        // this.levelTxt = this.add.text(20, 100, `Level: ${this._player.getLevel()}`);
+        // // this.progressTxt = this.add.text(20, 120, `Progress: ${this._player.getLevelProgress()}`);
+        // this.xpTxt = this.add.text(20, 120, `XP: ${this.player.xp}/${this._player.getRequiredXP(this._player.getLevel())}`);
+
+        // this.dailyQuestion = this._player.getDailyQuestion();
+        // this.add.text(20, 160, `${this.dailyQuestion.question}`);
+
+        // this.grid.showNumbers();
     }
       
     update() {
-        this.background_cloud.tilePositionX -= .5;
+        // this.background_cloud.tilePositionX -= .5;
         
-        this.player = this._player.get();
-        this.energyTxt.text = `Energy: ${this.player.energy}`;
-        this.foodTxt.text = `Food: ${this.player.food}`;
-        this.healthTxt.text = `Health: ${this.player.health}`;
+        // this.player = this._player.get();
+        // this.energyTxt.text = `Energy: ${this.player.energy}`;
+        // this.foodTxt.text = `Food: ${this.player.food}`;
+        // this.healthTxt.text = `Health: ${this.player.health}`;
 
-        this.levelTxt.text = `Level: ${this._player.getLevel()}`;
-        // this.progressTxt.text = `Progress: ${this._player.getLevelProgress()}`;
-        this.xpTxt.text = `XP: ${this.player.xp}/${this._player.getRequiredXP(this._player.getLevel())}`;
+        // this.levelTxt.text = `Level: ${this._player.getLevel()}`;
+        // // this.progressTxt.text = `Progress: ${this._player.getLevelProgress()}`;
+        // this.xpTxt.text = `XP: ${this.player.xp}/${this._player.getRequiredXP(this._player.getLevel())}`;
     }
 }
 
