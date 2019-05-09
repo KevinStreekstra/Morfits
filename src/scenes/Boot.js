@@ -24,17 +24,29 @@ class BootScene extends Phaser.Scene {
 
         const progress = this.add.graphics();
         const progressValue = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height / 2, '0%', { fontSize: '32px', fill: '#000' });
-       
-        this.load.image('boot_bird1', 'src/assets/boot/bird-1.png');
-        this.load.image('boot_bird2', 'src/assets/boot/bird-2.png');
+        
+        this.load.spritesheet('boot_bird1', 'src/assets/boot/bird-1.png', {frameWidth: 400, frameHeight: 400});
+        this.load.spritesheet('boot_bird2', 'src/assets/boot/bird-2.png', {frameWidth: 400, frameHeight: 400});
         this.load.image('boot_ground', 'src/assets/boot/ground.png');
         this.load.image('boot_loadingText', 'src/assets/boot/loading-text.png');
         this.load.image('boot_morfitWalking', 'src/assets/boot/Morfit walking.png');
         this.load.image('boot_morfitLogo', 'src/assets/boot/morfit-logo.png');
         this.load.image('boot_plant1', 'src/assets/boot/Plant_2.png');
         this.load.image('boot_plant2', 'src/assets/boot/Plant_6.png');
-        this.load.image('HomePlant', 'src/assets/bg/home/Plant_7.png');
-        this.load.image('Homeboot_plant2', 'src/assets/bg/home/Plant_9.png');
+
+        this.load.image('overview:HomePlant', 'src/assets/caracter_page/plant-vase@2x.png');
+        this.load.image('overview:HomePlant2', 'src/assets/caracter_page/plant-pot@2x.png');
+
+        this.load.image('overview:MentalBar', 'src/assets/caracter_page/mental_bar@2x.png');
+        this.load.image('overview:EnergyBar', 'src/assets/caracter_page/energie_bar@2x.png');
+        this.load.image('overview:PowerBar', 'src/assets/caracter_page/kracht_bar@2x.png');
+        this.load.image('overview:TopNavbar', 'src/assets/caracter_page/nav@2x.png');
+
+        this.load.image('overview:BottomNavbar', 'src/assets/caracter_page/nav-bottom_background@2x.png');
+        this.load.image('overview:ground2', 'src/assets/caracter_page/ground-bottom@2x.png');
+        this.load.image('overview:ground3', 'src/assets/caracter_page/ground-top@2x.png');
+        this.load.image('overview:morfitWalking', 'src/assets/caracter_page/morfit_character@2x.png');
+        this.load.image('overview:bg', 'src/assets/caracter_page/background@2x.png');
       
   
 
@@ -45,7 +57,7 @@ class BootScene extends Phaser.Scene {
 
         this.load.on('complete', () => {
             progress.destroy();
-            this.scene.start('OverviewScene');
+           // this.scene.start('OverviewScene');
 
             
            
@@ -61,6 +73,24 @@ class BootScene extends Phaser.Scene {
     }
 
     create() {
+        // Animatie van de vogels 
+        this.anims.create({
+            key: 'fly',
+            repeat: -1,
+            frameRate: 5,
+            smoothed: false,
+            frames: this.anims.generateFrameNames('boot_bird1', {start: 1, end: 4})
+       
+        });
+
+        this.anims.create({
+            key: 'fly2',
+            repeat: -1,
+            frameRate: 5,
+            frames: this.anims.generateFrameNames('boot_bird2', {start: 1, end: 4})
+       
+        });
+
         // De achtergrond van het scherm
         this.bg = this.add.image(0, 0, 'bg');
         this.grid.placeAtIndex(60, this.bg); 
@@ -77,10 +107,12 @@ class BootScene extends Phaser.Scene {
         this.grid.placeAtIndex(2, this.boot_morfitLogo); 
         this.grid.scaleTo(this.boot_morfitLogo, 0.5, 500);
         // Beide vogels die in de lucht zweven
-        this.boot_bird1 = this.add.image(0, 0, 'boot_bird1');
+        this.boot_bird1 = this.add.sprite(0, 0, 'boot_bird1', 0);
+        this.boot_bird1.play('fly');
         this.grid.placeAtIndex(24, this.boot_bird1);
         this.grid.scaleTo(this.boot_bird1, 0.3, 500);
-        this.boot_bird2 = this.add.image(0, 0, 'boot_bird2');
+        this.boot_bird2 = this.add.sprite(0, 0, 'boot_bird2');
+        this.boot_bird2.play('fly2');
         this.grid.placeAtIndex(41, this.boot_bird2);
         this.grid.scaleTo(this.boot_bird2, 0.3, 500);
         // Boom aan de linkerkant van het scherm
