@@ -12,11 +12,13 @@ const game = new Phaser.Game({
     type: Phaser.AUTO,
     width: 375,
     height: 675,
+    antialias: true,
+    multiTexture: true,
     scene: [
       BootScene,
       CreatePlayerScene,
       OverviewScene,
-      ParallaxScene
+      ParallaxScene,
     ],
 });
 

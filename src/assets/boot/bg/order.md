@@ -1,0 +1,19 @@
+Following order from front to back
+- Clouds
+- Sun
+- trees-front (sync with terrain-front)
+- terrain-front
+- trees-depth-2 (sync with mountain-depth-2)
+- cloud-depth-2
+- highlight-depth-2 (sync with mountain-depth-2)
+- mountain-depth-2
+- trees-depth-3 (sync with mountain-depth-3)
+- clouds-depth-3
+- highlight-depth-3 (sync with mountain-depth-3)
+- mountain-depth-3
+- trees-depth-4 (sync with mountain-depth-4)
+- mountain-depth-4
+- clouds-depth-5
+- mountain-depth-5
+- clouds-depth-6
+- background
