@@ -12,7 +12,6 @@ class BootScene extends Phaser.Scene {
     }
 
     preload() {
-
         this.grid = new AlignGrid({
             scene: this, 
             rows: 15, 
