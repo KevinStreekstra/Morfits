@@ -152,7 +152,7 @@ class OverviewScene extends Phaser.Scene {
         this.txtMentalbar = this.add.text(0, 0, '80/100', { fontSize: '16px', fill: 'green'}).setOrigin(0.6, 1.9);
         this.grid.placeAtIndex(47, this.txtMentalbar);
 
-        this.IconMental = this.add.image(0, 0, 'overview:IconMental');
+        this.IconMental = this.add.image(0, 0, 'overview:IconMental').setOrigin(0.45, 0.5);
         this.grid.placeAtIndex(30, this.IconMental);
 
         this.EnergyBar = this.add.image(0, 0, 'overview:EnergyBar');
@@ -161,7 +161,7 @@ class OverviewScene extends Phaser.Scene {
         this.txtEnergybar = this.add.text(0, 0, '100/100', { fontSize: '16px', fill: 'blue'}).setOrigin(0.6, 1.9);
         this.grid.placeAtIndex(52, this.txtEnergybar);
 
-        this.IconEnergy = this.add.image(0, 0, 'overview:IconEnergy');
+        this.IconEnergy = this.add.image(0, 0, 'overview:IconEnergy').setOrigin(0.45, 0.5);
         this.grid.placeAtIndex(35, this.IconEnergy);
 
         this.PowerBar = this.add.image(0, 0, 'overview:PowerBar');
@@ -170,7 +170,7 @@ class OverviewScene extends Phaser.Scene {
         this.txtPowerbar = this.add.text(0, 0, '100/100', { fontSize: '16px', fill: 'red'}).setOrigin(0.6, 1.9);
         this.grid.placeAtIndex(57, this.txtPowerbar);
 
-        this.IconPower = this.add.image(0, 0, 'overview:IconPower');
+        this.IconPower = this.add.image(0, 0, 'overview:IconPower').setOrigin(0.45, 0.5);
         this.grid.placeAtIndex(40, this.IconPower);
 
         this.nav = this.add.image(0, 0, 'overview:TopNavbar');
