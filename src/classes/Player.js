@@ -3,7 +3,10 @@ class Player {
         this.player = {};
     }
 
-    init() {
+    init(username) {
+        if(!localStorage.getItem('username') || localStorage.getItem('username') === null)
+            localStorage.setItem('username', username);
+
         if(!localStorage.getItem('energy') || localStorage.getItem('energy') === null)
             localStorage.setItem('energy', JSON.stringify(100));
 
@@ -17,7 +20,16 @@ class Player {
             localStorage.setItem('xp', JSON.stringify(0));
     }
 
+    exists() {
+        if(!localStorage.getItem('username') || localStorage.getItem('username') === null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     get() {
+        this.player.username = localStorage.getItem('username');
         this.player.energy = JSON.parse(localStorage.getItem('energy'));
         this.player.food = JSON.parse(localStorage.getItem('food'));
         this.player.health = JSON.parse(localStorage.getItem('health'));
