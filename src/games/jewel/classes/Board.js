@@ -25,17 +25,17 @@ class Board {
             main: this.jewel_grid,
             backup: this.jewel_backup_grid,
         };
-         
     }
+
     createGrid(row, cols, grid){
         for(let i = 0; i < row; i++) {
             grid.push([]);
       
             for(let j = 0; j < cols; j++) {
-                grid[i].push(0);
+                const randomizedNumber = Math.floor(Math.random() * this.blockVariations) + 1;
+                grid[i].push(randomizedNumber);
             }
         }
-      
     }
   
 };
