@@ -23,6 +23,12 @@ class BootScene extends Phaser.Scene {
 
         const progress = this.add.graphics();
         const progressValue = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height / 2, '0%', { fontSize: '32px', fill: '#000' });
+
+        //DailyScene
+
+        //DailyScene background
+        this.load.image('Daily:bg', 'src/assets/daily_reward_pop-up/daily_reward_pop-up_quiz/overlay@2x.png');
+        this.load.image('Daily:popup', 'src/assets/daily_reward_pop-up/daily_reward_pop-up_quiz/popup_daily_background@2x.png');
         
         this.load.spritesheet('boot_bird1', 'src/assets/boot/bird-1.png', {frameWidth: 400, frameHeight: 400});
         this.load.spritesheet('boot_bird2', 'src/assets/boot/bird-2.png', {frameWidth: 400, frameHeight: 400});
@@ -79,7 +85,6 @@ class BootScene extends Phaser.Scene {
         this.load.image('SkyPlant', 'src/assets/bg/home/skyPlant.png');
         this.load.image('overview:HomePlant', 'src/assets/caracter_page/plant-vase@2x.png');
         this.load.image('overview:HomePlant2', 'src/assets/caracter_page/plant-pot@2x.png');
-
 
 
         this.load.on('progress', (value) => {
