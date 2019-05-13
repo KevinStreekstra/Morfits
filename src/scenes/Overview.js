@@ -62,6 +62,7 @@ class OverviewScene extends Phaser.Scene {
 
     preload() {
         this.player = this._player.get();
+        
     }
       
     create() {
