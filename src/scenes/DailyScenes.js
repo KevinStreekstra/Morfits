@@ -4,15 +4,12 @@ import AlignGrid from '../classes/AlignGrid';
 class DailyScenes extends Phaser.Scene {
     constructor() {
         super({
-            key: 'DailyScene', active: true
+            key: 'DailyScene'
         });
 
         this.overlay;
         this.popup;
-
-    
     }
-
 
     preload() {
 
@@ -27,14 +24,13 @@ class DailyScenes extends Phaser.Scene {
             height: this.sys.game.config.height
         });
 
+        this.overlay = this.add.image(0, 0, 'Daily:bg').setOrigin(0, 0);
+        this.grid.scaleY(this.overlay, 1);
+
         this.popup = this.add.image(0, 0, 'Daily:popup');
-        this.grid.placeAtIndex(100, this.popup);
+        this.grid.placeAtIndex(112, this.popup);
 
-        this.overlay = this.add.image(0, 0, 'Daily:bg');
-        this.grid.placeAtIndex(77, this.overlay);
-
-        
-        //  this.grid.showNumbers();
+        //this.grid.showNumbers();
     }
 }
 

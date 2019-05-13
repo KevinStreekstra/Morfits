@@ -115,7 +115,10 @@ class OverviewScene extends Phaser.Scene {
         this.txtInventory = this.add.image(0, 0, 'overview:txtInventory').setOrigin(0.5, 0.43);
         this.grid.placeAtIndex(220, this.txtInventory);
 
-        this.quiz = this.add.image(0, 0, 'overview:btnQuiz').setOrigin(0.5, 0.37);
+        this.quiz = this.add.image(0, 0, 'overview:btnQuiz').setOrigin(0.5, 0.37).setInteractive();
+        this.quiz.on('pointerdown', () => {
+            this.scene.launch('DailyScene');
+        });
         this.grid.placeAtIndex(208, this.quiz);
 
         this.txtQuiz = this.add.image(0, 0, 'overview:txtQuiz');
@@ -192,7 +195,9 @@ class OverviewScene extends Phaser.Scene {
         // this.dailyQuestion = this._player.getDailyQuestion();
         // this.add.text(20, 160, `${this.dailyQuestion.question}`);
 
-        // this.grid.showNumbers();
+        // this.scene.launch('DailyScene');
+
+        //this.grid.showNumbers();
     }
       
     update() {
