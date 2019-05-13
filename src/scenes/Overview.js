@@ -7,6 +7,8 @@ class OverviewScene extends Phaser.Scene {
             key: 'OverviewScene'
         });
 
+        this.scene;
+
         this.background_cloud;
 
         this.morfitWalking;
@@ -73,8 +75,6 @@ class OverviewScene extends Phaser.Scene {
             width: this.sys.game.config.width, 
             height: this.sys.game.config.height
         });
-
-        console.log(`Level Progress: ${this._player.getLevelProgress()}%`);
 
         this.bg = this.add.image(0, 0, 'overview:bg').setOrigin(0, 0); 
 
