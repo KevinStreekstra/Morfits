@@ -86,6 +86,8 @@ class BootScene extends Phaser.Scene {
         this.load.image('overview:HomePlant', 'src/assets/caracter_page/plant-vase@2x.png');
         this.load.image('overview:HomePlant2', 'src/assets/caracter_page/plant-pot@2x.png');
 
+        // Food
+        this.load.image('apple', 'src/assets/illustraties/Food/Healty/Fruit/Appel.png')
 
         this.load.on('progress', (value) => {
             progress.clear();

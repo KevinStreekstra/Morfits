@@ -5,6 +5,7 @@ import CreatePlayerScene from './scenes/CreatePlayer';
 import OverviewScene from './scenes/Overview';
 import ParallaxScene from './scenes/Parallax';
 import DailyScenes from "./scenes/DailyScenes";
+import JewelGameScene from "./games/jewel/main";
 
 const scaleRatio = window.devicePixelRatio / 3;
 
@@ -20,6 +21,7 @@ const game = new Phaser.Game({
       CreatePlayerScene,
       OverviewScene,
       DailyScenes,
+      JewelGameScene,
     ],
 });
 
