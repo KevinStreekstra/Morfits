@@ -29,6 +29,17 @@ class DailyScenes extends Phaser.Scene {
 
         this.popup = this.add.image(0, 0, 'Daily:popup');
         this.grid.placeAtIndex(112, this.popup);
+        this.grid.scaleTo(this.popup, 0);
+
+        this.tweens.add({
+            targets: this.popup,
+            scaleX: 1,
+            scaleY: 1,
+            ease: 'Bounce',
+            duration: 600,
+            repeat: 0,
+            yoyo: false
+        });
 
         //this.grid.showNumbers();
     }
