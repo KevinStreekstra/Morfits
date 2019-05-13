@@ -149,7 +149,7 @@ class OverviewScene extends Phaser.Scene {
         this.grid.placeAtIndex(32, this.MentalBar);
 
         // this.txtMentalbar = this.add.image(0, 0, 'overview:Mental80').setOrigin(0.2, 1.9);
-        this.txtMentalbar = this.add.text(0, 0, '80/100', { fontSize: '16px', fill: 'green'}).setOrigin(0.6, 1.9);
+        this.txtMentalbar = this.add.text(0, 0, '80/100', { fontFamily: 'Bubblegum Sans', fontSize: '16px', fill: 'green'}).setOrigin(0.6, 1.9);
         this.grid.placeAtIndex(47, this.txtMentalbar);
 
         this.IconMental = this.add.image(0, 0, 'overview:IconMental').setOrigin(0.45, 0.5);

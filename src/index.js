@@ -23,5 +23,11 @@ const game = new Phaser.Game({
     ],
 });
 
+WebFontConfig = {
+  google: {
+    families: ['Bubblegum Sans']
+  }
+}
+
 // game.config.width = window.innerWidth * window.devicePixelRatio;
 // game.config.height = window.innerHeight * window.devicePixelRatio;
