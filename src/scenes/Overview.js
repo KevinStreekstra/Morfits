@@ -98,6 +98,13 @@ class OverviewScene extends Phaser.Scene {
 
         this.games = this.add.image(0, 0, 'overview:btnGames').setOrigin(0.5, 0.37);
         this.grid.placeAtIndex(199, this.games);
+                
+        this.games.setInteractive();
+        this.games.on('pointerdown', () => {
+            console.log('jewel game active')
+            this.scene.start('JewelGame');
+
+        });
 
         this.txtGames = this.add.image(0, 0, 'overview:txtGames');
         this.grid.placeAtIndex(214, this.txtGames);
