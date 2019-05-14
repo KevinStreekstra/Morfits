@@ -10,7 +10,8 @@ class BootScene extends Phaser.Scene {
         this.boot_morfitWalking;
         this.boot_morfitLogo;
         this.boot_ground;
-        this.addImage = addImage.bind(this)
+        this.addImage = addImage.bind(this);
+        this.boot_loadingText;
     }
 
     preload() {
@@ -185,10 +186,11 @@ class BootScene extends Phaser.Scene {
         this.grid.placeAtIndex(89, this.boot_plant1);
         this.grid.scaleTo(this.boot_plant1, 0.28, 500);
         // De morfit in het midden van het scherm
-        this.boot_morfitWalking = this.addImage(0, 0, 'boot_morfitWalking').setScale(0.7);
+        this.boot_morfitWalking = this.addImage(0, 0, 'boot_morfitWalking');
         this.grid.placeAtIndex(82, this.boot_morfitWalking);
+        this.grid.scaleTo(this.boot_morfitWalking, .5);
         // De laad tekst onderaan het scherm
-        this.boot_loadingText = this.add.text(0, 0, 'Je Morfit is onderweg', { fontFamily: 'Bubblegum Sans', fontSize: '60px', fill: 'white'}).setOrigin(0.5, 0.5);
+        this.boot_loadingText = this.add.text(0, 0, 'Je Morfit is onderweg', { fontFamily: 'Bubblegum Sans', fontSize: `60px`, fill: 'white'}).setOrigin(0.5, 0.5);
         this.grid.placeAtIndex(137, this.boot_loadingText);
         
 
