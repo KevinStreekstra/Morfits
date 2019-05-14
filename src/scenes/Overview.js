@@ -166,7 +166,7 @@ class OverviewScene extends Phaser.Scene {
         this.EnergyBar = this.addImage(0, 0, 'overview:EnergyBar');
         this.grid.placeAtIndex(37, this.EnergyBar);
 
-        this.txtEnergybar = this.add.text(0, 0, '100/100', { fontSize: '16px', fill: 'blue'}).setOrigin(0.6, 1.9);
+        this.txtEnergybar = this.add.text(0, 0, '100/100', { fontFamily: 'Bubblegum Sans', fontSize: '16px', fill: 'blue'}).setOrigin(0.5, 1.8);
         this.grid.placeAtIndex(52, this.txtEnergybar);
 
         this.IconEnergy = this.addImage(0, 0, 'overview:IconEnergy').setOrigin(0.45, 0.5);
@@ -175,7 +175,7 @@ class OverviewScene extends Phaser.Scene {
         this.PowerBar = this.addImage(0, 0, 'overview:PowerBar');
         this.grid.placeAtIndex(42, this.PowerBar);
 
-        this.txtPowerbar = this.add.text(0, 0, '100/100', { fontSize: '16px', fill: 'red'}).setOrigin(0.6, 1.9);
+        this.txtPowerbar = this.add.text(0, 0, '100/100', { fontFamily: 'Bubblegum Sans', fontSize: '16px', fill: 'red'}).setOrigin(0.5, 1.8);
         this.grid.placeAtIndex(57, this.txtPowerbar);
 
         this.IconPower = this.addImage(0, 0, 'overview:IconPower').setOrigin(0.45, 0.5);
