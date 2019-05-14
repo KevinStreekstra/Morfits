@@ -199,8 +199,6 @@ class OverviewScene extends Phaser.Scene {
         // this.dailyQuestion = this._player.getDailyQuestion();
         // this.add.text(20, 160, `${this.dailyQuestion.question}`);
 
-        // this.scene.launch('DailyScene');
-
         //this.grid.showNumbers();
     }
 

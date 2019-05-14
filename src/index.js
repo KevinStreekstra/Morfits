@@ -5,6 +5,7 @@ import CreatePlayerScene from './scenes/CreatePlayer';
 import OverviewScene from './scenes/Overview';
 import ParallaxScene from './scenes/Parallax';
 import DailyScenes from "./scenes/DailyScenes";
+import WeeklyScenes from "./scenes/WeeklyScenes";
 
 const devicePixelRatio = window.devicePixelRatio;
 const scaleDownRation = 1 / 3;
@@ -27,6 +28,7 @@ const game = new Phaser.Game({
       CreatePlayerScene,
       OverviewScene,
       DailyScenes,
+      WeeklyScenes,
     ],
 });
 
