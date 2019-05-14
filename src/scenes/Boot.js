@@ -117,11 +117,11 @@ class BootScene extends Phaser.Scene {
         });
 
         this.load.on('complete', () => {
-            // if(new Player().exists()) {
-            //     this.scene.start('OverviewScene');
-            // } else {
-            //     this.scene.start('CreatePlayerScene');
-            // }
+            if(new Player().exists()) {
+                this.scene.start('OverviewScene');
+            } else {
+                this.scene.start('CreatePlayerScene');
+            }
         });
 
         
