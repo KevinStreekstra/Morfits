@@ -9,6 +9,14 @@ import JewelGameScene from "./games/jewel/main";
 
 const scaleRatio = window.devicePixelRatio / 3;
 
+const scenes = [      
+    BootScene,
+    CreatePlayerScene,
+    OverviewScene,
+    DailyScenes,
+    JewelGameScene,
+]
+
 const game = new Phaser.Game({
     parent: 'game',
     type: Phaser.AUTO,
@@ -16,13 +24,7 @@ const game = new Phaser.Game({
     height: 675,
     antialias: true,
     multiTexture: true,
-    scene: [
-      BootScene,
-      CreatePlayerScene,
-      OverviewScene,
-      DailyScenes,
-      JewelGameScene,
-    ],
+    scene: scenes.map(S => new S({key: S.name})),
 });
 
 WebFontConfig = {

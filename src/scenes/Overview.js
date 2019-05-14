@@ -67,7 +67,7 @@ class OverviewScene extends Phaser.Scene {
     }
       
     create() {
-
+        this.scene.get('JewelGame');
         this.grid = new AlignGrid({
             scene: this, 
             rows: 15, 
@@ -102,7 +102,7 @@ class OverviewScene extends Phaser.Scene {
         this.games.setInteractive();
         this.games.on('pointerdown', () => {
             console.log('jewel game active')
-            this.scene.start('JewelGame');
+            this.scene.launch('JewelGame');
 
         });
 
