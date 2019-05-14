@@ -80,8 +80,12 @@ class DailyScenes extends Phaser.Scene {
         this.grid.placeAtIndex(52, this.seperator);
         this.grid.scaleTo(this.seperator, 0);
 
-        this.mission = this.add.image(0, 0, 'Daily:Mission');
+        this.mission = this.add.image(0, 0, 'Daily:Mission').setInteractive();
         this.grid.placeAtIndex(56, this.mission);
+        this.mission.on('pointerdown', () => {
+            this.scene.sleep('DailyScene');
+            this.scene.launch('WeeklyScene');
+        });
         this.grid.scaleTo(this.mission, 0);
 
         this.tweens.add({
@@ -101,7 +105,7 @@ class DailyScenes extends Phaser.Scene {
             scaleX: 1,
             scaleY: 1,
             ease: 'Bounce',
-            duration: 600,
+            duration: 300,
             repeat: 0,
             yoyo: false
         });
