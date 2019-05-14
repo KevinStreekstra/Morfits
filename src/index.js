@@ -6,7 +6,8 @@ import OverviewScene from './scenes/Overview';
 import ParallaxScene from './scenes/Parallax';
 import DailyScenes from "./scenes/DailyScenes";
 
-const scaleRatio = window.devicePixelRatio / 3;
+const devicePixelRatio = window.devicePixelRatio;
+const scaleDownRation = 1 / 3;
 
 const game = new Phaser.Game({
     parent: 'game',
@@ -15,6 +16,12 @@ const game = new Phaser.Game({
     height: 675,
     antialias: true,
     multiTexture: true,
+    scale: {
+        zoom: 1 / window.devicePixelRatio,
+        scale: Phaser.Scale.NONE,
+        width: 375 * devicePixelRatio,
+        height: 675 * devicePixelRatio
+    },
     scene: [
       BootScene,
       CreatePlayerScene,

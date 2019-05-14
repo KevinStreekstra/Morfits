@@ -13,13 +13,13 @@ class BootScene extends Phaser.Scene {
 
     preload() {
         this.grid = new AlignGrid({
-            scene: this, 
-            rows: 11, 
+            scene: this,
+            rows: 11,
             cols: 11,
-            width: this.sys.game.config.width,         
+            width: this.sys.game.config.width,
             height: this.sys.game.config.height
         });
-      
+
 
         const progress = this.add.graphics();
         const progressValue = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height / 2, '0%', { fontSize: '32px', fill: '#000' });
@@ -29,7 +29,7 @@ class BootScene extends Phaser.Scene {
         //DailyScene background
         this.load.image('Daily:bg', 'src/assets/daily_reward_pop-up/daily_reward_pop-up_quiz/overlay@2x.png');
         this.load.image('Daily:popup', 'src/assets/daily_reward_pop-up/daily_reward_pop-up_quiz/popup_daily_background@2x.png');
-        
+
         this.load.spritesheet('boot_bird1', 'src/assets/boot/bird-1.png', {frameWidth: 400, frameHeight: 400});
         this.load.spritesheet('boot_bird2', 'src/assets/boot/bird-2.png', {frameWidth: 400, frameHeight: 400});
         this.load.image('boot_ground', 'src/assets/boot/ground.png');
@@ -68,7 +68,7 @@ class BootScene extends Phaser.Scene {
 
         this.load.image('overview:txtGym', 'src/assets/caracter_page/Gym@2x.png');
         this.load.image('overview:txtGames', 'src/assets/caracter_page/Games@2x.png');
-        this.load.image('overview:txtFeed', 'src/assets/caracter_page/Voeden@2x.png');
+        this.load.image('overview:txtFeed', 'src/assets/caracter_page/voeden.svg');
         this.load.image('overview:txtInventory', 'src/assets/caracter_page/Inventaris@2x.png');
         this.load.image('overview:txtQuiz', 'src/assets/caracter_page/Quiz@2x.png');
 
@@ -76,7 +76,7 @@ class BootScene extends Phaser.Scene {
         this.load.image('overview:BottomNavbar', 'src/assets/caracter_page/nav-bottom_background@2x.png');
         this.load.image('overview:ground2', 'src/assets/caracter_page/ground-bottom@2x.png');
         this.load.image('overview:ground3', 'src/assets/caracter_page/ground-top@2x.png');
-        
+
         //plants
         this.load.image('plant1', 'src/assets/boot/Plant_2.png');
         this.load.image('plant2', 'src/assets/boot/Plant_6.png');
@@ -89,7 +89,7 @@ class BootScene extends Phaser.Scene {
 
         this.load.on('progress', (value) => {
             progress.clear();
-     
+
         });
 
         this.load.on('complete', () => {
@@ -101,19 +101,19 @@ class BootScene extends Phaser.Scene {
             }
         });
 
-        
+
         this.overview_assets();
     }
 
     create() {
-        // Animatie van de vogels 
+        // Animatie van de vogels
         this.anims.create({
             key: 'fly',
             repeat: -1,
             frameRate: 5,
             smoothed: false,
             frames: this.anims.generateFrameNames('boot_bird1', {start: 1, end: 4})
-       
+
         });
 
         this.anims.create({
@@ -121,23 +121,23 @@ class BootScene extends Phaser.Scene {
             repeat: -1,
             frameRate: 5,
             frames: this.anims.generateFrameNames('boot_bird2', {start: 1, end: 4})
-       
+
         });
 
         // De achtergrond van het scherm
         this.bg = this.add.image(0, 0, 'bg');
-        this.grid.placeAtIndex(60, this.bg); 
+        this.grid.placeAtIndex(60, this.bg);
         this.mntn1 = this.add.image(0, 0, 'bg_mntn1').setOrigin(0, 0);
         this.grid.scaleX(this.mntn1, 2.5);
         this.mntn2 = this.add.image(0, 0, 'bg_mntn2').setOrigin(0.13, 0);
         this.bg_trees1 = this.add.image(0, 0, 'bg_trees1').setOrigin(0.13, 0);
-        
-       
-        
-    
+
+
+
+
         // Het morfit logo aan de bovenkant
         this.boot_morfitLogo = this.add.image(0, 0, 'boot_morfitLogo').setOrigin(0, 0);
-        this.grid.placeAtIndex(2, this.boot_morfitLogo); 
+        this.grid.placeAtIndex(2, this.boot_morfitLogo);
         this.grid.scaleTo(this.boot_morfitLogo, 0.5, 500);
         // Beide vogels die in de lucht zweven
         this.boot_bird1 = this.add.sprite(0, 0, 'boot_bird1', 0);
@@ -168,10 +168,10 @@ class BootScene extends Phaser.Scene {
         this.grid.scaleTo(this.boot_loadingText, .9, 500);
         // this.grid.showNumbers();
 
-    
-        
+
+
     }
-    
+
 
     overview_assets() {
         this.load.image('bg', 'src/assets/boot/bg/background.png');
