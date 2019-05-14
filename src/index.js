@@ -10,7 +10,7 @@ const scaleRatio = window.devicePixelRatio / 3;
 
 const game = new Phaser.Game({
     parent: 'game',
-    type: Phaser.AUTO,
+    type: Phaser.CANVAS,
     width: 375,
     height: 675,
     antialias: true,
