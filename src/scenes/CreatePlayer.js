@@ -22,13 +22,13 @@ class CreatePlayerScene extends Phaser.Scene {
         this.formUtil.show('formUtil');
 
         this.formUtil.scaleToGameW('player:username', 0.5);
-        this.formUtil.placeElementAt(60, 'player:username', true);
+        this.formUtil.placeElementAt(37, 'player:username', true);
         this.formUtil.addChangeCallback('player:username', ()=>{
             console.log(this.formUtil.getTextValue('player:username'));
         }, this);
 
         this.formUtil.scaleToGameW('player:submit', 0.5);
-        this.formUtil.placeElementAt(71, 'player:submit', true);
+        this.formUtil.placeElementAt(48, 'player:submit', true);
         this.formUtil.addClickCallback('player:submit', ()=>{
             let txt = this.formUtil.getTextValue('player:username');
             if(txt.length > 0) {
@@ -38,7 +38,7 @@ class CreatePlayerScene extends Phaser.Scene {
             }
         }, this);
 
-        this.formUtil.showNumbers();
+        //this.formUtil.showNumbers();
     }
 }
 

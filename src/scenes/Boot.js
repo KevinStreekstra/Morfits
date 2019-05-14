@@ -10,7 +10,8 @@ class BootScene extends Phaser.Scene {
         this.boot_morfitWalking;
         this.boot_morfitLogo;
         this.boot_ground;
-        this.addImage = addImage.bind(this)
+        this.addImage = addImage.bind(this);
+        this.boot_loadingText;
     }
 
     preload() {
@@ -26,11 +27,6 @@ class BootScene extends Phaser.Scene {
         const progress = this.add.graphics();
         const progressValue = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height / 2, '0%', { fontSize: '32px', fill: '#000' });
 
-        //DailyScene
-
-        //DailyScene background
-        this.load.image('Daily:bg', 'src/assets/daily_reward_pop-up/daily_reward_pop-up_quiz/overlay@2x.png');
-        this.load.image('Daily:popup', 'src/assets/daily_reward_pop-up/daily_reward_pop-up_quiz/popup_daily_background@2x.png');
         this.load.spritesheet('boot_bird1', 'src/assets/boot/bird-1.png', {frameWidth: 400, frameHeight: 400});
         this.load.spritesheet('boot_bird2', 'src/assets/boot/bird-2.png', {frameWidth: 400, frameHeight: 400});
         this.load.image('boot_ground', 'src/assets/boot/ground.png');
@@ -190,10 +186,11 @@ class BootScene extends Phaser.Scene {
         this.grid.placeAtIndex(89, this.boot_plant1);
         this.grid.scaleTo(this.boot_plant1, 0.28, 500);
         // De morfit in het midden van het scherm
-        this.boot_morfitWalking = this.addImage(0, 0, 'boot_morfitWalking').setScale(0.7);
+        this.boot_morfitWalking = this.addImage(0, 0, 'boot_morfitWalking');
         this.grid.placeAtIndex(82, this.boot_morfitWalking);
+        this.grid.scaleTo(this.boot_morfitWalking, .5);
         // De laad tekst onderaan het scherm
-        this.boot_loadingText = this.add.text(0, 0, 'Je Morfit is onderweg', { fontFamily: 'Bubblegum Sans', fontSize: '60px', fill: 'white'}).setOrigin(0.5, 0.5);
+        this.boot_loadingText = this.add.text(0, 0, 'Je Morfit is onderweg', { fontFamily: 'Bubblegum Sans', fontSize: `60px`, fill: 'white'}).setOrigin(0.5, 0.5);
         this.grid.placeAtIndex(137, this.boot_loadingText);
         
 

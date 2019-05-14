@@ -1,7 +1,7 @@
 import Player from '../classes/Player';
 import AlignGrid from '../classes/AlignGrid';
 
-import { addImage } from '../helpers'
+import { addImage } from '../helpers';
 
 class OverviewScene extends Phaser.Scene {
     constructor() {
@@ -60,7 +60,7 @@ class OverviewScene extends Phaser.Scene {
         this.progressTxt;
 
         this.dailyQuestion = {};
-        this.addImage = addImage.bind(this)
+        this.addImage = addImage.bind(this);
 
         this.scaleRatio = window.devicePixelRatio / 3;
     }
