@@ -1,5 +1,6 @@
 import Player from '../classes/Player';
 import AlignGrid from '../classes/AlignGrid';
+import { addImage } from '../helpers'
 
 class BootScene extends Phaser.Scene {
     constructor() {
@@ -9,6 +10,7 @@ class BootScene extends Phaser.Scene {
         this.boot_morfitWalking;
         this.boot_morfitLogo;
         this.boot_ground;
+        this.addImage = addImage.bind(this)
     }
 
     preload() {
@@ -20,6 +22,15 @@ class BootScene extends Phaser.Scene {
             height: this.sys.game.config.height
         });
         
+
+        const progress = this.add.graphics();
+        const progressValue = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height / 2, '0%', { fontSize: '32px', fill: '#000' });
+
+        //DailyScene
+
+        //DailyScene background
+        this.load.image('Daily:bg', 'src/assets/daily_reward_pop-up/daily_reward_pop-up_quiz/overlay@2x.png');
+        this.load.image('Daily:popup', 'src/assets/daily_reward_pop-up/daily_reward_pop-up_quiz/popup_daily_background@2x.png');
         this.load.spritesheet('boot_bird1', 'src/assets/boot/bird-1.png', {frameWidth: 400, frameHeight: 400});
         this.load.spritesheet('boot_bird2', 'src/assets/boot/bird-2.png', {frameWidth: 400, frameHeight: 400});
         this.load.image('boot_ground', 'src/assets/boot/ground.png');
@@ -138,24 +149,24 @@ class BootScene extends Phaser.Scene {
 
         // De achtergrond van het scherm
         
-        this.bg = this.add.image(0, 0, 'bg');
+        this.bg = this.addImage(0, 0, 'bg');
         this.grid.placeAtIndex(60, this.bg); 
-        this.bg_cloud6 = this.add.image(0, 0, 'bg_cloud6').setOrigin(0, 0.19);
-        this.mntn1 = this.add.image(0, 0, 'bg_mntn1').setOrigin(0, 0);
+        this.bg_cloud6 = this.addImage(0, 0, 'bg_cloud6').setOrigin(0, 0.19);
+        this.mntn1 = this.addImage(0, 0, 'bg_mntn1').setOrigin(0, 0);
         this.grid.scaleX(this.mntn1, 2.5);
        
-        this.mntn2 = this.add.image(0, 0, 'bg_mntn2').setOrigin(0.13, 0);
+        this.mntn2 = this.addImage(0, 0, 'bg_mntn2').setOrigin(0.13, 0);
        
-        this.bg_trees1 = this.add.image(0, 0, 'bg_trees1').setOrigin(0.134, 0);
-        this.bg_terrain_front = this.add.image(0, 0, 'bg_terrain_front').setOrigin(0, 0.17);
-        this.bg_trees_front = this.add.image(0, 0, 'bg_trees_front').setOrigin(0, 0.17);
-        this.bg_cloud5 = this.add.image(0, 0, 'bg_cloud5').setOrigin(0.05, 0.1);
+        this.bg_trees1 = this.addImage(0, 0, 'bg_trees1').setOrigin(0.134, 0);
+        this.bg_terrain_front = this.addImage(0, 0, 'bg_terrain_front').setOrigin(0, 0.17);
+        this.bg_trees_front = this.addImage(0, 0, 'bg_trees_front').setOrigin(0, 0.17);
+        this.bg_cloud5 = this.addImage(0, 0, 'bg_cloud5').setOrigin(0.05, 0.1);
        
 
 
        
         // Het morfit logo aan de bovenkant
-        this.boot_morfitLogo = this.add.image(0, 0, 'boot_morfitLogo').setOrigin(0, 0);
+        this.boot_morfitLogo = this.addImage(0, 0, 'boot_morfitLogo').setOrigin(0, 0);
         this.grid.placeAtIndex(2, this.boot_morfitLogo); 
         this.grid.scaleTo(this.boot_morfitLogo, 0.5, 500);
         // Beide vogels die in de lucht zweven
@@ -168,26 +179,26 @@ class BootScene extends Phaser.Scene {
         this.grid.placeAtIndex(63, this.boot_bird2);
         this.grid.scaleTo(this.boot_bird2, 0.3, 500);
         // Plant aan de rechter van het scherm
-        this.boot_plant2 = this.add.image(0, 0, 'boot_plant2');
+        this.boot_plant2 = this.addImage(0, 0, 'boot_plant2');
         this.grid.placeAtIndex(108, this.boot_plant2);
         this.grid.scaleTo(this.boot_plant2, 0.17, 500);
         // De grond
-        this.boot_ground = this.add.image(0, this.sys.game.config.height, 'boot_ground').setOrigin(0, 1);
+        this.boot_ground = this.addImage(0, this.sys.game.config.height, 'boot_ground').setOrigin(0, 1);
         this.grid.scaleY(this.boot_ground, .22);
         // Boom aan de linkerkant van het scherm
-        this.boot_plant1 = this.add.image(0, 0, 'boot_plant1');
+        this.boot_plant1 = this.addImage(0, 0, 'boot_plant1');
         this.grid.placeAtIndex(89, this.boot_plant1);
-        this.grid.scaleTo(this.boot_plant1, 0.30, 500);
+        this.grid.scaleTo(this.boot_plant1, 0.28, 500);
         // De morfit in het midden van het scherm
-        this.boot_morfitWalking = this.add.image(0, 0, 'boot_morfitWalking').setScale(0.35);
+        this.boot_morfitWalking = this.addImage(0, 0, 'boot_morfitWalking').setScale(0.7);
         this.grid.placeAtIndex(82, this.boot_morfitWalking);
         // De laad tekst onderaan het scherm
-        this.boot_loadingText = this.add.text(0, 0, 'Je Morfit is onderweg', { fontFamily: 'Bubblegum Sans', fontSize: '34px', fill: 'white'}).setOrigin(0.5, 0.5);
+        this.boot_loadingText = this.add.text(0, 0, 'Je Morfit is onderweg', { fontFamily: 'Bubblegum Sans', fontSize: '60px', fill: 'white'}).setOrigin(0.5, 0.5);
         this.grid.placeAtIndex(137, this.boot_loadingText);
         
 
 
-        // this.boot_loadingText = this.add.image(0, 0, 'boot_loadingText');
+        // this.boot_loadingText = this.addImage(0, 0, 'boot_loadingText');
         // this.grid.placeAtIndex(115, this.boot_loadingText);
         // this.grid.scaleTo(this.boot_loadingText, .9, 500);
         // this.grid.showNumbers();
