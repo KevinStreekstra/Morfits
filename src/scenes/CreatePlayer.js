@@ -19,6 +19,8 @@ class CreatePlayerScene extends Phaser.Scene {
             height: this.sys.game.config.height,
         });
 
+        this.formUtil.show('formUtil');
+
         this.formUtil.scaleToGameW('player:username', 0.5);
         this.formUtil.placeElementAt(60, 'player:username', true);
         this.formUtil.addChangeCallback('player:username', ()=>{
@@ -31,6 +33,7 @@ class CreatePlayerScene extends Phaser.Scene {
             let txt = this.formUtil.getTextValue('player:username');
             if(txt.length > 0) {
                 new Player().init(txt);
+                this.formUtil.hide('formUtil');
                 this.scene.start('OverviewScene');
             }
         }, this);

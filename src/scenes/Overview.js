@@ -7,6 +7,8 @@ class OverviewScene extends Phaser.Scene {
             key: 'OverviewScene'
         });
 
+        this.scene;
+
         this.background_cloud;
 
         this.morfitWalking;
@@ -62,6 +64,7 @@ class OverviewScene extends Phaser.Scene {
 
     preload() {
         this.player = this._player.get();
+        
     }
       
     create() {
@@ -73,8 +76,6 @@ class OverviewScene extends Phaser.Scene {
             width: this.sys.game.config.width, 
             height: this.sys.game.config.height
         });
-
-        console.log(`Level Progress: ${this._player.getLevelProgress()}%`);
 
         this.bg = this.add.image(0, 0, 'overview:bg').setOrigin(0, 0); 
 
@@ -114,7 +115,10 @@ class OverviewScene extends Phaser.Scene {
         this.txtInventory = this.add.image(0, 0, 'overview:txtInventory').setOrigin(0.5, 0.43);
         this.grid.placeAtIndex(220, this.txtInventory);
 
-        this.quiz = this.add.image(0, 0, 'overview:btnQuiz').setOrigin(0.5, 0.37);
+        this.quiz = this.add.image(0, 0, 'overview:btnQuiz').setOrigin(0.5, 0.37).setInteractive();
+        this.quiz.on('pointerdown', () => {
+            this.scene.launch('DailyScene');
+        });
         this.grid.placeAtIndex(208, this.quiz);
 
         this.txtQuiz = this.add.image(0, 0, 'overview:txtQuiz');
@@ -149,28 +153,28 @@ class OverviewScene extends Phaser.Scene {
         this.grid.placeAtIndex(32, this.MentalBar);
 
         // this.txtMentalbar = this.add.image(0, 0, 'overview:Mental80').setOrigin(0.2, 1.9);
-        this.txtMentalbar = this.add.text(0, 0, '80/100', { fontFamily: 'Bubblegum Sans', fontSize: '16px', fill: 'green'}).setOrigin(0.6, 1.9);
+        this.txtMentalbar = this.add.text(0, 0, '80/100', { fontFamily: 'Bubblegum Sans', fontSize: '16px', fill: 'green'}).setOrigin(0.5, 1.8);
         this.grid.placeAtIndex(47, this.txtMentalbar);
 
-        this.IconMental = this.add.image(0, 0, 'overview:IconMental');
+        this.IconMental = this.add.image(0, 0, 'overview:IconMental').setOrigin(0.45, 0.5);
         this.grid.placeAtIndex(30, this.IconMental);
 
         this.EnergyBar = this.add.image(0, 0, 'overview:EnergyBar');
         this.grid.placeAtIndex(37, this.EnergyBar);
 
-        this.txtEnergybar = this.add.text(0, 0, '100/100', { fontSize: '16px', fill: 'blue'}).setOrigin(0.6, 1.9);
+        this.txtEnergybar = this.add.text(0, 0, '100/100', { fontFamily: 'Bubblegum Sans', fontSize: '16px', fill: 'blue'}).setOrigin(0.5, 1.8);
         this.grid.placeAtIndex(52, this.txtEnergybar);
 
-        this.IconEnergy = this.add.image(0, 0, 'overview:IconEnergy');
+        this.IconEnergy = this.add.image(0, 0, 'overview:IconEnergy').setOrigin(0.45, 0.5);
         this.grid.placeAtIndex(35, this.IconEnergy);
 
         this.PowerBar = this.add.image(0, 0, 'overview:PowerBar');
         this.grid.placeAtIndex(42, this.PowerBar);
 
-        this.txtPowerbar = this.add.text(0, 0, '100/100', { fontSize: '16px', fill: 'red'}).setOrigin(0.6, 1.9);
+        this.txtPowerbar = this.add.text(0, 0, '100/100', { fontFamily: 'Bubblegum Sans', fontSize: '16px', fill: 'red'}).setOrigin(0.5, 1.8);
         this.grid.placeAtIndex(57, this.txtPowerbar);
 
-        this.IconPower = this.add.image(0, 0, 'overview:IconPower');
+        this.IconPower = this.add.image(0, 0, 'overview:IconPower').setOrigin(0.45, 0.5);
         this.grid.placeAtIndex(40, this.IconPower);
 
         this.nav = this.add.image(0, 0, 'overview:TopNavbar');
@@ -191,7 +195,7 @@ class OverviewScene extends Phaser.Scene {
         // this.dailyQuestion = this._player.getDailyQuestion();
         // this.add.text(20, 160, `${this.dailyQuestion.question}`);
 
-        // this.grid.showNumbers();
+        //this.grid.showNumbers();
     }
       
     update() {
