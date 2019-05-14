@@ -18,6 +18,7 @@ class Board {
     }
   
     init(){
+        console.log('Init Board Class');
         this.createGrid(this.rows, this.cols, this.jewel_grid);
         this.createGrid(this.backupRow, this.cols, this.jewel_backup_grid);
 
@@ -37,7 +38,84 @@ class Board {
             }
         }
     }
+
+    swap(source, target){
+        const temp = this.grid[target.row][target.col];
+        this.grid[target.row][target.col] = this.grid[source.row][source.col];
+        this.grid[source.row][source.col] = temp;
+    }
+
+    /*
+        check if two blocks are adjacent
+    */
+    checkAdjacent(source, target) {
+        const diffRow = Math.abs(source.row - target.row);
+        const diffCol = Math.abs(source.col - target.col);
+        
+        // Return adjacent blocks
+        return (diffRow == 1 && diffCol === 0) || (diffRow == 0 && diffCol === 1);;
+    };
   
+    isChained(block) {
+        let isChained = false;
+        const variation = this.jewel_grid[block.row][block.col],
+        row = block.row,
+        col = block.col;
+      
+        // left
+        if(variation == this.jewel_grid[row][col - 1] && variation == this.jewel_grid[row][col - 2]) {
+          isChained = true;
+        }
+      
+        // right
+        if(variation == this.jewel_grid[row][col + 1] && variation == this.jewel_grid[row][col + 2]) {
+          isChained = true;
+        }
+      
+        // up
+        if(this.jewel_grid[row-2]) {
+          if(variation == this.jewel_grid[row-1][col] && variation == this.jewel_grid[row-2][col]) {
+            isChained = true;
+          }
+        }
+      
+        // down
+        if(this.jewel_grid[row+2]) {
+          if(variation == this.jewel_grid[row+1][col] && variation == this.jewel_grid[row+2][col]) {
+            isChained = true;
+          }
+        }
+      
+        // horizontal
+        if(variation == this.jewel_grid[row][col - 1] && variation == this.jewel_grid[row][col + 1]) {
+          isChained = true;
+        }
+      
+        // vertical
+        if(this.jewel_grid[row+1] && this.jewel_grid[row-1]) {
+          if(variation == this.jewel_grid[row+1][col] && variation == this.jewel_grid[row-1][col]) {
+            isChained = true;
+          }
+        }
+      
+        return isChained;
+      
+    };
+
+    findAllChains() {
+        const chained = [];
+      
+        for(let i = 0; i < this.rows; i++) {
+            for(let j = 0; j < this.cols; j++) {
+                if(this.isChained({row: i, col: j})) {
+                    chained.push({row: i, col: j});
+                }
+            }
+        }
+      
+        console.log(chained);
+        return chained;
+    };
 };
 
 export default Board;
