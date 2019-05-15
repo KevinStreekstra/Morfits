@@ -64,7 +64,7 @@ class JewelGame extends Phaser.Scene {
           let x = 36 + j * (this.tile_size + 6);
           let y = 150 + i * (this.tile_size + 6);
 
-          this.createTile(x, y, {asset: this.board.main[i][j], row: i, col: j});
+          this.createTile(x, y, {value: this.board.main[i][j], row: i, col: j});
         }
       }
   
