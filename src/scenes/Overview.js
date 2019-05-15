@@ -157,7 +157,7 @@ class OverviewScene extends Phaser.Scene {
         this.grid.placeAtIndex(32, this.MentalBar);
 
         // this.txtMentalbar = this.addImage(0, 0, 'overview:Mental80').setOrigin(0.2, 1.9);
-        this.txtMentalbar = this.add.text(0, 0, '80/100', { fontFamily: 'Bubblegum Sans', fontSize: '16px', fill: 'green'}).setOrigin(0.6, 1.9);
+        this.txtMentalbar = this.add.text(0, 0, '80/100', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'green'}).setOrigin(0.6, 1.8);
         this.grid.placeAtIndex(47, this.txtMentalbar);
 
         this.IconMental = this.addImage(0, 0, 'overview:IconMental').setOrigin(0.45, 0.5);
@@ -166,7 +166,7 @@ class OverviewScene extends Phaser.Scene {
         this.EnergyBar = this.addImage(0, 0, 'overview:EnergyBar');
         this.grid.placeAtIndex(37, this.EnergyBar);
 
-        this.txtEnergybar = this.add.text(0, 0, '100/100', { fontFamily: 'Bubblegum Sans', fontSize: '16px', fill: 'blue'}).setOrigin(0.5, 1.8);
+        this.txtEnergybar = this.add.text(0, 0, '100/100', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'blue'}).setOrigin(0.5, 1.8);
         this.grid.placeAtIndex(52, this.txtEnergybar);
 
         this.IconEnergy = this.addImage(0, 0, 'overview:IconEnergy').setOrigin(0.45, 0.5);
@@ -175,7 +175,7 @@ class OverviewScene extends Phaser.Scene {
         this.PowerBar = this.addImage(0, 0, 'overview:PowerBar');
         this.grid.placeAtIndex(42, this.PowerBar);
 
-        this.txtPowerbar = this.add.text(0, 0, '100/100', { fontFamily: 'Bubblegum Sans', fontSize: '16px', fill: 'red'}).setOrigin(0.5, 1.8);
+        this.txtPowerbar = this.add.text(0, 0, '100/100', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'red'}).setOrigin(0.5, 1.8);
         this.grid.placeAtIndex(57, this.txtPowerbar);
 
         this.IconPower = this.addImage(0, 0, 'overview:IconPower').setOrigin(0.45, 0.5);

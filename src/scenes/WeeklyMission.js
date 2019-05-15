@@ -1,4 +1,3 @@
-import Player from '../classes/Player';
 import AlignGrid from '../classes/AlignGrid';
 
 import { addImage } from '../helpers';
@@ -9,26 +8,7 @@ class WeeklyScene extends Phaser.Scene {
             key: 'WeeklyScene'
         });
 
-        this.overlay;
-        this.popup;
-        this.Mask;
-        this.quit;
-        this.popupplank;
-        this.plank1;
-        this.plank2;
-        this.plank3;
-        this.check;
-        this.check2;
-        this.active;
-        this.Quiz;
-        this.seperator;
-        this.mission;
-
         this.addImage = addImage.bind(this);
-    }
-
-    preload() {
-
     }
 
     create() {
@@ -61,7 +41,7 @@ class WeeklyScene extends Phaser.Scene {
         this.plank1 = this.addImage(0, 0, 'Weekly:Plank1');
         this.grid.placeAtIndex(96, this.plank1);
 
-        this.check = this.addImage(0, 0, 'Modal:Check');
+        this.check = this.addImage(0, 0, 'Weekly:Check');
         this.grid.placeAtIndex(102, this.check);
 
         this.popupplank = this.addImage(0, 0, 'Daily:popupPlank');
@@ -70,7 +50,7 @@ class WeeklyScene extends Phaser.Scene {
         this.plank2 = this.addImage(0, 0, 'Weekly:Plank2');
         this.grid.placeAtIndex(125, this.plank2);
 
-        this.check2 = this.addImage(0, 0, 'Modal:Check2');
+        this.check2 = this.addImage(0, 0, 'Weekly:Check2');
         this.grid.placeAtIndex(132, this.check2);
 
         this.popupplank = this.addImage(0, 0, 'Daily:popupPlank');
@@ -79,10 +59,10 @@ class WeeklyScene extends Phaser.Scene {
         this.plank3 = this.addImage(0, 0, 'Weekly:Plank3');
         this.grid.placeAtIndex(156, this.plank3);
 
-        this.check2 = this.addImage(0, 0, 'Modal:Check2');
+        this.check2 = this.addImage(0, 0, 'Weekly:Check2');
         this.grid.placeAtIndex(162, this.check2);
 
-        this.active = this.addImage(0, 0, 'modal:active');
+        this.active = this.addImage(0, 0, 'Daily:active');
         this.grid.placeAtIndex(56, this.active);
 
         this.Quiz = this.addImage(0, 0, 'Daily:Quiz').setInteractive();
