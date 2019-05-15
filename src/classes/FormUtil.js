@@ -102,6 +102,18 @@ class FormUtil {
         var el = document.getElementById(elName);
         return el.value;
     }
+
+    show(elName) {
+        let el = document.getElementById(elName);
+        el.style.display = "block";
+        return;
+    }    
+
+    hide(elName) {
+        let el = document.getElementById(elName);
+        el.style.display = "none";
+        return;
+    }
 }
 
 export default FormUtil;

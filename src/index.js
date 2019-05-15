@@ -1,13 +1,16 @@
 import Phaser from "phaser";
 
-import BootScene from './scenes/Boot';
+import BootScene from './boot/Boot';
+import LoadingScene from './scenes/Loading';
 import CreatePlayerScene from './scenes/CreatePlayer';
 import OverviewScene from './scenes/Overview';
-import ParallaxScene from './scenes/Parallax';
 import DailyScenes from "./scenes/DailyScenes";
 import JewelGameScene from "./games/jewel/main";
+import DailyScenes from "./scenes/DailyQuiz";
+import WeeklyScenes from "./scenes/WeeklyMission";
 
-const scaleRatio = window.devicePixelRatio / 3;
+const devicePixelRatio = window.devicePixelRatio;
+const scaleDownRation = 1 / 3;
 
 const scenes = [      
     BootScene,
@@ -19,12 +22,26 @@ const scenes = [
 
 const game = new Phaser.Game({
     parent: 'game',
-    type: Phaser.AUTO,
+    type: Phaser.CANVAS,
     width: 375,
     height: 675,
     antialias: true,
     multiTexture: true,
-    scene: scenes.map(S => new S({key: S.name})),
+    scale: {
+        zoom: 1 / window.devicePixelRatio,
+        scale: Phaser.Scale.NONE,
+        width: 375 * devicePixelRatio,
+        height: 675 * devicePixelRatio
+    },
+    scene: [
+      LoadingScene,
+      BootScene,
+      CreatePlayerScene,
+      OverviewScene,
+      DailyScenes,
+      WeeklyScenes,
+      JewelGameScene
+    ],
 });
 
 WebFontConfig = {
