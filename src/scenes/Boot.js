@@ -106,6 +106,12 @@ class BootScene extends Phaser.Scene {
         this.load.image('Daily:seperator', 'src/assets/daily_reward_pop-up/daily_reward_pop-up_quiz/popup_quiz_border@2x.png');
         this.load.image('Daily:Mission', 'src/assets/daily_reward_pop-up/daily_reward_pop-up_quiz/Missie vande week!@2x.png');
 
+        //WeeklyScene
+        this.load.image('Weekly:Plank1', 'src/assets/daily_reward_pop-up/daily_reward_pop-up_missions/Loop 10km in de week!@2x.png');
+        this.load.image('Weekly:Plank2', 'src/assets/daily_reward_pop-up/daily_reward_pop-up_missions/Sprint voor 0,5km!@2x.png');
+        this.load.image('Weekly:Plank3', 'src/assets/daily_reward_pop-up/daily_reward_pop-up_missions/Zit muisstil voor 20 min!@2x.png');
+        this.load.image('Modal:Check', 'src/assets/daily_reward_pop-up/daily_reward_pop-up_missions/checkbox-check@2x.png');
+        this.load.image('Modal:Check2', 'src/assets/daily_reward_pop-up/daily_reward_pop-up_missions/check-box@2x.png');
 
         this.load.on('progress', (value) => {
             
