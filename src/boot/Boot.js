@@ -4,6 +4,7 @@ import { addImage } from '../helpers'
 
 import { overview_assets } from './_Overview';
 import { dailyQuiz_assets } from './_DailyQuiz';
+import { jewelgame_assets } from './_JewelGame';
 import { weeklyMission_assets } from './_WeeklyMission';
 
 class BootScene extends Phaser.Scene {
@@ -16,6 +17,7 @@ class BootScene extends Phaser.Scene {
         this.overview_assets = overview_assets.bind(this);
         this.dailyQuiz_assets = dailyQuiz_assets.bind(this);
         this.weeklyMission_assets = weeklyMission_assets.bind(this);
+        this.jewelgame_assets = jewelgame_assets.bind(this);
     }
 
     preload() {
@@ -31,6 +33,7 @@ class BootScene extends Phaser.Scene {
         this.overview_assets();
         this.dailyQuiz_assets();
         this.weeklyMission_assets();
+        this.jewelgame_assets();
         // END LOAD SCENE ASSETS
 
         this.load.on('complete', () => {
