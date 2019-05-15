@@ -4,7 +4,6 @@ import BootScene from './boot/Boot';
 import LoadingScene from './scenes/Loading';
 import CreatePlayerScene from './scenes/CreatePlayer';
 import OverviewScene from './scenes/Overview';
-import DailyScenes from "./scenes/DailyScenes";
 import JewelGameScene from "./games/jewel/main";
 import DailyScenes from "./scenes/DailyQuiz";
 import WeeklyScenes from "./scenes/WeeklyMission";
