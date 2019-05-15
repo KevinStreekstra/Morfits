@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 
-import BootScene from './scenes/Boot';
+import BootScene from './boot/Boot';
+import LoadingScene from './scenes/Loading';
 import CreatePlayerScene from './scenes/CreatePlayer';
 import OverviewScene from './scenes/Overview';
 import ParallaxScene from './scenes/Parallax';
@@ -24,6 +25,7 @@ const game = new Phaser.Game({
         height: 675 * devicePixelRatio
     },
     scene: [
+      LoadingScene,
       BootScene,
       CreatePlayerScene,
       OverviewScene,
