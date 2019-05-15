@@ -18,10 +18,10 @@ class LoadingScene extends Phaser.Scene {
             height: this.sys.game.config.height
         });
 
-        window.setInterval(()=>{
-            if ((this.loadingText.text += '.').length == 25) 
-                this.loadingText.text = 'Je Morfit is onderweg';
-        }, 750);
+        // window.setInterval(()=>{
+        //     if ((this.loadingText.text += '.').length == 25) 
+        //         this.loadingText.text = 'Je Morfit is onderweg';
+        // }, 750);
 
         this.load.spritesheet('bird1', 'src/assets/boot/bird-1.png', {frameWidth: 400, frameHeight: 400});
         this.load.spritesheet('bird2', 'src/assets/boot/bird-2.png', {frameWidth: 400, frameHeight: 400});
