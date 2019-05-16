@@ -71,11 +71,10 @@ class OverviewScene extends Phaser.Scene {
 
     preload() {
         this.player = this._player.get();
-
     }
 
     create() {
-        //this.cameras.main.setRoundPixels(true);
+        console.log(this.player);
 
         this.grid = new AlignGrid({
             scene: this,
@@ -84,6 +83,9 @@ class OverviewScene extends Phaser.Scene {
             width: this.sys.game.config.width,
             height: this.sys.game.config.height
         });
+
+        // this.shopModal = this.add.dom(0, 0, document.createElement('div')).setHTML('dgwefgwe').setOrigin(0, 1);
+        // this.grid.placeAtIndex(0, this.shopModal);
 
         this.bg = this.addImage(0, 0, 'overview:bg').setOrigin(0, 0);
 

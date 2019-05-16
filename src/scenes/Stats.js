@@ -124,7 +124,7 @@ class StatsScene extends Phaser.Scene {
         this.grid.placeAtIndex(130, this.Power52);
         this.grid.scaleTo(this.Power52, 0);
 
-        this.quit = this.addImage(0, 0, 'Daily:quit').setInteractive();
+        this.quit = this.addImage(0, 0, 'Daily:quit').setOrigin(.5, .675).setInteractive();
         this.quit.on('pointerdown', () => {
             this.scene.stop('StatsScene');
         });
@@ -197,7 +197,7 @@ class StatsScene extends Phaser.Scene {
             yoyo: false
         });
 
-        // this.grid.showNumbers();
+        //this.grid.showNumbers();
     }
 }
 
