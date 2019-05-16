@@ -19,18 +19,18 @@ class LoadingScene extends Phaser.Scene {
         });
 
         window.setInterval(()=>{
-            if ((this.boot_loadingText.text += '.').length == 25) 
-                this.boot_loadingText.text = 'Je Morfit is onderweg';
+            if ((this.loadingText.text += '.').length == 25) 
+                this.loadingText.text = 'Je Morfit is onderweg';
         }, 750);
 
-        this.load.spritesheet('boot_bird1', 'src/assets/boot/bird-1.png', {frameWidth: 400, frameHeight: 400});
-        this.load.spritesheet('boot_bird2', 'src/assets/boot/bird-2.png', {frameWidth: 400, frameHeight: 400});
-        this.load.image('boot_ground', 'src/assets/boot/ground.png');
-        this.load.image('boot_loadingText', 'src/assets/boot/loading-text.png');
-        this.load.image('boot_morfitWalking', 'src/assets/boot/Morfit walking.png');
-        this.load.image('boot_morfitLogo', 'src/assets/boot/morfit-logo.png');
-        this.load.image('boot_plant1', 'src/assets/boot/Plant_2.png');
-        this.load.image('boot_plant2', 'src/assets/boot/Plant_6.png');
+        this.load.spritesheet('bird1', 'src/assets/boot/bird-1.png', {frameWidth: 400, frameHeight: 400});
+        this.load.spritesheet('bird2', 'src/assets/boot/bird-2.png', {frameWidth: 400, frameHeight: 400});
+        this.load.image('ground', 'src/assets/boot/ground.png');
+        this.load.image('loadingText', 'src/assets/boot/loading-text.png');
+        this.load.image('morfitWalking', 'src/assets/boot/Morfit walking.png');
+        this.load.image('morfitLogo', 'src/assets/boot/morfit-logo.png');
+        this.load.image('plant1', 'src/assets/boot/Plant_2.png');
+        this.load.image('plant2', 'src/assets/boot/Plant_6.png');
 
         this.load.image('bg', 'src/assets/boot/bg/background.png');
         this.load.image('bg_mntn1', 'src/assets/boot/bg/mountain-depth-5.png');
@@ -56,7 +56,7 @@ class LoadingScene extends Phaser.Scene {
             repeat: -1,
             frameRate: 5,
             smoothed: false,
-            frames: this.anims.generateFrameNames('boot_bird1', {start: 1, end: 4})
+            frames: this.anims.generateFrameNames('bird1', {start: 1, end: 4})
        
         });
 
@@ -64,7 +64,7 @@ class LoadingScene extends Phaser.Scene {
             key: 'fly2',
             repeat: -1,
             frameRate: 5,
-            frames: this.anims.generateFrameNames('boot_bird2', {start: 1, end: 4})
+            frames: this.anims.generateFrameNames('bird2', {start: 1, end: 4})
        
         });
 
@@ -84,36 +84,36 @@ class LoadingScene extends Phaser.Scene {
         this.bg_cloud5 = this.addImage(0, 0, 'bg_cloud5').setOrigin(0.05, 0.1);
        
         // Het morfit logo aan de bovenkant
-        this.boot_morfitLogo = this.addImage(0, 0, 'boot_morfitLogo').setOrigin(0, 0);
-        this.grid.placeAtIndex(2, this.boot_morfitLogo); 
-        this.grid.scaleTo(this.boot_morfitLogo, 0.5, 500);
+        this.morfitLogo = this.addImage(0, 0, 'morfitLogo').setOrigin(0, 0);
+        this.grid.placeAtIndex(2, this.morfitLogo); 
+        this.grid.scaleTo(this.morfitLogo, 0.5, 500);
         // Beide vogels die in de lucht zweven
-        this.boot_bird1 = this.add.sprite(0, 0, 'boot_bird1', 0);
-        this.boot_bird1.play('fly');
-        this.grid.placeAtIndex(35, this.boot_bird1);
-        this.grid.scaleTo(this.boot_bird1, 0.3, 500);
-        this.boot_bird2 = this.add.sprite(0, 0, 'boot_bird2');
-        this.boot_bird2.play('fly2');
-        this.grid.placeAtIndex(63, this.boot_bird2);
-        this.grid.scaleTo(this.boot_bird2, 0.3, 500);
+        this.bird1 = this.add.sprite(0, 0, 'bird1', 0);
+        this.bird1.play('fly');
+        this.grid.placeAtIndex(35, this.bird1);
+        this.grid.scaleTo(this.bird1, 0.3, 500);
+        this.bird2 = this.add.sprite(0, 0, 'bird2');
+        this.bird2.play('fly2');
+        this.grid.placeAtIndex(63, this.bird2);
+        this.grid.scaleTo(this.bird2, 0.3, 500);
         // Plant aan de rechter van het scherm
-        this.boot_plant2 = this.addImage(0, 0, 'boot_plant2');
-        this.grid.placeAtIndex(108, this.boot_plant2);
-        this.grid.scaleTo(this.boot_plant2, 0.17, 500);
+        this.plant2 = this.addImage(0, 0, 'plant2');
+        this.grid.placeAtIndex(108, this.plant2);
+        this.grid.scaleTo(this.plant2, 0.17, 500);
         // De grond
-        this.boot_ground = this.addImage(0, this.sys.game.config.height, 'boot_ground').setOrigin(0, 1);
-        this.grid.scaleY(this.boot_ground, .22);
+        this.ground = this.addImage(0, this.sys.game.config.height, 'ground').setOrigin(0, 1);
+        this.grid.scaleY(this.ground, .22);
         // Boom aan de linkerkant van het scherm
-        this.boot_plant1 = this.addImage(0, 0, 'boot_plant1');
-        this.grid.placeAtIndex(89, this.boot_plant1);
-        this.grid.scaleTo(this.boot_plant1, 0.28, 500);
+        this.plant1 = this.addImage(0, 0, 'plant1');
+        this.grid.placeAtIndex(89, this.plant1);
+        this.grid.scaleTo(this.plant1, 0.28, 500);
         // De morfit in het midden van het scherm
-        this.boot_morfitWalking = this.addImage(0, 0, 'boot_morfitWalking');
-        this.grid.placeAtIndex(82, this.boot_morfitWalking);
-        this.grid.scaleTo(this.boot_morfitWalking, .5);
+        this.morfitWalking = this.addImage(0, 0, 'morfitWalking');
+        this.grid.placeAtIndex(82, this.morfitWalking);
+        this.grid.scaleTo(this.morfitWalking, .5);
         // De laad tekst onderaan het scherm
-        this.boot_loadingText = this.add.text(0, 0, 'Je Morfit is onderweg', { fontFamily: 'Bubblegum Sans', fontSize: `${35 * window.devicePixelRatio}px`, fill: 'white'}).setOrigin(0.5, 0.5);
-        this.grid.placeAtIndex(137, this.boot_loadingText);
+        this.loadingText = this.add.text(0, 0, 'Je Morfit is onderweg', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(35 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(0.5, 0.5);
+        this.grid.placeAtIndex(137, this.loadingText);
     }
 }
 
