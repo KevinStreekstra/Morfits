@@ -1,4 +1,3 @@
-import Player from '../classes/Player';
 import AlignGrid from '../classes/AlignGrid';
 
 import { addImage } from '../helpers';
@@ -8,19 +7,6 @@ class DailyScenes extends Phaser.Scene {
         super({
             key: 'DailyScene'
         });
-
-        this.overlay;
-        this.popup;
-        this.Mask;
-        this.start;
-        this.quit;
-        this.popupplank;
-        this.popuptxt;
-        this.ribbonCoins;
-        this.active;
-        this.Quiz;
-        this.seperator;
-        this.mission;
 
         this.addImage = addImage.bind(this);
     }
@@ -72,7 +58,7 @@ class DailyScenes extends Phaser.Scene {
         this.grid.placeAtIndex(97, this.ribbonCoins);
         this.grid.scaleTo(this.ribbonCoins, 0);
 
-        this.active = this.addImage(0, 0, 'modal:active');
+        this.active = this.addImage(0, 0, 'Daily:active');
         this.grid.placeAtIndex(48, this.active);
         this.grid.scaleTo(this.active, 0);
 
