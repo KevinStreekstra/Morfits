@@ -15,6 +15,9 @@ const game = new Phaser.Game({
     type: Phaser.CANVAS,
     width: 375,
     height: 675,
+    dom: {
+      createContainer: true,
+    },
     antialias: true,
     multiTexture: true,
     scale: {

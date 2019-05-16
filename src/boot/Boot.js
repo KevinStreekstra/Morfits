@@ -5,6 +5,7 @@ import { addImage } from '../helpers'
 import { overview_assets } from './_Overview';
 import { dailyQuiz_assets } from './_DailyQuiz';
 import { weeklyMission_assets } from './_WeeklyMission';
+import { shop } from './_Shop';
 
 class BootScene extends Phaser.Scene {
     constructor() {
@@ -16,6 +17,7 @@ class BootScene extends Phaser.Scene {
         this.overview_assets = overview_assets.bind(this);
         this.dailyQuiz_assets = dailyQuiz_assets.bind(this);
         this.weeklyMission_assets = weeklyMission_assets.bind(this);
+        this.shop = shop.bind(this);
     }
 
     preload() {
@@ -31,10 +33,11 @@ class BootScene extends Phaser.Scene {
         this.overview_assets();
         this.dailyQuiz_assets();
         this.weeklyMission_assets();
+        this.shop();
         // END LOAD SCENE ASSETS
 
         this.load.on('complete', () => {
-            setTimeout(() => {
+            this.time.delayedCall(1000, () => {
                 if(new Player().exists()) {
                     this.scene.start('OverviewScene');
                 } else {
@@ -42,7 +45,7 @@ class BootScene extends Phaser.Scene {
                 }
                 this.scene.stop('LoadingScene');
                 this.scene.stop('BootScene');
-            }, 1000);
+            }, [], this);
         });
     }
 }

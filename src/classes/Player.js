@@ -10,14 +10,20 @@ class Player {
         if(!localStorage.getItem('energy') || localStorage.getItem('energy') === null)
             localStorage.setItem('energy', JSON.stringify(100));
 
-        if(!localStorage.getItem('food') || localStorage.getItem('food') === null)
-            localStorage.setItem('food', JSON.stringify(100));
+        if(!localStorage.getItem('power') || localStorage.getItem('power') === null)
+            localStorage.setItem('power', JSON.stringify(100));
 
-        if(!localStorage.getItem('health') || localStorage.getItem('health') === null)
-            localStorage.setItem('health', JSON.stringify(100));
+        if(!localStorage.getItem('mentality') || localStorage.getItem('mentality') === null)
+            localStorage.setItem('mentality', JSON.stringify(100));
 
         if(!localStorage.getItem('xp') || localStorage.getItem('xp') === null)
             localStorage.setItem('xp', JSON.stringify(0));
+
+        if(!localStorage.getItem('powerpoints') || localStorage.getItem('powerpoints') === null)
+            localStorage.setItem('powerpoints', JSON.stringify(0));
+
+        if(!localStorage.getItem('morfos') || localStorage.getItem('morfos') === null)
+            localStorage.setItem('morfos', JSON.stringify(0));
     }
 
     exists() {
@@ -31,26 +37,40 @@ class Player {
     get() {
         this.player.username = localStorage.getItem('username');
         this.player.energy = JSON.parse(localStorage.getItem('energy'));
-        this.player.food = JSON.parse(localStorage.getItem('food'));
-        this.player.health = JSON.parse(localStorage.getItem('health'));
+        this.player.power = JSON.parse(localStorage.getItem('power'));
+        this.player.mentality = JSON.parse(localStorage.getItem('mentality'));
         this.player.xp = JSON.parse(localStorage.getItem('xp'));
+        this.player.powerpoints = JSON.parse(localStorage.getItem('powerpoints'));
+        this.player.morfos = JSON.parse(localStorage.getItem('morfos'));
         return this.player;
     }
 
+    getUsername() {
+        return localStorage.getItem('username');
+    }
+
     getEnergy() {
-        return this.player.energy;
+        return JSON.parse(localStorage.getItem('energy'));
     }
 
-    getFood() {
-        return this.player.food;
+    getMentality() {
+        return JSON.parse(localStorage.getItem('mentality'));
     }
 
-    getHealth() {
-        return this.player.health;
+    getPower() {
+        return JSON.parse(localStorage.getItem('power'));
     }
 
     getXP() {
-        return this.player.xp;
+        return JSON.parse(localStorage.getItem('xp'));
+    }
+
+    getPowerPoints() {
+        return JSON.parse(localStorage.getItem('powerpoints'));
+    }
+
+    getMorfos() {
+        return JSON.parse(localStorage.getItem('morfos'));
     }
 
     getLevel() {
@@ -58,7 +78,7 @@ class Player {
     }
 
     getRequiredXP(level) {
-        return 25 * (level+1) * (level+1)  - 25 * (level+1);
+        return 25 * (level + 1) * (level + 1)  - 25 * (level + 1);
     }
 
     getLevelProgress() {
