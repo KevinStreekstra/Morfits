@@ -29,6 +29,10 @@ class OverviewScene extends Phaser.Scene {
         this.inventory;
         this.quiz;
 
+        this.level;
+        this.Myname;
+        this.whiteBg;
+
         this.txtGym;
         this.txtGames;
         this.txtFeed;
@@ -186,6 +190,17 @@ class OverviewScene extends Phaser.Scene {
         this.nav = this.addImage(0, 0, 'overview:TopNavbar');
         this.grid.placeAtIndex(7, this.nav);
 
+        this.whiteBg = this.addImage(0, 0, 'overview:whiteBG').setOrigin(0.6, 0.5); 
+        this.grid.placeAtIndex(3, this.whiteBg);
+
+        this.Myname = this.addImage(0, 0, 'overview:Myname').setOrigin(0.6, 0.7);
+        this.grid.placeAtIndex(3, this.Myname);
+
+        this.level = this.addImage(0, 0, 'overview:level').setOrigin(0.6, 0.54).setInteractive();
+        this.level.on('pointerdown', () => {
+            this.scene.launch('StatsScene');
+        });
+        this.grid.placeAtIndex(1, this.level);
 
 
         // this.energyTxt = this.add.text(20, 20, `Energy: ${this.player.energy}`);
@@ -201,7 +216,7 @@ class OverviewScene extends Phaser.Scene {
         // this.dailyQuestion = this._player.getDailyQuestion();
         // this.add.text(20, 160, `${this.dailyQuestion.question}`);
 
-        //this.grid.showNumbers();
+        // this.grid.showNumbers();
     }
 
     update() {
