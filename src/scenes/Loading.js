@@ -22,7 +22,7 @@ class LoadingScene extends Phaser.Scene {
         this.load.spritesheet('bird2', 'src/assets/boot/bird-2.png', {frameWidth: 400, frameHeight: 400});
         this.load.image('ground', 'src/assets/boot/ground.png');
         this.load.image('loadingText', 'src/assets/boot/loading-text.png');
-        this.load.image('morfitWalking', 'src/assets/boot/Morfit walking.png');
+        this.load.image('morfitWalking', 'src/assets/caracter_page/morfit_character@2x.png');
         this.load.image('morfitLogo', 'src/assets/boot/morfit-logo.png');
         this.load.image('plant1', 'src/assets/boot/Plant_2.png');
         this.load.image('plant2', 'src/assets/boot/Plant_6.png');
@@ -102,8 +102,9 @@ class LoadingScene extends Phaser.Scene {
         this.grid.scaleTo(this.plant1, 0.28, 500);
         // De morfit in het midden van het scherm
         this.morfitWalking = this.addImage(0, 0, 'morfitWalking');
-        this.grid.placeAtIndex(82, this.morfitWalking);
-        this.grid.scaleTo(this.morfitWalking, .5);
+        this.morfitWalking.flipX = true;                                   
+        this.grid.placeAtIndex(93, this.morfitWalking);
+    
         // De laad tekst onderaan het scherm
         this.loadingText = this.add.text(0, 0, 'Je Morfit is onderweg', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(35 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(0.5, 0.5);
         this.grid.placeAtIndex(137, this.loadingText);
