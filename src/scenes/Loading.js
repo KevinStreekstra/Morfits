@@ -18,11 +18,6 @@ class LoadingScene extends Phaser.Scene {
             height: this.sys.game.config.height
         });
 
-        window.setInterval(()=>{
-            if ((this.loadingText.text += '.').length == 25) 
-                this.loadingText.text = 'Je Morfit is onderweg';
-        }, 750);
-
         this.load.spritesheet('bird1', 'src/assets/boot/bird-1.png', {frameWidth: 400, frameHeight: 400});
         this.load.spritesheet('bird2', 'src/assets/boot/bird-2.png', {frameWidth: 400, frameHeight: 400});
         this.load.image('ground', 'src/assets/boot/ground.png');
@@ -57,7 +52,6 @@ class LoadingScene extends Phaser.Scene {
             frameRate: 5,
             smoothed: false,
             frames: this.anims.generateFrameNames('bird1', {start: 1, end: 4})
-       
         });
 
         this.anims.create({
@@ -65,7 +59,6 @@ class LoadingScene extends Phaser.Scene {
             repeat: -1,
             frameRate: 5,
             frames: this.anims.generateFrameNames('bird2', {start: 1, end: 4})
-       
         });
 
         // De achtergrond van het scherm
@@ -115,6 +108,11 @@ class LoadingScene extends Phaser.Scene {
         // De laad tekst onderaan het scherm
         this.loadingText = this.add.text(0, 0, 'Je Morfit is onderweg', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(35 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(0.5, 0.5);
         this.grid.placeAtIndex(137, this.loadingText);
+
+        this.time.addEvent({ delay: 300, callback: () => {
+            if ((this.loadingText.text += '.').length == 25) 
+                this.loadingText.text = 'Je Morfit is onderweg';
+        }, callbackScope: this, loop: true });
     }
 }
 
