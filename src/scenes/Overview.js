@@ -84,8 +84,8 @@ class OverviewScene extends Phaser.Scene {
             height: this.sys.game.config.height
         });
 
-        this.shopModal = this.add.dom(0, 0, document.createElement('div')).setHTML('dgwefgwe').setOrigin(0, 1);
-        this.grid.placeAtIndex(0, this.shopModal);
+        // this.shopModal = this.add.dom(0, 0, document.createElement('div')).setHTML('dgwefgwe').setOrigin(0, 1);
+        // this.grid.placeAtIndex(0, this.shopModal);
 
         this.bg = this.addImage(0, 0, 'overview:bg').setOrigin(0, 0);
 

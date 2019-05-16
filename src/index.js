@@ -4,8 +4,7 @@ import BootScene from './boot/Boot';
 import LoadingScene from './scenes/Loading';
 import CreatePlayerScene from './scenes/CreatePlayer';
 import OverviewScene from './scenes/Overview';
-import ParallaxScene from './scenes/Parallax';
-import StatsScene from "./scenes/StatsSCene";
+import StatsScene from "./scenes/Stats";
 import DailyScenes from "./scenes/DailyQuiz";
 import WeeklyScenes from "./scenes/WeeklyMission";
 

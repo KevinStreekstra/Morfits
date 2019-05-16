@@ -16,6 +16,9 @@ export function overview_assets() {
     this.load.image('overview:Power100', 'src/assets/caracter_page/100-100@2x.png');
     this.load.image('overview:IconPower', 'src/assets/caracter_page/icon_kracht_fill@2x.png');
     this.load.image('overview:TopNavbar', 'src/assets/caracter_page/nav@2x.png');
+    this.load.image('overview:whiteBG', 'src/assets/level-tap/nav-tap@2x.png');
+    this.load.image('overview:Myname', 'src/assets/level-tap/Myname@2x.png');
+    this.load.image('overview:level', 'src/assets/level-tap/Group 242@2x.png');
 
     //bottom navbar icons / tekst
     this.load.image('overview:btnSettings', 'src/assets/caracter_page/btn_setting@2x.png');
