@@ -14,14 +14,14 @@ class RunMorfiRun extends Phaser.Scene {
             '.' = End of platform boundary
         */ 
         this.map = 
-        '.                                          .'+
-        '.                            h      1      .'+
-        '.            1                             .'+
-        '.                     1                    .'+
-        '.             h                    u       .'+
-        '.       1 h                 1              .'+
-        '.2                   u                    3.'+
-        '44444444444444444444444444444444444444444444';
+        '.                                                                                            .'+
+        '.                            h      1                                                        .'+
+        '.            1                                                                               .'+
+        '.                     1                                    h                  h              .'+
+        '.             h                    u                    1               1                    .'+
+        '.       1 h                 1                 h   1               1                   1      .'+
+        '.2                   u                   1                                h                 3.'+
+        '4444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444';
     }
     
     preload() {}
@@ -44,15 +44,20 @@ class RunMorfiRun extends Phaser.Scene {
             this.player.setVelocityY(-550);
         }
         if(this.key_A.isDown){
-            this.player.setVelocityX(-150);
+            this.player.setVelocityX(300);
         }else if(this.key_D.isDown){
-            this.player.setVelocityX(150);
+            this.player.setVelocityX(300);
         }else{
             this.player.setVelocityX(0);
         }
     }
     spawnPlayer(x, y) {
-        this.player = this.physics.add.image(x, y, "games:player").setMaxVelocity(500);
+        this.player = this.physics.add.image(x, y, "games:player");
+        //set the width of the sprite
+        this.player.displayWidth = 75;
+        //scale evenly
+        this.player.scaleY = this.player.scaleX;
+                
         this.player.body.setGravityY(800);
         this.physics.add.collider(this.player, this.platforms);
         this.physics.add.collider(this.player, this.grounds);
@@ -64,8 +69,8 @@ class RunMorfiRun extends Phaser.Scene {
     }
     createPlatform(){
         this.platforms = this.physics.add.staticGroup();
-        this.grounds = this.physics.add.staticGroup();
-        this.healty = this.physics.add.group();
+        this.grounds = this.physics.add.staticGroup(); 
+        this.healty = this.physics.add.staticGroup();
 
         const splittedMap = this.map.split('.');
         let drawX = 0;
@@ -74,7 +79,7 @@ class RunMorfiRun extends Phaser.Scene {
             drawX = 0;
             for(let i = 0; i<row.length; i++){
                 if(row.charAt(i)==='1'){
-                    this.platforms.create(drawX, drawY, "games:platform");
+                    this.platforms.create(drawX, drawY, "games:platform").setScale(0.25).refreshBody();
                 }else if(row.charAt(i)==='2'){
                     if(row.charAt(i+1)==='1'){
                         this.spawnPlayer(drawX-4, drawY-12);
@@ -84,11 +89,11 @@ class RunMorfiRun extends Phaser.Scene {
                         this.spawnPlayer(drawX, drawY-12);					
                     }
                 } else if(row.charAt(i+1)==='h'){
-                    this.healty.create(drawX, drawY+10, "games:lemon");
+                    this.healty.create(drawX, drawY+10, "games:lemon").setScale(0.25).refreshBody();
                 } else if(row.charAt(i+1)==='3'){
-                    this.healty.create(drawX, drawY+10, "games:finish");
+                    // this.healty.create(drawX, drawY+10, "games:finish");
                 } else if(row.charAt(i+1)==='4'){
-                    this.grounds.create(drawX, drawY-43, "games:ground");
+                    this.grounds.create(drawX, drawY, "games:ground");
                 }
                 drawX+=40;
             }
@@ -98,7 +103,9 @@ class RunMorfiRun extends Phaser.Scene {
 
     collectHealty(player, health){
         health.destroy();
-        player.setAccelerationX(300);
+        // player.setAccelerationX(300);
+        console.log(this.player, this.healty, this.platforms);
+        player.body.setAccelerationX(player.body.acceleration.x + 10000);
     };
 
     done() {
