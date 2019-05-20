@@ -7,6 +7,7 @@ import OverviewScene from './scenes/Overview';
 import StatsScene from "./scenes/Stats";
 import DailyScenes from "./scenes/DailyQuiz";
 import WeeklyScenes from "./scenes/WeeklyMission";
+import RunMorfiRun from "./scenes/games/RunMorfiRun";
 
 const devicePixelRatio = window.devicePixelRatio;
 const scaleDownRation = 1 / 3;
@@ -18,6 +19,12 @@ const game = new Phaser.Game({
     height: 675,
     dom: {
       createContainer: true,
+    },
+    physics: {
+      default: 'arcade',
+      arcade: {
+          debug: false
+      }
     },
     antialias: true,
     multiTexture: true,
@@ -35,6 +42,7 @@ const game = new Phaser.Game({
       DailyScenes,
       WeeklyScenes,
       StatsScene,
+      RunMorfiRun,
     ],
 });
 
