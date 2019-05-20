@@ -15,10 +15,10 @@ class Board {
         //back up grid on the top, for when new blocks are needed
         this.jewel_backup_grid = [];
         this.backupRow = 5;
+        this.init();
     }
   
     init(){
-        console.log('Init Board Class');
         this.createGrid(this.rows, this.cols, this.jewel_grid);
         this.createGrid(this.backupRow, this.cols, this.jewel_backup_grid);
 
@@ -40,21 +40,21 @@ class Board {
     }
 
     swap(source, target){
-        const temp = this.grid[target.row][target.col];
-        this.grid[target.row][target.col] = this.grid[source.row][source.col];
-        this.grid[source.row][source.col] = temp;
+        const temp = this.jewel_grid[target.data.row][target.data.col];
+        this.jewel_grid[target.data.row][target.data.col] = this.jewel_grid[source.data.row][source.data.col];
+        this.jewel_grid[source.data.row][source.data.col] = temp;
     }
 
     /*
         check if two blocks are adjacent
     */
     checkAdjacent(source, target) {
-        const diffRow = Math.abs(source.row - target.row);
-        const diffCol = Math.abs(source.col - target.col);
+        const diffRow = Math.abs(source.data.row - target.data.row);
+        const diffCol = Math.abs(source.data.col - target.data.col);
         
         // Return adjacent blocks
-        return (diffRow == 1 && diffCol === 0) || (diffRow == 0 && diffCol === 1);;
-    };
+        return (diffRow == 1 && diffCol === 0) || (diffRow == 0 && diffCol === 1);
+    }
   
     isChained(block) {
         let isChained = false;
@@ -100,7 +100,7 @@ class Board {
       
         return isChained;
       
-    };
+    }
 
     findAllChains() {
         const chained = [];
@@ -108,6 +108,7 @@ class Board {
         for(let i = 0; i < this.rows; i++) {
             for(let j = 0; j < this.cols; j++) {
                 if(this.isChained({row: i, col: j})) {
+                    console.log('ichained')
                     chained.push({row: i, col: j});
                 }
             }
@@ -115,7 +116,87 @@ class Board {
       
         console.log(chained);
         return chained;
-    };
+    }
+
+    /*
+    clear all the chains*/
+    clearChains(){
+        //gets all blocks that need to be cleared
+        var chainedBlocks = this.findAllChains();
+        //set them to zero
+        chainedBlocks.forEach((block) => {
+            console.log('clear chains', this.jewel_grid[block.row][block.col]);
+            this.jewel_grid[block.row][block.col] = 0;
+            const foundBlocks = this.state.getBlockFromColRow(block);
+            foundBlocks.destroy();
+        });
+
+        return chainedBlocks;
+    }
+
+    /*
+    drop a block in the main grid from a position to another. the source is set to zero
+    */
+    dropBlock(sourceRow, targetRow, col){
+        this.jewel_grid[targetRow][col] = this.jewel_grid[sourceRow][col];
+        this.jewel_grid[sourceRow][col] = 0;
+        console.log(this.jewel_grid);
+    }
+
+    /*
+    drop a block in the reserve grid from a position to another. the source is set to zero
+    */
+    dropReserveBlock(sourceRow, targetRow, col){
+        this.jewel_grid[targetRow][col] = this.jewel_backup_grid[sourceRow][col];
+        this.jewel_backup_grid[sourceRow][col] = 0;
+    }
+
+    populateReserveGrid(){
+        var i,j,variation;
+        for(i = 0; i < this.backupRow; i++) {
+          for(j = 0; j < this.cols; j++) {
+            variation = Math.floor(Math.random() * this.blockVariations) + 1;
+            this.jewel_backup_grid[i][j] = variation;
+          }
+        }
+      };
+    /*
+    move down blocks to fill in empty slots
+    */
+    updateGrid() {
+        let i, j, k, foundBlock;
+
+        //go through all the rows, from the bottom up
+        for(i = this.rows - 1; i >= 0; i--){
+            for(j = 0; j < this.cols; j++) {
+                //if the block if zero, then get climb up to get a non-zero one
+                if(this.jewel_grid[i][j] === 0) {
+                    foundBlock = false;
+
+                    //climb up in the main grid
+                    for(k = i - 1; k >= 0; k--) {
+                        if(this.jewel_grid[k][j] > 0) {
+                            this.dropBlock(k, i, j);
+                            foundBlock = true;
+                            break;
+                        }
+                    }
+                    if(!foundBlock) {
+                        //climb up in the reserve grid
+                        for(k = this.backupRow - 1; k >= 0; k--) {
+                            if(this.jewel_backup_grid[k][j] > 0) {
+                                this.dropReserveBlock(k, i, j);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        //repopulate the reserve
+        this.populateReserveGrid(this.backupRow, this.cols, this.jewel_backup_grid);
+    }
 };
 
 export default Board;
