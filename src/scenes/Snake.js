@@ -1,6 +1,8 @@
 import Phaser from 'phaser';
+import { withDPI } from '../helpers';
 
 let snake;
+let main_body;
 let food;
 let cursors;
 
@@ -9,77 +11,95 @@ const DOWN = 1;
 const LEFT = 2;
 const RIGHT = 3;
 
+const withOffset = (original) => original + withDPI(127);
+
 class SnakeScene extends Phaser.Scene {
     constructor() {
         super({
-            key: 'SnakeScene'
+            key: 'SnakeScene',
+            physics: {
+                default: 'arcade',
+                arcade: {
+                    x: 0,
+                    y: withDPI(127),
+                    gravity: { y: 0 },
+                    debug: true,
+                    width: withDPI(375),
+                    height: withDPI(475)
+                }
+            },
         });
     }
     create() {
-        const Food = new Phaser.Class({
-
-            Extends: Phaser.Physics.Arcade.Image,
-
-            initialize: function Food(scene, x, y) {
-                this.foods = scene.physics.add.group()
-                this.food = this.foods.create(x * 16, y * 16, 'Snake:player2_body')
-
-                this.food.setOrigin(0);
-                this.total = 0;
-
-                scene.children.add(this);
-
-
-
-                // Phaser.Physics.Arcade.Image.call(this, scene)
-
-                // this.setTexture('food');
-                // this.setPosition(x * 16, y * 16);
-                // this.setOrigin(0);
-
-                // this.total = 0;
-
-                // scene.children.add(this);
-            },
-
-            eat: function () {
-                this.total++;
-            }
-
-        });
-
         const Snake = new Phaser.Class({
+            initialize: function Snake(scene, x, y) {
+                // Game variables
+                this.alive = true;
+                this.speed = 100;
+                this.moveTime = 0;
+                this.total = 0;
+                this.score = 0;
+                this.scoreText = scene.add
+                    .text(
+                        withDPI(16),
+                        withDPI(84),
+                        `Huidige score: ${this.score}`,
+                        {
+                            fontFamily: 'BubblegumSans',
+                            fontSize: '24px',
+                            color: '#fff',
+                            align: 'left'
+                        }
+                    ).setScale(withDPI(1), withDPI(1))
 
-            initialize: function Snake (scene, x, y) {
-                this.headPosition = new Phaser.Geom.Point(x, y);
+                // Start defining the snake
+                this.headPosition = new Phaser.Geom.Point(12.5, 12.5);
 
+                // Create a physics group that will contain the head and all snake heads.
                 this.body = scene.physics.add.group();
-                this.head.setCollideWorldBounds(true)
 
-                // this.body = scene.add.group();
+                // Create the head.
+                this.head = this.body
+                    .create(
+                        x * 25,
+                        withOffset(y * 25),
+                        'Snake:player1_head'
+                    )
+                    .setScale(withDPI(0.33), withDPI(0.33));
 
-                this.head = this.body.create(x * 16, y * 16, 'Snake:player1_head').setScale(0.33 * window.devicePixelRatio, 0.3 * window.devicePixelRatio);
                 this.head.setOrigin(0.5);
                 this.head.setAngle(-90);
+                this.head.setDepth(10);
 
-                this.alive = true;
+                this.tail = new Phaser.Geom.Point(12.5, 12.5);
+                main_body = this.body
 
-                this.speed = 100;
-
-                this.moveTime = 0;
-
-                this.tail = new Phaser.Geom.Point(x, y);
-
-                // Food related
+                // Define the initial food.
                 this.foods = scene.physics.add.group()
-                this.food = this.foods.create(3 * 16, 4 * 16, 'Snake:player2_body')
+                this.food = this.foods
+                    .create(
+                        3 * 25,
+                        withOffset(4 * 25),
+                        'Snake:player2_body'
+                    )
+                    .setScale(withDPI(1), withDPI(1))
 
                 this.food.setOrigin(0);
-                this.total = 0;
+
+                // Add the listener for overlap, this allows us to easily handle what happens if these 2 objects touch.
                 scene.physics.add.overlap(this.head, this.food, this.collideWithFood, null, this);
 
+
+                // Variables to define the direction of the snake.
                 this.heading = RIGHT;
                 this.direction = RIGHT;
+
+                // Add background grid
+                this.background = scene.add
+                    .image(0, withDPI(127), 'Snake:board_background')
+                    .setScale(withDPI(0.333), withDPI(0.333))
+                    .setOrigin(0)
+                    .setDepth(-1);
             },
 
             update: function (time) {
@@ -126,31 +146,39 @@ class SnakeScene extends Phaser.Scene {
                 */
                 switch (this.heading) {
                     case LEFT:
-                        this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x - 1, 0, 40);
+                        this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x - 1, 0, 30);
                         break;
 
                     case RIGHT:
-                        this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x + 1, 0, 40);
+                        this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x + 1, 0, 30);
                         break;
 
                     case UP:
-                        this.headPosition.y = Phaser.Math.Wrap(this.headPosition.y - 1, 0, 30);
+                        this.headPosition.y = Phaser.Math.Wrap(this.headPosition.y - 1, 0, 38);
                         break;
 
                     case DOWN:
-                        this.headPosition.y = Phaser.Math.Wrap(this.headPosition.y + 1, 0, 30);
+                        this.headPosition.y = Phaser.Math.Wrap(this.headPosition.y + 1, 0, 38);
                         break;
                 }
 
                 this.direction = this.heading;
 
                 //  Update the body segments and place the last coordinate into this.tail
-                Phaser.Actions.ShiftPosition(this.body.getChildren(), this.headPosition.x * 16, this.headPosition.y * 16, 1, this.tail);
+                Phaser.Actions.ShiftPosition(this.body.getChildren(), this.headPosition.x * 25, (this.headPosition.y * 25) + withDPI(127), 1, this.tail);
 
                 //  Check to see if any of the body pieces have the same x/y as the head
                 //  If they do, the head ran into the body
 
-                var hitBody = Phaser.Actions.GetFirst(this.body.getChildren(), { x: this.head.x, y: this.head.y }, 1);
+                var hitBody = Phaser.Actions
+                    .GetFirst(
+                        this.body.getChildren(),
+                        {
+                            x: this.head.x,
+                            y: this.head.y
+                        },
+                        1
+                    );
 
                 if (hitBody) {
                     console.log('dead');
@@ -163,17 +191,25 @@ class SnakeScene extends Phaser.Scene {
                     //  Update the timer ready for the next movement
                     this.moveTime = time + this.speed;
 
+                    // Update the score
+                    this.score = Math.floor((this.moveTime / 500) + (this.total * 100));
+                    // Make the score visible to the user.
+                    this.scoreText.setText(`Huidige score: ${this.score}`);
+
                     return true;
                 }
             },
 
             grow: function () {
-                var newPart = this.body.create(this.tail.x, this.tail.y, 'Snake:player1_body');
+                const newPart = this.body
+                    .create(this.tail.x, this.tail.y, 'Snake:player1_body')
+                    .setScale(withDPI(0.5), withDPI(0.5));
 
-                newPart.setOrigin(0);
+                newPart.setOrigin(0.5);
             },
 
             collideWithFood: function (head, food) {
+                food.disableBody(true, true);
                 this.grow();
 
                 this.repositionFood();
@@ -190,13 +226,13 @@ class SnakeScene extends Phaser.Scene {
                 //  Remove all body pieces from valid positions list
                 this.body.children.each(function (segment) {
 
-                    var bx = segment.x / 16;
-                    var by = segment.y / 16;
+                    var bx = Math.floor(segment.x / 25);
+                    var by = Math.floor(segment.y / 25);
 
                     try {
                         grid[by][bx] = false;
                     } catch (err) {
-                        console.log(err);
+                        console.log({ bx, by, err });
                     }
                 });
                 return grid;
@@ -209,10 +245,10 @@ class SnakeScene extends Phaser.Scene {
                 //  A Grid we'll use to reposition the food each time it's eaten
                 let testGrid = [];
 
-                for (var y = 0; y < 30; y++) {
+                for (var y = 0; y < 29; y++) {
                     testGrid[y] = [];
 
-                    for (var x = 0; x < 40; x++) {
+                    for (var x = 0; x < 29; x++) {
                         testGrid[y][x] = true;
                     }
                 }
@@ -222,8 +258,8 @@ class SnakeScene extends Phaser.Scene {
                 //  Purge out false positions
                 var validLocations = [];
 
-                for (var y = 0; y < 30; y++) {
-                    for (var x = 0; x < 40; x++) {
+                for (var y = 0; y < 29; y++) {
+                    for (var x = 0; x < 29; x++) {
                         if (testGrid[y][x] === true) {
                             //  Is this position valid for food? If so, add it here ...
                             validLocations.push({ x: x, y: y });
@@ -234,10 +270,10 @@ class SnakeScene extends Phaser.Scene {
                 if (validLocations.length > 0) {
                     //  Use the RNG to pick a random food position
                     var pos = Phaser.Math.RND.pick(validLocations);
-                    console.log(snake)
 
                     //  And place it
-                    snake.food.setPosition(pos.x * 16, pos.y * 16);
+                    snake.food.setPosition(pos.x * 25, withOffset(pos.y * 25));
+                    snake.food.disableBody(false, false)
 
                     return true;
                 }
@@ -257,6 +293,7 @@ class SnakeScene extends Phaser.Scene {
         if (!snake.alive)   {
             return;
         }
+        this.physics.world.wrap(main_body, 32);
 
     /**
     * Check which key is pressed, and then change the direction the snake

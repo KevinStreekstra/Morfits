@@ -14,7 +14,7 @@ const scaleDownRation = 1 / 3;
 
 const game = new Phaser.Game({
     parent: 'game',
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 375,
     height: 675,
     dom: {
@@ -27,13 +27,6 @@ const game = new Phaser.Game({
         scale: Phaser.Scale.NONE,
         width: 375 * devicePixelRatio,
         height: 675 * devicePixelRatio
-    },
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: { y: 0 },
-            debug: true
-        }
     },
     scene: [
         LoadingScene,

@@ -15,3 +15,12 @@
 export function addImage(x, y, texture, frame) {
     return this.add.image(x, y, texture, frame).setScale(window.devicePixelRatio, window.devicePixelRatio)
 }
+
+/**
+ * Function to easily make sure it scales with DPI
+ * @param {number} original - the original number to multiply with the device pixel ratio.
+ * @returns {number} number multiplied with the device pixel ratio.
+ */
+export function withDPI(original) {
+    return original * window.devicePixelRatio
+}
