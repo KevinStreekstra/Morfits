@@ -1,2 +1,4 @@
 node_modules/
 .vscode
+/.metadata/
+.DS_Store

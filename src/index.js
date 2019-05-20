@@ -7,6 +7,7 @@ import OverviewScene from './scenes/Overview';
 import StatsScene from "./scenes/Stats";
 import DailyScenes from "./scenes/DailyQuiz";
 import WeeklyScenes from "./scenes/WeeklyMission";
+import SnakeScene from "./scenes/Snake";
 
 const devicePixelRatio = window.devicePixelRatio;
 const scaleDownRation = 1 / 3;
@@ -27,14 +28,22 @@ const game = new Phaser.Game({
         width: 375 * devicePixelRatio,
         height: 675 * devicePixelRatio
     },
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 0 },
+            debug: true
+        }
+    },
     scene: [
-      LoadingScene,
-      BootScene,
-      CreatePlayerScene,
-      OverviewScene,
-      DailyScenes,
-      WeeklyScenes,
-      StatsScene,
+        LoadingScene,
+        BootScene,
+        CreatePlayerScene,
+        OverviewScene,
+        DailyScenes,
+        WeeklyScenes,
+        StatsScene,
+        SnakeScene
     ],
 });
 
