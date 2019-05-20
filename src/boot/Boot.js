@@ -7,6 +7,7 @@ import { dailyQuiz_assets } from './_DailyQuiz';
 import { weeklyMission_assets } from './_WeeklyMission';
 import { shop } from './_Shop';
 import { stats } from './_Stats';
+import { game_RunMorfiRun_assets } from './games/_RunMorfiRun';
 
 class BootScene extends Phaser.Scene {
     constructor() {
@@ -20,6 +21,7 @@ class BootScene extends Phaser.Scene {
         this.weeklyMission_assets = weeklyMission_assets.bind(this);
         this.shop = shop.bind(this);
         this.stats = stats.bind(this);
+        this.game_RunMorfiRun_assets = game_RunMorfiRun_assets.bind(this);
     }
 
     preload() {
@@ -37,6 +39,7 @@ class BootScene extends Phaser.Scene {
         this.weeklyMission_assets();
         this.shop();
         this.stats();
+        this.game_RunMorfiRun_assets();
         // END LOAD SCENE ASSETS
 
         this.load.on('complete', () => {

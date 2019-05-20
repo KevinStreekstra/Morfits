@@ -7,6 +7,7 @@ class RunMorfiRun extends Phaser.Scene {
             ' ' = nothing,
             1 = platform
             2 = spawn point
+            3 = finish point
             'h' = H ealty food
             'u' = U nhealty food
             '.' = End of platform boundary
@@ -25,7 +26,11 @@ class RunMorfiRun extends Phaser.Scene {
     preload() {}
 
     create() {
-
+        console.log('run morfi run game created');           
+        this.spawnPlayer = ()=>{
+            this.player = this.physics.add.sprite(400, 250, "player", "sprite_0");
+        }
+        this.spawnPlayer();
 
     }
 }
