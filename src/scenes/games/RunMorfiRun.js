@@ -139,15 +139,11 @@ class RunMorfiRun extends Phaser.Scene {
 
     done() {
         this.physics.pause();
-        this.scene.add('PopupModalScene',PopupModalScene, true, {
-            title: 'Goed Gedaan!'
+        this.scene.add('PopupModalScene', PopupModalScene, true, {
+            title: 'Goed Gedaan!',
+            priceAmount: '20',
+            priceText: 'Prijs:',
         });
-        let deathText = this.add.text(0, 0, "FINISHED", {
-            color:"#d53636",
-            fontFamily:"Arial Black",
-            fontSize:"50px"
-        }).setScrollFactor(0);
-        Phaser.Display.Align.In.Center(deathText, this.add.zone(400, 250, 800, 500));
     }
 }
 
