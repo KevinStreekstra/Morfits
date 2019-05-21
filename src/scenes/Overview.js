@@ -1,7 +1,7 @@
 import Player from '../classes/Player';
 import AlignGrid from '../classes/AlignGrid';
 
-import { addImage } from '../helpers';
+import { addImage, addElement } from '../helpers';
 
 class OverviewScene extends Phaser.Scene {
     constructor() {
@@ -65,6 +65,7 @@ class OverviewScene extends Phaser.Scene {
 
         this.dailyQuestion = {};
         this.addImage = addImage.bind(this);
+        this.addElement = addElement.bind(this);
 
         this.scaleRatio = window.devicePixelRatio / 3;
     }
@@ -83,9 +84,6 @@ class OverviewScene extends Phaser.Scene {
             width: this.sys.game.config.width,
             height: this.sys.game.config.height
         });
-
-        // this.shopModal = this.add.dom(0, 0, document.createElement('div')).setHTML('dgwefgwe').setOrigin(0, 1);
-        // this.grid.placeAtIndex(0, this.shopModal);
 
         this.bg = this.addImage(0, 0, 'overview:bg').setOrigin(0, 0);
 
@@ -202,6 +200,8 @@ class OverviewScene extends Phaser.Scene {
         });
         this.grid.placeAtIndex(1, this.level);
 
+        this.scene.launch('ShopScene');
+
 
         // this.energyTxt = this.add.text(20, 20, `Energy: ${this.player.energy}`);
         // this.foodTxt = this.add.text(20, 40, `Food: ${this.player.food}`);
@@ -216,7 +216,7 @@ class OverviewScene extends Phaser.Scene {
         // this.dailyQuestion = this._player.getDailyQuestion();
         // this.add.text(20, 160, `${this.dailyQuestion.question}`);
 
-        // this.grid.showNumbers();
+        //this.grid.showNumbers();
     }
 
     update() {
