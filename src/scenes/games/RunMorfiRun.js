@@ -14,12 +14,11 @@ class RunMorfiRun extends Phaser.Scene {
             '.' = End of platform boundary
         */ 
         this.map = 
- 
         '.                              1                                                                                                       1                                     1                                                                                                       1                             .'+
         '.                      h                         u                1         h                                   h              h                                     h                         u                1         h                                   h              h                         u           .'+
         '.        1                               1             1                                               1                                         1     1                               1             1                                               1                                         1                   .'+
-        '.2              h                  u                            h               u      h       1                       1                   u                  h                  u                            h               u      h       1                       1                   u                         .'+
-        '.                                                                                                                                                                                                                                                                                                                 3.'+
+        '.2              h                  u                            h               u      h       1                       1                   u                  h                  u                            h               u      h       1                       1                   u                        3.'+
+        '.                                                                                                                                                                                                                                                                                                                  .'+
         '4444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444';
     }
     
@@ -27,16 +26,17 @@ class RunMorfiRun extends Phaser.Scene {
 
     create() {
         console.log('run morfi run game created');      
-        this.cameras.main.setBackgroundColor('#ffffff');
+        this.cameras.main.setBackgroundColor('#132B4B');
 
 
         this.key_W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.key_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.key_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
+        this.add.sprite(0,0, 'games:bg').setDepth(-1).setScrollFactor(0.04).setOrigin(0.5, 0.1);
+        this.you = this.add.sprite(0,0, 'games:you').setScrollFactor(0).setOrigin(0, 0);
         this.createPlatform();
         this.spawnPlayer();
-
     }
     update() {
         this.setSpeed();
@@ -61,15 +61,17 @@ class RunMorfiRun extends Phaser.Scene {
         this.player.displayWidth = 75;
         //scale evenly
         this.player.scaleY = this.player.scaleX;
-                
+
         this.player.body.setGravityY(750);
         this.physics.add.collider(this.player, this.platforms, this.removeSpeed, null, this);
         this.physics.add.collider(this.player, this.grounds);
         this.physics.add.overlap(this.player, this.healty, this.collectHealty, null, this);
         this.physics.add.overlap(this.player, this.unhealty, this.reduceSpeed, null, this);
         this.physics.add.overlap(this.player, this.finish, this.done, null, this);
-
-        this.cameras.main.startFollow(this.player);
+        
+        this.cameras.main.startFollow(this.player, true, true, 0);
+    }
+    spawnIcon(){
 
     }
     createPlatform(){
@@ -87,7 +89,7 @@ class RunMorfiRun extends Phaser.Scene {
             for(let i = 0; i<row.length; i++){
                 if(row.charAt(i)==='1') {
                     // this.platforms.create(drawX, drawY, "games:platform").setScale(0.25).refreshBody();
-                    this.platforms.create(drawX, drawY, "games:platform").setScale(0.25).setOrigin(0, 3).refreshBody();
+                    this.platforms.create(drawX, drawY, "games:platform").setScale(0.15).setOrigin(0, 4).refreshBody();
                 } else if(row.charAt(i)==='2') {
                     if(row.charAt(i+1)==='1') {
                         this.spawnPlayer(drawX-4, drawY-12);
@@ -101,9 +103,9 @@ class RunMorfiRun extends Phaser.Scene {
                 } else if(row.charAt(i+1)==='u') {
                     this.unhealty.create(drawX, drawY+10, "games:hamburger").setScale(0.25).setOrigin(0, 3).refreshBody();
                 } else if(row.charAt(i+1)==='3') {
-                    this.finish.create(drawX, drawY+10, "games:finish").setScale(0.5).setOrigin(0, 1.4).refreshBody();
+                    this.finish.create(drawX, drawY-10, "games:finish").setScale(0.5).setOrigin(0, 1.1).refreshBody();
                 } else if(row.charAt(i+1)==='4') {
-                    this.grounds.create(drawX, drawY, "games:ground");
+                    this.grounds.create(800*i, drawY-10, "games:ground").refreshBody();
                 }
                 drawX+=40;
             }
@@ -111,22 +113,20 @@ class RunMorfiRun extends Phaser.Scene {
         });
     };
 
-    collectHealty(player, health){
-        health.destroy();
-        // player.setAccelerationX(300);
-        console.log(this.player, this.healty, this.platforms);
+    collectHealty(player, healty){
+        healty.destroy();
         player.body.setAccelerationX(player.body.acceleration.x + 10000);
     };
 
-    removeSpeed(player, forced){
-        if(player.body.blocked.left || player.body.blocked.right || forced){
+    removeSpeed(player){
+        if(player.body.blocked.down && player.body.blocked.right || player.body.blocked.right){
             player.body.setAccelerationX(0);
         }
     }
 
     reduceSpeed(player, unhealthy){
         unhealthy.destroy();
-        this.removeSpeed(player, true);
+        player.body.setAccelerationX(0);
     };
 
     done() {
