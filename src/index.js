@@ -7,6 +7,11 @@ import OverviewScene from './scenes/Overview';
 import StatsScene from "./scenes/Stats";
 import DailyScenes from "./scenes/DailyQuiz";
 import WeeklyScenes from "./scenes/WeeklyMission";
+import StartQuiz from "./scenes/StartQuiz";
+import StopQuiz from "./scenes/StopQuiz";
+
+//Quiz questions
+import Question1 from "./scenes/QuizScenes/Question1";
 
 const devicePixelRatio = window.devicePixelRatio;
 const scaleDownRation = 1 / 3;
@@ -35,6 +40,9 @@ const game = new Phaser.Game({
       DailyScenes,
       WeeklyScenes,
       StatsScene,
+      StartQuiz,
+      StopQuiz,
+      Question1,
     ],
 });
 

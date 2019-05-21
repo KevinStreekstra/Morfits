@@ -7,6 +7,11 @@ import { dailyQuiz_assets } from './_DailyQuiz';
 import { weeklyMission_assets } from './_WeeklyMission';
 import { shop } from './_Shop';
 import { stats } from './_Stats';
+import { StartQuiz } from './_StartQuiz'; 
+import { StopQuiz } from './_StopQuiz';
+
+//Quiz Questions
+import { Question1 } from './BootQuiz/_Question1';
 
 class BootScene extends Phaser.Scene {
     constructor() {
@@ -20,6 +25,10 @@ class BootScene extends Phaser.Scene {
         this.weeklyMission_assets = weeklyMission_assets.bind(this);
         this.shop = shop.bind(this);
         this.stats = stats.bind(this);
+        this.StartQuiz = StartQuiz.bind(this);
+        this.StopQuiz = StopQuiz.bind(this);
+
+        this.Question1 = Question1.bind(this);
     }
 
     preload() {
@@ -37,6 +46,9 @@ class BootScene extends Phaser.Scene {
         this.weeklyMission_assets();
         this.shop();
         this.stats();
+        this.StartQuiz();
+        this.StopQuiz();
+        this.Question1();
         // END LOAD SCENE ASSETS
 
         this.load.on('complete', () => {
