@@ -40,11 +40,15 @@ const game = new Phaser.Game({
     ],
 });
 
-WebFontConfig = {
+const WebFontConfig = {
   google: {
     families: ['Bubblegum Sans']
   }
 }
+
+if(typeof(module.hot) !== 'undefined') {
+    module.hot.accept() // eslint-disable-line no-undef
+  }
 
 // game.config.width = window.innerWidth * window.devicePixelRatio;
 // game.config.height = window.innerHeight * window.devicePixelRatio;

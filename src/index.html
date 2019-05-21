@@ -33,17 +33,19 @@
 				color: #94A0B0;
 			}
 		</style>
-
-		<script src="src/font.js"></script>
   	</head>
 	<body>
 		<div id="game"></div>
-        <div style="position: absolute; width: 375px; height: 475px; top: 0; left: 0; border: 1px solid blue;"></div>
 		<div id="formUtil" style="display: none;">
 			<div id="create:step1">
 				<input type="text" id="player:username" placeholder="Typ hier je naam"/>
 				<button id="player:submit">Klaar!</button>
 			</div>
         </div>
+        <p>test</p>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io();
+        </script>
 	</body>
 </html>
