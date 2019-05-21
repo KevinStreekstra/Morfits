@@ -1,3 +1,5 @@
+import PopupModalScene from '../PopupModal';
+
 class RunMorfiRun extends Phaser.Scene {
     constructor() {
         super({
@@ -137,7 +139,7 @@ class RunMorfiRun extends Phaser.Scene {
 
     done() {
         this.physics.pause();
-        this.scene.start('PopupModalScene', {
+        this.scene.add('PopupModalScene',PopupModalScene, true, {
             title: 'Goed Gedaan!'
         });
         let deathText = this.add.text(0, 0, "FINISHED", {

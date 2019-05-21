@@ -38,7 +38,6 @@ const game = new Phaser.Game({
     },
     scene: [
       LoadingScene,
-      PopupModalScene,
       BootScene,
       CreatePlayerScene,
       OverviewScene,
