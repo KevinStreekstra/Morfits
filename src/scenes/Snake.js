@@ -12,6 +12,7 @@ let snake;
 let main_body;
 let main_soda;
 let cursors;
+let main_socket
 
 const UP = 0;
 const DOWN = 1;
@@ -39,6 +40,43 @@ class SnakeScene extends Phaser.Scene {
     }
 
     create() {
+        var self = this;
+        this.socket = io();
+        main_socket = this.socket;
+        this.socket.on('currentPlayers', function (players) {
+            Object.keys(players).forEach(function (id) {
+                if (players[id].playerId === self.socket.id) {
+                    addPlayer(self, players[id]);
+                }
+            });
+        });
+
+        this.socket.on('playerChangedDirection', function (playerInfo) {
+            this.otherPlayers.getChildren().forEach(function (otherPlayer) {
+                if (playerInfo.playerId === otherPlayer.playerId) {
+                    otherPlayer.setAngle(playerInfo.rotation);
+                }
+            });
+        });
+
+
+        function addPlayer(self, playerInfo) {
+            console.log({self, playerInfo})
+            self.ship = self.physics.add
+                .image(playerInfo.x, playerInfo.y, 'ship')
+                .setOrigin(0.5, 0.5)
+                .setDisplaySize(53, 40);
+
+            if (playerInfo.team === 'blue') {
+                self.ship.setTint(0x0000ff);
+            } else {
+                self.ship.setTint(0xff0000);
+            }
+            self.ship.setDrag(100);
+            self.ship.setAngularDrag(100);
+            self.ship.setMaxVelocity(200);
+        }
+
         const Snake = new Phaser.Class({
             initialize: function Snake(scene, x, y) {
                 // Game variables
@@ -70,6 +108,9 @@ class SnakeScene extends Phaser.Scene {
 
                 // Start defining the snake
                 this.headPosition = new Phaser.Geom.Point(12.5, 12.5);
+
+                // Define code for other players
+                this.otherPlayers = {};
 
                 // Create a physics group that will contain the head and all snake heads.
                 this.body = scene.physics.add.group();
@@ -163,6 +204,8 @@ class SnakeScene extends Phaser.Scene {
                     this.notHealthy.push(this.soda);
                 }
 
+                this.createSecondPlayer('test', scene)
+
 
                 // Add background grid
                 this.background = scene.add
@@ -178,10 +221,31 @@ class SnakeScene extends Phaser.Scene {
                 }
             },
 
+            createSecondPlayer: function (playerId, scene) {
+                this.otherPlayers[playerId] = {};
+                const secondPlayer = this.otherPlayers[playerId]
+                secondPlayer.body = scene.physics.add.group();
+
+                secondPlayer.head = secondPlayer.body
+                    .create(
+                        12 * 25,
+                        withOffset(12 * 25),
+                        'Snake:player1_head'
+                    )
+                    .setScale(withDPI(0.33), withDPI(0.33));
+
+                secondPlayer.head.setOrigin(0.5);
+                secondPlayer.head.setAngle(-90);
+                secondPlayer.head.setDepth(10);
+
+                secondPlayer.tail = new Phaser.Geom.Point(12.5, 12.5);
+            },
+
             faceLeft: function () {
                 if (this.direction === UP || this.direction === DOWN) {
                     this.heading = LEFT;
                     this.head.setAngle(90);
+                    main_socket.emit('directionChange', { rotation: 90 })
                 }
             },
 
@@ -189,6 +253,7 @@ class SnakeScene extends Phaser.Scene {
                 if (this.direction === UP || this.direction === DOWN) {
                     this.heading = RIGHT;
                     this.head.setAngle(-90);
+                    main_socket.emit('directionChange', { rotation: -90 })
                 }
             },
 
@@ -196,6 +261,7 @@ class SnakeScene extends Phaser.Scene {
                 if (this.direction === LEFT || this.direction === RIGHT) {
                     this.heading = UP;
                     this.head.setAngle(180);
+                    main_socket.emit('directionChange', { rotation: 180 })
                 }
             },
 
@@ -203,6 +269,7 @@ class SnakeScene extends Phaser.Scene {
                 if (this.direction === LEFT || this.direction === RIGHT) {
                     this.heading = DOWN;
                     this.head.setAngle(0);
+                    main_socket.emit('directionChange', { rotation: 0 })
                 }
             },
 
@@ -217,18 +284,34 @@ class SnakeScene extends Phaser.Scene {
                 switch (this.heading) {
                     case LEFT:
                         this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x - 1, 0, 30);
+                        main_socket.emit('playerMovement', {
+                            x: this.headPosition.x,
+                            y: this.headPosition.y
+                        })
                         break;
 
                     case RIGHT:
                         this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x + 1, 0, 30);
+                        main_socket.emit('playerMovement', {
+                            x: this.headPosition.x,
+                            y: this.headPosition.y
+                        })
                         break;
 
                     case UP:
                         this.headPosition.y = Phaser.Math.Wrap(this.headPosition.y - 1, 0, 38);
+                        main_socket.emit('playerMovement', {
+                            x: this.headPosition.x,
+                            y: this.headPosition.y
+                        })
                         break;
 
                     case DOWN:
                         this.headPosition.y = Phaser.Math.Wrap(this.headPosition.y + 1, 0, 38);
+                        main_socket.emit('playerMovement', {
+                            x: this.headPosition.x,
+                            y: this.headPosition.y
+                        })
                         break;
                 }
 
