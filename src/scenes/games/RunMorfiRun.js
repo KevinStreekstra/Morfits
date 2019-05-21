@@ -17,12 +17,12 @@ class RunMorfiRun extends Phaser.Scene {
         '.                              1                                                                                                       1                                     1                                                                                                       1                             .'+
         '.                      h                         u                1         h                                   h              h                                     h                         u                1         h                                   h              h                         u           .'+
         '.        1                               1             1                                               1                                         1     1                               1             1                                               1                                         1                   .'+
-        '.2              h                  u                            h               u      h       1                       1                   u                  h                  u                            h               u      h       1                       1                   u                        3.'+
+        '.2     3         h                  u                            h               u      h       1                       1                   u                  h                  u                            h               u      h       1                       1                   u                        3.'+
         '.                                                                                                                                                                                                                                                                                                                  .'+
         '4444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444';
     }
     
-    preload() {}
+    preload() {    }
 
     create() {
         console.log('run morfi run game created');      
@@ -137,6 +137,9 @@ class RunMorfiRun extends Phaser.Scene {
 
     done() {
         this.physics.pause();
+        this.scene.start('PopupModalScene', {
+            title: 'Goed Gedaan!'
+        });
         let deathText = this.add.text(0, 0, "FINISHED", {
             color:"#d53636",
             fontFamily:"Arial Black",
