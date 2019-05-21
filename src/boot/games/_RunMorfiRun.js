@@ -7,6 +7,8 @@ export function game_RunMorfiRun_assets() {
     this.load.image('games:bg', 'src/assets/games/run_morfi_run/bg.png');
     this.load.image('games:you', 'src/assets/games/run_morfi_run/you.png');
     this.load.image('games:enemy', 'src/assets/games/run_morfi_run/enemy.png');
+    this.load.image('games:run', 'src/assets/games/run_morfi_run/run-button.png');
+    this.load.image('games:jump', 'src/assets/games/run_morfi_run/jump-button.png');
     this.load.image('games:finish-icon', 'src/assets/games/run_morfi_run/finish-icon.png');
     this.load.image('games:hamburger', 'src/assets/illustraties/food/unhealty/Hamburger.png');
 }

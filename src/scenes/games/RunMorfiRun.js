@@ -35,6 +35,12 @@ class RunMorfiRun extends Phaser.Scene {
 
         this.add.sprite(0,0, 'games:bg').setDepth(-1).setScrollFactor(0.04).setOrigin(0.5, 0.1);
         this.you = this.add.sprite(0,0, 'games:you').setScrollFactor(0).setOrigin(0, 0);
+
+        this.button_run = this.add.sprite(0,0, 'games:run').setOrigin(-0.5,-5).setDepth(2).setScale(0.6).setScrollFactor(0);
+        this.button_jump = this.add.sprite(0,0, 'games:jump').setOrigin(-2,-5).setDepth(2).setScale(0.6).setScrollFactor(0);
+        this.button_run.setInteractive();
+        this.button_jump.setInteractive();
+
         this.createPlatform();
         this.spawnPlayer();
     }
@@ -103,7 +109,7 @@ class RunMorfiRun extends Phaser.Scene {
                 } else if(row.charAt(i+1)==='u') {
                     this.unhealty.create(drawX, drawY+10, "games:hamburger").setScale(0.25).setOrigin(0, 3).refreshBody();
                 } else if(row.charAt(i+1)==='3') {
-                    this.finish.create(drawX, drawY-10, "games:finish").setScale(0.5).setOrigin(0, 1.1).refreshBody();
+                    this.finish.create(drawX, drawY-10, "games:finish").setScale(0.5).setOrigin(0, 1.1).setDepth(2).refreshBody();
                 } else if(row.charAt(i+1)==='4') {
                     this.grounds.create(800*i, drawY-10, "games:ground").refreshBody();
                 }
