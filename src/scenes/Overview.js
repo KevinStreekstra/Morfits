@@ -87,6 +87,28 @@ class OverviewScene extends Phaser.Scene {
 
         this.bg = this.addImage(0, 0, 'overview:bg').setOrigin(0, 0);
 
+        // Top Navbar 
+        this.TopNavbar = this.addImage(0, 0, 'overview:BottomNavbar');
+        this.grid.placeAtIndex(7, this.TopNavbar);
+        this.whiteBg = this.addImage(0, 0, 'overview:whiteBG').setOrigin(0.55, 0.45); 
+        this.grid.placeAtIndex(3, this.whiteBg);
+        this.Mylevel = this.add.text(0, 0, this._player.getLevel(), { fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(1, 0.25);
+        this.grid.placeAtIndex(1, this.Mylevel);
+        this.Myname = this.add.text(0, 0, this.player.username, { fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(0.6, 0.25);
+        this.grid.placeAtIndex(3, this.Myname);
+        this.navPP = this.addImage(0, 0, 'overview:navPP').setOrigin(0.8, 0.43);
+        this.grid.placeAtIndex(9, this.navPP);
+        this.MyPP = this.add.text(0, 0, this.player.powerpoints, { fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(1.4, 0.25);
+        this.grid.placeAtIndex(9, this.MyPP);
+        this.navM_Dollars = this.addImage(0, 0, 'overview:navM_Dollars').setOrigin(0.7, 0.4);
+        this.grid.placeAtIndex(13, this.navM_Dollars);
+        this.MyM_dollars = this.add.text(0, 0, this.player.morfos, { fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(0.5, 0.25);
+        this.grid.placeAtIndex(12, this.MyM_dollars);
+
+
+
+        
+
         //bottom navbar & ground & icons
 
         this.ground2 = this.addImage(0, 0, 'overview:ground2').setOrigin(0.5, 0.42);
@@ -156,80 +178,47 @@ class OverviewScene extends Phaser.Scene {
         this.friends = this.addImage(0, 0, 'overview:btnFriends').setOrigin(0.7, 0.6);
         this.grid.placeAtIndex(194, this.friends);
 
-        //top navbar & healthbars
-        this.MentalBar = this.addImage(0, 0, 'overview:MentalBar');
-        this.grid.placeAtIndex(32, this.MentalBar);
-
-        // this.txtMentalbar = this.addImage(0, 0, 'overview:Mental80').setOrigin(0.2, 1.9);
-        this.txtMentalbar = this.add.text(0, 0, '80/100', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'green'}).setOrigin(0.6, 1.8);
-        this.grid.placeAtIndex(47, this.txtMentalbar);
-
-        this.IconMental = this.addImage(0, 0, 'overview:IconMental').setOrigin(0.45, 0.5);
-        this.grid.placeAtIndex(30, this.IconMental);
-
-        this.EnergyBar = this.addImage(0, 0, 'overview:EnergyBar');
-        this.grid.placeAtIndex(37, this.EnergyBar);
-
-        this.txtEnergybar = this.add.text(0, 0, '100/100', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'blue'}).setOrigin(0.5, 1.8);
-        this.grid.placeAtIndex(52, this.txtEnergybar);
-
-        this.IconEnergy = this.addImage(0, 0, 'overview:IconEnergy').setOrigin(0.45, 0.5);
-        this.grid.placeAtIndex(35, this.IconEnergy);
-
-        this.PowerBar = this.addImage(0, 0, 'overview:PowerBar');
-        this.grid.placeAtIndex(42, this.PowerBar);
-
-        this.txtPowerbar = this.add.text(0, 0, '100/100', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'red'}).setOrigin(0.5, 1.8);
-        this.grid.placeAtIndex(57, this.txtPowerbar);
-
-        this.IconPower = this.addImage(0, 0, 'overview:IconPower').setOrigin(0.45, 0.5);
-        this.grid.placeAtIndex(40, this.IconPower);
-
-        this.nav = this.addImage(0, 0, 'overview:TopNavbar');
-        this.grid.placeAtIndex(7, this.nav);
-
-        this.whiteBg = this.addImage(0, 0, 'overview:whiteBG').setOrigin(0.6, 0.5); 
-        this.grid.placeAtIndex(3, this.whiteBg);
-
-        this.Myname = this.addImage(0, 0, 'overview:Myname').setOrigin(0.6, 0.7);
-        this.grid.placeAtIndex(3, this.Myname);
-
-        this.level = this.addImage(0, 0, 'overview:level').setOrigin(0.6, 0.54).setInteractive();
-        this.level.on('pointerdown', () => {
-            this.scene.launch('StatsScene');
-        });
-        this.grid.placeAtIndex(1, this.level);
-
-        this.scene.launch('ShopScene');
 
 
-        // this.energyTxt = this.add.text(20, 20, `Energy: ${this.player.energy}`);
-        // this.foodTxt = this.add.text(20, 40, `Food: ${this.player.food}`);
-        // this.healthTxt = this.add.text(20, 60, `Health: ${this.player.health}`);
+        // Healthbars
+        // Mental
+        this.MentalBar = this.addImage(0, 0, 'overview:MentalBar').setOrigin(0.4, 0); 
+        this.grid.placeAtIndex(17, this.MentalBar);
 
-        // this.grid.placeAtIndex(60, this.energyTxt);
+        this.txtMentalbar = this.add.text(0, 0, '0/100', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: '#2CD632'}).setOrigin(0.1, 0.9);
+        this.grid.placeAtIndex(32, this.txtMentalbar);
 
-        // this.levelTxt = this.add.text(20, 100, `Level: ${this._player.getLevel()}`);
-        // // this.progressTxt = this.add.text(20, 120, `Progress: ${this._player.getLevelProgress()}`);
-        // this.xpTxt = this.add.text(20, 120, `XP: ${this.player.xp}/${this._player.getRequiredXP(this._player.getLevel())}`);
+        this.IconMental = this.addImage(0, 0, 'overview:IconMental').setOrigin(0.3, 0.2);
+        this.grid.placeAtIndex(15, this.IconMental);
 
-        // this.dailyQuestion = this._player.getDailyQuestion();
-        // this.add.text(20, 160, `${this.dailyQuestion.question}`);
+        // Energy
+        this.EnergyBar = this.addImage(0, 0, 'overview:EnergyBar').setOrigin(0.4, 0); 
+        this.grid.placeAtIndex(22, this.EnergyBar);
 
-        //this.grid.showNumbers();
+        this.txtEnergybar = this.add.text(0, 0, '100/100', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: '#3192C9'}).setOrigin(0.1, 0.9);
+        this.grid.placeAtIndex(37, this.txtEnergybar);
+
+        this.IconEnergy = this.addImage(0, 0, 'overview:IconEnergy').setOrigin(0.3, 0.2);
+        this.grid.placeAtIndex(20, this.IconEnergy);
+
+        //this.scene.launch('ShopScene');
+
+        // Power
+        this.PowerBar = this.addImage(0, 0, 'overview:PowerBar').setOrigin(0.4, 0); 
+        this.grid.placeAtIndex(27, this.PowerBar);
+
+        this.txtPowerbar = this.add.text(0, 0, '100/100', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: '#FF6565'}).setOrigin(0.1, 0.8);
+        this.grid.placeAtIndex(42, this.txtPowerbar);
+
+        this.IconPower = this.addImage(0, 0, 'overview:IconPower').setOrigin(0.3, 0.2);
+        this.grid.placeAtIndex(25, this.IconPower);
+
+
+         //this.grid.showNumbers();
     }
 
     update() {
-        // this.background_cloud.tilePositionX -= .5;
 
-        // this.player = this._player.get();
-        // this.energyTxt.text = `Energy: ${this.player.energy}`;
-        // this.foodTxt.text = `Food: ${this.player.food}`;
-        // this.healthTxt.text = `Health: ${this.player.health}`;
-
-        // this.levelTxt.text = `Level: ${this._player.getLevel()}`;
-        // // this.progressTxt.text = `Progress: ${this._player.getLevelProgress()}`;
-        // this.xpTxt.text = `XP: ${this.player.xp}/${this._player.getRequiredXP(this._player.getLevel())}`;
     }
 }
 
