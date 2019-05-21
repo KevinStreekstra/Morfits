@@ -8,6 +8,7 @@ import { weeklyMission_assets } from './_WeeklyMission';
 import { shop } from './_Shop';
 import { stats } from './_Stats';
 import { game_RunMorfiRun_assets } from './games/_RunMorfiRun';
+import { pop_up_modal } from './_PopUpModal';
 
 class BootScene extends Phaser.Scene {
     constructor() {
@@ -22,6 +23,7 @@ class BootScene extends Phaser.Scene {
         this.shop = shop.bind(this);
         this.stats = stats.bind(this);
         this.game_RunMorfiRun_assets = game_RunMorfiRun_assets.bind(this);
+        this.pop_up_modal = pop_up_modal.bind(this);
     }
 
     preload() {
@@ -40,6 +42,7 @@ class BootScene extends Phaser.Scene {
         this.shop();
         this.stats();
         this.game_RunMorfiRun_assets();
+        this.pop_up_modal();
         // END LOAD SCENE ASSETS
 
         this.load.on('complete', () => {
