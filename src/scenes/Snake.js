@@ -1,9 +1,16 @@
+/**
+ * @fileoverview The code for the snake game, this file handles all the logic required and the multiplayer aspect of the snake game.
+ *
+ * @since 20 May 2019
+ * @author Yannick Frisart
+ */
+
 import Phaser from 'phaser';
 import { withDPI } from '../helpers';
 
 let snake;
 let main_body;
-let food;
+let main_soda;
 let cursors;
 
 const UP = 0;
@@ -30,6 +37,7 @@ class SnakeScene extends Phaser.Scene {
             },
         });
     }
+
     create() {
         const Snake = new Phaser.Class({
             initialize: function Snake(scene, x, y) {
@@ -39,6 +47,14 @@ class SnakeScene extends Phaser.Scene {
                 this.moveTime = 0;
                 this.total = 0;
                 this.score = 0;
+                this.scoreModifier = 0;
+
+                this.speedText = scene.add.text(withDPI(60), withDPI(120), `Speed: ${this.speed}`, {
+                    fontSize: '30px',
+                    color: '#fff'
+                }).setScale(withDPI(1), withDPI(1))
+
+                // Text to show the score to the user.
                 this.scoreText = scene.add
                     .text(
                         withDPI(16),
@@ -76,23 +92,77 @@ class SnakeScene extends Phaser.Scene {
 
                 // Define the initial food.
                 this.foods = scene.physics.add.group()
-                this.food = this.foods
-                    .create(
-                        3 * 25,
-                        withOffset(4 * 25),
-                        'Snake:player2_body'
-                    )
-                    .setScale(withDPI(1), withDPI(1))
 
-                this.food.setOrigin(0);
+                /* SECTION Define foods */
 
-                // Add the listener for overlap, this allows us to easily handle what happens if these 2 objects touch.
-                scene.physics.add.overlap(this.head, this.food, this.collideWithFood, null, this);
+                /* ANCHOR Apple */
+                this.apple = this.foods
+                    .create(3 * 25, withOffset(4 * 25), 'Snake:apple')
+                    .setScale(withDPI(0.333), withDPI(0.333))
+                    .setOrigin(0);
 
+                /* ANCHOR Pineapple */
+                this.pineapple = this.foods
+                    .create(3 * 25, withOffset(4 * 25), 'Snake:pineapple')
+                    .setScale(withDPI(0.333), withDPI(0.333))
+                    .setOrigin(0)
+                    .disableBody(true, true);
+
+                /* ANCHOR Hamburger */
+                this.hamburger = this.foods
+                    .create(3 * 25, withOffset(4 * 25), 'Snake:hamburger')
+                    .setScale(withDPI(0.333), withDPI(0.333))
+                    .setOrigin(0)
+                    .disableBody(true, true);
+
+                /* ANCHOR Soda */
+                this.soda = this.foods
+                    .create(3 * 25, withOffset(4 * 25), 'Snake:soda')
+                    .setScale(withDPI(0.333), withDPI(0.333))
+                    .setOrigin(0)
+                    .disableBody(true, true);
+
+                main_soda = this.soda
+
+                /* ANCHOR Lemon */
+                this.lemon = this.foods
+                    .create(3 * 25, withOffset(4 * 25), 'Snake:lemon')
+                    .setScale(withDPI(0.333), withDPI(0.333))
+                    .setOrigin(0)
+                    .disableBody(true, true);
+
+                /* !SECTION Define foods */
+
+                /* ANCHOR Define physics overlaps. */
+                scene.physics.add.overlap(this.head, this.apple, this.eatApple, null, this);
+                scene.physics.add.overlap(this.head, this.pineapple, this.eatPineapple, null, this);
+                scene.physics.add.overlap(this.head, this.hamburger, this.eatHamburger, null, this);
+                scene.physics.add.overlap(this.head, this.lemon, this.eatLemon, null, this);
+                scene.physics.add.overlap(this.head, this.soda, this.drinkSoda, null, this);
 
                 // Variables to define the direction of the snake.
                 this.heading = RIGHT;
                 this.direction = RIGHT;
+
+                // Define change percentages
+                this.healthyFood = [];
+                for (let i = 0; i < 4; i++) {
+                    this.healthyFood.push(this.pineapple);
+                }
+
+                for (let i = 0; i < 1; i++) {
+                    this.healthyFood.push(this.lemon);
+                }
+
+                this.notHealthy = [];
+                for (let i = 0; i < 4; i++) {
+                    this.notHealthy.push(this.hamburger);
+                }
+
+                for (let i = 0; i < 3; i++) {
+                    this.notHealthy.push(this.soda);
+                }
+
 
                 // Add background grid
                 this.background = scene.add
@@ -165,7 +235,14 @@ class SnakeScene extends Phaser.Scene {
                 this.direction = this.heading;
 
                 //  Update the body segments and place the last coordinate into this.tail
-                Phaser.Actions.ShiftPosition(this.body.getChildren(), this.headPosition.x * 25, (this.headPosition.y * 25) + withDPI(127), 1, this.tail);
+                Phaser.Actions
+                    .ShiftPosition(
+                        this.body.getChildren(),
+                        this.headPosition.x * 25,
+                        (this.headPosition.y * 25) + withDPI(127),
+                        1,
+                        this.tail
+                    );
 
                 //  Check to see if any of the body pieces have the same x/y as the head
                 //  If they do, the head ran into the body
@@ -192,9 +269,10 @@ class SnakeScene extends Phaser.Scene {
                     this.moveTime = time + this.speed;
 
                     // Update the score
-                    this.score = Math.floor((this.moveTime / 500) + (this.total * 100));
+                    this.score = Math.floor((this.moveTime / 500) + (this.total * 100)) + this.scoreModifier;
                     // Make the score visible to the user.
                     this.scoreText.setText(`Huidige score: ${this.score}`);
+                    this.speedText.setText(`Speed: ${this.speed}`);
 
                     return true;
                 }
@@ -208,18 +286,143 @@ class SnakeScene extends Phaser.Scene {
                 newPart.setOrigin(0.5);
             },
 
-            collideWithFood: function (head, food) {
-                food.disableBody(true, true);
-                this.grow();
+            /**
+             * @description Shrink the snake by 1.
+             */
+            shrink: function () {
+                if (this.body.children.size > 1) {
+                    this.body.remove(this.body.getLast(true), true, true);
+                }
+            },
 
-                this.repositionFood();
-
-                this.total++;
-
+            /**
+             * @description Handles changing the speed depending on the current total.
+             */
+            handleSpeedIncrease: function () {
                 if (this.speed > 20 && this.total % 5 === 0) {
                     this.speed -= 5;
                 }
-                return false
+            },
+
+            /**
+             * @summary Function that handles the player eating a apple.
+             *
+             * @param {Phaser.GameObjects.GameObject} head
+             * @param {Phaser.GameObjects.GameObject} apple
+             *
+             * @description This function does the following:
+             * Disables collision with the apple so it can only be eaten once.
+             * Makes the snake grow with 1.
+             * Increases the score with 100.
+             *
+             * @fires this.grow
+             * @fires this.repositionItems
+             * @fires this.handleSpeedIncrease
+             */
+            eatApple: function (head, apple) {
+                apple.disableBody(true, false);
+                this.total++;
+
+                this.grow();
+                this.repositionItems();
+                this.handleSpeedIncrease();
+            },
+
+            /**
+             * @summary Function that handles the player eating the pinapple.
+             * @param {Phaser.GameObjects.GameObject} head
+             * @param {Phaser.GameObjects.GameObject} pineapple
+             *
+             * @description This function does the following:
+             * Disabled collision with the pinapple
+             * Grows the body with 1
+             * Increases total with 1
+             * Adds 100 extra points to the score.
+             *
+             * @fires this.grow
+             * @fires this.repositionItems
+             * @fires this.handleSpeedIncrease
+             */
+            eatPineapple: function (head, pineapple) {
+                pineapple.disableBody(true, true);
+                this.total++;
+                this.scoreModifier += 100;
+
+                this.grow();
+                this.repositionItems();
+                this.handleSpeedIncrease();
+            },
+
+            /**
+             * @summary Function that handles the user eating a hamburger.
+             * @param {Phaser.GameObjects.GameObject} head
+             * @param {Phaser.GameObjects.GameObject} hamburger
+             *
+             * @description This function does the following:
+             * Grows the snake by 2.
+             * Removes 150 points from the score.
+             *
+             * @fires this.grow
+             * @fires this.repositionItems
+             */
+            eatHamburger: function (head, hamburger) {
+                hamburger.disableBody(true, true);
+                this.scoreModifier -= 150;
+
+                this.grow();
+                this.grow();
+                this.repositionItems();
+            },
+
+            /**
+             * @summary Function that handles the user drinking soda.
+             * @param {Phaser.GameObjects.GameObject} head
+             * @param {Phaser.GameObjects.GameObject} soda
+             *
+             * @description This function does the following:
+             * Remove 50 points from the score.
+             * Grow body with 1.
+             * Make the snake move faster.
+             *
+             * @fires this.grow
+             * @fires this.repositionItems
+             */
+            drinkSoda: function (head, soda) {
+                soda.disableBody(true, true);
+                this.scoreModifier -= 50;
+
+                this.grow();
+                this.repositionItems();
+
+                if (this.speed > 20) {
+                    const prevSpeed = this.speed;
+                    this.speed = 20;
+
+                    setTimeout(() => {
+                        this.speed = prevSpeed;
+                    }, 2000)
+                }
+            },
+
+            /**
+             * @summary Handles the user eating a lemon.
+             * @param {Phaser.GameObjects.GameObject} head
+             * @param {Phaser.GameObjects.GameObject} lemon
+             *
+             * @description This function does the following:
+             * Increase score with 50.
+             * Shrink body with 1.
+             *
+             * @fires this.shrink
+             * @fires this.repositionItems
+             *
+             */
+            eatLemon: function (head, lemon) {
+                lemon.disableBody(true, true);
+                this.scoreModifier += 50;
+
+                this.shrink();
+                this.repositionItems();
             },
 
             updateGrid: function (grid) {
@@ -232,55 +435,88 @@ class SnakeScene extends Phaser.Scene {
                     try {
                         grid[by][bx] = false;
                     } catch (err) {
-                        console.log({ bx, by, err });
+                        console.warn({ bx, by, err });
                     }
                 });
                 return grid;
             },
 
-            repositionFood: function () {
-                //  First create an array that assumes all positions
-                //  are valid for the new piece of food
-
-                //  A Grid we'll use to reposition the food each time it's eaten
+            repositionItems: function () {
                 let testGrid = [];
+                console.log({testGrid});
 
-                for (var y = 0; y < 29; y++) {
+                /* First we assume all blocks are safe */
+                for (let y = 0; y < 29; y++) {
                     testGrid[y] = [];
 
-                    for (var x = 0; x < 29; x++) {
+                    for (let x = 0; x < 29; x++) {
                         testGrid[y][x] = true;
                     }
                 }
+                console.log({testGrid})
 
                 this.updateGrid(testGrid);
+                console.log({testGrid})
 
-                //  Purge out false positions
-                var validLocations = [];
+                let validLocations = []
 
-                for (var y = 0; y < 29; y++) {
-                    for (var x = 0; x < 29; x++) {
+                for (let y = 0; y < 29; y++) {
+                    for (let x = 0; x < 29; x++) {
                         if (testGrid[y][x] === true) {
                             //  Is this position valid for food? If so, add it here ...
-                            validLocations.push({ x: x, y: y });
+                            validLocations.push({ x, y });
                         }
                     }
                 }
 
+                // Place the food
                 if (validLocations.length > 0) {
-                    //  Use the RNG to pick a random food position
-                    var pos = Phaser.Math.RND.pick(validLocations);
+                    // Set all items to be invisible
+                    this.pineapple.disableBody(true, true);
+                    this.lemon.disableBody(true, true);
+                    this.hamburger.disableBody(true, true);
+                    this.soda.disableBody(true, true);
 
-                    //  And place it
-                    snake.food.setPosition(pos.x * 25, withOffset(pos.y * 25));
-                    snake.food.disableBody(false, false)
+                    //  Use the RNG to pick a random food position
+                    const applePos = Phaser.Math.RND.pick(validLocations);
+                    const validHealthyPos = Phaser.Utils.Array.Remove(validLocations, applePos);
+                    console.log({ validLocations })
+                    const healthyPos = Phaser.Math.RND.pick(validLocations);
+                    const validUnhealthyPos = Phaser.Utils.Array.Remove(validLocations, healthyPos);
+                    console.log({ validLocations })
+                    const unHealthyPos = Phaser.Math.RND.pick(validLocations);
+
+                    // Pick 2 random extra's.
+                    const healthy = Phaser.Utils.Array.GetRandom(this.healthyFood);
+                    const unHealthy = Phaser.Utils.Array.GetRandom(this.notHealthy);
+                    console.log({ healthy, unHealthy })
+
+                    // Reposition the apple
+                    this.apple.setPosition(applePos.x * 25, withOffset(applePos.y * 25));
+                    this.apple.enableBody(false);
+
+                    // Place the healthy item
+                    if (Math.random() >= 0.5) {
+                        healthy.setPosition(healthyPos.x * 25, withOffset(healthyPos.y * 25));
+                        healthy.enableBody(false);
+                        healthy.setVisible(true);
+                    }
+
+                    // Place the unhealthy item
+                    if (Math.random() >= 0.5) {
+                        unHealthy.setPosition(unHealthyPos.x * 25, withOffset(unHealthyPos.y * 25));
+                        unHealthy.enableBody(false);
+                        unHealthy.setVisible(true);
+                    }
+
 
                     return true;
                 }
                 else {
                     return false;
                 }
-            }
+
+            },
         });
 
         snake = new Snake(this, 8, 8);
@@ -293,7 +529,9 @@ class SnakeScene extends Phaser.Scene {
         if (!snake.alive)   {
             return;
         }
+
         this.physics.world.wrap(main_body, 32);
+        this.physics.world.wrap(main_soda, 32);
 
     /**
     * Check which key is pressed, and then change the direction the snake
