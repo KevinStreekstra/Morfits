@@ -12,7 +12,10 @@ let snake;
 let main_body;
 let main_soda;
 let cursors;
-let main_socket
+let main_socket;
+let main_scene;
+let snakeSelf;
+let main_others
 
 const UP = 0;
 const DOWN = 1;
@@ -43,42 +46,11 @@ class SnakeScene extends Phaser.Scene {
         var self = this;
         this.socket = io();
         main_socket = this.socket;
-        this.socket.on('currentPlayers', function (players) {
-            Object.keys(players).forEach(function (id) {
-                if (players[id].playerId === self.socket.id) {
-                    addPlayer(self, players[id]);
-                }
-            });
-        });
-
-        this.socket.on('playerChangedDirection', function (playerInfo) {
-            this.otherPlayers.getChildren().forEach(function (otherPlayer) {
-                if (playerInfo.playerId === otherPlayer.playerId) {
-                    otherPlayer.setAngle(playerInfo.rotation);
-                }
-            });
-        });
-
-
-        function addPlayer(self, playerInfo) {
-            console.log({self, playerInfo})
-            self.ship = self.physics.add
-                .image(playerInfo.x, playerInfo.y, 'ship')
-                .setOrigin(0.5, 0.5)
-                .setDisplaySize(53, 40);
-
-            if (playerInfo.team === 'blue') {
-                self.ship.setTint(0x0000ff);
-            } else {
-                self.ship.setTint(0xff0000);
-            }
-            self.ship.setDrag(100);
-            self.ship.setAngularDrag(100);
-            self.ship.setMaxVelocity(200);
-        }
 
         const Snake = new Phaser.Class({
             initialize: function Snake(scene, x, y) {
+                snakeSelf = this;
+                main_scene = scene;
                 // Game variables
                 this.alive = true;
                 this.speed = 100;
@@ -204,15 +176,81 @@ class SnakeScene extends Phaser.Scene {
                     this.notHealthy.push(this.soda);
                 }
 
-                this.createSecondPlayer('test', scene)
-
-
                 // Add background grid
                 this.background = scene.add
                     .image(0, withDPI(127), 'Snake:board_background')
                     .setScale(withDPI(0.333), withDPI(0.333))
                     .setOrigin(0)
                     .setDepth(-1);
+
+                /* SECTION Multiplayer listeners */
+                const createPlayer = this.createSecondPlayer
+
+                // Current players
+                main_socket.on('currentPlayers', function (players) {
+                    console.log({players})
+                    Object.keys(players).forEach(function (id) {
+                        if (players[id].playerId !== self.socket.id) {
+                            const { playerId } = players[id]
+                            createPlayer(playerId, scene)
+                        }
+                    });
+                });
+
+                main_socket.on('newPlayer', function (playerInfo) {
+                    createPlayer(playerInfo.playerId, scene)
+                  });
+
+                main_socket.on('disconnect', function (playerId) {
+                    const otherPlayer = snakeSelf.otherPlayers[playerId];
+                    otherPlayer.body.clear(true, true)
+                  });
+
+                main_socket.on('playerChangedDirection', (playerInfo) => {
+                    const otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId];
+                    otherPlayer.head.setAngle(playerInfo.rotation)
+                });
+
+                main_socket.on('playerGrew', function (playerInfo) {
+                    const otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId];
+                    // otherPlayer.body.create(growData.x, growData.y, 'Snake:player1_body')
+                    console.log(otherPlayer)
+                    otherPlayer.body
+                    .create(playerInfo.tail.x, playerInfo.tail.y, 'Snake:player2_body')
+                    .setScale(withDPI(0.5), withDPI(0.5));
+
+                })
+
+                main_socket.on('playerPositionChanged', function (playerInfo) {
+                    const otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId];
+                    otherPlayer.head.enableBody(false);
+                    otherPlayer.head.setVisible(true);
+                    otherPlayer.headPosition.x = playerInfo.x;
+                    otherPlayer.headPosition.y = playerInfo.y;
+
+                    Phaser.Actions
+                        .ShiftPosition(
+                            otherPlayer.body.getChildren(),
+                            otherPlayer.headPosition.x * 25,
+                            (otherPlayer.headPosition.y * 25) + withDPI(127),
+                            1,
+                            otherPlayer.tail
+                        );
+                })
+
+                // main_socket.on('playerGrew', function (playerInfo) {
+                //     const otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId];
+                //     otherPlayer.headPosition.x = playerInfo.x;
+                //     otherPlayer.headPosition.y = playerInfo.y;
+                //     otherPlayer.body.create(200, 200, 'Snake:player2_body')
+                //         // otherPlayer.body
+                //         //     .create(otherPlayer.tail.x, otherPlayer.tail.y, 'Snake:player2_body')
+                //         //     .setScale(withDPI(0.5), withDPI(0.5))
+                //         //     .setOrigin(0.5)
+                //         //     .enableBody(true)
+                //         //     .setVisible(true);
+                // })
+                /* !SECTION Multiplayer listeners */
             },
 
             update: function (time) {
@@ -222,8 +260,8 @@ class SnakeScene extends Phaser.Scene {
             },
 
             createSecondPlayer: function (playerId, scene) {
-                this.otherPlayers[playerId] = {};
-                const secondPlayer = this.otherPlayers[playerId]
+                snakeSelf.otherPlayers[playerId] = {};
+                const secondPlayer = snakeSelf.otherPlayers[playerId];
                 secondPlayer.body = scene.physics.add.group();
 
                 secondPlayer.head = secondPlayer.body
@@ -232,13 +270,15 @@ class SnakeScene extends Phaser.Scene {
                         withOffset(12 * 25),
                         'Snake:player1_head'
                     )
-                    .setScale(withDPI(0.33), withDPI(0.33));
+                    .setScale(withDPI(0.33), withDPI(0.33))
+                    .disableBody(true, true);
 
                 secondPlayer.head.setOrigin(0.5);
                 secondPlayer.head.setAngle(-90);
                 secondPlayer.head.setDepth(10);
 
                 secondPlayer.tail = new Phaser.Geom.Point(12.5, 12.5);
+                secondPlayer.headPosition = new Phaser.Geom.Point(12.5, 12.5);
             },
 
             faceLeft: function () {
@@ -367,6 +407,8 @@ class SnakeScene extends Phaser.Scene {
                     .setScale(withDPI(0.5), withDPI(0.5));
 
                 newPart.setOrigin(0.5);
+
+                socket.emit('snakeGrow', newPart)
             },
 
             /**
@@ -562,17 +604,12 @@ class SnakeScene extends Phaser.Scene {
 
                     //  Use the RNG to pick a random food position
                     const applePos = Phaser.Math.RND.pick(validLocations);
-                    const validHealthyPos = Phaser.Utils.Array.Remove(validLocations, applePos);
-                    console.log({ validLocations })
                     const healthyPos = Phaser.Math.RND.pick(validLocations);
-                    const validUnhealthyPos = Phaser.Utils.Array.Remove(validLocations, healthyPos);
-                    console.log({ validLocations })
                     const unHealthyPos = Phaser.Math.RND.pick(validLocations);
 
                     // Pick 2 random extra's.
                     const healthy = Phaser.Utils.Array.GetRandom(this.healthyFood);
                     const unHealthy = Phaser.Utils.Array.GetRandom(this.notHealthy);
-                    console.log({ healthy, unHealthy })
 
                     // Reposition the apple
                     this.apple.setPosition(applePos.x * 25, withOffset(applePos.y * 25));
@@ -599,7 +636,7 @@ class SnakeScene extends Phaser.Scene {
                     return false;
                 }
 
-            },
+            }
         });
 
         snake = new Snake(this, 8, 8);

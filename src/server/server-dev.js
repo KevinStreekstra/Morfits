@@ -45,10 +45,15 @@ io.on('connection', function(socket){
     console.log('a user connected');
     players[socket.id] = {
         rotation: 0,
-        x: Math.floor(Math.random() * 700) + 50,
-        y: Math.floor(Math.random() * 500) + 50,
+        x: 12.5,
+        y: 12.5,
         playerId: socket.id,
-        team: (Math.floor(Math.random() * 2) == 0) ? 'red' : 'blue'
+        tail: {
+            x: 0,
+            y: 0
+        },
+        team: (Math.floor(Math.random() * 2) == 0) ? 'red' : 'blue',
+        body: []
     };
 
     // send the players object to the new player
@@ -69,5 +74,20 @@ io.on('connection', function(socket){
         players[socket.id].rotation = directionData.rotation;
         // emit a message to all players about the player that moved
         socket.broadcast.emit('playerChangedDirection', players[socket.id]);
-      });
+    });
+
+    socket.on('playerMovement', function (movementData) {
+        players[socket.id].x = movementData.x;
+        players[socket.id].y = movementData.y;
+
+        socket.broadcast.emit('playerPositionChanged', players[socket.id]);
+    })
+
+    socket.on('snakeGrow', function (growData) {
+        players[socket.id].tail.x = growData.x;
+        players[socket.id].tail.y = growData.y;
+        players[socket.id].body.push(growData)
+
+        socket.broadcast.emit('playerGrew', players[socket.id]);
+    })
 });

@@ -5,12 +5,11 @@
   "main": "src/index.js",
   "scripts": {
     "build": "webpack --config webpack/prod.js ",
-    "start": "webpack-dev-server --config webpack/base.js --open",
-    "build-Test": "rm -rf dist && webpack --config webpack.dev.js --mode development",
-    "start-Test": "node ./dist/server.js",
+    "//start": "webpack-dev-server --config webpack/base.js --open",
     "buildDev": "rm -rf dist && webpack --mode development --config webpack.server.js && webpack --mode development --config webpack.dev.js",
     "buildProd": "rm -rf dist && webpack --mode production --config webpack.server.config.js && webpack --mode production --config webpack.prod.config.js",
-    "nstart": "node ./dist/server.js"
+    "nodeStart": "node ./dist/server.js",
+    "start": "npm run buildDev && npm run nodeStart"
   },
   "author": "Nick Ruigrok",
   "license": "MIT",
