@@ -10,7 +10,7 @@ import WeeklyScenes from "./scenes/WeeklyMission";
 import ShopScene from './scenes/Shop';
 import StartQuiz from "./scenes/StartQuiz";
 import StopQuiz from "./scenes/StopQuiz";
-
+ 
 //Quiz questions
 import Question1 from "./scenes/QuizScenes/Question1";
 import Question2 from "./scenes/QuizScenes/Question2";
