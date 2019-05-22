@@ -54,7 +54,9 @@ class StatsScene extends Phaser.Scene {
             height: this.sys.game.config.height
         });
 
-        this.bg = this.addImage(0, 0, 'Stats:bg').setOrigin(0, 0).setScale(2.4);
+        // this.bg = this.addImage(0, 0, 'Stats:bg').setOrigin(0, 0);
+        this.bg = this.addImage(0, 0, 'Daily:bg').setOrigin(0, 0);
+        this.grid.scaleY(this.bg, 1);
 
         this.vines2 = this.addImage(0, 0, 'Stats:Vines');
         this.grid.placeAtIndex(2, this.vines2);
