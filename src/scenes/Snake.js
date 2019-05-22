@@ -55,7 +55,8 @@ class SnakeScene extends Phaser.Scene {
             tail: {
                 x: 12.5,
                 y: 12.5
-            }
+            },
+            tails: 0
         }
 
         this.socket.emit('joinSnake', ownPlayer)
@@ -92,12 +93,13 @@ class SnakeScene extends Phaser.Scene {
                         }
                     ).setScale(withDPI(1), withDPI(1))
 
+                // Define code for other players
+                this.otherPlayers = {};
+
                 /* SECTION CreateOwnPlayer */
                 // Start defining the snake
                 this.headPosition = new Phaser.Geom.Point(12.5, 12.5);
 
-                // Define code for other players
-                this.otherPlayers = {};
 
                 // Create a physics group that will contain the head and all snake heads.
                 this.body = scene.physics.add.group();
@@ -213,13 +215,13 @@ class SnakeScene extends Phaser.Scene {
                     Object.keys(players).forEach(function (id) {
                         if (players[id].playerId !== ownPlayer.playerId) {
                             const { playerId } = players[id]
-                            createPlayer(playerId, scene)
+                            createPlayer(players[id], scene)
                         }
                     });
                 });
 
                 main_socket.on('newPlayer', function (playerInfo) {
-                    createPlayer(playerInfo.playerId, scene)
+                    createPlayer(playerInfo, scene)
                   });
 
                 main_socket.on('disconnected', function (playerInfo) {
@@ -260,8 +262,8 @@ class SnakeScene extends Phaser.Scene {
                     Phaser.Actions
                         .ShiftPosition(
                             otherPlayer.body.getChildren(),
-                            otherPlayer.headPosition.x * 25,
-                            (otherPlayer.headPosition.y * 25) + withDPI(127),
+                            otherPlayer.headPosition.x * withDPI(12.5),
+                            (otherPlayer.headPosition.y * withDPI(12.5)) + withDPI(127),
                             1,
                             otherPlayer.tail
                         );
@@ -349,7 +351,12 @@ class SnakeScene extends Phaser.Scene {
                 }
             },
 
-            createSecondPlayer: function (playerId, scene) {
+            playerHitOtherPlayer: function () {
+                snakeSelf.alive = false;
+            },
+
+            createSecondPlayer: function (playerInfo, scene) {
+                const { playerId } = playerInfo;
                 snakeSelf.otherPlayers[playerId] = {};
                 const secondPlayer = snakeSelf.otherPlayers[playerId];
                 secondPlayer.headPosition = new Phaser.Geom.Point(12.5, 12.5);
@@ -365,11 +372,21 @@ class SnakeScene extends Phaser.Scene {
                     .disableBody(true, true);
 
                 secondPlayer.head.setOrigin(0.5);
-                secondPlayer.head.setAngle(-90);
+                secondPlayer.head.setAngle(playerInfo.rotation);
                 secondPlayer.head.setDepth(10);
 
                 secondPlayer.tail = new Phaser.Geom.Point(12.5, 12.5);
-                secondPlayer.tails = 0;
+                secondPlayer.tails = playerInfo.tails;
+
+                scene.physics.add.collider(snakeSelf.head, secondPlayer.body, snakeSelf.playerHitOtherPlayer, null, snakeSelf)
+
+                while (playerInfo.tails + 1 > secondPlayer.body.getLength()) {
+                    const bodyElement = secondPlayer.body
+                        .create(200, 200, 'Snake:player2_body')
+                        .setScale(withDPI(0.5), withDPI(0.5));
+
+                    bodyElement.setOrigin(0.5);
+                }
             },
 
             faceLeft: function () {
@@ -468,8 +485,8 @@ class SnakeScene extends Phaser.Scene {
                 Phaser.Actions
                     .ShiftPosition(
                         this.body.getChildren(),
-                        this.headPosition.x * 25,
-                        (this.headPosition.y * 25) + withDPI(127),
+                        this.headPosition.x * withDPI(12.5),
+                        (this.headPosition.y * withDPI(12.5)) + withDPI(127),
                         1,
                         this.tail
                 );
@@ -515,8 +532,11 @@ class SnakeScene extends Phaser.Scene {
 
                 newPart.setOrigin(0.5);
 
+                ownPlayer.tails += 1
+
                 main_socket.emit('snakeGrow', {
-                    playerId: ownPlayer.playerId
+                    playerId: ownPlayer.playerId,
+                    tails: ownPlayer.tails
                 })
             },
 
@@ -526,10 +546,12 @@ class SnakeScene extends Phaser.Scene {
             shrink: function () {
                 if (this.body.children.size > 1) {
                     this.body.remove(this.body.getLast(true), true, true);
+                    ownPlayer.tails -= 1
                 }
 
                 main_socket.emit('snakeShrink', {
-                    playerId: ownPlayer.playerId
+                    playerId: ownPlayer.playerId,
+                    tails: ownPlayer.tails
                 })
             },
 

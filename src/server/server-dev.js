@@ -128,6 +128,8 @@ io.on('connection', function(socket){
     socket.on(
         'snakeGrow',
         function (playerData) {
+            players[playerData.playerId].tails = playerData.tails
+
             socket.to('snake_game').broadcast.emit('playerGrew', players[playerData.playerId]);
         }
     )
@@ -135,6 +137,8 @@ io.on('connection', function(socket){
     socket.on(
         'snakeShrink',
         function (playerData) {
+            players[playerData.playerId].tails = playerData.tails
+
             socket.to('snake_game').broadcast.emit('playerShrank', players[playerData.playerId]);
         }
     )
