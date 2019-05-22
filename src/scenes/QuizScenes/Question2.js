@@ -2,10 +2,10 @@ import AlignGrid from '../../classes/AlignGrid';
 
 import { addImage } from '../../helpers';
 
-class Question1 extends Phaser.Scene {
+class Question2 extends Phaser.Scene {
     constructor() {
         super({
-            key: 'Question1'
+            key: 'Question2'
         });
 
         this.bg;
@@ -54,11 +54,17 @@ class Question1 extends Phaser.Scene {
         this.substraction = this.addImage(0, 0, 'Question1:substraction');
         this.grid.placeAtIndex(24, this.substraction);
 
-        this.txt1 = this.add.text(0, 0, '1/5', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.5);
+        this.txt1 = this.add.text(0, 0, '2/5', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(24 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.5);
         this.grid.placeAtIndex(24, this.txt1);
 
-        this.vraag = this.addImage(0, 0, 'Question1:Vraag').setOrigin(0.5, 0.7);
-        this.grid.placeAtIndex(52, this.vraag);
+        this.txt1 = this.add.text(0, 0, 'Wat kan', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.55);
+        this.grid.placeAtIndex(37, this.txt1);
+
+        this.txt1 = this.add.text(0, 0, 'De meester/ juffrouw', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, -0.15);
+        this.grid.placeAtIndex(37, this.txt1);
+
+        this.txt1 = this.add.text(0, 0, 'Beter niet teveel doen?', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.5);
+        this.grid.placeAtIndex(52, this.txt1);
 
        this.smallPlank = this.addImage(0, 0, 'Question1:smallPlank').setOrigin(0.5, 0.7);
        this.grid.placeAtIndex(187, this.smallPlank);
@@ -66,14 +72,8 @@ class Question1 extends Phaser.Scene {
        this.answer = this.addImage(0, 0, 'Question1:answer').setOrigin(0.5, 0.8);
        this.grid.placeAtIndex(112, this.answer);
 
-       this.txt1 = this.add.text(0, 0, 'Broccoli', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 1.25);
+       this.txt1 = this.add.text(0, 0, 'Zalm', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 1.2);
         this.grid.placeAtIndex(112, this.txt1);
-
-       this.answer = this.addImage(0, 0, 'Question1:answer');
-       this.grid.placeAtIndex(82, this.answer);
-
-       this.txt1 = this.add.text(0, 0, 'Zalm', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.5);
-        this.grid.placeAtIndex(82, this.txt1);
 
        this.answer = this.addImage(0, 0, 'Question1:answer').setOrigin(0.5, 0.5);
        this.grid.placeAtIndex(127, this.answer);
@@ -81,30 +81,24 @@ class Question1 extends Phaser.Scene {
        this.txt1 = this.add.text(0, 0, 'Banaan', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.5);
         this.grid.placeAtIndex(127, this.txt1);
 
-       this.answer = this.addImage(0, 0, 'Question1:answer').setOrigin(0.5, 0.8);
-       this.grid.placeAtIndex(157, this.answer);
+       this.back = this.addImage(0, 0, 'Question1:back').setOrigin(0.6, 0.8).setInteractive();
+       this.back.on('pointerdown', () => {
+           this.scene.stop('Question2');
+           this.scene.launch('Question1');
+       });
+       this.grid.placeAtIndex(184, this.back);
 
-       this.txt1 = this.add.text(0, 0, 'Worstenbroodje', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 1.25);
-        this.grid.placeAtIndex(157, this.txt1);
-
-        this.back = this.addImage(0, 0, 'Question1:back').setOrigin(0.6, 0.8).setInteractive();
-        this.back.on('pointerdown', () => {
-            this.scene.stop('Question1');
-            this.scene.launch('StartQuiz');
-        });
-        this.grid.placeAtIndex(184, this.back);
- 
-        this.back = this.addImage(0, 0, 'Question1:back').setOrigin(0.5, 0.8).setInteractive();
-        this.back.on('pointerdown', () => {
-            this.scene.stop('Question1');
-            this.scene.launch('Question2');
-        });
-        this.back.flipX = true;
-        this.grid.placeAtIndex(190, this.back);
+       this.back = this.addImage(0, 0, 'Question1:back').setOrigin(0.5, 0.8).setInteractive();
+       this.back.on('pointerdown', () => {
+           this.scene.stop('Question2');
+           this.scene.launch('Question3');
+       });
+       this.back.flipX = true;
+       this.grid.placeAtIndex(190, this.back);
 
        this.quit = this.addImage(0, 0, 'Daily:quit').setOrigin(.5, .675).setInteractive();
        this.quit.on('pointerdown', () => {
-           this.scene.sleep('Question1');
+           this.scene.sleep('Question2');
            this.scene.launch('StopQuiz');
        });
        this.grid.placeAtIndex(217, this.quit);
@@ -114,4 +108,4 @@ class Question1 extends Phaser.Scene {
     
 }
 
-    export default Question1;
+    export default Question2;
