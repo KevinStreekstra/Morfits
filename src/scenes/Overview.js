@@ -94,17 +94,17 @@ class OverviewScene extends Phaser.Scene {
         this.grid.placeAtIndex(7, this.TopNavbar);
         this.whiteBg = this.addImage(0, 0, 'overview:whiteBG').setOrigin(0.55, 0.45); 
         this.grid.placeAtIndex(3, this.whiteBg);
-        this.Mylevel = this.add.text(0, 0, '12', { fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(1, 0.25);
+        this.Mylevel = this.add.text(0, 0, '12', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(1, 0.25);
         this.grid.placeAtIndex(1, this.Mylevel);
-        this.Myname = this.add.text(0, 0, 'Myname', { fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(0.6, 0.25);
+        this.Myname = this.add.text(0, 0, 'Myname', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(0.6, 0.25);
         this.grid.placeAtIndex(3, this.Myname);
         this.navPP = this.addImage(0, 0, 'overview:navPP').setOrigin(0.8, 0.43);
         this.grid.placeAtIndex(9, this.navPP);
-        this.MyPP = this.add.text(0, 0, '80', { fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(1.4, 0.25);
+        this.MyPP = this.add.text(0, 0, '80', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(1.4, 0.25);
         this.grid.placeAtIndex(9, this.MyPP);
         this.navM_Dollars = this.addImage(0, 0, 'overview:navM_Dollars').setOrigin(0.7, 0.4);
         this.grid.placeAtIndex(13, this.navM_Dollars);
-        this.MyM_dollars = this.add.text(0, 0, '250', { fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(0.5, 0.25);
+        this.MyM_dollars = this.add.text(0, 0, '250', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(0.5, 0.25);
         this.grid.placeAtIndex(12, this.MyM_dollars);
 
 
@@ -123,29 +123,29 @@ class OverviewScene extends Phaser.Scene {
         this.grid.placeAtIndex(217, this.BottomNavbar);
 
         //icons
-        this.gym = this.addImage(0, 0, 'overview:btnGym').setOrigin(0.5, 0.37);
-        this.grid.placeAtIndex(196, this.gym);
+        this.kleding = this.addImage(0, 0, 'overview:btnKleding').setOrigin(0.5, 0.37);
+        this.grid.placeAtIndex(196, this.kleding);
 
-        this.txtGym = this.addImage(0, 0, 'overview:txtGym');
-        this.grid.placeAtIndex(211, this.txtGym);
+        this.txtKleding = this.add.text(0, 0, 'Kleding', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(0, 0.5);
+        this.grid.placeAtIndex(210, this.txtKleding);
 
         this.games = this.addImage(0, 0, 'overview:btnGames').setOrigin(0.5, 0.37);
         this.grid.placeAtIndex(199, this.games);
 
-        this.txtGames = this.addImage(0, 0, 'overview:txtGames');
-        this.grid.placeAtIndex(214, this.txtGames);
+        this.txtGames = this.add.text(0, 0, 'Games', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(-0.1, 0.5);
+        this.grid.placeAtIndex(213, this.txtGames);
 
-        this.feed = this.addImage(0, 0, 'overview:btnfeed').setOrigin(0.5, 0.37);
-        this.grid.placeAtIndex(202, this.feed);
+        this.market = this.addImage(0, 0, 'overview:btnMarket').setOrigin(0.5, 0.37);
+        this.grid.placeAtIndex(202, this.market);
 
-        this.txtFeed = this.addImage(0, 0, 'overview:txtFeed');
-        this.grid.placeAtIndex(217, this.txtFeed);
+        this.txtMarket = this.add.text(0, 0, 'Markt', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(-0.2, 0.5);
+        this.grid.placeAtIndex(216, this.txtMarket);
 
         this.inventory = this.addImage(0, 0, 'overview:btnInventory').setOrigin(0.5, 0.37);
         this.grid.placeAtIndex(205, this.inventory);
 
-        this.txtInventory = this.addImage(0, 0, 'overview:txtInventory').setOrigin(0.5, 0.43);
-        this.grid.placeAtIndex(220, this.txtInventory);
+        this.txtInventory = this.add.text(0, 0, 'Rugzak', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(-0.05, 0.5);
+        this.grid.placeAtIndex(219, this.txtInventory);
 
         this.quiz = this.addImage(0, 0, 'overview:btnQuiz').setOrigin(0.5, 0.37).setInteractive();
         this.quiz.on('pointerdown', () => {
@@ -153,8 +153,8 @@ class OverviewScene extends Phaser.Scene {
         });
         this.grid.placeAtIndex(208, this.quiz);
 
-        this.txtQuiz = this.addImage(0, 0, 'overview:txtQuiz');
-        this.grid.placeAtIndex(223, this.txtQuiz);
+        this.txtQuiz = this.add.text(0, 0, 'Quiz', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(-0.3, 0.5);
+        this.grid.placeAtIndex(222, this.txtQuiz);
 
 
         //morfit & plants
