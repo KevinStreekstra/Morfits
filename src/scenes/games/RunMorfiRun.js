@@ -139,10 +139,51 @@ class RunMorfiRun extends Phaser.Scene {
 
     done() {
         this.physics.pause();
-        this.scene.add('PopupModalScene', PopupModalScene, true, {
-            title: 'Goed Gedaan!',
-            priceAmount: '20',
-            priceText: 'Prijs:',
+        this.scene.launch('PopupModalScene', {
+            scenes: {
+                start: ['OverviewScene'],
+                stop: [
+                    'PopupModalScene',
+                    'RunMorfiRun',
+                ],
+            },
+            woodenBackground: 'popup:background',
+            assets: [
+                {
+                    asset: 'popup:button',
+                    x: 0,
+                    y: 150,
+                    UseDefinedScenes: true,
+                    scenes: [],
+                },
+                {
+                    asset: 'games:money',
+                    x: 20,
+                    y: 0,
+                    UseDefinedScenes: false,
+                    scenes: [],
+                },
+            ],
+            content: [
+                {
+                    text: 'Goed Gedaan!',
+                    fontSize: "50px",
+                    x: 0,
+                    y: -150,
+                },
+                {
+                    text: 'x 20',
+                    fontSize: "35px",
+                    x: 70,
+                    y: -30,
+                },
+                {
+                    text: 'Prijs:',
+                    fontSize: "50px",
+                    x: -60,
+                    y: 0,
+                }
+            ]
         });
     }
 }
