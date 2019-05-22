@@ -31,8 +31,8 @@ class PopupModalScene extends Phaser.Scene {
             );
         });
     }
-    getAssetsData(d){
-        d.forEach(el => {
+    getAssetsData(elementData){
+        elementData.forEach(el => {
             const asset = this.add.image(0, 0, el.asset).setScale(0.5);
             Phaser.Display.Align.In.Center(
                 asset,
@@ -47,8 +47,8 @@ class PopupModalScene extends Phaser.Scene {
             }
         });
     }
-    sceneHandler(d){
-        const data = d.scenes.length > 0 ? data = d : this.data;
+    sceneHandler(elementData){
+        const data = elementData.scenes.length > 0 ? data = elementData : this.data;
 
         data.scenes.start.forEach(el => {
             this.scene.start(el);
