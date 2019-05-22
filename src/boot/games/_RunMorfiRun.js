@@ -11,5 +11,5 @@ export function game_RunMorfiRun_assets() {
     this.load.image('games:jump', 'src/assets/games/run_morfi_run/jump-button.png');
     this.load.image('games:finish-icon', 'src/assets/games/run_morfi_run/finish-icon.png');
     this.load.image('games:hamburger', 'src/assets/illustraties/food/unhealty/Hamburger.png');
-    this.load.image('games:money', 'src/assets/illustraties/popup/money.png');
+    this.load.image('games:money', 'src/assets/popup/money.png');
 }
