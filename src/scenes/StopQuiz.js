@@ -31,9 +31,7 @@ class StopQuiz extends Phaser.Scene {
             height: this.sys.game.config.height
         });
 
-        this.overlay = this.addImage(0, 0, 'StopQuiz:overlay');
-        this.grid.scaleY(this.overlay, 1);
-        this.grid.placeAtIndex(112, this.overlay);
+        this.bg = this.addImage(0, 0, 'Stats:bg').setOrigin(0, 0).setScale(2.4);
 
        this.popupBg = this.addImage(0, 0, 'StopQuiz:popupBg');
        this.grid.placeAtIndex(112, this.popupBg);
@@ -44,7 +42,7 @@ class StopQuiz extends Phaser.Scene {
        this.btnYes = this.addImage(0, 0, 'StopQuiz:btnYes').setInteractive();
        this.grid.placeAtIndex(139, this.btnYes);
        this.btnYes.on('pointerdown', () => {
-        this.scene.stop('StopQuiz');
+        this.scene.sleep('StopQuiz');
         this.scene.launch('OverviewScene');
          });
 
