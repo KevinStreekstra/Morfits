@@ -16,8 +16,8 @@ class PopupModalScene extends Phaser.Scene {
         data.content.length > 0 ? this.getTextData(data.content) : null;
         data.assets.length > 0 ? this.getAssetsData(data.assets) : null;
     }
-    getTextData(d){
-        d.forEach(el => {
+    getTextData(elementData){
+        elementData.forEach(el => {
             const text = this.add.text(0, 0, el.text, {
                 color: this.textColor,
                 fontFamily: this.textFont,
