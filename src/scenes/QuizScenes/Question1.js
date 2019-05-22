@@ -87,7 +87,7 @@ class Question1 extends Phaser.Scene {
        this.txt1 = this.add.text(0, 0, 'Worstenbroodje', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 1.25);
         this.grid.placeAtIndex(157, this.txt1);
 
-       this.back = this.addImage(0, 0, 'Question1:back').setOrigin(0.5, 0.8);
+       this.back = this.addImage(0, 0, 'Question1:back').setOrigin(0.5, 0.8).setInteractive();
        this.back.on('pointerdown', () => {
            this.scene.stop('Question1');
            this.scene.launch('StartQuiz');
