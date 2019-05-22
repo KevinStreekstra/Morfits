@@ -6,35 +6,65 @@ class PopupModalScene extends Phaser.Scene {
     }
     preload(){}
     create(data){
-        this.bg = this.add.image(0,0, "popup:background").setScale(0.5).setOrigin(0,0);
-        this.button = this.add.image(0,0, "popup:button").setScale(0.5).setOrigin(0,0);
+        this.data = data;
+        this.bg = this.add.image(this.cameras.main.width / 2,this.cameras.main.height / 2, data.woodenBackground).setScale(0.5);
+        this.cameras.main.setBackgroundColor('rgba(0,0,0,0.5)');
 
-        this.button.on('pointerdown', () => {
-            this.scene.start('OverviewScene');
-            this.scene.stop('RunMorfiRun');
-            this.scene.stop('PopupModalScene');
-        });
+        // Assets
+        data.content.length > 0 ? this.getTextData(data.content) : null;
+        data.assets.length > 0 ? this.getAssetsData(data.assets) : null;
 
-        const Title = this.add.text(0, 0, data.title, {
-            color: "#fff",
-            fontFamily: "Bubblegum Sans",
-            fontSize: "50px"
-        }).setScrollFactor(0);
-
-        const priceAmount = this.add.text(0, 0, `x ${ data.priceAmount }`, {
-            color: "#fff",
-            fontFamily: "Bubblegum Sans",
-            fontSize: "50px"
-        }).setScrollFactor(0);
-
-        const priceText = this.add.text(0, 0, data.priceText, {
-            color: "#fff",
-            fontFamily: "Bubblegum Sans",
-            fontSize: "50px"
-        }).setScrollFactor(0);
     }
     update(){}
-
+    getTextData(d){
+        d.forEach(el => {
+            const text = this.add.text(0, 0, el.text, {
+                color: "#fff",
+                fontFamily: "Bubblegum Sans",
+                fontSize: el.fontSize,
+            });
+            Phaser.Display.Align.In.Center(
+                text,
+                this.bg,
+                el.x,
+                el.y
+            );
+        });
+    }
+    getAssetsData(d){
+        d.forEach(el => {
+            const asset = this.add.image(0, 0, el.asset).setScale(0.5);
+            Phaser.Display.Align.In.Center(
+                asset,
+                this.bg,
+                el.x,
+                el.y,
+            );
+            if(el.UseDefinedScenes || el.scenes.length > 0){
+                asset.setInteractive().on('pointerdown', () => {
+                    this.sceneHandler(el, el.UseDefinedScenes);
+                });
+            }
+        });
+    }
+    sceneHandler(d, definedScenes){
+        if(definedScenes){
+            this.data.scenes.start.forEach(el => {
+                this.scene.start(el);
+            });
+            this.data.scenes.stop.forEach(el => {
+                console.log(el);
+                this.scene.stop(el);
+            });
+        } else {
+            d.scenes.start.forEach(el => {
+                this.scene.start(el);
+            });
+            d.scenes.stop.forEach(el => {
+                this.scene.stop(el);
+            });
+        }
+    }
 }
 
 export default PopupModalScene;
