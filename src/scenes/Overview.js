@@ -201,7 +201,7 @@ class OverviewScene extends Phaser.Scene {
         this.IconEnergy = this.addImage(0, 0, 'overview:IconEnergy').setOrigin(0.3, 0.2);
         this.grid.placeAtIndex(20, this.IconEnergy);
 
-        //this.scene.launch('ShopScene');
+        this.scene.launch('ShopScene');
 
         // Power
         this.PowerBar = this.addImage(0, 0, 'overview:PowerBar').setOrigin(0.4, 0); 

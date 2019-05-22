@@ -1,6 +1,7 @@
 .shopContainer {
     width: 375px;
-    height: 450px;
+    height: 375px;
     overflow-y: scroll;
     overflow-x: hidden;
+    box-sizing: border-box;
 }
