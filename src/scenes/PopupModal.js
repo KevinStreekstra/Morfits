@@ -3,24 +3,24 @@ class PopupModalScene extends Phaser.Scene {
         super({
             key: 'PopupModalScene'
         });
+        this.textColor = '#fff';
+        this.textFont = 'Bubblegum Sans';
+        this.backgroundOverlay = 'rgba(0,0,0,0.5)';
     }
-    preload(){}
     create(data){
         this.data = data;
         this.bg = this.add.image(this.cameras.main.width / 2,this.cameras.main.height / 2, data.woodenBackground).setScale(0.5);
-        this.cameras.main.setBackgroundColor('rgba(0,0,0,0.5)');
+        this.cameras.main.setBackgroundColor(this.backgroundOverlay);
 
         // Assets
         data.content.length > 0 ? this.getTextData(data.content) : null;
         data.assets.length > 0 ? this.getAssetsData(data.assets) : null;
-
     }
-    update(){}
     getTextData(d){
         d.forEach(el => {
             const text = this.add.text(0, 0, el.text, {
-                color: "#fff",
-                fontFamily: "Bubblegum Sans",
+                color: this.textColor,
+                fontFamily: this.textFont,
                 fontSize: el.fontSize,
             });
             Phaser.Display.Align.In.Center(
@@ -40,30 +40,23 @@ class PopupModalScene extends Phaser.Scene {
                 el.x,
                 el.y,
             );
-            if(el.UseDefinedScenes || el.scenes.length > 0){
+            if(el.UseDefinedScenes || Object.entries(el.scenes).length > 0){
                 asset.setInteractive().on('pointerdown', () => {
-                    this.sceneHandler(el, el.UseDefinedScenes);
+                    this.sceneHandler(el);
                 });
             }
         });
     }
-    sceneHandler(d, definedScenes){
-        if(definedScenes){
-            this.data.scenes.start.forEach(el => {
-                this.scene.start(el);
-            });
-            this.data.scenes.stop.forEach(el => {
-                console.log(el);
-                this.scene.stop(el);
-            });
-        } else {
-            d.scenes.start.forEach(el => {
-                this.scene.start(el);
-            });
-            d.scenes.stop.forEach(el => {
-                this.scene.stop(el);
-            });
-        }
+    sceneHandler(d){
+        const data = d.scenes.length > 0 ? data = d : this.data;
+
+        data.scenes.start.forEach(el => {
+            this.scene.start(el);
+        });
+        data.scenes.stop.forEach(el => {
+            this.scene.stop(el);
+        });
+
     }
 }
 

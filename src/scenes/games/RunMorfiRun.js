@@ -154,14 +154,14 @@ class RunMorfiRun extends Phaser.Scene {
                     x: 0,
                     y: 150,
                     UseDefinedScenes: true,
-                    scenes: [],
+                    scenes: {},
                 },
                 {
                     asset: 'games:money',
                     x: 20,
                     y: 0,
                     UseDefinedScenes: false,
-                    scenes: [],
+                    scenes: {},
                 },
             ],
             content: [
