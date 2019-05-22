@@ -47,6 +47,19 @@ class SnakeScene extends Phaser.Scene {
         this.socket = io();
         main_socket = this.socket;
 
+        const ownPlayer = {
+            playerId: Phaser.Math.RND.uuid(),
+            rotation: -90,
+            x: 8,
+            y: 8,
+            tail: {
+                x: 12.5,
+                y: 12.5
+            }
+        }
+
+        this.socket.emit('joinSnake', ownPlayer)
+
         const Snake = new Phaser.Class({
             initialize: function Snake(scene, x, y) {
                 snakeSelf = this;
@@ -58,6 +71,7 @@ class SnakeScene extends Phaser.Scene {
                 this.total = 0;
                 this.score = 0;
                 this.scoreModifier = 0;
+                this.tails = 0;
 
                 this.speedText = scene.add.text(withDPI(60), withDPI(120), `Speed: ${this.speed}`, {
                     fontSize: '30px',
@@ -78,6 +92,7 @@ class SnakeScene extends Phaser.Scene {
                         }
                     ).setScale(withDPI(1), withDPI(1))
 
+                /* SECTION CreateOwnPlayer */
                 // Start defining the snake
                 this.headPosition = new Phaser.Geom.Point(12.5, 12.5);
 
@@ -103,6 +118,8 @@ class SnakeScene extends Phaser.Scene {
                 this.tail = new Phaser.Geom.Point(12.5, 12.5);
                 main_body = this.body
 
+                /* !SECTION CreateOwnPlayer */
+
                 // Define the initial food.
                 this.foods = scene.physics.add.group()
 
@@ -112,28 +129,32 @@ class SnakeScene extends Phaser.Scene {
                 this.apple = this.foods
                     .create(3 * 25, withOffset(4 * 25), 'Snake:apple')
                     .setScale(withDPI(0.333), withDPI(0.333))
-                    .setOrigin(0);
+                    .setOrigin(0)
+                    .setName('Apple');
 
                 /* ANCHOR Pineapple */
                 this.pineapple = this.foods
                     .create(3 * 25, withOffset(4 * 25), 'Snake:pineapple')
                     .setScale(withDPI(0.333), withDPI(0.333))
                     .setOrigin(0)
-                    .disableBody(true, true);
+                    .disableBody(true, true)
+                    .setName('Pineapple');
 
                 /* ANCHOR Hamburger */
                 this.hamburger = this.foods
                     .create(3 * 25, withOffset(4 * 25), 'Snake:hamburger')
                     .setScale(withDPI(0.333), withDPI(0.333))
                     .setOrigin(0)
-                    .disableBody(true, true);
+                    .disableBody(true, true)
+                    .setName('Hamburger');
 
                 /* ANCHOR Soda */
                 this.soda = this.foods
                     .create(3 * 25, withOffset(4 * 25), 'Snake:soda')
                     .setScale(withDPI(0.333), withDPI(0.333))
                     .setOrigin(0)
-                    .disableBody(true, true);
+                    .disableBody(true, true)
+                    .setName('Soda');
 
                 main_soda = this.soda
 
@@ -142,7 +163,8 @@ class SnakeScene extends Phaser.Scene {
                     .create(3 * 25, withOffset(4 * 25), 'Snake:lemon')
                     .setScale(withDPI(0.333), withDPI(0.333))
                     .setOrigin(0)
-                    .disableBody(true, true);
+                    .disableBody(true, true)
+                    .setName('Lemon');
 
                 /* !SECTION Define foods */
 
@@ -188,9 +210,8 @@ class SnakeScene extends Phaser.Scene {
 
                 // Current players
                 main_socket.on('currentPlayers', function (players) {
-                    console.log({players})
                     Object.keys(players).forEach(function (id) {
-                        if (players[id].playerId !== self.socket.id) {
+                        if (players[id].playerId !== ownPlayer.playerId) {
                             const { playerId } = players[id]
                             createPlayer(playerId, scene)
                         }
@@ -201,8 +222,8 @@ class SnakeScene extends Phaser.Scene {
                     createPlayer(playerInfo.playerId, scene)
                   });
 
-                main_socket.on('disconnect', function (playerId) {
-                    const otherPlayer = snakeSelf.otherPlayers[playerId];
+                main_socket.on('disconnected', function (playerInfo) {
+                    const otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId];
                     otherPlayer.body.clear(true, true)
                   });
 
@@ -213,16 +234,24 @@ class SnakeScene extends Phaser.Scene {
 
                 main_socket.on('playerGrew', function (playerInfo) {
                     const otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId];
-                    // otherPlayer.body.create(growData.x, growData.y, 'Snake:player1_body')
-                    console.log(otherPlayer)
-                    otherPlayer.body
-                    .create(playerInfo.tail.x, playerInfo.tail.y, 'Snake:player2_body')
-                    .setScale(withDPI(0.5), withDPI(0.5));
 
+                    const bodyElement = otherPlayer.body
+                        .create(200, 200, 'Snake:player2_body')
+                        .setScale(withDPI(0.5), withDPI(0.5));
+
+                    bodyElement.setOrigin(0.5);
+                })
+
+                main_socket.on('playerShrank', function (playerInfo) {
+                    const otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId]
+
+                    if (otherPlayer.body.children.size > 1) {
+                        otherPlayer.body.remove(otherPlayer.body.getLast(true), true, true);
+                    }
                 })
 
                 main_socket.on('playerPositionChanged', function (playerInfo) {
-                    const otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId];
+                    let otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId];
                     otherPlayer.head.enableBody(false);
                     otherPlayer.head.setVisible(true);
                     otherPlayer.headPosition.x = playerInfo.x;
@@ -238,18 +267,79 @@ class SnakeScene extends Phaser.Scene {
                         );
                 })
 
-                // main_socket.on('playerGrew', function (playerInfo) {
-                //     const otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId];
-                //     otherPlayer.headPosition.x = playerInfo.x;
-                //     otherPlayer.headPosition.y = playerInfo.y;
-                //     otherPlayer.body.create(200, 200, 'Snake:player2_body')
-                //         // otherPlayer.body
-                //         //     .create(otherPlayer.tail.x, otherPlayer.tail.y, 'Snake:player2_body')
-                //         //     .setScale(withDPI(0.5), withDPI(0.5))
-                //         //     .setOrigin(0.5)
-                //         //     .enableBody(true)
-                //         //     .setVisible(true);
-                // })
+                main_socket.on('repositionAllItems', function (itemInfo) {
+                    snakeSelf.pineapple.disableBody(true, true);
+                    snakeSelf.lemon.disableBody(true, true);
+                    snakeSelf.hamburger.disableBody(true, true);
+                    snakeSelf.soda.disableBody(true, true);
+
+                    // Reposition the apple
+                    snakeSelf.apple.setPosition(
+                        itemInfo.applePosition.x * 25,
+                        withOffset(itemInfo.applePosition.y * 25)
+                    );
+                    snakeSelf.apple.enableBody(false);
+
+
+                    // Place the healthy item
+                    if (itemInfo.healthy.visible) {
+                        let foundItem = false;
+                        let healthyItem;
+
+                        switch (itemInfo.healthy.name) {
+                            case 'Apple':
+                                healthyItem = snakeSelf.apple
+                                foundItem = true
+                                break;
+
+                            case 'Pineapple':
+                                healthyItem = snakeSelf.pineapple
+                                foundItem = true
+                                break;
+
+                            case 'Lemon':
+                                healthyItem = snakeSelf.lemon
+                                foundItem = true
+                                break;
+                        }
+
+                        if (foundItem) {
+                            healthyItem.setPosition(
+                                itemInfo.healthy.pos.x * 25,
+                                withOffset(itemInfo.healthy.pos.y * 25)
+                            );
+                            healthyItem.enableBody(false);
+                            healthyItem.setVisible(true);
+                        }
+                    }
+
+                    // Place the unhealthy item
+                    if (itemInfo.unhealthy.visible) {
+                        let foundUnhealthy = false;
+                        let unhealthyItem;
+
+                        switch (itemInfo.unhealthy.name) {
+                            case 'Soda':
+                                unhealthyItem = snakeSelf.soda
+                                foundUnhealthy = true
+                                break;
+
+                            case 'Hamburger':
+                                unhealthyItem = snakeSelf.hamburger
+                                foundUnhealthy = true
+                                break;
+                        }
+
+                        if (foundUnhealthy) {
+                            unhealthyItem.setPosition(
+                                itemInfo.unhealthy.pos.x * 25,
+                                withOffset(itemInfo.unhealthy.pos.y * 25)
+                            );
+                            unhealthyItem.enableBody(false);
+                            unhealthyItem.setVisible(true);
+                        }
+                    }
+                })
                 /* !SECTION Multiplayer listeners */
             },
 
@@ -262,6 +352,7 @@ class SnakeScene extends Phaser.Scene {
             createSecondPlayer: function (playerId, scene) {
                 snakeSelf.otherPlayers[playerId] = {};
                 const secondPlayer = snakeSelf.otherPlayers[playerId];
+                secondPlayer.headPosition = new Phaser.Geom.Point(12.5, 12.5);
                 secondPlayer.body = scene.physics.add.group();
 
                 secondPlayer.head = secondPlayer.body
@@ -278,14 +369,17 @@ class SnakeScene extends Phaser.Scene {
                 secondPlayer.head.setDepth(10);
 
                 secondPlayer.tail = new Phaser.Geom.Point(12.5, 12.5);
-                secondPlayer.headPosition = new Phaser.Geom.Point(12.5, 12.5);
+                secondPlayer.tails = 0;
             },
 
             faceLeft: function () {
                 if (this.direction === UP || this.direction === DOWN) {
                     this.heading = LEFT;
                     this.head.setAngle(90);
-                    main_socket.emit('directionChange', { rotation: 90 })
+                    main_socket.emit('directionChange', {
+                        playerId: ownPlayer.playerId,
+                        rotation: 90
+                    })
                 }
             },
 
@@ -293,7 +387,10 @@ class SnakeScene extends Phaser.Scene {
                 if (this.direction === UP || this.direction === DOWN) {
                     this.heading = RIGHT;
                     this.head.setAngle(-90);
-                    main_socket.emit('directionChange', { rotation: -90 })
+                    main_socket.emit('directionChange', {
+                        playerId: ownPlayer.playerId,
+                        rotation: -90
+                    })
                 }
             },
 
@@ -301,7 +398,10 @@ class SnakeScene extends Phaser.Scene {
                 if (this.direction === LEFT || this.direction === RIGHT) {
                     this.heading = UP;
                     this.head.setAngle(180);
-                    main_socket.emit('directionChange', { rotation: 180 })
+                    main_socket.emit('directionChange', {
+                        playerId: ownPlayer.playerId,
+                        rotation: 180
+                    })
                 }
             },
 
@@ -309,7 +409,10 @@ class SnakeScene extends Phaser.Scene {
                 if (this.direction === LEFT || this.direction === RIGHT) {
                     this.heading = DOWN;
                     this.head.setAngle(0);
-                    main_socket.emit('directionChange', { rotation: 0 })
+                    main_socket.emit('directionChange', {
+                        playerId: ownPlayer.playerId,
+                        rotation: 0
+                    })
                 }
             },
 
@@ -325,6 +428,7 @@ class SnakeScene extends Phaser.Scene {
                     case LEFT:
                         this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x - 1, 0, 30);
                         main_socket.emit('playerMovement', {
+                            playerId: ownPlayer.playerId,
                             x: this.headPosition.x,
                             y: this.headPosition.y
                         })
@@ -333,6 +437,7 @@ class SnakeScene extends Phaser.Scene {
                     case RIGHT:
                         this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x + 1, 0, 30);
                         main_socket.emit('playerMovement', {
+                            playerId: ownPlayer.playerId,
                             x: this.headPosition.x,
                             y: this.headPosition.y
                         })
@@ -341,6 +446,7 @@ class SnakeScene extends Phaser.Scene {
                     case UP:
                         this.headPosition.y = Phaser.Math.Wrap(this.headPosition.y - 1, 0, 38);
                         main_socket.emit('playerMovement', {
+                            playerId: ownPlayer.playerId,
                             x: this.headPosition.x,
                             y: this.headPosition.y
                         })
@@ -349,6 +455,7 @@ class SnakeScene extends Phaser.Scene {
                     case DOWN:
                         this.headPosition.y = Phaser.Math.Wrap(this.headPosition.y + 1, 0, 38);
                         main_socket.emit('playerMovement', {
+                            playerId: ownPlayer.playerId,
                             x: this.headPosition.x,
                             y: this.headPosition.y
                         })
@@ -365,7 +472,7 @@ class SnakeScene extends Phaser.Scene {
                         (this.headPosition.y * 25) + withDPI(127),
                         1,
                         this.tail
-                    );
+                );
 
                 //  Check to see if any of the body pieces have the same x/y as the head
                 //  If they do, the head ran into the body
@@ -408,7 +515,9 @@ class SnakeScene extends Phaser.Scene {
 
                 newPart.setOrigin(0.5);
 
-                socket.emit('snakeGrow', newPart)
+                main_socket.emit('snakeGrow', {
+                    playerId: ownPlayer.playerId
+                })
             },
 
             /**
@@ -418,6 +527,10 @@ class SnakeScene extends Phaser.Scene {
                 if (this.body.children.size > 1) {
                     this.body.remove(this.body.getLast(true), true, true);
                 }
+
+                main_socket.emit('snakeShrink', {
+                    playerId: ownPlayer.playerId
+                })
             },
 
             /**
@@ -611,19 +724,39 @@ class SnakeScene extends Phaser.Scene {
                     const healthy = Phaser.Utils.Array.GetRandom(this.healthyFood);
                     const unHealthy = Phaser.Utils.Array.GetRandom(this.notHealthy);
 
+                    // Should the following update
+                    const showHealthy = Math.random() >= 0.5;
+                    const showUnhealthy = Math.random() >= 0.5
+
+                    // Tell socket to reposition the items.
+                    main_socket.emit('repositionItems', {
+                        applePosition: applePos,
+                        healthy: {
+                            visible: showHealthy,
+                            pos: healthyPos,
+                            name: healthy.name
+                        },
+                        unhealthy: {
+                            visible: showUnhealthy,
+                            pos: unHealthyPos,
+                            name: unHealthy.name
+                        }
+                    })
+
                     // Reposition the apple
                     this.apple.setPosition(applePos.x * 25, withOffset(applePos.y * 25));
                     this.apple.enableBody(false);
 
+
                     // Place the healthy item
-                    if (Math.random() >= 0.5) {
+                    if (showHealthy) {
                         healthy.setPosition(healthyPos.x * 25, withOffset(healthyPos.y * 25));
                         healthy.enableBody(false);
                         healthy.setVisible(true);
                     }
 
                     // Place the unhealthy item
-                    if (Math.random() >= 0.5) {
+                    if (showUnhealthy) {
                         unHealthy.setPosition(unHealthyPos.x * 25, withOffset(unHealthyPos.y * 25));
                         unHealthy.enableBody(false);
                         unHealthy.setVisible(true);
