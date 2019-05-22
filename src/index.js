@@ -45,6 +45,7 @@ const game = new Phaser.Game({
       WeeklyScenes,
       StatsScene,
       RunMorfiRun,
+      PopupModalScene,
     ],
 });
 
