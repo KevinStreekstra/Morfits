@@ -30,17 +30,11 @@ export function overview_assets() {
     //bottom navbar icons / tekst
     this.load.image('overview:btnSettings', 'src/assets/character_page/btn_setting@2x.png');
     this.load.image('overview:btnFriends', 'src/assets/character_page/btn_freinds@2x.png');
-    this.load.image('overview:btnGym', 'src/assets/character_page/brn_gym@2x.png');
+    this.load.image('overview:btnKleding', 'src/assets/character_page/brn_gym@2x.png');
     this.load.image('overview:btnGames', 'src/assets/character_page/btn_games@2x.png');
-    this.load.image('overview:btnfeed', 'src/assets/character_page/btn_feed@2x.png');
+    this.load.image('overview:btnMarket', 'src/assets/character_page/btn_feed@2x.png');
     this.load.image('overview:btnInventory', 'src/assets/character_page/btn_inventory@2x.png');
     this.load.image('overview:btnQuiz', 'src/assets/character_page/btn_daily-reward@2x.png');
-
-    this.load.image('overview:txtGym', 'src/assets/character_page/Gym@2x.png');
-    this.load.image('overview:txtGames', 'src/assets/character_page/Games@2x.png');
-    this.load.image('overview:txtFeed', 'src/assets/character_page/Voeden@2x.png');
-    this.load.image('overview:txtInventory', 'src/assets/character_page/Inventaris@2x.png');
-    this.load.image('overview:txtQuiz', 'src/assets/character_page/Quiz@2x.png');
 
     //bottom navbar
     this.load.image('overview:BottomNavbar', 'src/assets/character_page/nav-bottom_background@2x.png');
