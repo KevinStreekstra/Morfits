@@ -15,3 +15,11 @@
 export function addImage(x, y, texture, frame) {
     return this.add.image(x, y, texture, frame).setScale(window.devicePixelRatio, window.devicePixelRatio)
 }
+
+export function addElement(x, y, tag, style) {
+    return this.add.dom(x, y, document.createElement(tag), style).setScale(window.devicePixelRatio, window.devicePixelRatio);
+}
+
+export function addRectangle(x, y, width, height, fillColor) {
+    return this.add.rectangle(x, y, width, height, fillColor).setScale(window.devicePixelRatio, window.devicePixelRatio);
+}

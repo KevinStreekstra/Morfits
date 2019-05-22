@@ -32,6 +32,9 @@ class BootScene extends Phaser.Scene {
     }
 
     preload() {
+        let canvas = document.querySelector('#game canvas');
+        canvas.style.width = 'auto';
+
         this.grid = new AlignGrid({
             scene: this, 
             rows: 13, 
@@ -39,6 +42,8 @@ class BootScene extends Phaser.Scene {
             width: this.sys.game.config.width,         
             height: this.sys.game.config.height
         });
+
+        this.load.css('master', './src/master.css');
 
         // START LOAD SCENE ASSETS
         this.overview_assets();

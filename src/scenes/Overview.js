@@ -1,7 +1,7 @@
 import Player from '../classes/Player';
 import AlignGrid from '../classes/AlignGrid';
 
-import { addImage } from '../helpers';
+import { addImage, addElement } from '../helpers';
 
 class OverviewScene extends Phaser.Scene {
     constructor() {
@@ -65,6 +65,7 @@ class OverviewScene extends Phaser.Scene {
 
         this.dailyQuestion = {};
         this.addImage = addImage.bind(this);
+        this.addElement = addElement.bind(this);
 
         this.scaleRatio = window.devicePixelRatio / 3;
     }
@@ -84,27 +85,27 @@ class OverviewScene extends Phaser.Scene {
             height: this.sys.game.config.height
         });
 
-        // this.shopModal = this.add.dom(0, 0, document.createElement('div')).setHTML('dgwefgwe').setOrigin(0, 1);
-        // this.grid.placeAtIndex(0, this.shopModal);
-
         this.bg = this.addImage(0, 0, 'overview:bg').setOrigin(0, 0);
 
         // Top Navbar 
         this.TopNavbar = this.addImage(0, 0, 'overview:BottomNavbar');
         this.grid.placeAtIndex(7, this.TopNavbar);
-        this.whiteBg = this.addImage(0, 0, 'overview:whiteBG').setOrigin(0.55, 0.45); 
+        this.whiteBg = this.addImage(0, 0, 'overview:whiteBG').setOrigin(0.55, 0.45).setInteractive();
+        this.whiteBg.on('pointerdown', () => {
+            this.scene.launch('StatsScene');
+        });
         this.grid.placeAtIndex(3, this.whiteBg);
-        this.Mylevel = this.add.text(0, 0, '12', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(1, 0.25);
+        this.Mylevel = this.add.text(0, 0, this._player.getLevel(), { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(1, 0.25);
         this.grid.placeAtIndex(1, this.Mylevel);
-        this.Myname = this.add.text(0, 0, 'Myname', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(0.6, 0.25);
+        this.Myname = this.add.text(0, 0, this.player.username, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(0.6, 0.25);
         this.grid.placeAtIndex(3, this.Myname);
         this.navPP = this.addImage(0, 0, 'overview:navPP').setOrigin(0.8, 0.43);
         this.grid.placeAtIndex(9, this.navPP);
-        this.MyPP = this.add.text(0, 0, '80', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(1.4, 0.25);
+        this.MyPP = this.add.text(0, 0, this.player.powerpoints, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(1.4, 0.25);
         this.grid.placeAtIndex(9, this.MyPP);
         this.navM_Dollars = this.addImage(0, 0, 'overview:navM_Dollars').setOrigin(0.7, 0.4);
         this.grid.placeAtIndex(13, this.navM_Dollars);
-        this.MyM_dollars = this.add.text(0, 0, '250', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(0.5, 0.25);
+        this.MyM_dollars = this.add.text(0, 0, this.player.morfos, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(0.5, 0.25);
         this.grid.placeAtIndex(12, this.MyM_dollars);
 
 
@@ -135,8 +136,11 @@ class OverviewScene extends Phaser.Scene {
         this.txtGames = this.add.text(0, 0, 'Games', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(-0.1, 0.5);
         this.grid.placeAtIndex(213, this.txtGames);
 
-        this.market = this.addImage(0, 0, 'overview:btnMarket').setOrigin(0.5, 0.37);
+        this.market = this.addImage(0, 0, 'overview:btnMarket').setOrigin(0.5, 0.37).setInteractive();
         this.grid.placeAtIndex(202, this.market);
+        this.market.on('pointerdown', () => {
+            this.scene.launch('ShopScene');
+        });
 
         this.txtMarket = this.add.text(0, 0, 'Markt', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(-0.2, 0.5);
         this.grid.placeAtIndex(216, this.txtMarket);
@@ -214,7 +218,7 @@ class OverviewScene extends Phaser.Scene {
         this.grid.placeAtIndex(25, this.IconPower);
 
 
-         //this.grid.showNumbers();
+        //this.grid.showNumbers();
     }
 
     update() {

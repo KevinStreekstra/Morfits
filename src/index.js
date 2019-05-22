@@ -7,6 +7,7 @@ import OverviewScene from './scenes/Overview';
 import StatsScene from "./scenes/Stats";
 import DailyScenes from "./scenes/DailyQuiz";
 import WeeklyScenes from "./scenes/WeeklyMission";
+import ShopScene from './scenes/Shop';
 import StartQuiz from "./scenes/StartQuiz";
 import StopQuiz from "./scenes/StopQuiz";
 
@@ -21,16 +22,16 @@ const game = new Phaser.Game({
     type: Phaser.CANVAS,
     width: 375,
     height: 675,
-    dom: {
-      createContainer: true,
-    },
     antialias: true,
     multiTexture: true,
     scale: {
-        zoom: 1 / window.devicePixelRatio,
+        zoom: 1 / devicePixelRatio,
         scale: Phaser.Scale.NONE,
         width: 375 * devicePixelRatio,
         height: 675 * devicePixelRatio
+    },
+    dom: {
+      createContainer: true,
     },
     scene: [
       LoadingScene,
@@ -40,6 +41,7 @@ const game = new Phaser.Game({
       DailyScenes,
       WeeklyScenes,
       StatsScene,
+      ShopScene,
       StartQuiz,
       StopQuiz,
       Question1,
@@ -51,6 +53,3 @@ WebFontConfig = {
     families: ['Bubblegum Sans']
   }
 }
-
-// game.config.width = window.innerWidth * window.devicePixelRatio;
-// game.config.height = window.innerHeight * window.devicePixelRatio;
