@@ -90,13 +90,13 @@ class OverviewScene extends Phaser.Scene {
         // Top Navbar 
         this.TopNavbar = this.addImage(0, 0, 'overview:BottomNavbar');
         this.grid.placeAtIndex(7, this.TopNavbar);
-        this.whiteBg = this.addImage(0, 0, 'overview:whiteBG').setOrigin(0.55, 0.45).setInteractive();
-        this.whiteBg.on('pointerdown', () => {
+        this.whiteBg = this.addImage(0, 0, 'overview:whiteBG').setOrigin(0.55, 0.45);
+        this.grid.placeAtIndex(3, this.whiteBg);
+        this.Mylevel = this.add.text(0, 0, this._player.getLevel(), { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(1, 0.25).setInteractive();
+        this.grid.placeAtIndex(1, this.Mylevel);
+        this.Mylevel.on('pointerdown', () => {
             this.scene.launch('StatsScene');
         });
-        this.grid.placeAtIndex(3, this.whiteBg);
-        this.Mylevel = this.add.text(0, 0, this._player.getLevel(), { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(1, 0.25);
-        this.grid.placeAtIndex(1, this.Mylevel);
         this.Myname = this.add.text(0, 0, this.player.username, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(0.6, 0.25);
         this.grid.placeAtIndex(3, this.Myname);
         this.navPP = this.addImage(0, 0, 'overview:navPP').setOrigin(0.8, 0.43);
@@ -222,7 +222,7 @@ class OverviewScene extends Phaser.Scene {
     }
 
     update() {
-
+        this.Mylevel.text = this._player.getLevel();
     }
 }
 
