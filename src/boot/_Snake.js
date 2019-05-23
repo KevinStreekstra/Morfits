@@ -6,6 +6,9 @@ export function snake_assets() {
 
     // Board assets
     this.load.image('Snake:board_background', require('../assets/snake/board/field.png'));
+    this.load.image('Snake:background_top', require('../assets/snake/ui/background_top.png'))
+    this.load.image('Snake:background_bottom', require('../assets/snake/ui/background_bottom.png'))
+    this.load.image('Snake:live_icon', require('../assets/snake/ui/heart.png'))
 
     // Food assets
     this.load.image('Snake:apple', require('../assets/snake/food/apple.png'));

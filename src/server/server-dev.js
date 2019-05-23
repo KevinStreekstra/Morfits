@@ -149,4 +149,20 @@ io.on('connection', function(socket){
             socket.to('snake_game').broadcast.emit('repositionAllItems', itemData)
         }
     )
+
+    socket.on(
+        'playerDied',
+        function (playerData) {
+            socket.to('snake_game').broadcast.emit('aPlayerDied', playerData)
+        }
+    )
+
+    socket.on(
+        'playerRespawned',
+        function (playerData) {
+            players[playerData.playerId].tails = 0;
+
+            socket.to('snake_game').broadcast.emit('aPlayerRespawned', playerData)
+        }
+    )
 });

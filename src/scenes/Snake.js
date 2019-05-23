@@ -7,6 +7,7 @@
 
 import Phaser from 'phaser';
 import { withDPI } from '../helpers';
+import SwipeListener from 'swipe-listener';
 
 let snake;
 let main_body;
@@ -24,6 +25,8 @@ const RIGHT = 3;
 
 const withOffset = (original) => original + withDPI(127);
 
+let direction;
+
 class SnakeScene extends Phaser.Scene {
     constructor() {
         super({
@@ -40,6 +43,23 @@ class SnakeScene extends Phaser.Scene {
                 }
             },
         });
+
+        const gameCanvas = document.querySelector('#game')
+        const listener = SwipeListener(gameCanvas)
+
+        gameCanvas.addEventListener('swipe', (ev) => {
+            const directions = ev.detail.directions;
+
+            if (directions.left) {
+                direction = 'left'
+            } else if (directions.right) {
+                direction = 'right'
+            } else if (directions.top) {
+                direction = 'up'
+            } else if (directions.bottom) {
+                direction = 'down'
+            }
+        })
     }
 
     create() {
@@ -65,6 +85,7 @@ class SnakeScene extends Phaser.Scene {
             initialize: function Snake(scene, x, y) {
                 snakeSelf = this;
                 main_scene = scene;
+
                 // Game variables
                 this.alive = true;
                 this.speed = 100;
@@ -73,6 +94,7 @@ class SnakeScene extends Phaser.Scene {
                 this.score = 0;
                 this.scoreModifier = 0;
                 this.tails = 0;
+                this.lives = 3;
 
                 this.speedText = scene.add.text(withDPI(60), withDPI(120), `Speed: ${this.speed}`, {
                     fontSize: '30px',
@@ -107,8 +129,8 @@ class SnakeScene extends Phaser.Scene {
                 // Create the head.
                 this.head = this.body
                     .create(
-                        x * 25,
-                        withOffset(y * 25),
+                        x * withDPI(12.5),
+                        withOffset(y * withDPI(12.5)),
                         'Snake:player1_head'
                     )
                     .setScale(withDPI(0.33), withDPI(0.33));
@@ -129,14 +151,14 @@ class SnakeScene extends Phaser.Scene {
 
                 /* ANCHOR Apple */
                 this.apple = this.foods
-                    .create(3 * 25, withOffset(4 * 25), 'Snake:apple')
+                    .create(3 * withDPI(12.5), withOffset(4 * withDPI(12.5)), 'Snake:apple')
                     .setScale(withDPI(0.333), withDPI(0.333))
                     .setOrigin(0)
                     .setName('Apple');
 
                 /* ANCHOR Pineapple */
                 this.pineapple = this.foods
-                    .create(3 * 25, withOffset(4 * 25), 'Snake:pineapple')
+                    .create(-200, withOffset(4 * 25), 'Snake:pineapple')
                     .setScale(withDPI(0.333), withDPI(0.333))
                     .setOrigin(0)
                     .disableBody(true, true)
@@ -144,7 +166,7 @@ class SnakeScene extends Phaser.Scene {
 
                 /* ANCHOR Hamburger */
                 this.hamburger = this.foods
-                    .create(3 * 25, withOffset(4 * 25), 'Snake:hamburger')
+                    .create(-200, withOffset(4 * 25), 'Snake:hamburger')
                     .setScale(withDPI(0.333), withDPI(0.333))
                     .setOrigin(0)
                     .disableBody(true, true)
@@ -152,7 +174,7 @@ class SnakeScene extends Phaser.Scene {
 
                 /* ANCHOR Soda */
                 this.soda = this.foods
-                    .create(3 * 25, withOffset(4 * 25), 'Snake:soda')
+                    .create(-200, withOffset(4 * 25), 'Snake:soda')
                     .setScale(withDPI(0.333), withDPI(0.333))
                     .setOrigin(0)
                     .disableBody(true, true)
@@ -162,7 +184,7 @@ class SnakeScene extends Phaser.Scene {
 
                 /* ANCHOR Lemon */
                 this.lemon = this.foods
-                    .create(3 * 25, withOffset(4 * 25), 'Snake:lemon')
+                    .create(-200, withOffset(4 * 25), 'Snake:lemon')
                     .setScale(withDPI(0.333), withDPI(0.333))
                     .setOrigin(0)
                     .disableBody(true, true)
@@ -200,17 +222,33 @@ class SnakeScene extends Phaser.Scene {
                     this.notHealthy.push(this.soda);
                 }
 
-                // Add background grid
+                /* SECTION UI elements. */
                 this.background = scene.add
                     .image(0, withDPI(127), 'Snake:board_background')
-                    .setScale(withDPI(0.333), withDPI(0.333))
+                    .setDisplaySize(withDPI(375), withDPI(475))
                     .setOrigin(0)
                     .setDepth(-1);
+
+                this.backgroundTop = scene.add
+                    .image(0, withDPI(60), 'Snake:background_top')
+                    .setDisplaySize(withDPI(375), withDPI(67))
+                    .setOrigin(0)
+                    .setDepth(-2);
+
+                this.backgroundBottom = scene.add
+                    .image(0, withDPI(602), 'Snake:background_bottom')
+                    .setDisplaySize(withDPI(375), withDPI(116))
+                    .setOrigin(0)
+                    .setDepth(-2);
+
+                /* !SECTION UI elements. */
 
                 /* SECTION Multiplayer listeners */
                 const createPlayer = this.createSecondPlayer
 
-                // Current players
+                /**
+                 * @description Place all the current players in the field.
+                 */
                 main_socket.on('currentPlayers', function (players) {
                     Object.keys(players).forEach(function (id) {
                         if (players[id].playerId !== ownPlayer.playerId) {
@@ -220,20 +258,32 @@ class SnakeScene extends Phaser.Scene {
                     });
                 });
 
+                /**
+                 * @description Creates a new snake if a new player joins.
+                 */
                 main_socket.on('newPlayer', function (playerInfo) {
                     createPlayer(playerInfo, scene)
                   });
 
+                /**
+                 * @description Handle a user leaving the game.
+                 */
                 main_socket.on('disconnected', function (playerInfo) {
                     const otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId];
                     otherPlayer.body.clear(true, true)
                   });
 
+                /**
+                 * @description Handle other playing changing direction
+                 */
                 main_socket.on('playerChangedDirection', (playerInfo) => {
                     const otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId];
                     otherPlayer.head.setAngle(playerInfo.rotation)
                 });
 
+                /**
+                 * @description Handle other player growing in size.
+                 */
                 main_socket.on('playerGrew', function (playerInfo) {
                     const otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId];
 
@@ -244,6 +294,9 @@ class SnakeScene extends Phaser.Scene {
                     bodyElement.setOrigin(0.5);
                 })
 
+                /**
+                 * @description Handle other player shrinking in size.
+                 */
                 main_socket.on('playerShrank', function (playerInfo) {
                     const otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId]
 
@@ -252,6 +305,9 @@ class SnakeScene extends Phaser.Scene {
                     }
                 })
 
+                /**
+                 * @description Handle other player moving.
+                 */
                 main_socket.on('playerPositionChanged', function (playerInfo) {
                     let otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId];
                     otherPlayer.head.enableBody(false);
@@ -269,6 +325,10 @@ class SnakeScene extends Phaser.Scene {
                         );
                 })
 
+                /* ANCHOR Multiplayer - sync food */
+                /**
+                 * @description Sync food with the other clients.
+                 */
                 main_socket.on('repositionAllItems', function (itemInfo) {
                     snakeSelf.pineapple.disableBody(true, true);
                     snakeSelf.lemon.disableBody(true, true);
@@ -277,8 +337,8 @@ class SnakeScene extends Phaser.Scene {
 
                     // Reposition the apple
                     snakeSelf.apple.setPosition(
-                        itemInfo.applePosition.x * 25,
-                        withOffset(itemInfo.applePosition.y * 25)
+                        itemInfo.applePosition.x * withDPI(12.5),
+                        withOffset(itemInfo.applePosition.y * withDPI(12.5))
                     );
                     snakeSelf.apple.enableBody(false);
 
@@ -307,8 +367,8 @@ class SnakeScene extends Phaser.Scene {
 
                         if (foundItem) {
                             healthyItem.setPosition(
-                                itemInfo.healthy.pos.x * 25,
-                                withOffset(itemInfo.healthy.pos.y * 25)
+                                itemInfo.healthy.pos.x * withDPI(12.5),
+                                withOffset(itemInfo.healthy.pos.y * withDPI(12.5))
                             );
                             healthyItem.enableBody(false);
                             healthyItem.setVisible(true);
@@ -334,15 +394,25 @@ class SnakeScene extends Phaser.Scene {
 
                         if (foundUnhealthy) {
                             unhealthyItem.setPosition(
-                                itemInfo.unhealthy.pos.x * 25,
-                                withOffset(itemInfo.unhealthy.pos.y * 25)
+                                itemInfo.unhealthy.pos.x * withDPI(12.5),
+                                withOffset(itemInfo.unhealthy.pos.y * withDPI(12.5))
                             );
                             unhealthyItem.enableBody(false);
                             unhealthyItem.setVisible(true);
                         }
                     }
                 })
-                /* !SECTION Multiplayer listeners */
+
+                /* ANCHOR Multiplayer - handle other player dying */
+                main_socket.on('aPlayerDied', function (playerData) {
+                    snakeSelf.playerDiesAnimation(snakeSelf.otherPlayers[playerData.playerId].body)
+                })
+
+                /* ANCHOR Multiplayer - handle other player respawning */
+                main_socket.on('aPlayerRespawned', function (playerData) {
+
+                })
+            /* !SECTION Multiplayer listeners */
             },
 
             update: function (time) {
@@ -352,7 +422,7 @@ class SnakeScene extends Phaser.Scene {
             },
 
             playerHitOtherPlayer: function () {
-                snakeSelf.alive = false;
+                this.onPlayerDead()
             },
 
             createSecondPlayer: function (playerInfo, scene) {
@@ -507,7 +577,7 @@ class SnakeScene extends Phaser.Scene {
                 if (hitBody) {
                     console.log('dead');
 
-                    this.alive = false;
+                    this.onPlayerDead()
 
                     return false;
                 }
@@ -583,6 +653,17 @@ class SnakeScene extends Phaser.Scene {
                 apple.disableBody(true, false);
                 this.total++;
 
+                const scoreText = main_scene.add.text(apple.x, apple.y, '+100', {
+                    fontSize: '24px',
+                    fontFamily: 'BubblegumSans',
+                    color: '#257934',
+                    align: 'center'
+                }).setScale(withDPI(1), withDPI(1)).setAngle(-14).setDepth(12)
+
+                setTimeout(() => {
+                    scoreText.destroy()
+                }, 1000)
+
                 this.grow();
                 this.repositionItems();
                 this.handleSpeedIncrease();
@@ -608,6 +689,17 @@ class SnakeScene extends Phaser.Scene {
                 this.total++;
                 this.scoreModifier += 100;
 
+                const scoreText = main_scene.add.text(pineapple.x, pineapple.y, '+200', {
+                    fontSize: '24px',
+                    fontFamily: 'BubblegumSans',
+                    color: '#257934',
+                    align: 'center'
+                }).setScale(withDPI(1), withDPI(1)).setAngle(-14).setDepth(12)
+
+                setTimeout(() => {
+                    scoreText.destroy()
+                }, 1000)
+
                 this.grow();
                 this.repositionItems();
                 this.handleSpeedIncrease();
@@ -628,6 +720,17 @@ class SnakeScene extends Phaser.Scene {
             eatHamburger: function (head, hamburger) {
                 hamburger.disableBody(true, true);
                 this.scoreModifier -= 150;
+
+                const scoreText = main_scene.add.text(hamburger.x, hamburger.y, '-150', {
+                    fontSize: '24px',
+                    fontFamily: 'BubblegumSans',
+                    color: '#9a001c',
+                    align: 'center'
+                }).setScale(withDPI(1), withDPI(1)).setAngle(-14).setDepth(12)
+
+                setTimeout(() => {
+                    scoreText.destroy()
+                }, 1000)
 
                 this.grow();
                 this.grow();
@@ -650,6 +753,17 @@ class SnakeScene extends Phaser.Scene {
             drinkSoda: function (head, soda) {
                 soda.disableBody(true, true);
                 this.scoreModifier -= 50;
+
+                const scoreText = main_scene.add.text(soda.x, soda.y, '-50', {
+                    fontSize: '24px',
+                    fontFamily: 'BubblegumSans',
+                    color: '#9a001c',
+                    align: 'center'
+                }).setScale(withDPI(1), withDPI(1)).setAngle(-14).setDepth(12)
+
+                setTimeout(() => {
+                    scoreText.destroy()
+                }, 1000)
 
                 this.grow();
                 this.repositionItems();
@@ -681,6 +795,17 @@ class SnakeScene extends Phaser.Scene {
                 lemon.disableBody(true, true);
                 this.scoreModifier += 50;
 
+                const scoreText = main_scene.add.text(lemon.x, lemon.y, '+50', {
+                    fontSize: '24px',
+                    fontFamily: 'BubblegumSans',
+                    color: '#257934',
+                    align: 'center'
+                }).setScale(withDPI(1), withDPI(1)).setAngle(-14).setDepth(12)
+
+                setTimeout(() => {
+                    scoreText.destroy()
+                }, 1000)
+
                 this.shrink();
                 this.repositionItems();
             },
@@ -689,8 +814,8 @@ class SnakeScene extends Phaser.Scene {
                 //  Remove all body pieces from valid positions list
                 this.body.children.each(function (segment) {
 
-                    var bx = Math.floor(segment.x / 25);
-                    var by = Math.floor(segment.y / 25);
+                    var bx = Math.floor(segment.x / withDPI(12.5));
+                    var by = Math.floor(segment.y / withDPI(12.5));
 
                     try {
                         grid[by][bx] = false;
@@ -703,7 +828,6 @@ class SnakeScene extends Phaser.Scene {
 
             repositionItems: function () {
                 let testGrid = [];
-                console.log({testGrid});
 
                 /* First we assume all blocks are safe */
                 for (let y = 0; y < 29; y++) {
@@ -713,10 +837,8 @@ class SnakeScene extends Phaser.Scene {
                         testGrid[y][x] = true;
                     }
                 }
-                console.log({testGrid})
 
                 this.updateGrid(testGrid);
-                console.log({testGrid})
 
                 let validLocations = []
 
@@ -766,20 +888,20 @@ class SnakeScene extends Phaser.Scene {
                     })
 
                     // Reposition the apple
-                    this.apple.setPosition(applePos.x * 25, withOffset(applePos.y * 25));
+                    this.apple.setPosition(applePos.x * withDPI(12.5), withOffset(applePos.y * withDPI(12.5)));
                     this.apple.enableBody(false);
 
 
                     // Place the healthy item
                     if (showHealthy) {
-                        healthy.setPosition(healthyPos.x * 25, withOffset(healthyPos.y * 25));
+                        healthy.setPosition(healthyPos.x * withDPI(12.5), withOffset(healthyPos.y * withDPI(12.5)));
                         healthy.enableBody(false);
                         healthy.setVisible(true);
                     }
 
                     // Place the unhealthy item
                     if (showUnhealthy) {
-                        unHealthy.setPosition(unHealthyPos.x * 25, withOffset(unHealthyPos.y * 25));
+                        unHealthy.setPosition(unHealthyPos.x * withDPI(12.5), withOffset(unHealthyPos.y * withDPI(12.5)));
                         unHealthy.enableBody(false);
                         unHealthy.setVisible(true);
                     }
@@ -791,10 +913,92 @@ class SnakeScene extends Phaser.Scene {
                     return false;
                 }
 
+            },
+
+            /* SECTION Player dies */
+            onPlayerDead: function () {
+                snakeSelf.alive = false
+                snakeSelf.lives -= 1
+
+                this.playerDiesAnimation(main_body)
+                main_socket.emit('playerDied', {
+                    playerId: ownPlayer.playerId
+                })
+            },
+
+            playerDiesAnimation: function (playerElement) {
+                setTimeout(() => {
+                    playerElement.toggleVisible()
+
+                    setTimeout(() => {
+                        playerElement.toggleVisible()
+
+                        setTimeout(() => {
+                            playerElement.toggleVisible()
+
+                            setTimeout(() => {
+                                playerElement.toggleVisible()
+
+                                setTimeout(() => {
+                                    playerElement.toggleVisible()
+                                    playerElement.clear(true, true)
+                                }, 300)
+                            }, 300)
+                        }, 300)
+                    }, 300)
+                }, 300)
+            },
+
+            playerRespawn: function () {
+                snakeSelf.body = scene.physics.add.group();
+
+                snakeSelf.head = snakeSelf.body
+                    .create(
+                        30 * withDPI(12.5),
+                        withOffset(30 * withDPI(12.5)),
+                        'Snake:player1_head'
+                    )
+                    .setScale(withDPI(0.33), withDPI(0.33));
+
+                snakeSelf.head.setOrigin(0.5);
+                snakeSelf.head.setAngle(-90);
+                snakeSelf.head.setDepth(10);
+
+                snakeSelf.speed = 95;
+
+                socket.emit('playerRespawned', {
+                    playerId: ownPlayer.playerId,
+                    tails: 0,
+
+                })
+            },
+
+            playerRespawnOther: function (playerInfo) {
+                const secondPlayer = snakeSelf.otherPlayers[playerInfo.playerId]
+
+                secondPlayer.body = scene.physics.add.group();
+
+                secondPlayer.head = secondPlayer.body
+                    .create(
+                        30 * withDPI(12.5),
+                        withOffset(30 * withDPI(12.5)),
+                        'Snake:player1_head'
+                    )
+                    .setScale(withDPI(0.33), withDPI(0.33));
+
+                secondPlayer.head.setOrigin(0.5);
+                secondPlayer.head.setAngle(-90);
+                secondPlayer.head.setDepth(10);
+                secondPlayer.tails = playerInfo.tails
             }
+            /* !SECTION Player dies */
         });
 
-        snake = new Snake(this, 8, 8);
+        snake = new Snake(
+            this,
+            20,
+            20
+        );
 
         //  Create our keyboard controls
         cursors = this.input.keyboard.createCursorKeys();
@@ -815,16 +1019,16 @@ class SnakeScene extends Phaser.Scene {
     * the LEFT cursor, it ignores it, because the only valid directions you
     * can move in at that time is up and down.
     */
-        if (cursors.left.isDown) {
+        if (cursors.left.isDown || direction === 'left') {
             snake.faceLeft();
         }
-        else if (cursors.right.isDown) {
+        else if (cursors.right.isDown || direction === 'right') {
             snake.faceRight();
         }
-        else if (cursors.up.isDown) {
+        else if (cursors.up.isDown || direction === 'up') {
             snake.faceUp();
         }
-        else if (cursors.down.isDown) {
+        else if (cursors.down.isDown || direction === 'down') {
             snake.faceDown();
         }
 
