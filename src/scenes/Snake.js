@@ -52,12 +52,24 @@ class SnakeScene extends Phaser.Scene {
 
             if (directions.left) {
                 direction = 'left'
+                setTimeout(() => {
+                    direction = null
+                }, 100)
             } else if (directions.right) {
                 direction = 'right'
+                setTimeout(() => {
+                    direction = null
+                }, 100)
             } else if (directions.top) {
                 direction = 'up'
+                setTimeout(() => {
+                    direction = null
+                }, 100)
             } else if (directions.bottom) {
                 direction = 'down'
+                setTimeout(() => {
+                    direction = null
+                }, 100)
             }
         })
     }
@@ -73,8 +85,8 @@ class SnakeScene extends Phaser.Scene {
             x: 8,
             y: 8,
             tail: {
-                x: 12.5,
-                y: 12.5
+                x: -50,
+                y: -50
             },
             tails: 0
         }
@@ -95,11 +107,6 @@ class SnakeScene extends Phaser.Scene {
                 this.scoreModifier = 0;
                 this.tails = 0;
                 this.lives = 3;
-
-                this.speedText = scene.add.text(withDPI(60), withDPI(120), `Speed: ${this.speed}`, {
-                    fontSize: '30px',
-                    color: '#fff'
-                }).setScale(withDPI(1), withDPI(1))
 
                 // Text to show the score to the user.
                 this.scoreText = scene.add
@@ -241,6 +248,75 @@ class SnakeScene extends Phaser.Scene {
                     .setOrigin(0)
                     .setDepth(-2);
 
+                /* Handle UI lives */
+                this.liveOne = scene.add
+                    .image(withDPI(262), withDPI(83), 'Snake:live_icon')
+                    .setDisplaySize(withDPI(27), withDPI(25))
+                    .setOrigin(0)
+                    .setDepth(1);
+
+                this.liveTwo = scene.add
+                    .image(withDPI(297), withDPI(83), 'Snake:live_icon')
+                    .setDisplaySize(withDPI(27), withDPI(25))
+                    .setOrigin(0)
+                    .setDepth(1);
+
+                this.liveThree = scene.add
+                    .image(withDPI(332), withDPI(83), 'Snake:live_icon')
+                    .setDisplaySize(withDPI(27), withDPI(25))
+                    .setOrigin(0)
+                    .setDepth(1);
+
+                this.respawnModal = scene.add.group()
+                this.respawnModalBackground = this.respawnModal
+                    .create(withDPI(16), withDPI(84), 'Snake:modal_background')
+                    .setDisplaySize(withDPI(343), withDPI(554))
+                    .setOrigin(0)
+                    .setDepth(30)
+                    .setVisible(false);
+
+                this.respawnText = scene.add.text(withDPI(125), withDPI(116), 'Doorgaan', {
+                    fontFamily: 'BubblegumSans',
+                    fontSize: '32px',
+                    color: '#2E3A4B',
+                    align: 'left',
+                    stroke: '#ffffff',
+                    strokeThickness: 8
+                }).setScale(withDPI(1), withDPI(1)).setDepth(31).setOrigin(0, 0).setVisible(false);
+
+                this.respawnDescription = scene.add.text(withDPI(48), withDPI(177), [
+                    'Oops, het lijkt erop dat',
+                    'je Morfit een ongelukje had.'
+                ], {
+                    fontFamily: 'BubblegumSans',
+                    fontSize: '24px',
+                    color: '#ffffff',
+                    align: 'left',
+                    }
+                ).setScale(withDPI(1), withDPI(1)).setDepth(31).setOrigin(0, 0).setVisible(false)
+
+                this.respawnButton = scene.add
+                    .image(withDPI(130), withDPI(520), 'Snake:respawn_button')
+                    .setScale(withDPI(0.2), withDPI(0.2))
+                    .setOrigin(0, 0)
+                    .setDepth(32)
+                    .setVisible(false)
+                    .setInteractive();
+
+                this.respawnButton.on('pointerdown', () => {
+                    this.playerRespawn()
+                })
+
+                this.closeRespawnButton = scene.add
+                    .image(withDPI(168), withDPI(618), 'Snake:close_button')
+                    .setScale(withDPI(0.2), withDPI(0.2))
+                    .setOrigin(0, 0)
+                    .setDepth(33)
+                    .setVisible(false)
+                    .setInteractive();
+
+                this.closeRespawnButton.on('pointerdown', this.playerRespawn)
+
                 /* !SECTION UI elements. */
 
                 /* SECTION Multiplayer listeners */
@@ -288,7 +364,7 @@ class SnakeScene extends Phaser.Scene {
                     const otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId];
 
                     const bodyElement = otherPlayer.body
-                        .create(200, 200, 'Snake:player2_body')
+                        .create(-200, -200, 'Snake:player2_body')
                         .setScale(withDPI(0.5), withDPI(0.5));
 
                     bodyElement.setOrigin(0.5);
@@ -410,7 +486,7 @@ class SnakeScene extends Phaser.Scene {
 
                 /* ANCHOR Multiplayer - handle other player respawning */
                 main_socket.on('aPlayerRespawned', function (playerData) {
-
+                    snakeSelf.playerRespawnOther(playerData)
                 })
             /* !SECTION Multiplayer listeners */
             },
@@ -575,10 +651,7 @@ class SnakeScene extends Phaser.Scene {
                     );
 
                 if (hitBody) {
-                    console.log('dead');
-
                     this.onPlayerDead()
-
                     return false;
                 }
                 else {
@@ -589,7 +662,6 @@ class SnakeScene extends Phaser.Scene {
                     this.score = Math.floor((this.moveTime / 500) + (this.total * 100)) + this.scoreModifier;
                     // Make the score visible to the user.
                     this.scoreText.setText(`Huidige score: ${this.score}`);
-                    this.speedText.setText(`Speed: ${this.speed}`);
 
                     return true;
                 }
@@ -920,6 +992,42 @@ class SnakeScene extends Phaser.Scene {
                 snakeSelf.alive = false
                 snakeSelf.lives -= 1
 
+                switch (snakeSelf.lives) {
+                    case 0:
+                        snakeSelf.liveOne.setVisible(false)
+                        snakeSelf.liveTwo.setVisible(false)
+                        snakeSelf.liveThree.setVisible(false)
+                        break;
+
+                    case 1:
+                        snakeSelf.liveOne.setVisible(true)
+                        snakeSelf.liveTwo.setVisible(false)
+                        snakeSelf.liveThree.setVisible(false)
+                        this.showRespawn()
+                        break;
+
+                    case 2:
+                        snakeSelf.liveOne.setVisible(true)
+                        snakeSelf.liveTwo.setVisible(true)
+                        snakeSelf.liveThree.setVisible(false)
+                        this.showRespawn()
+                        break;
+
+                    case 3:
+                        snakeSelf.liveOne.setVisible(true)
+                        snakeSelf.liveTwo.setVisible(true)
+                        snakeSelf.liveThree.setVisible(true)
+                        this.showRespawn()
+                        break;
+
+                    default:
+                        snakeSelf.liveOne.setVisible(false)
+                        snakeSelf.liveTwo.setVisible(false)
+                        snakeSelf.liveThree.setVisible(false)
+
+                        break;
+                }
+
                 this.playerDiesAnimation(main_body)
                 main_socket.emit('playerDied', {
                     playerId: ownPlayer.playerId
@@ -950,7 +1058,14 @@ class SnakeScene extends Phaser.Scene {
             },
 
             playerRespawn: function () {
-                snakeSelf.body = scene.physics.add.group();
+                snakeSelf.respawnModalBackground.setVisible(false);
+                snakeSelf.respawnText.setVisible(false);
+                snakeSelf.respawnDescription.setVisible(false);
+                snakeSelf.respawnButton.setVisible(false);
+                snakeSelf.closeRespawnButton.setVisible(false);
+
+                snakeSelf.body = main_scene.physics.add.group();
+                main_body = snakeSelf.body
 
                 snakeSelf.head = snakeSelf.body
                     .create(
@@ -965,6 +1080,13 @@ class SnakeScene extends Phaser.Scene {
                 snakeSelf.head.setDepth(10);
 
                 snakeSelf.speed = 95;
+                snakeSelf.alive = true;
+
+                main_scene.physics.add.overlap(snakeSelf.head, snakeSelf.apple, this.eatApple, null, snakeSelf);
+                main_scene.physics.add.overlap(snakeSelf.head, snakeSelf.pineapple, this.eatPineapple, null, snakeSelf);
+                main_scene.physics.add.overlap(snakeSelf.head, snakeSelf.hamburger, this.eatHamburger, null, snakeSelf);
+                main_scene.physics.add.overlap(snakeSelf.head, snakeSelf.lemon, this.eatLemon, null, snakeSelf);
+                main_scene.physics.add.overlap(snakeSelf.head, snakeSelf.soda, this.drinkSoda, null, snakeSelf);
 
                 socket.emit('playerRespawned', {
                     playerId: ownPlayer.playerId,
@@ -974,22 +1096,32 @@ class SnakeScene extends Phaser.Scene {
             },
 
             playerRespawnOther: function (playerInfo) {
-                const secondPlayer = snakeSelf.otherPlayers[playerInfo.playerId]
+                if (playerInfo.playerId !== ownPlayer.playerId) {
+                    const secondPlayer = snakeSelf.otherPlayers[playerInfo.playerId]
 
-                secondPlayer.body = scene.physics.add.group();
+                    secondPlayer.body = main_scene.physics.add.group();
 
-                secondPlayer.head = secondPlayer.body
-                    .create(
-                        30 * withDPI(12.5),
-                        withOffset(30 * withDPI(12.5)),
-                        'Snake:player1_head'
-                    )
-                    .setScale(withDPI(0.33), withDPI(0.33));
+                    secondPlayer.head = secondPlayer.body
+                        .create(
+                            30 * withDPI(12.5),
+                            withOffset(30 * withDPI(12.5)),
+                            'Snake:player1_head'
+                        )
+                        .setScale(withDPI(0.33), withDPI(0.33));
 
-                secondPlayer.head.setOrigin(0.5);
-                secondPlayer.head.setAngle(-90);
-                secondPlayer.head.setDepth(10);
-                secondPlayer.tails = playerInfo.tails
+                    secondPlayer.head.setOrigin(0.5);
+                    secondPlayer.head.setAngle(-90);
+                    secondPlayer.head.setDepth(10);
+                    secondPlayer.tails = playerInfo.tails
+                }
+            },
+
+            showRespawn: function () {
+                snakeSelf.respawnModalBackground.setVisible(true);
+                snakeSelf.respawnText.setVisible(true);
+                snakeSelf.respawnDescription.setVisible(true);
+                snakeSelf.respawnButton.setVisible(true);
+                snakeSelf.closeRespawnButton.setVisible(true);
             }
             /* !SECTION Player dies */
         });
