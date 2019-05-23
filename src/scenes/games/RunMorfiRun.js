@@ -20,7 +20,8 @@ class RunMorfiRun extends Phaser.Scene {
         '.                              1                                                                                                       1                                     1                                                                                                       1                             .'+
         '.                      h                         u                1         h                                   h              h                                     h                         u                1         h                                   h              h                         u           .'+
         '.        1                               1             1                                               1                                         1     1                               1             1                                               1                                         1                   .'+
-        '.2     3         h                  u                            h               u      h       1                       1                   u                  h                  u                            h               u      h       1                       1                   u                        3.'+
+        '.2              h                  u                            h               u      h       1                       1                   u                  h                  u                            h               u      h       1                       1                   u                         .'+
+        '.                                                                                                                                                                                                                                                                                                                 3.'+
         '.                                                                                                                                                                                                                                                                                                                  .'+
         '.                                                                                                                                                                                                                                                                                                                  .'+
         '4444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444';
@@ -32,7 +33,8 @@ class RunMorfiRun extends Phaser.Scene {
         console.log('run morfi run game created');      
         this.cameras.main.setBackgroundColor('#132B4B');
 
-
+        this.input.addPointer(2);
+        console.log(this.input)
         this.key_W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.key_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.key_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
@@ -51,33 +53,42 @@ class RunMorfiRun extends Phaser.Scene {
         this.spawnPlayer();
         this.spawnMinimap();
 
-        this.button_jump.on('pointerdown', () => {
-            if(this.player.body.touching.down) {
-                this.player.setVelocityY(withDPI(-550));
-            }
-        });
-
-
-
-        this.button_run.on('pointerdown', (pointer) => {
-            console.log(pointer.isDown);
-            this.updateSpeed(pointer.isDown);
-        });
-        this.button_run.on('pointerup', (pointer) => {
-            this.updateSpeed(pointer.isDown);
+        this.button_jump.on('pointerdown', (pointer1) => {
+            console.log({ buttonJumpDown: pointer1 })
+            this.jump = pointer1.isDown;        
         });
         
-
+        this.button_run.on('pointerdown', (pointer2) => {
+            console.log({ buttonRunDown: pointer2 })
+            this.run = pointer2.isDown;
+        });
+        this.button_jump.on('pointerup', (pointer1) => {
+            console.log({ buttonJumpUp: pointer1 })
+            this.jump = false;        
+        });
+        
+        this.button_run.on('pointerup', (pointer2) => {
+            console.log({ buttonRunUp: pointer2 })
+            this.run = false;
+        });
 
     }
     update() {
         this.setSpeed();
-        this.updateSpeed();
+        if(this.run){
+            console.log('ran-1')
+            this.player.setVelocityX(withDPI(400)) 
+        }
+        if(this.jump && this.player.body.touching.down){
+            console.log('ran-2')
+            this.player.setVelocityY(withDPI(-550));
+        }
     }
 
-    updateSpeed(pointer){
-        pointer ? this.player.setVelocityX(withDPI(400)) : null;
+    randomizeFood(food){
+        return food[Math.floor((Math.random()*food.length))];
     }
+
     setSpeed(x = withDPI(400), y = withDPI(550)){
         if(this.key_W.isDown && this.player.body.touching.down) {
             this.player.setVelocityY(-y);
@@ -143,9 +154,9 @@ class RunMorfiRun extends Phaser.Scene {
                         this.spawnPlayer(drawX, drawY-withDPI(12));					
                     }
                 } else if(row.charAt(i+1)==='h') {
-                    this.healty.create(drawX, drawY, "games:lemon").setScale(withDPI(0.15),withDPI(0.15)).setOrigin(0, 4).refreshBody();
+                    this.healty.create(drawX, drawY, this.randomizeFood(["games:pineapple", "games:lemon","games:cherry","games:carrot"])).setScale(withDPI(0.15),withDPI(0.15)).setOrigin(0, 4).refreshBody();
                 } else if(row.charAt(i+1)==='u') {
-                    this.unhealty.create(drawX, drawY+withDPI(10), "games:hamburger").setScale(withDPI(0.15),withDPI(0.15)).setOrigin(0, 4).refreshBody();
+                    this.unhealty.create(drawX, drawY+withDPI(10), this.randomizeFood(["games:hamburger","games:hotdog","games:icecream"])).setScale(withDPI(0.15),withDPI(0.15)).setOrigin(0, 4).refreshBody();
                 } else if(row.charAt(i+1)==='3') {
                     this.finish.create(drawX, drawY-withDPI(10), "games:finish").setScale(withDPI(0.5),withDPI(0.5)).setOrigin(0, 1.3).setDepth(2).refreshBody();
                 } else if(row.charAt(i+1)==='4') {
