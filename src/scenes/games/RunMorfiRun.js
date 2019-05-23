@@ -1,4 +1,5 @@
 import PopupModalScene from '../PopupModal';
+import { withDPI } from '../../helpers';
 
 class RunMorfiRun extends Phaser.Scene {
     constructor() {
@@ -21,6 +22,7 @@ class RunMorfiRun extends Phaser.Scene {
         '.        1                               1             1                                               1                                         1     1                               1             1                                               1                                         1                   .'+
         '.2     3         h                  u                            h               u      h       1                       1                   u                  h                  u                            h               u      h       1                       1                   u                        3.'+
         '.                                                                                                                                                                                                                                                                                                                  .'+
+        '.                                                                                                                                                                                                                                                                                                                  .'+
         '4444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444';
     }
     
@@ -35,52 +37,87 @@ class RunMorfiRun extends Phaser.Scene {
         this.key_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.key_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
-        this.add.sprite(0,0, 'games:bg').setDepth(-1).setScrollFactor(0.04).setOrigin(0.5, 0.1);
-        this.you = this.add.sprite(0,0, 'games:you').setScrollFactor(0).setOrigin(0, 0);
+        this.add.sprite(0,0, 'games:bg').setDepth(-1).setScrollFactor(0.04).setScale(withDPI(1), withDPI(1));
 
-        this.button_run = this.add.sprite(0,0, 'games:run').setOrigin(-0.5,-5).setDepth(2).setScale(0.6).setScrollFactor(0);
-        this.button_jump = this.add.sprite(0,0, 'games:jump').setOrigin(-2,-5).setDepth(2).setScale(0.6).setScrollFactor(0);
+        this.you = this.physics.add.image(0,0, 'games:you').setScrollFactor(0).setScale(withDPI(1), withDPI(1));
+
+
+        this.button_run = this.add.sprite(0,0, 'games:run').setOrigin(-0,-4.5).setDepth(2).setScale(withDPI(0.4)).setScrollFactor(0);
+        this.button_jump = this.add.sprite(0,0, 'games:jump').setOrigin(-2,-4.5).setDepth(2).setScale(withDPI(0.4)).setScrollFactor(0);
         this.button_run.setInteractive();
         this.button_jump.setInteractive();
 
         this.createPlatform();
         this.spawnPlayer();
+        this.spawnMinimap();
+
+        this.button_jump.on('pointerdown', () => {
+            if(this.player.body.touching.down) {
+                this.player.setVelocityY(withDPI(-550));
+            }
+        });
+
+
+
+        this.button_run.on('pointerdown', (pointer) => {
+            console.log(pointer.isDown);
+            this.updateSpeed(pointer.isDown);
+        });
+        this.button_run.on('pointerup', (pointer) => {
+            this.updateSpeed(pointer.isDown);
+        });
+        
+
+
     }
     update() {
         this.setSpeed();
+        this.updateSpeed();
     }
 
-    setSpeed(x = 400, y = 550){
+    updateSpeed(pointer){
+        pointer ? this.player.setVelocityX(withDPI(400)) : null;
+    }
+    setSpeed(x = withDPI(400), y = withDPI(550)){
         if(this.key_W.isDown && this.player.body.touching.down) {
             this.player.setVelocityY(-y);
         }
         if(this.key_A.isDown) {
             this.player.setVelocityX(-x);
+            this.you.setVelocityX(-50);
         } else if(this.key_D.isDown) {
             this.player.setVelocityX(x);
+            this.you.setVelocityX(50);
         } else{
             this.player.setVelocityX(0);
+            this.you.setVelocityX(0);
         }
     };
 
     spawnPlayer(x, y) {
         this.player = this.physics.add.image(x, y, "games:player");
         //set the width of the sprite
-        this.player.displayWidth = 75;
+        this.player.displayWidth = withDPI(75);
         //scale evenly
         this.player.scaleY = this.player.scaleX;
 
-        this.player.body.setGravityY(750);
+        this.player.body.setGravityY(withDPI(750));
         this.physics.add.collider(this.player, this.platforms, this.removeSpeed, null, this);
         this.physics.add.collider(this.player, this.grounds);
         this.physics.add.overlap(this.player, this.healty, this.collectHealty, null, this);
         this.physics.add.overlap(this.player, this.unhealty, this.reduceSpeed, null, this);
+
+        this.physics.add.collider(this.you, this.platforms, this.removeSpeed, null, this);
+        this.physics.add.collider(this.you, this.grounds);
+        this.physics.add.overlap(this.you, this.healty, this.collectHealty, null, this);
+        this.physics.add.overlap(this.you, this.unhealty, this.reduceSpeed, null, this);
+
         this.physics.add.overlap(this.player, this.finish, this.done, null, this);
         
         this.cameras.main.startFollow(this.player, true, true, 0);
     }
-    spawnIcon(){
-
+    spawnMinimap(){
+        // max width of map (i think) 1109px
     }
     createPlatform(){
         this.platforms = this.physics.add.staticGroup();
@@ -96,28 +133,27 @@ class RunMorfiRun extends Phaser.Scene {
             drawX = 0;
             for(let i = 0; i<row.length; i++){
                 if(row.charAt(i)==='1') {
-                    // this.platforms.create(drawX, drawY, "games:platform").setScale(0.25).refreshBody();
-                    this.platforms.create(drawX, drawY, "games:platform").setScale(0.15).setOrigin(0, 4).refreshBody();
+                    this.platforms.create(drawX, drawY, "games:platform").setScale(withDPI(0.15),withDPI(0.15)).setOrigin(0, withDPI(2)).refreshBody();
                 } else if(row.charAt(i)==='2') {
                     if(row.charAt(i+1)==='1') {
-                        this.spawnPlayer(drawX-4, drawY-12);
+                        this.spawnPlayer(drawX-withDPI(4), drawY-withDPI(12));
                     } else if(row.charAt(i-1)==='1'){
-                        this.spawnPlayer(drawX+4, drawY-12);
+                        this.spawnPlayer(drawX+withDPI(4), drawY-withDPI(12));
                     } else {
-                        this.spawnPlayer(drawX, drawY-12);					
+                        this.spawnPlayer(drawX, drawY-withDPI(12));					
                     }
                 } else if(row.charAt(i+1)==='h') {
-                    this.healty.create(drawX, drawY+10, "games:lemon").setScale(0.25).setOrigin(0, 3).refreshBody();
+                    this.healty.create(drawX, drawY, "games:lemon").setScale(withDPI(0.15),withDPI(0.15)).setOrigin(0, 4).refreshBody();
                 } else if(row.charAt(i+1)==='u') {
-                    this.unhealty.create(drawX, drawY+10, "games:hamburger").setScale(0.25).setOrigin(0, 3).refreshBody();
+                    this.unhealty.create(drawX, drawY+withDPI(10), "games:hamburger").setScale(withDPI(0.15),withDPI(0.15)).setOrigin(0, 4).refreshBody();
                 } else if(row.charAt(i+1)==='3') {
-                    this.finish.create(drawX, drawY-10, "games:finish").setScale(0.5).setOrigin(0, 1.1).setDepth(2).refreshBody();
+                    this.finish.create(drawX, drawY-withDPI(10), "games:finish").setScale(withDPI(0.5),withDPI(0.5)).setOrigin(0, 1.3).setDepth(2).refreshBody();
                 } else if(row.charAt(i+1)==='4') {
-                    this.grounds.create(800*i, drawY-10, "games:ground").refreshBody();
+                    this.grounds.create(withDPI(800)*(i-1), drawY-withDPI(150), "games:ground").setScale(withDPI(1),withDPI(1)).refreshBody();
                 }
-                drawX+=40;
+                drawX+=withDPI(40);
             }
-            drawY+=40;
+            drawY+=withDPI(40);
         });
     };
 
@@ -152,7 +188,7 @@ class RunMorfiRun extends Phaser.Scene {
                 {
                     asset: 'popup:button',
                     x: 0,
-                    y: 150,
+                    y: 100,
                     UseDefinedScenes: true,
                     scenes: {},
                 },
@@ -167,20 +203,20 @@ class RunMorfiRun extends Phaser.Scene {
             content: [
                 {
                     text: 'Goed Gedaan!',
-                    fontSize: "50px",
+                    fontSize: 42,
                     x: 0,
-                    y: -150,
+                    y: -110,
                 },
                 {
                     text: 'x 20',
-                    fontSize: "35px",
-                    x: 70,
+                    fontSize: 27,
+                    x: 60,
                     y: -30,
                 },
                 {
                     text: 'Prijs:',
-                    fontSize: "50px",
-                    x: -60,
+                    fontSize: 42,
+                    x: -50,
                     y: 0,
                 }
             ]
