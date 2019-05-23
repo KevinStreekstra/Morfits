@@ -15,34 +15,27 @@ class StatsScene extends Phaser.Scene {
         this.popupplank;
         this.vines;
         this.vines2;
-        this.level;
         this.levelIndicator;
-        this.Myname;
         this.Xpbar;
-        this.XpCount;
+
 
         this.SmallHeart;
         this.SmallEnergy;
         this.SmallPower;
-        this.Hitpoints;
-        this.EnergiePoints;
-        this.Kracht;
-        this.Heart21;
-        this.Energy32;
-        this.Power52;
+   
+
+        this._player = new Player();
+        this.player = {};
 
         this.BigHeart;
         this.BigEnergy;
         this.BigPower;
-        this.Mentalitytxt;
-        this.Energytxt;
-        this.Powertxt;
 
         this.addImage = addImage.bind(this);
     }
 
     preload() {
-
+        this.player = this._player.get();
     }
 
     create() {
@@ -55,7 +48,8 @@ class StatsScene extends Phaser.Scene {
         });
 
         // this.bg = this.addImage(0, 0, 'Stats:bg').setOrigin(0, 0);
-        this.bg = this.addImage(0, 0, 'Daily:bg').setOrigin(0, 0);
+        this.bg = this.addImage(0, 0, 'Daily:bg');
+        this.grid.placeAtIndex(112, this.bg);
         this.grid.scaleY(this.bg, 1);
 
         this.vines2 = this.addImage(0, 0, 'Stats:Vines');
@@ -70,62 +64,66 @@ class StatsScene extends Phaser.Scene {
         this.grid.placeAtIndex(112, this.popup);
         this.grid.scaleTo(this.popup, 0);
 
-        this.levelIndicator = this.addImage(0, 0, 'Stats:levelIndicator');
-        this.grid.placeAtIndex(37, this.levelIndicator);
-        this.grid.scaleTo(this.levelIndicator, 0);
+        this.levelIndicatorBG = this.addImage(0, 0, 'Stats:levelIndicatorBG');
+        this.grid.placeAtIndex(37, this.levelIndicatorBG);
+        this.grid.scaleTo(this.levelIndicatorBG, 0);
 
-        this.level = this.addImage(0, 0, 'Stats:level');
-        this.grid.placeAtIndex(52, this.level);
-        this.grid.scaleTo(this.level, 0);
+        this.levelIndicator = this.add.text(0, 0, this._player.getLevel(), { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(32 * window.devicePixelRatio)}px`});
+      
+        Phaser.Display.Align.In.Center(
+            this.levelIndicator,
+            this.levelIndicatorBG
+        );
+        
 
-        this.Myname = this.addImage(0, 0, 'Stats:MyName').setOrigin(0.5, 0.9);
-        this.grid.placeAtIndex(67, this.Myname);
-        this.grid.scaleTo(this.Myname, 0);
+        this.level = this.add.text(0, 0, 'Level', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(22 * window.devicePixelRatio)}px`, fill: '#75BBE2'}); 
+        Phaser.Display.Align.In.Center(this.level, this.bg, 0, -360);
+
+        this.myUsername = this.add.text(0, 0, this.player.username, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`});
+        Phaser.Display.Align.In.Center(this.myUsername, this.bg, 0, -305);
+
+        this.xpCount = this.add.text(0, 0, `${this.player.xp}/${this._player.getRequiredXP(this._player.getLevel())}`, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(14 * window.devicePixelRatio)}px`});
+        Phaser.Display.Align.In.Center(this.xpCount,this.bg, 0, -225);
 
         this.Xpbar = this.addImage(0, 0, 'Stats:XPBar');
-        this.grid.placeAtIndex(82, this.Xpbar);
+        Phaser.Display.Align.In.Center(this.Xpbar, this.bg, 0, -180);
         this.grid.scaleTo(this.Xpbar, 0);
 
-        this.XpCount = this.addImage(0, 0, 'Stats:XPCount').setOrigin(0.5, 2.0);
-        this.grid.placeAtIndex(82, this.XpCount);
-        this.grid.scaleTo(this.XpCount, 0);
-
+        // Mentaliteit 
         this.SmallHeart = this.addImage(0, 0, 'Stats:SmallHeart');
         this.grid.placeAtIndex(93, this.SmallHeart);
         this.grid.scaleTo(this.SmallHeart, 0);
 
-        this.Hitpoints = this.addImage(0, 0, 'Stats:Hitpoints');
-        this.grid.placeAtIndex(95, this.Hitpoints);
-        this.grid.scaleTo(this.Hitpoints, 0);
+        this.Mentality = this.add.text(0, 0, 'Mentaliteit', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(18 * window.devicePixelRatio)}px`}).setOrigin(0.05, 0.45);
+        Phaser.Display.Align.In.Center(this.Mentality, this.bg, -90, -90);
 
-        this.Heart21 = this.addImage(0, 0, 'Stats:21');
-        this.grid.placeAtIndex(100, this.Heart21);
-        this.grid.scaleTo(this.Heart21, 0);
+        this.mentalityStat = this.add.text(0, 0, this.player.mentality, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(18 * window.devicePixelRatio)}px`});
+        Phaser.Display.Align.In.Center(this.mentalityStat, this.bg, 150, -90);
 
+        // Energie
         this.SmallEnergy = this.addImage(0, 0, 'Stats:SmallEnergy');
         this.grid.placeAtIndex(108, this.SmallEnergy);
         this.grid.scaleTo(this.SmallEnergy, 0);
 
-        this.EnergiePoints = this.addImage(0, 0, 'Stats:Energypoints').setOrigin(0.6, 0.5);
-        this.grid.placeAtIndex(110, this.EnergiePoints);
-        this.grid.scaleTo(this.EnergiePoints, 0);
+        this.Energy = this.add.text(0, 0, 'Energie', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(18 * window.devicePixelRatio)}px`});
+        Phaser.Display.Align.In.Center(this.Energy, this.bg, -106, 0);
 
-        this.Energy32 = this.addImage(0, 0, 'Stats:32');
-        this.grid.placeAtIndex(115, this.Energy32);
-        this.grid.scaleTo(this.Energy32, 0);
+        this.energyStat = this.add.text(0, 0, this.player.energy, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(18 * window.devicePixelRatio)}px`});
+        Phaser.Display.Align.In.Center(this.energyStat, this.bg, 150, 0)
 
+        // Kracht
         this.SmallPower = this.addImage(0, 0, 'Stats:SmallPower');
         this.grid.placeAtIndex(123, this.SmallPower);
         this.grid.scaleTo(this.SmallPower, 0);
 
-        this.Kracht = this.addImage(0, 0, 'Stats:kracht').setOrigin(0.7, 0.5);
-        this.grid.placeAtIndex(125, this.Kracht);
-        this.grid.scaleTo(this.Kracht, 0);
 
-        this.Power52 = this.addImage(0, 0, 'Stats:52');
-        this.grid.placeAtIndex(130, this.Power52);
-        this.grid.scaleTo(this.Power52, 0);
+        this.Kracht = this.add.text(0, 0, 'Kracht', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(18 * window.devicePixelRatio)}px`});
+        Phaser.Display.Align.In.Center(this.Kracht, this.bg, -116, 90);
 
+        this.krachtStat = this.add.text(0, 0, this.player.power, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(18 * window.devicePixelRatio)}px`});
+        Phaser.Display.Align.In.Center(this.krachtStat, this.bg, 150, 90);
+
+        // Stop scene
         this.quit = this.addImage(0, 0, 'Daily:quit').setOrigin(.5, .675).setInteractive();
         this.quit.on('pointerdown', () => {
             this.scene.stop('StatsScene');
@@ -137,29 +135,39 @@ class StatsScene extends Phaser.Scene {
         this.grid.placeAtIndex(172, this.popupplank);
         this.grid.scaleTo(this.popupplank, 0);
 
-        this.BigHeart = this.addImage(0, 0, 'Stats:BigHeart').setOrigin(0.5, 0.2);
-        this.grid.placeAtIndex(153, this.BigHeart);
+        // Mentaliteit
+        this.BigHeart = this.addImage(0, 0, 'Stats:BigHeart');
+        Phaser.Display.Align.In.Center(this.BigHeart, this.popupplank, -200, -60);
         this.grid.scaleTo(this.BigHeart, 0);
 
-        this.Mentalitytxt = this.addImage(0, 0, 'Stats:Mentalitytxt').setOrigin(0.5, 1.0);
-        this.grid.placeAtIndex(183, this.Mentalitytxt);
-        this.grid.scaleTo(this.Mentalitytxt, 0);
+        this.mentalitytxt = this.add.text(0, 0, 'Mentaliteit', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(20 * window.devicePixelRatio)}px`});
+        Phaser.Display.Align.In.Center(this.mentalitytxt,this.popupplank,-200,30);
+        
+        this.mentalityView = this.add.text(0, 0, `${this.player.mentality}/100`, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(20 * window.devicePixelRatio)}px`});
+        Phaser.Display.Align.In.Center(this.mentalityView,this.popupplank, -200, 80);
+      
 
-        this.BigEnergy = this.addImage(0, 0, 'Stats:BigEnergy').setOrigin(0.5, 0.2);
-        this.grid.placeAtIndex(157, this.BigEnergy);
+        // Energie
+        this.BigEnergy = this.addImage(0, 0, 'Stats:BigEnergy');
         this.grid.scaleTo(this.BigEnergy, 0);
+        Phaser.Display.Align.In.Center(this.BigEnergy,this.popupplank,0,-60);
 
-        this.Energytxt = this.addImage(0, 0, 'Stats:Energytxt').setOrigin(0.5, 1.0);
-        this.grid.placeAtIndex(187, this.Energytxt);
-        this.grid.scaleTo(this.Energytxt, 0);
+        this.energytxt = this.add.text(0, 0, 'Energie', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(20 * window.devicePixelRatio)}px`});
+        Phaser.Display.Align.In.Center(this.energytxt,this.popupplank,0,30);
+        
+        this.energyView = this.add.text(0, 0, `${this.player.energy}/100`, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(20 * window.devicePixelRatio)}px`});
+        Phaser.Display.Align.In.Center(this.energyView,this.popupplank, 0, 80);
 
-        this.BigPower = this.addImage(0, 0, 'Stats:BigPower').setOrigin(0.5, 0.2);
-        this.grid.placeAtIndex(161, this.BigPower);
+        // Kracht
+        this.BigPower = this.addImage(0, 0, 'Stats:BigPower');
+        Phaser.Display.Align.In.Center(this.BigPower,this.popupplank,200,-60);
         this.grid.scaleTo(this.BigPower, 0);
 
-        this.Powertxt = this.addImage(0, 0, 'Stats:Powertxt').setOrigin(0.5, 1.0);
-        this.grid.placeAtIndex(191, this.Powertxt);
-        this.grid.scaleTo(this.Powertxt, 0);
+        this.powertxt = this.add.text(0, 0, 'Power', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(20 * window.devicePixelRatio)}px`});
+        Phaser.Display.Align.In.Center(this.powertxt,this.popupplank,200,30);
+        
+        this.powerView = this.add.text(0, 0, `${this.player.power}/100`, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(20 * window.devicePixelRatio)}px`});
+        Phaser.Display.Align.In.Center(this.powerView,this.popupplank, 200, 80);
 
         this.tweens.add({
             targets: [
@@ -168,28 +176,17 @@ class StatsScene extends Phaser.Scene {
             this.popupplank,
             this.vines,
             this.vines2,
-            this.level,
-            this.levelIndicator,
-            this.Myname,
+            this.levelIndicatorBG,
             this.Xpbar,
             this.XpCount,
 
             this.SmallHeart,
             this.SmallEnergy,
             this.SmallPower,
-            this.Hitpoints,
-            this.EnergiePoints,
-            this.Kracht,
-            this.Heart21,
-            this.Energy32,
-            this.Power52,
 
             this.BigHeart,
             this.BigEnergy,
             this.BigPower,
-            this.Mentalitytxt,
-            this.Energytxt,
-            this.Powertxt,
              ],
             scaleX: 1 * window.devicePixelRatio,
             scaleY: 1 * window.devicePixelRatio,
@@ -199,7 +196,7 @@ class StatsScene extends Phaser.Scene {
             yoyo: false
         });
 
-        //this.grid.showNumbers();
+         //this.grid.showNumbers();
     }
 }
 
