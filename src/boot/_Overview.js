@@ -5,24 +5,19 @@ export function overview_assets() {
     this.load.image('overview:whiteBG', 'src/assets/character_page/nav-level-tap@2x.png');
     this.load.image('overview:navPP', 'src/assets/character_page/nav-pp-tab@2x.png');
     this.load.image('overview:navM_Dollars', 'src/assets/character_page/nav-m-dollars-tab@2x.png');
-    this.load.image('overview:Myname', 'src/assets/level-tap/Myname@2x.png');
-    this.load.image('overview:level', 'src/assets/level-tap/Group 242@2x.png');
+
 
     // Morfit
     this.load.image('overview:morfitWalking', 'src/assets/character_page/morfit_character@2x.png');
     this.load.image('overview:bg', 'src/assets/character_page/background@2x.png');
     this.load.image('overview:XPbar', 'src/assets/character_page/exp_bar@2x.png');
-    this.load.image('overview:txtXPbar', 'src/assets/character_page/250-486XP@2x.png');
 
     // bottomnavbar & bars
     this.load.image('overview:MentalBar', 'src/assets/character_page/mental_bar@2x.png');
-    this.load.image('overview:Mental80', 'src/assets/character_page/80-100@2x.png');
     this.load.image('overview:IconMental', 'src/assets/character_page/icon_mental_fill@2x.png');
     this.load.image('overview:EnergyBar', 'src/assets/character_page/energie_bar@2x.png');
-    this.load.image('overview:Energy100', 'src/assets/character_page/100-100@2x.png');
     this.load.image('overview:IconEnergy', 'src/assets/character_page/icon_energie_bar_fill@2x.png');
     this.load.image('overview:PowerBar', 'src/assets/character_page/kracht_bar@2x.png');
-    this.load.image('overview:Power100', 'src/assets/character_page/100-100@2x.png');
     this.load.image('overview:IconPower', 'src/assets/character_page/icon_kracht_fill@2x.png');
   
 

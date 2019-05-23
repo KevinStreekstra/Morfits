@@ -29,16 +29,7 @@ class OverviewScene extends Phaser.Scene {
         this.inventory;
         this.quiz;
 
-        this.level;
-        this.Myname;
         this.whiteBg;
-
-        this.txtGym;
-        this.txtGames;
-        this.txtFeed;
-        this.txtInventory;
-        this.txtQuiz;
-        this.txtXPbar;
 
         this.MentalBar;
         this.EnergyBar;
@@ -48,20 +39,9 @@ class OverviewScene extends Phaser.Scene {
         this.IconEnergy;
         this.IconPower;
 
-        this.txtMentalbar;
-        this.txtEnergybar;
-        this.txtPowerbar;
-
         this._player = new Player();
         this.player = {};
 
-        this.energyTxt;
-        this.foodTxt;
-        this.healthTxt;
-
-        this.xpTxt;
-        this.levelTxt;
-        this.progressTxt;
 
         this.dailyQuestion = {};
         this.addImage = addImage.bind(this);
@@ -85,7 +65,8 @@ class OverviewScene extends Phaser.Scene {
             height: this.sys.game.config.height
         });
 
-        this.bg = this.addImage(0, 0, 'overview:bg').setOrigin(0, 0);
+        this.bg = this.addImage(0, 0, 'overview:bg');   
+        this.grid.placeAtIndex(112, this.bg);
 
         // Top Navbar 
         this.TopNavbar = this.addImage(0, 0, 'overview:BottomNavbar');
@@ -95,8 +76,13 @@ class OverviewScene extends Phaser.Scene {
             this.scene.launch('StatsScene');
         });
         this.grid.placeAtIndex(3, this.whiteBg);
-        this.Mylevel = this.add.text(0, 0, this._player.getLevel(), { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(1, 0.25);
-        this.grid.placeAtIndex(1, this.Mylevel);
+        this.Mylevel = this.add.text(0, 0, this._player.getLevel(), { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'});
+        Phaser.Display.Align.In.Center(
+            this.Mylevel,
+            this.whiteBg,
+            -110,
+            5
+        );
         this.Myname = this.add.text(0, 0, this.player.username, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(0.6, 0.25);
         this.grid.placeAtIndex(3, this.Myname);
         this.navPP = this.addImage(0, 0, 'overview:navPP').setOrigin(0.8, 0.43);
@@ -165,12 +151,14 @@ class OverviewScene extends Phaser.Scene {
         this.morfitWalking = this.addImage(0, 0, 'overview:morfitWalking');
         this.grid.placeAtIndex(127, this.morfitWalking);
 
-        this.txtXPbar = this.addImage(0, 0, 'overview:txtXPbar').setOrigin(0.6, 0);
-        this.grid.scaleTo(this.txtXPbar, 0.15);
-        this.grid.placeAtIndex(172, this.txtXPbar);
+        // this.txtXPbar = this.addImage(0, 0, 'overview:txtXPbar').setOrigin(0.6, 0);
+        // this.grid.scaleTo(this.txtXPbar, 0.15);
+        // this.grid.placeAtIndex(172, this.txtXPbar);
+        this.txtXPbar = this.add.text(0, 0, `${this.player.xp}/${this._player.getRequiredXP(this._player.getLevel())}`, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(10 * window.devicePixelRatio)}px`});
+        Phaser.Display.Align.In.Center(this.txtXPbar, this.bg, 0, 375 );
 
-        this.XPbar = this.addImage(0, 0, 'overview:XPbar').setOrigin(0.6, 1.3);
-        this.grid.placeAtIndex(187, this.XPbar);
+        this.XPbar = this.addImage(0, 0, 'overview:XPbar');
+        Phaser.Display.Align.In.Center(this.XPbar, this.bg, 0, 395);
 
         this.HomePlant = this.addImage(0, 0, 'overview:HomePlant2');
         this.grid.placeAtIndex(164, this.HomePlant);
