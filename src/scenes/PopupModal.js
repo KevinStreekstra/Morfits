@@ -1,3 +1,5 @@
+import { withDPI } from '../helpers';
+
 class PopupModalScene extends Phaser.Scene {
     constructor() {
         super({
@@ -9,7 +11,7 @@ class PopupModalScene extends Phaser.Scene {
     }
     create(data){
         this.data = data;
-        this.bg = this.add.image(this.cameras.main.width / 2,this.cameras.main.height / 2, data.woodenBackground).setScale(0.5);
+        this.bg = this.add.image(this.cameras.main.width / 2,this.cameras.main.height / 2, data.woodenBackground).setScale(withDPI(0.35));
         this.cameras.main.setBackgroundColor(this.backgroundOverlay);
 
         // Assets
@@ -21,24 +23,24 @@ class PopupModalScene extends Phaser.Scene {
             const text = this.add.text(0, 0, el.text, {
                 color: this.textColor,
                 fontFamily: this.textFont,
-                fontSize: el.fontSize,
+                fontSize: withDPI(el.fontSize),
             });
             Phaser.Display.Align.In.Center(
                 text,
                 this.bg,
-                el.x,
-                el.y
+                withDPI(el.x),
+                withDPI(el.y)
             );
         });
     }
     getAssetsData(elementData){
         elementData.forEach(el => {
-            const asset = this.add.image(0, 0, el.asset).setScale(0.5);
+            const asset = this.add.image(0, 0, el.asset).setScale(withDPI(0.35));
             Phaser.Display.Align.In.Center(
                 asset,
                 this.bg,
-                el.x,
-                el.y,
+                withDPI(el.x),
+                withDPI(el.y),
             );
             if(el.UseDefinedScenes || Object.entries(el.scenes).length > 0){
                 asset.setInteractive().on('pointerdown', () => {
