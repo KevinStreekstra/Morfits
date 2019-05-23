@@ -2,10 +2,10 @@ import AlignGrid from '../../classes/AlignGrid';
 
 import { addImage } from '../../helpers';
 
-class Question1 extends Phaser.Scene {
+class Question4 extends Phaser.Scene {
     constructor() {
         super({
-            key: 'Question1'
+            key: 'Question4'
         });
 
         this.bg;
@@ -54,89 +54,92 @@ class Question1 extends Phaser.Scene {
         this.substraction = this.addImage(0, 0, 'Question1:substraction');
         this.grid.placeAtIndex(24, this.substraction);
 
-        this.txt1 = this.add.text(0, 0, '1/5', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.5);
+        this.txt1 = this.add.text(0, 0, '4/5', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(22 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.5);
         this.grid.placeAtIndex(24, this.txt1);
 
-        this.vraag = this.addImage(0, 0, 'Question1:Vraag').setOrigin(0.5, 0.7);
-        this.grid.placeAtIndex(52, this.vraag);
+        this.txt1 = this.add.text(0, 0, 'Welk toetje kan', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.55);
+        this.grid.placeAtIndex(37, this.txt1);
+
+        this.txt1 = this.add.text(0, 0, 'ik het beste eten?', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, -0.15);
+        this.grid.placeAtIndex(37, this.txt1);
 
        this.smallPlank = this.addImage(0, 0, 'Question1:smallPlank').setOrigin(0.5, 0.7);
        this.grid.placeAtIndex(187, this.smallPlank);
 
        this.answer = this.addImage(0, 0, 'Question1:answer').setOrigin(0.5, 0.8).setInteractive();
        this.answer.on('pointerdown', () => {
-        this.scene.stop('Question1');
-        this.scene.launch('Question2');
+        this.scene.stop('Question4');
+        this.scene.launch('InfoQuestion');
     });
        this.grid.placeAtIndex(112, this.answer);
 
-       this.txt1 = this.add.text(0, 0, 'Broccoli', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 1.25).setInteractive();
+       this.txt1 = this.add.text(0, 0, 'Vanille ijs met fruit', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 1.25).setInteractive();
        this.txt1.on('pointerdown', () => {
-        this.scene.stop('Question1');
-        this.scene.launch('Question2');
-    }); 
-       this.grid.placeAtIndex(112, this.txt1);
+        this.scene.stop('Question4');
+        this.scene.launch('InfoQuestion');
+    });
+        this.grid.placeAtIndex(112, this.txt1);
 
        this.answer = this.addImage(0, 0, 'Question1:answer').setInteractive();
        this.answer.on('pointerdown', () => {
-        this.scene.stop('Question1');
-        this.scene.launch('Question2');
+        this.scene.stop('Question4');
+        this.scene.launch('InfoQuestion');
     });
        this.grid.placeAtIndex(82, this.answer);
 
-       this.txt1 = this.add.text(0, 0, 'Zalm', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.5).setInteractive();
+       this.txt1 = this.add.text(0, 0, 'Dubbel vla met yoghurt', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.5).setInteractive();
        this.txt1.on('pointerdown', () => {
-        this.scene.stop('Question1');
-        this.scene.launch('Question2');
+        this.scene.stop('Question4');
+        this.scene.launch('InfoQuestion');
     });
-       this.grid.placeAtIndex(82, this.txt1);
+        this.grid.placeAtIndex(82, this.txt1);
 
        this.answer = this.addImage(0, 0, 'Question1:answer').setOrigin(0.5, 0.5).setInteractive();
        this.answer.on('pointerdown', () => {
-        this.scene.stop('Question1');
-        this.scene.launch('Question2');
+        this.scene.stop('Question4');
+        this.scene.launch('InfoQuestion');
     });
        this.grid.placeAtIndex(127, this.answer);
 
-       this.txt1 = this.add.text(0, 0, 'Banaan', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.5).setInteractive();
+       this.txt1 = this.add.text(0, 0, 'Yoghurt met fruit', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.5).setInteractive();
        this.txt1.on('pointerdown', () => {
-        this.scene.stop('Question1');
-        this.scene.launch('Question2');
+        this.scene.stop('Question4');
+        this.scene.launch('InfoQuestion');
     });
-       this.grid.placeAtIndex(127, this.txt1);
+        this.grid.placeAtIndex(127, this.txt1);
 
        this.answer = this.addImage(0, 0, 'Question1:answer').setOrigin(0.5, 0.8).setInteractive();
        this.answer.on('pointerdown', () => {
-        this.scene.stop('Question1');
-        this.scene.launch('Question2');
+        this.scene.stop('Question4');
+        this.scene.launch('InfoQuestion');
     });
        this.grid.placeAtIndex(157, this.answer);
 
-       this.txt1 = this.add.text(0, 0, 'Worstenbroodje', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 1.25).setInteractive();
+       this.txt1 = this.add.text(0, 0, 'Chocolade muffin', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 1.25).setInteractive();
        this.txt1.on('pointerdown', () => {
-        this.scene.stop('Question1');
-        this.scene.launch('Question2');
+        this.scene.stop('Question4');
+        this.scene.launch('InfoQuestion');
     });
-       this.grid.placeAtIndex(157, this.txt1);
+        this.grid.placeAtIndex(157, this.txt1);
 
         this.back = this.addImage(0, 0, 'Question1:back').setOrigin(0.6, 0.8).setInteractive();
         this.back.on('pointerdown', () => {
-            this.scene.stop('Question1');
-            this.scene.launch('StartQuiz');
+            this.scene.stop('Question4');
+            this.scene.launch('Question3');
         });
         this.grid.placeAtIndex(184, this.back);
  
         this.back = this.addImage(0, 0, 'Question1:back').setOrigin(0.5, 0.8).setInteractive();
         this.back.on('pointerdown', () => {
-            this.scene.stop('Question1');
-            this.scene.launch('Question2');
+            this.scene.stop('Question4');
+            this.scene.launch('InfoQuestion');
         });
         this.back.flipX = true;
         this.grid.placeAtIndex(190, this.back);
 
        this.quit = this.addImage(0, 0, 'Daily:quit').setOrigin(.5, .675).setInteractive();
        this.quit.on('pointerdown', () => {
-           this.scene.sleep('Question1');
+           this.scene.sleep('Question4');
            this.scene.launch('StopQuiz');
        });
        this.grid.placeAtIndex(217, this.quit);
@@ -146,4 +149,4 @@ class Question1 extends Phaser.Scene {
     
 }
 
-    export default Question1;
+    export default Question4;

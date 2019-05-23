@@ -12,6 +12,8 @@ import { StopQuiz } from './_StopQuiz';
 
 //Quiz Questions
 import { Question1 } from './BootQuiz/_Question1';
+import { InfoQuestion } from './BootQuiz/_InfoQuestion';
+import { Question5 } from './BootQuiz/_Question5';
 
 class BootScene extends Phaser.Scene {
     constructor() {
@@ -29,11 +31,13 @@ class BootScene extends Phaser.Scene {
         this.StopQuiz = StopQuiz.bind(this);
 
         this.Question1 = Question1.bind(this);
+        this.InfoQuestion = InfoQuestion.bind(this);
+        this.Question5 = Question5.bind(this);
     }
 
     preload() {
-        let canvas = document.querySelector('#game canvas');
-        canvas.style.width = 'auto';
+        let div = document.querySelector('#game div');
+        div.style.transform = "scale(" + (1 / window.devicePixelRatio) + ")";
 
         this.grid = new AlignGrid({
             scene: this, 
@@ -54,6 +58,8 @@ class BootScene extends Phaser.Scene {
         this.StartQuiz();
         this.StopQuiz();
         this.Question1();
+        this.InfoQuestion();
+        this.Question5();
         // END LOAD SCENE ASSETS
 
         this.load.on('complete', () => {
