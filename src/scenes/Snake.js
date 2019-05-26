@@ -92,6 +92,13 @@ class SnakeScene extends Phaser.Scene {
         }
 
         this.socket.emit('joinSnake', ownPlayer)
+        this.socket.on('playerShouldReconnect', function (playerId) {
+            if (playerId === ownPlayer.playerId) {
+                main_socket.emit('joinSnake', ownPlayer)
+            }
+        })
+
+        setInterval(() => { console.log({ is_connected }) }, 1000)
 
         const Snake = new Phaser.Class({
             initialize: function Snake(scene, x, y) {

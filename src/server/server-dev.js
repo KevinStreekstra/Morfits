@@ -7,7 +7,36 @@ import sharedsession from 'express-socket.io-session';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
+import winston from 'winston'
+import dateFns from 'date-fns'
 import config from '../../webpack.dev.js'
+
+const logFormat = winston.format.printf(({ level, message, label, timestamp, extraInfo }) => (
+    `${timestamp} ${level}: ${message} ${
+        extraInfo ? `Extra info: ${JSON.stringify(extraInfo, null, 2)}` : ''
+    }`
+))
+
+const logger = winston.createLogger({
+    format: winston.format.combine(
+        winston.format.label({ label: 'DEV' }),
+        winston.format.timestamp({
+            format: 'YYYY-MM-DD HH:mm:ss'
+        }),
+        winston.format.errors({
+            stack: true
+        }),
+        winston.format.splat(),
+        winston.format.json(),
+        winston.format.prettyPrint(),
+        logFormat
+    ),
+    exitOnError: false,
+    transports: [
+        new winston.transports.Console({ level: 'error' }),
+        new winston.transports.File({ filename: `./logs/dev-combined-${dateFns.format(new Date(), 'YYYY-MM-DD')}.log` })
+    ]
+});
 
 const app = express(),
     DIST_DIR = __dirname,
@@ -55,7 +84,10 @@ io.use(sharedsession(expressSession, {
 }));
 
 io.on('connection', function(socket){
-    console.log('a user connected');
+    logger.log({
+        level: 'info',
+        message: 'A user connected'
+    })
 
     socket.on(
         'joinSnake',
@@ -72,6 +104,18 @@ io.on('connection', function(socket){
          * @param {number} playerInfo.tail.y - the y cords of the tail.
          */
         function (playerInfo) {
+            logger.log({
+                level: 'info',
+                message: 'User joined Snake',
+                extraInfo: {
+                    playerInfo,
+                    socketInfo: {
+                        socketId: socket.id,
+                        server: socket.handshake.headers
+                    }
+                }
+            })
+
             players[playerInfo.playerId] = playerInfo
             players[playerInfo.playerId].socketId = socket.id
 
@@ -85,7 +129,6 @@ io.on('connection', function(socket){
 
     // when a player disconnects, remove them from our players object
     socket.on('disconnect', function () {
-        console.log('user disconnected');
         Object.keys(players).forEach(id => {
             if (players[id].socketId === socket.id) {
                 socket.to('snake_game').broadcast.emit('disconnected', players[id]);
@@ -103,10 +146,36 @@ io.on('connection', function(socket){
          * @param {number} playerData.rotation - the angle of the player.
          */
         function (playerData) {
-            players[playerData.playerId].rotation = playerData.rotation;
+            try {
+                if (players[playerData.playerId] !== undefined) {
+                    players[playerData.playerId].rotation = playerData.rotation;
 
-            // emit a message to all players about the player that moved
-            socket.to('snake_game').broadcast.emit('playerChangedDirection', players[playerData.playerId]);
+                    // emit a message to all players about the player that moved
+                    socket.to('snake_game').broadcast.emit('playerChangedDirection', players[playerData.playerId]);
+                } else {
+                    socket.emit('playerShouldReconnect', playerData.playerId)
+                    logger.log({
+                        level: 'info',
+                        message: 'Player send a broadcast event to other clients while not connected to the snake game.',
+                        extraInfo: {
+                            playerInfo: playerData,
+                            socketInfo: {
+                                socketId: socket.id,
+                                server: socket.handshake.headers
+                            },
+                            currentPlayers: players
+                        }
+                    })
+                }
+            } catch (err) {
+                logger.log({
+                    level: 'error',
+                    message: `directionChange ran in to a error: ${err}`,
+                    extraInfo: {
+                        error: err
+                    }
+                })
+            }
         }
     );
 
@@ -114,55 +183,209 @@ io.on('connection', function(socket){
         'playerMovement',
         function (playerData) {
             try {
-                players[playerData.playerId].x = playerData.x;
-                players[playerData.playerId].y = playerData.y;
+                if (players[playerData.playerId] !== undefined) {
+                    players[playerData.playerId].x = playerData.x;
+                    players[playerData.playerId].y = playerData.y;
 
-                socket.to('snake_game').broadcast.emit('playerPositionChanged', players[playerData.playerId]);
+                    socket.to('snake_game').broadcast.emit('playerPositionChanged', players[playerData.playerId]);
+                } else {
+                    socket.emit('playerShouldReconnect', playerData.playerId)
+                    logger.log({
+                        level: 'info',
+                        message: 'Player send a broadcast event to other clients while not connected to the snake game.',
+                        extraInfo: {
+                            playerInfo: playerData,
+                            socketInfo: {
+                                socketId: socket.id,
+                                server: socket.handshake.headers
+                            },
+                            currentPlayers: players
+                        }
+                    })
+                }
             } catch (err) {
-                console.warn(err)
+                logger.log({
+                    level: 'error',
+                    message: `playerMovement ran in to a error: ${err}`,
+                    extraInfo: {
+                        playerInfo: playerData,
+                        socketInfo: {
+                            socketId: socket.id,
+                            server: socket.handshake.headers
+                        },
+                        currentPlayers: players,
+                        error: err
+                    }
+                })
             }
-
         }
     )
 
     socket.on(
         'snakeGrow',
         function (playerData) {
-            players[playerData.playerId].tails = playerData.tails
+            try {
+                if (players[playerData.playerId] !== undefined) {
+                    players[playerData.playerId].tails = playerData.tails
 
-            socket.to('snake_game').broadcast.emit('playerGrew', players[playerData.playerId]);
+                    socket.to('snake_game').broadcast.emit('playerGrew', players[playerData.playerId]);
+                } else {
+                    socket.emit('playerShouldReconnect', playerData.playerId)
+                    logger.log({
+                        level: 'info',
+                        message: 'Player send a broadcast event to other clients while not connected to the snake game.',
+                        extraInfo: {
+                            playerInfo: playerData,
+                            socketInfo: {
+                                socketId: socket.id,
+                                server: socket.handshake.headers
+                            },
+                            currentPlayers: players
+                        }
+                    })
+                }
+            } catch (err) {
+                logger.log({
+                    level: 'error',
+                    message: `snakeGrow ran in to a error: ${err}`,
+                    extraInfo: {
+                        playerInfo: playerData,
+                        socketInfo: {
+                            socketId: socket.id,
+                            server: socket.handshake.headers
+                        },
+                        currentPlayers: players,
+                        error: err
+                    }
+                })
+            }
         }
     )
 
     socket.on(
         'snakeShrink',
         function (playerData) {
-            players[playerData.playerId].tails = playerData.tails
+            try {
+                if (players[playerData.playerId] !== undefined) {
+                    players[playerData.playerId].tails = playerData.tails
 
-            socket.to('snake_game').broadcast.emit('playerShrank', players[playerData.playerId]);
+                    socket.to('snake_game').broadcast.emit('playerShrank', players[playerData.playerId]);
+                } else {
+                    socket.emit('playerShouldReconnect', playerData.playerId)
+                    logger.log({
+                        level: 'info',
+                        message: 'Player send a broadcast event to other clients while not connected to the snake game.',
+                        extraInfo: {
+                            playerInfo: playerData,
+                            socketInfo: {
+                                socketId: socket.id,
+                                server: socket.handshake.headers
+                            },
+                            currentPlayers: players
+                        }
+                    })
+                }
+            } catch (err) {
+                logger.log({
+                    level: 'error',
+                    message: `snakeShrink ran in to a error: ${err}`,
+                    extraInfo: {
+                        playerInfo: playerData,
+                        socketInfo: {
+                            socketId: socket.id,
+                            server: socket.handshake.headers
+                        },
+                        currentPlayers: players,
+                        error: err
+                    }
+                })
+            }
         }
     )
 
     socket.on(
         'repositionItems',
         function (itemData) {
-            socket.to('snake_game').broadcast.emit('repositionAllItems', itemData)
+            try {
+                socket.to('snake_game').broadcast.emit('repositionAllItems', itemData)
+            } catch (err) {
+                logger.log({
+                    level: 'error',
+                    message: `repositionItems ran in to a error: ${err}`,
+                    extraInfo: {
+                        itemData,
+                        socketInfo: {
+                            socketId: socket.id,
+                            server: socket.handshake.headers
+                        },
+                        currentPlayers: players,
+                        error: err
+                    }
+                })
+            }
         }
     )
 
     socket.on(
         'playerDied',
         function (playerData) {
-            socket.to('snake_game').broadcast.emit('aPlayerDied', playerData)
+            try {
+                socket.to('snake_game').broadcast.emit('aPlayerDied', playerData)
+            } catch (err) {
+                logger.log({
+                    level: 'error',
+                    message: `playerDied ran in to a error: ${err}`,
+                    extraInfo: {
+                        playerInfo: playerData,
+                        socketInfo: {
+                            socketId: socket.id,
+                            server: socket.handshake.headers
+                        },
+                        currentPlayers: players,
+                        error: err
+                    }
+                })
+            }
         }
     )
 
     socket.on(
         'playerRespawned',
         function (playerData) {
-            players[playerData.playerId].tails = 0;
+            try {
+                if (players[playerData.playerId] !== undefined) {
+                    players[playerData.playerId].tails = 0;
 
-            socket.to('snake_game').broadcast.emit('aPlayerRespawned', playerData)
+                    socket.to('snake_game').broadcast.emit('aPlayerRespawned', playerData)
+                } else {
+                    logger.log({
+                        level: 'info',
+                        message: 'Player send a broadcast event to other clients while not connected to the snake game.',
+                        extraInfo: {
+                            playerInfo: playerData,
+                            socketInfo: {
+                                socketId: socket.id,
+                                server: socket.handshake.headers
+                            },
+                            currentPlayers: players
+                        }
+                    })
+                }
+            } catch (err) {
+                logger.log({
+                    level: 'error',
+                    message: `playerRespawned ran in to a error: ${err}`,
+                    extraInfo: {
+                        playerInfo: playerData,
+                        socketInfo: {
+                            socketId: socket.id,
+                            server: socket.handshake.headers
+                        },
+                        currentPlayers: players,
+                        error: err
+                    }
+                })
+            }
         }
     )
 });
