@@ -260,6 +260,27 @@ class SnakeScene extends Phaser.Scene {
                     .setDisplaySize(withDPI(375), withDPI(116))
                     .setOrigin(0)
 
+                this.spectatingText = scene.add
+                    .text(
+                        withDPI(187),
+                        withDPI(551),
+                        `Spectating`,
+                        {
+                            fontFamily: 'BubblegumSans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
+                            fontSize: '24px',
+                            fontStyle: 'bold',
+                            color: '#2E3A4B',
+                            stroke: '#ffffff',
+                            strokeThickness: 8,
+                            align: 'center',
+                            resolution: window.devicePixelRatio
+                        }
+                    )
+                    .setScale(withDPI(1), withDPI(1))
+                    .setDepth(17)
+                    .setOrigin(0.5, 0)
+                    .setVisible(false)
+
                 /* SECTION Top bar */
                 this.scoreText = scene.add
                     .text(
@@ -298,6 +319,7 @@ class SnakeScene extends Phaser.Scene {
 
                 /* !SECTION Top bar */
 
+                /* SECTION Respawn modal */
                 this.respawnModal = scene.add.group()
                 this.respawnModalBackground = this.respawnModal
                     .create(withDPI(16), withDPI(84), 'Snake:modal_background')
@@ -358,6 +380,8 @@ class SnakeScene extends Phaser.Scene {
                     .setVisible(false)
 
                 this.closeRespawnButton.on('pointerdown', this.playerRespawn)
+
+                /* !SECTION Respawn modal */
 
                 /* SECTION End game modal */
                 this.endGameModal = scene.add.group()
@@ -1240,8 +1264,11 @@ class SnakeScene extends Phaser.Scene {
             repositionItems: function () {
                 let testGrid = [];
 
-                /* First we assume all blocks are safe */
-                for (let y = 0; y < 29; y++) {
+                /**
+                 * First we assume all are safe, this should cover all blocks the player could go.
+                 * If not all cords are covered this will cause warnings in console.
+                 */
+                for (let y = 0; y < 50; y++) {
                     testGrid[y] = [];
 
                     for (let x = 0; x < 29; x++) {
@@ -1249,12 +1276,16 @@ class SnakeScene extends Phaser.Scene {
                     }
                 }
 
+                /* Test all cords for the block the player is in. */
                 this.updateGrid(testGrid);
 
                 let validLocations = []
 
-                for (let y = 0; y < 29; y++) {
-                    for (let x = 0; x < 29; x++) {
+                /**
+                 * Here we basically set the range we want the food to be able to be placed at.
+                 */
+                for (let y = 2; y < 29; y++) {
+                    for (let x = 2; x < 27; x++) {
                         if (testGrid[y][x] === true) {
                             //  Is this position valid for food? If so, add it here ...
                             validLocations.push({ x, y });
@@ -1332,6 +1363,12 @@ class SnakeScene extends Phaser.Scene {
                 snakeSelf.lives -= 1
                 let activeHearts = [true, true, true]
 
+                main_socket.emit('playerDied', {
+                    playerId: ownPlayer.playerId,
+                    name,
+                    score: snakeSelf.score
+                })
+
                 switch (snakeSelf.lives) {
                     case 0:
                         activeHearts = [false, false, false]
@@ -1356,7 +1393,6 @@ class SnakeScene extends Phaser.Scene {
                     default:
                         activeHearts = [false, false, false]
                         this.playerRanOutOfLives()
-                        console.log('raaan')
                         break;
                 }
 
@@ -1365,11 +1401,6 @@ class SnakeScene extends Phaser.Scene {
                 snakeSelf.liveThree.setVisible(activeHearts[2])
 
                 this.playerDiesAnimation(main_body)
-                main_socket.emit('playerDied', {
-                    playerId: ownPlayer.playerId,
-                    name,
-                    score: snakeSelf.score
-                })
             },
 
             playerDiesAnimation: function (playerElement) {
@@ -1463,6 +1494,7 @@ class SnakeScene extends Phaser.Scene {
             },
 
             playerRanOutOfLives: function () {
+                snakeSelf.spectatingText.setVisible(true)
                 main_socket.emit('playerRanOutLives', {
                     playerId: ownPlayer.playerId,
                     name,
