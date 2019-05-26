@@ -37,7 +37,7 @@ class SnakeScene extends Phaser.Scene {
                     x: 0,
                     y: withDPI(127),
                     gravity: { y: 0 },
-                    debug: true,
+                    debug: false,
                     width: withDPI(375),
                     height: withDPI(475)
                 }
@@ -406,6 +406,11 @@ class SnakeScene extends Phaser.Scene {
                  * @description Sync food with the other clients.
                  */
                 main_socket.on('repositionAllItems', function (itemInfo) {
+                    snakeSelf.pineapple.setPosition(-200, -200);
+                    snakeSelf.lemon.setPosition(-200, -200);
+                    snakeSelf.hamburger.setPosition(-200, -200);
+                    snakeSelf.soda.setPosition(-200, -200);
+
                     snakeSelf.pineapple.disableBody(true, true);
                     snakeSelf.lemon.disableBody(true, true);
                     snakeSelf.hamburger.disableBody(true, true);
@@ -791,7 +796,10 @@ class SnakeScene extends Phaser.Scene {
              */
             eatHamburger: function (head, hamburger) {
                 hamburger.disableBody(true, true);
-                this.scoreModifier -= 150;
+
+                if (this.score - 150 > 0) {
+                    this.scoreModifier -= 150;
+                }
 
                 const scoreText = main_scene.add.text(hamburger.x, hamburger.y, '-150', {
                     fontSize: '24px',
@@ -1078,6 +1086,8 @@ class SnakeScene extends Phaser.Scene {
                 snakeSelf.head.setOrigin(0.5);
                 snakeSelf.head.setAngle(-90);
                 snakeSelf.head.setDepth(10);
+                snakeSelf.heading = RIGHT;
+                snakeSelf.direction = RIGHT;
 
                 snakeSelf.speed = 95;
                 snakeSelf.alive = true;
