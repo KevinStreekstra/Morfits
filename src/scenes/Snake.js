@@ -316,7 +316,14 @@ class SnakeScene extends Phaser.Scene {
                     .setScale(withDPI(0.2), withDPI(0.2))
                     .setVisible(isLast)
 
-                this.modalStartButton.on('pointerdown', () => {
+                this.modalCloseButton = scene.add
+                    .image(withDPI(168), withDPI(618), 'Snake:close_button')
+                    .setDepth(41)
+                    .setInteractive()
+                    .setOrigin(0, 0)
+                    .setScale(withDPI(0.2), withDPI(0.2))
+
+                const finishTutorial = () => {
                     snake = new Snake(
                         scene,
                         20,
@@ -334,6 +341,15 @@ class SnakeScene extends Phaser.Scene {
                     this.modalNextButton.destroy()
                     this.modalStartButton.destroy()
                     this.modalStartButton.destroy()
+                    this.modalCloseButton.destroy()
+                }
+
+                this.modalStartButton.on('pointerdown', () => {
+                    finishTutorial()
+                })
+
+                this.modalCloseButton.on('pointerdown', () => {
+                    finishTutorial()
                 })
             }
         })
