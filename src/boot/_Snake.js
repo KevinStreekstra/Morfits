@@ -13,6 +13,15 @@ export function snake_assets() {
     this.load.image('Snake:respawn_button', require('../assets/snake/ui/continue.png'))
     this.load.image('Snake:close_button', require('../assets/snake/ui/close-button.png'))
 
+    // End game assets
+    this.load.image('Snake:head_player_1', require('../assets/snake/ui/end_game/player_head.png'))
+    this.load.image('Snake:medal_first', require('../assets/snake/ui/end_game/first.png'))
+    this.load.image('Snake:medal_second', require('../assets/snake/ui/end_game/second.png'))
+    this.load.image('Snake:medal_third', require('../assets/snake/ui/end_game/third.png'))
+    this.load.image('Snake:morfit_coin', require('../assets/snake/ui/end_game/assets_dollar.png'))
+    this.load.image('Snake:home_button', require('../assets/snake/ui/end_game/home_button.png'))
+
+
     // Food assets
     this.load.image('Snake:apple', require('../assets/snake/food/apple.png'));
     this.load.image('Snake:pineapple', require('../assets/snake/food/pineapple.png'));

@@ -52,6 +52,7 @@ const expressSession = session({
 const httpServer = http.Server(app);
 const io = ioPackage(httpServer);
 const players = {}
+const playerScores = {}
 
 app.use(expressSession);
 
@@ -137,6 +138,10 @@ io.on('connection', function(socket){
             }
         })
     });
+
+    socket.on('leaveSnake', function () {
+        socket.leave('snake_game')
+    })
 
     socket.on(
         'directionChange',
@@ -330,11 +335,83 @@ io.on('connection', function(socket){
         'playerDied',
         function (playerData) {
             try {
+                playerScores[playerData.playerId] = {
+                    playerId: playerData.playerId,
+                    socketId: socket.id,
+                    name: playerData.name,
+                    score: playerData.score
+                }
+
                 socket.to('snake_game').broadcast.emit('aPlayerDied', playerData)
             } catch (err) {
                 logger.log({
                     level: 'error',
                     message: `playerDied ran in to a error: ${err}`,
+                    extraInfo: {
+                        playerInfo: playerData,
+                        socketInfo: {
+                            socketId: socket.id,
+                            server: socket.handshake.headers
+                        },
+                        currentPlayers: players,
+                        error: err
+                    }
+                })
+            }
+        }
+    )
+
+    socket.on(
+        'playerRanOutLives',
+        function (playerData) {
+            try {
+                if (players[playerData.playerId] !== undefined) {
+                    players[playerData.playerId].ranOutOfLives = true
+                } else {
+                    socket.emit('playerShouldReconnect', playerData.playerId)
+                    logger.log({
+                        level: 'info',
+                        message: 'Player send a broadcast event to other clients while not connected to the snake game.',
+                        extraInfo: {
+                            playerInfo: playerData,
+                            socketInfo: {
+                                socketId: socket.id,
+                                server: socket.handshake.headers
+                            },
+                            currentPlayers: players
+                        }
+                    })
+                }
+
+                playerScores[playerData.playerId] = {
+                    playerId: playerData.playerId,
+                    socketId: socket.id,
+                    name: playerData.name,
+                    score: playerData.score
+                }
+
+                let playersHaveLivesLeft = false
+
+                Object.keys(players).forEach(id => {
+                    if (players[id].ranOutOfLives === false) {
+                        playersHaveLivesLeft = true
+                    }
+                })
+
+                if (playersHaveLivesLeft === false) {
+                    socket.emit('snakeGameEnd', {
+                        scores: playerScores,
+                        players
+                    })
+
+                    Object.keys(playerScores).forEach(id => {
+                        delete playerScores[id];
+                    })
+                }
+            } catch (err) {
+                logger.log({
+                    level: 'error',
+                    message: `playerRanOutLives ran in to a error: ${err}`,
                     extraInfo: {
                         playerInfo: playerData,
                         socketInfo: {

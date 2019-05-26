@@ -3,3 +3,4 @@ node_modules/
 /.metadata/
 .DS_Store
 /dist/
+/logs/*.log
