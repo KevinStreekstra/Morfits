@@ -598,7 +598,9 @@ class SnakeScene extends Phaser.Scene {
                     .setScale(withDPI(0.2), withDPI(0.2))
                     .setVisible(false)
 
-                this.closeRespawnButton.on('pointerdown', this.playerRespawn)
+                this.closeRespawnButton.on('pointerdown', () => {
+                    this.playerRespawn()
+                })
 
                 /* !SECTION Respawn modal */
 
@@ -1812,7 +1814,7 @@ class SnakeScene extends Phaser.Scene {
             /* !SECTION Game end */
         });
 
-        const helpGuideModal = new GuideModal(
+        new GuideModal(
             this,
             guides['move']
         )
