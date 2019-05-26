@@ -126,28 +126,13 @@ class SnakeScene extends Phaser.Scene {
 
                 // Game variables
                 this.alive = true;
-                this.speed = 100;
+                this.lives = 3;
                 this.moveTime = 0;
-                this.total = 0;
                 this.score = 0;
                 this.scoreModifier = 0;
+                this.speed = 100;
                 this.tails = 0;
-                this.lives = 3;
-
-                // Text to show the score to the user.
-                this.scoreText = scene.add
-                    .text(
-                        withDPI(16),
-                        withDPI(84),
-                        `Huidige score: ${this.score}`,
-                        {
-                            fontFamily: 'BubblegumSans',
-                            fontSize: '24px',
-                            color: '#fff',
-                            align: 'left',
-                            resolution: window.devicePixelRatio
-                        }
-                    ).setScale(withDPI(1), withDPI(1))
+                this.total = 0;
 
                 // Define code for other players
                 this.otherPlayers = {};
@@ -169,9 +154,9 @@ class SnakeScene extends Phaser.Scene {
                     )
                     .setScale(withDPI(0.33), withDPI(0.33));
 
-                this.head.setOrigin(0.5);
                 this.head.setAngle(-90);
                 this.head.setDepth(10);
+                this.head.setOrigin(0.5);
 
                 this.tail = new Phaser.Geom.Point(12.5, 12.5);
                 main_body = this.body
@@ -186,43 +171,43 @@ class SnakeScene extends Phaser.Scene {
                 /* ANCHOR Apple */
                 this.apple = this.foods
                     .create(3 * withDPI(12.5), withOffset(4 * withDPI(12.5)), 'Snake:apple')
-                    .setScale(withDPI(0.333), withDPI(0.333))
+                    .setName('Apple')
                     .setOrigin(0)
-                    .setName('Apple');
+                    .setScale(withDPI(0.333), withDPI(0.333))
 
                 /* ANCHOR Pineapple */
                 this.pineapple = this.foods
                     .create(-200, withOffset(4 * 25), 'Snake:pineapple')
-                    .setScale(withDPI(0.333), withDPI(0.333))
-                    .setOrigin(0)
                     .disableBody(true, true)
-                    .setName('Pineapple');
+                    .setName('Pineapple')
+                    .setOrigin(0)
+                    .setScale(withDPI(0.333), withDPI(0.333))
 
                 /* ANCHOR Hamburger */
                 this.hamburger = this.foods
                     .create(-200, withOffset(4 * 25), 'Snake:hamburger')
-                    .setScale(withDPI(0.333), withDPI(0.333))
-                    .setOrigin(0)
                     .disableBody(true, true)
-                    .setName('Hamburger');
+                    .setName('Hamburger')
+                    .setOrigin(0)
+                    .setScale(withDPI(0.333), withDPI(0.333))
 
                 /* ANCHOR Soda */
                 this.soda = this.foods
                     .create(-200, withOffset(4 * 25), 'Snake:soda')
-                    .setScale(withDPI(0.333), withDPI(0.333))
-                    .setOrigin(0)
                     .disableBody(true, true)
-                    .setName('Soda');
+                    .setName('Soda')
+                    .setOrigin(0)
+                    .setScale(withDPI(0.333), withDPI(0.333))
 
                 main_soda = this.soda
 
                 /* ANCHOR Lemon */
                 this.lemon = this.foods
                     .create(-200, withOffset(4 * 25), 'Snake:lemon')
-                    .setScale(withDPI(0.333), withDPI(0.333))
-                    .setOrigin(0)
                     .disableBody(true, true)
-                    .setName('Lemon');
+                    .setName('Lemon')
+                    .setOrigin(0)
+                    .setScale(withDPI(0.333), withDPI(0.333))
 
                 /* !SECTION Define foods */
 
@@ -259,48 +244,67 @@ class SnakeScene extends Phaser.Scene {
                 /* SECTION UI elements. */
                 this.background = scene.add
                     .image(0, withDPI(127), 'Snake:board_background')
+                    .setDepth(-1)
                     .setDisplaySize(withDPI(375), withDPI(475))
-                    .setOrigin(0)
-                    .setDepth(-1);
+                    .setOrigin(0);
 
                 this.backgroundTop = scene.add
                     .image(0, withDPI(60), 'Snake:background_top')
+                    .setDepth(15)
                     .setDisplaySize(withDPI(375), withDPI(67))
                     .setOrigin(0)
-                    .setDepth(-2);
 
                 this.backgroundBottom = scene.add
                     .image(0, withDPI(602), 'Snake:background_bottom')
+                    .setDepth(15)
                     .setDisplaySize(withDPI(375), withDPI(116))
                     .setOrigin(0)
-                    .setDepth(-2);
+
+                /* SECTION Top bar */
+                this.scoreText = scene.add
+                    .text(
+                        withDPI(16),
+                        withDPI(84),
+                        `Huidige score: ${this.score}`,
+                        {
+                            fontFamily: 'BubblegumSans',
+                            fontSize: '24px',
+                            color: '#fff',
+                            align: 'left',
+                            resolution: window.devicePixelRatio
+                        }
+                    )
+                    .setScale(withDPI(1), withDPI(1))
+                .setDepth(16)
 
                 /* Handle UI lives */
                 this.liveOne = scene.add
                     .image(withDPI(262), withDPI(83), 'Snake:live_icon')
+                    .setDepth(16)
                     .setDisplaySize(withDPI(27), withDPI(25))
                     .setOrigin(0)
-                    .setDepth(1);
 
                 this.liveTwo = scene.add
                     .image(withDPI(297), withDPI(83), 'Snake:live_icon')
+                    .setDepth(16)
                     .setDisplaySize(withDPI(27), withDPI(25))
                     .setOrigin(0)
-                    .setDepth(1);
 
                 this.liveThree = scene.add
                     .image(withDPI(332), withDPI(83), 'Snake:live_icon')
+                    .setDepth(16)
                     .setDisplaySize(withDPI(27), withDPI(25))
                     .setOrigin(0)
-                    .setDepth(1);
+
+                /* !SECTION Top bar */
 
                 this.respawnModal = scene.add.group()
                 this.respawnModalBackground = this.respawnModal
                     .create(withDPI(16), withDPI(84), 'Snake:modal_background')
+                    .setDepth(30)
                     .setDisplaySize(withDPI(343), withDPI(554))
                     .setOrigin(0)
-                    .setDepth(30)
-                    .setVisible(false);
+                    .setVisible(false)
 
                 this.respawnText = scene.add.text(withDPI(125), withDPI(116), 'Doorgaan', {
                     fontFamily: 'BubblegumSans',
@@ -328,18 +332,18 @@ class SnakeScene extends Phaser.Scene {
                             resolution: window.devicePixelRatio
                         }
                     )
-                    .setScale(withDPI(1), withDPI(1))
                     .setDepth(31)
                     .setOrigin(0, 0)
+                    .setScale(withDPI(1), withDPI(1))
                     .setVisible(false)
 
                 this.respawnButton = scene.add
                     .image(withDPI(130), withDPI(520), 'Snake:respawn_button')
-                    .setScale(withDPI(0.2), withDPI(0.2))
-                    .setOrigin(0, 0)
                     .setDepth(32)
+                    .setInteractive()
+                    .setOrigin(0, 0)
+                    .setScale(withDPI(0.2), withDPI(0.2))
                     .setVisible(false)
-                    .setInteractive();
 
                 this.respawnButton.on('pointerdown', () => {
                     this.playerRespawn()
@@ -347,11 +351,11 @@ class SnakeScene extends Phaser.Scene {
 
                 this.closeRespawnButton = scene.add
                     .image(withDPI(168), withDPI(618), 'Snake:close_button')
-                    .setScale(withDPI(0.2), withDPI(0.2))
-                    .setOrigin(0, 0)
                     .setDepth(33)
+                    .setInteractive()
+                    .setOrigin(0, 0)
+                    .setScale(withDPI(0.2), withDPI(0.2))
                     .setVisible(false)
-                    .setInteractive();
 
                 this.closeRespawnButton.on('pointerdown', this.playerRespawn)
 
@@ -359,51 +363,70 @@ class SnakeScene extends Phaser.Scene {
                 this.endGameModal = scene.add.group()
                 this.endGameModalBackground = this.endGameModal
                     .create(withDPI(16), withDPI(84), 'Snake:modal_background')
+                    .setDepth(30)
                     .setDisplaySize(withDPI(343), withDPI(554))
                     .setOrigin(0)
-                    .setDepth(30)
-                    .setVisible(false);
+                    .setVisible(false)
 
-                this.endGameModalHeader = scene.add.text(withDPI(187), withDPI(116), 'Gefeliciteerd', {
-                    fontFamily: 'BubblegumSans',
-                    fontSize: '32px',
-                    color: '#2E3A4B',
-                    align: 'center',
-                    stroke: '#ffffff',
-                    strokeThickness: 8,
-                    resolution: window.devicePixelRatio
-                }).setScale(withDPI(1), withDPI(1)).setDepth(31).setOrigin(0.5, 0).setVisible(false);
+                this.endGameModalHeader = scene.add
+                    .text(
+                        withDPI(187),
+                        withDPI(116),
+                        'Gefeliciteerd', {
+                            fontFamily: 'BubblegumSans',
+                            fontSize: '32px',
+                            color: '#2E3A4B',
+                            align: 'center',
+                            stroke: '#ffffff',
+                            strokeThickness: 8,
+                            resolution: window.devicePixelRatio
+                        }
+                    )
+                    .setDepth(31)
+                    .setOrigin(0.5, 0)
+                    .setScale(withDPI(1), withDPI(1))
+                    .setVisible(false)
 
-                this.endGameModalScore = scene.add.text(withDPI(187), withDPI(177), '00.000', {
-                    fontFamily: 'BubblegumSans',
-                    fontSize: '56px',
-                    color: '#ffffff',
-                    align: 'center',
-                    resolution: window.devicePixelRatio
-                }).setScale(withDPI(1), withDPI(1)).setDepth(31).setOrigin(0.5, 0).setVisible(false);
+                this.endGameModalScore = scene.add
+                    .text(
+                        withDPI(187),
+                        withDPI(177),
+                        '00.000',
+                        {
+                            fontFamily: 'BubblegumSans',
+                            fontSize: '56px',
+                            color: '#ffffff',
+                            align: 'center',
+                            resolution: window.devicePixelRatio
+                        }
+                    )
+                    .setDepth(31)
+                    .setOrigin(0.5, 0)
+                    .setScale(withDPI(1), withDPI(1))
+                    .setVisible(false)
 
                 /* SECTION First place */
                 this.endGameModalFirstHead = scene.add
                     .image(withDPI(48), withDPI(274), 'Snake:head_player_1')
-                    .setScale(withDPI(0.2), withDPI(0.2))
-                    .setOrigin(0, 0)
                     .setDepth(33)
+                    .setOrigin(0, 0)
+                    .setScale(withDPI(0.2), withDPI(0.2))
                     .setVisible(false)
 
                 this.endGameModalFirstHeadShadow = scene.add
                     .image(withDPI(48), withDPI(276), 'Snake:head_player_1')
-                    .setTint('#000000')
                     .setAlpha(0.32)
-                    .setScale(withDPI(0.2), withDPI(0.2))
-                    .setOrigin(0, 0)
                     .setDepth(32)
+                    .setOrigin(0, 0)
+                    .setScale(withDPI(0.2), withDPI(0.2))
+                    .setTint('#000000')
                     .setVisible(false)
 
                 this.endGameModalFirstMedal = scene.add
                     .image(withDPI(50), withDPI(276), 'Snake:medal_first')
-                    .setScale(withDPI(0.2), withDPI(0.2))
-                    .setOrigin(0, 0)
                     .setDepth(33)
+                    .setOrigin(0, 0)
+                    .setScale(withDPI(0.2), withDPI(0.2))
                     .setVisible(false)
 
                 this.endGameModalFirstName = scene.add
@@ -414,10 +437,10 @@ class SnakeScene extends Phaser.Scene {
                         align: 'left',
                         resolution: window.devicePixelRatio
                     })
-                    .setScale(withDPI(1), withDPI(1))
                     .setDepth(31)
                     .setOrigin(0, 0)
-                    .setVisible(false);
+                    .setScale(withDPI(1), withDPI(1))
+                    .setVisible(false)
 
                 this.endGameModalFirstScore = scene.add
                     .text(withDPI(112), withDPI(298), '41.000 punten', {
@@ -427,34 +450,34 @@ class SnakeScene extends Phaser.Scene {
                         align: 'left',
                         resolution: window.devicePixelRatio
                     })
-                    .setScale(withDPI(1), withDPI(1))
                     .setDepth(31)
                     .setOrigin(0, 0)
-                    .setVisible(false);
+                    .setScale(withDPI(1), withDPI(1))
+                    .setVisible(false)
                 /* !SECTION First place */
 
                 /* SECTION Second place */
                 this.endGameModalSecondHead = scene.add
                     .image(withDPI(48), withDPI(335), 'Snake:head_player_1')
-                    .setScale(withDPI(0.2), withDPI(0.2))
-                    .setOrigin(0, 0)
                     .setDepth(33)
+                    .setOrigin(0, 0)
+                    .setScale(withDPI(0.2), withDPI(0.2))
                     .setVisible(false)
 
                 this.endGameModalSecondHeadShadow = scene.add
                     .image(withDPI(48), withDPI(337), 'Snake:head_player_1')
-                    .setTint('#000000')
                     .setAlpha(0.32)
-                    .setScale(withDPI(0.2), withDPI(0.2))
-                    .setOrigin(0, 0)
                     .setDepth(32)
+                    .setOrigin(0, 0)
+                    .setScale(withDPI(0.2), withDPI(0.2))
+                    .setTint('#000000')
                     .setVisible(false)
 
                 this.endGameModalSecondMedal = scene.add
                     .image(withDPI(50), withDPI(337), 'Snake:medal_second')
-                    .setScale(withDPI(0.2), withDPI(0.2))
-                    .setOrigin(0, 0)
                     .setDepth(33)
+                    .setOrigin(0, 0)
+                    .setScale(withDPI(0.2), withDPI(0.2))
                     .setVisible(false)
 
                 this.endGameModalSecondName = scene.add
@@ -465,10 +488,10 @@ class SnakeScene extends Phaser.Scene {
                         align: 'left',
                         resolution: window.devicePixelRatio
                     })
-                    .setScale(withDPI(1), withDPI(1))
                     .setDepth(31)
                     .setOrigin(0, 0)
-                    .setVisible(false);
+                    .setScale(withDPI(1), withDPI(1))
+                    .setVisible(false)
 
                 this.endGameModalSecondScore = scene.add
                     .text(withDPI(112), withDPI(359), '32.400 punten', {
@@ -478,34 +501,34 @@ class SnakeScene extends Phaser.Scene {
                         align: 'left',
                         resolution: window.devicePixelRatio
                     })
-                    .setScale(withDPI(1), withDPI(1))
                     .setDepth(31)
                     .setOrigin(0, 0)
-                    .setVisible(false);
+                    .setScale(withDPI(1), withDPI(1))
+                    .setVisible(false)
                 /* !SECTION Second place */
 
                 /* SECTION Third place */
                 this.endGameModalThirdHead = scene.add
                     .image(withDPI(48), withDPI(396), 'Snake:head_player_1')
-                    .setScale(withDPI(0.2), withDPI(0.2))
-                    .setOrigin(0, 0)
                     .setDepth(33)
+                    .setOrigin(0, 0)
+                    .setScale(withDPI(0.2), withDPI(0.2))
                     .setVisible(false)
 
                 this.endGameModalThirdHeadShadow = scene.add
                     .image(withDPI(48), withDPI(398), 'Snake:head_player_1')
-                    .setTint('#000000')
                     .setAlpha(0.32)
-                    .setScale(withDPI(0.2), withDPI(0.2))
-                    .setOrigin(0, 0)
                     .setDepth(32)
+                    .setOrigin(0, 0)
+                    .setScale(withDPI(0.2), withDPI(0.2))
+                    .setTint('#000000')
                     .setVisible(false)
 
                 this.endGameModalThirdMedal = scene.add
                     .image(withDPI(50), withDPI(398), 'Snake:medal_third')
-                    .setScale(withDPI(0.2), withDPI(0.2))
-                    .setOrigin(0, 0)
                     .setDepth(33)
+                    .setOrigin(0, 0)
+                    .setScale(withDPI(0.2), withDPI(0.2))
                     .setVisible(false)
 
                 this.endGameModalThirdName = scene.add
@@ -516,10 +539,10 @@ class SnakeScene extends Phaser.Scene {
                         align: 'left',
                         resolution: window.devicePixelRatio
                     })
-                    .setScale(withDPI(1), withDPI(1))
                     .setDepth(31)
                     .setOrigin(0, 0)
-                    .setVisible(false);
+                    .setScale(withDPI(1), withDPI(1))
+                    .setVisible(false)
 
                 this.endGameModalThirdScore = scene.add
                     .text(withDPI(112), withDPI(420), '28.200 punten', {
@@ -529,10 +552,10 @@ class SnakeScene extends Phaser.Scene {
                         align: 'left',
                         resolution: window.devicePixelRatio
                     })
-                    .setScale(withDPI(1), withDPI(1))
                     .setDepth(31)
                     .setOrigin(0, 0)
-                    .setVisible(false);
+                    .setScale(withDPI(1), withDPI(1))
+                    .setVisible(false)
                 /* !SECTION Second place */
 
                 /* SECTION Reward */
@@ -544,16 +567,16 @@ class SnakeScene extends Phaser.Scene {
                         align: 'left',
                         resolution: window.devicePixelRatio
                     })
-                    .setScale(withDPI(1), withDPI(1))
                     .setDepth(31)
                     .setOrigin(0, 0)
-                    .setVisible(false);
+                    .setScale(withDPI(1), withDPI(1))
+                    .setVisible(false)
 
                 this.endGameModalMorfitCoin = scene.add
                     .image(withDPI(48), withDPI(522), 'Snake:morfit_coin')
-                    .setScale(withDPI(0.2), withDPI(0.2))
-                    .setOrigin(0, 0)
                     .setDepth(33)
+                    .setOrigin(0, 0)
+                    .setScale(withDPI(0.2), withDPI(0.2))
                     .setVisible(false)
 
                 this.endGameModalReward = scene.add
@@ -565,10 +588,10 @@ class SnakeScene extends Phaser.Scene {
                         baselineY: 1,
                         resolution: window.devicePixelRatio
                     })
-                    .setScale(withDPI(1), withDPI(1))
                     .setDepth(31)
                     .setOrigin(0, 0)
-                    .setVisible(false);
+                    .setScale(withDPI(1), withDPI(1))
+                    .setVisible(false)
 
                 /* !SECTION Reward */
 
@@ -596,6 +619,25 @@ class SnakeScene extends Phaser.Scene {
                 })
 
                 /* !SECTION End game modal */
+
+                this.goToHomeButton = scene.add
+                    .image(withDPI(168), withDPI(618), 'Snake:home_button')
+                    .setScale(withDPI(0.2), withDPI(0.2))
+                    .setOrigin(0, 0)
+                    .setDepth(20)
+                    .setVisible(true)
+                    .setInteractive();
+
+                this.goToHomeButton.on('pointerdown', () => {
+                    const ownScores = {}
+                    ownScores[ownPlayer.playerId] = {
+                        score: snakeSelf.score,
+                        name
+                    }
+
+                    this.handleGameEnd(ownScores)
+                })
+
                 /* !SECTION UI elements. */
 
                 /* SECTION Multiplayer listeners */
@@ -786,6 +828,7 @@ class SnakeScene extends Phaser.Scene {
             },
 
             playerHitOtherPlayer: function () {
+                main_body.clear(true, true)
                 this.onPlayerDead()
             },
 
@@ -1313,6 +1356,7 @@ class SnakeScene extends Phaser.Scene {
                     default:
                         activeHearts = [false, false, false]
                         this.playerRanOutOfLives()
+                        console.log('raaan')
                         break;
                 }
 
@@ -1384,6 +1428,10 @@ class SnakeScene extends Phaser.Scene {
                 main_scene.physics.add.overlap(snakeSelf.head, snakeSelf.lemon, this.eatLemon, null, snakeSelf);
                 main_scene.physics.add.overlap(snakeSelf.head, snakeSelf.soda, this.drinkSoda, null, snakeSelf);
 
+                Object.keys(snakeSelf.otherPlayers).forEach(id => {
+                    main_scene.physics.add.collider(snakeSelf.head, snakeSelf.otherPlayers[id].body, snakeSelf.playerHitOtherPlayer, null, snakeSelf)
+                })
+
                 socket.emit('playerRespawned', {
                     playerId: ownPlayer.playerId,
                     tails: 0,
@@ -1439,8 +1487,8 @@ class SnakeScene extends Phaser.Scene {
              */
 
             /**
-             *
-             * @param {Player[]} players
+             * @param {Object} scores - object containing Player. Properties are named after the player id.
+             * @param {Player} scores.id
              */
             handleGameEnd: function (scores, players) {
                 // Convert the scores to a array
@@ -1507,8 +1555,8 @@ class SnakeScene extends Phaser.Scene {
                 snakeSelf.endGameModalReward.setVisible(true)
                 snakeSelf.endGameModalCloseButton.setVisible(true)
 
-
-
+                // Unsubscribe from the socket.
+                main_socket.emit('leaveSnake', ownPlayer)
             }
             /* !SECTION Game end */
         });

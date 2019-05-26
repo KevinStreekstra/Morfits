@@ -404,6 +404,13 @@ io.on('connection', function(socket){
                         players
                     })
 
+                    socket.to('snake_game').broadcast.emit('snakeGameEnd', {
+                        scores: playerScores,
+                        players
+                    })
+
+                    playersHaveLivesLeft = true
+
                     Object.keys(playerScores).forEach(id => {
                         delete playerScores[id];
                     })
