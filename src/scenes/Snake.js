@@ -9,6 +9,8 @@ import Phaser from 'phaser';
 import { withDPI } from '../helpers';
 import SwipeListener from 'swipe-listener';
 
+import { snakeGuideLang } from '../language/Snake'
+
 let snake;
 let main_body;
 let main_soda;
@@ -116,6 +118,223 @@ class SnakeScene extends Phaser.Scene {
         this.socket.on('playerShouldReconnect', function (playerId) {
             if (playerId === ownPlayer.playerId) {
                 main_socket.emit('joinSnake', ownPlayer)
+            }
+        })
+
+        const guides = {
+            move: {
+                imageKey: 'Snake:guide_move',
+                bodyText: snakeGuideLang.move,
+                hasBack: false,
+                isLast: false,
+                nextStep: 'healthy',
+                name: 'move'
+            },
+            healthy: {
+                imageKey: 'Snake:guide_healthy',
+                bodyText: snakeGuideLang.eatHealthy,
+                hasBack: true,
+                isLast: false,
+                previous: 'move',
+                nextStep: 'unHealthy',
+                name: 'healthy'
+            },
+            unHealthy: {
+                imageKey: 'Snake:guide_unhealthy',
+                bodyText: snakeGuideLang.eatUnhealthy,
+                hasBack: true,
+                isLast: false,
+                previous: 'healthy',
+                nextStep: 'hitSelf',
+                name: 'unHealthy'
+            },
+            hitSelf: {
+                imageKey: 'Snake:guide_self_damage',
+                bodyText: snakeGuideLang.eatSelf,
+                hasBack: true,
+                isLast: false,
+                previous: 'unHealthy',
+                nextStep: 'hitWall',
+                name: 'hitSelf'
+            },
+            hitWall: {
+                imageKey: 'Snake:guide_hit_wall',
+                bodyText: snakeGuideLang.hitWall,
+                hasBack: true,
+                isLast: false,
+                previous: 'hitSelf',
+                nextStep: 'hitOtherPlayer',
+                name: 'hitWall'
+            },
+            hitOtherPlayer: {
+                imageKey: 'Snake:guide_hit_other_player',
+                bodyText: snakeGuideLang.hitOtherPlayer,
+                hasBack: true,
+                isLast: false,
+                previous: 'hitWall',
+                nextStep: 'barricade',
+                name: 'hitOtherPlayer'
+            },
+            barricade: {
+                imageKey: 'Snake:guide_barricade',
+                bodyText: snakeGuideLang.barricade,
+                hasBack: true,
+                isLast: false,
+                previous: 'hitOtherPlayer',
+                nextStep: 'score',
+                name: 'barricade'
+            },
+            score: {
+                imageKey: 'Snake:guide_score',
+                bodyText: snakeGuideLang.score,
+                hasBack: true,
+                isLast: true,
+                previous: 'barricade',
+                name: 'score'
+            }
+        }
+
+        const GuideModal = new Phaser.Class({
+            /**
+             * @description Create a guide modal
+             * @param {*} scene - the scene
+             * @param {Object} guideInfo - the info of the guide
+             * @param {string} guideInfo.imageKey - the key of the image to show as guide.
+             * @param {string} guideInfo.bodyText - the text to show to the user explaining the step.
+             * @param {boolean} guideInfo.hasBack - should the modal has a back button
+             * @param {boolean} guideInfo.isLast - is the modal the last step.
+             * @param {string} guideInfo.nextStep - the name of the next step.
+             * @param {string} guideInfo.previous - the name of the previous step.
+             * @param {string} guideInfo.current - the name of the current step
+             */
+            initialize: function GuideModal(scene, guideInfo) {
+                const { imageKey, bodyText, hasBack, isLast, nextStep, previous, name } = guideInfo
+                let current = name
+
+                this.backgroundBackdrop = scene.add
+                    .image(0, withDPI(68), 'Snake:guide_helper_background')
+                    .setDepth(-1)
+                    .setScale(withDPI(0.2), withDPI(0.2))
+                    .setOrigin(0, 0)
+
+                this.modalBackground = scene.add
+                    .image(withDPI(16), withDPI(84), 'Snake:modal_background')
+                    .setDepth(40)
+                    .setDisplaySize(withDPI(343), withDPI(554))
+                    .setOrigin(0, 0)
+
+                this.modalHeader = scene.add
+                    .text(
+                        withDPI(187),
+                        withDPI(116),
+                        'Uitleg',
+                        {
+                            fontFamily: 'BubblegumSans',
+                            fontSize: '32px',
+                            color: '#2E3A4B',
+                            align: 'center',
+                            stroke: '#ffffff',
+                            strokeThickness: 8,
+                            resolution: window.devicePixelRatio
+                        }
+                    )
+                    .setDepth(41)
+                    .setOrigin(0.5, 0)
+                    .setScale(withDPI(1), withDPI(1))
+                    .setVisible(true)
+
+                this.modalIllustration = scene.add
+                    .image(withDPI(48), withDPI(177), imageKey)
+                    .setDepth(41)
+                    .setScale(withDPI(0.2), withDPI(0.2))
+                    .setOrigin(0, 0)
+
+                this.modalDescription = scene.add
+                    .text(
+                        withDPI(48),
+                        withDPI(413),
+                        bodyText,
+                        {
+                            fontFamily: 'BubblegumSans',
+                            fontSize: '24px',
+                            color: '#ffffff',
+                            align: 'left',
+                            resolution: window.devicePixelRatio
+                        }
+                    )
+                    .setDepth(44)
+                    .setOrigin(0, 0)
+                    .setScale(withDPI(1), withDPI(1))
+                    .setVisible(true)
+                    .setWordWrapWidth(295, true)
+
+                this.modalBackButton = scene.add
+                    .image(withDPI(44), withDPI(520), 'Snake:prev_button')
+                    .setDepth(41)
+                    .setInteractive()
+                    .setOrigin(0, 0)
+                    .setScale(withDPI(0.2), withDPI(0.2))
+                    .setVisible(hasBack)
+
+                this.modalBackButton.on('pointerdown', () => {
+                    const prev = guides[guides[current].previous]
+
+                    this.modalDescription.setText(prev.bodyText)
+                    this.modalIllustration.setTexture(prev.imageKey)
+                    this.modalBackButton.setVisible(prev.hasBack)
+                    this.modalNextButton.setVisible(!prev.isLast)
+                    this.modalStartButton.setVisible(prev.isLast)
+
+                    current = prev.name
+                })
+
+                this.modalNextButton = scene.add
+                    .image(withDPI(117), withDPI(520), 'Snake:next_button')
+                    .setDepth(41)
+                    .setInteractive()
+                    .setOrigin(0, 0)
+                    .setScale(withDPI(0.2), withDPI(0.2))
+                    .setVisible(!isLast)
+
+                this.modalNextButton.on('pointerdown', () => {
+                    const next = guides[guides[current].nextStep]
+
+                    this.modalDescription.setText(next.bodyText)
+                    this.modalIllustration.setTexture(next.imageKey)
+                    this.modalBackButton.setVisible(next.hasBack)
+                    this.modalNextButton.setVisible(!next.isLast)
+                    this.modalStartButton.setVisible(next.isLast)
+
+                    current = next.name
+                })
+
+                this.modalStartButton = scene.add
+                    .image(withDPI(117), withDPI(520), 'Snake:start_button')
+                    .setDepth(41)
+                    .setInteractive()
+                    .setOrigin(0, 0)
+                    .setScale(withDPI(0.2), withDPI(0.2))
+                    .setVisible(isLast)
+
+                this.modalStartButton.on('pointerdown', () => {
+                    snake = new Snake(
+                        scene,
+                        20,
+                        20
+                    )
+
+                    this.backgroundBackdrop.destroy()
+                    this.modalBackground.destroy()
+                    this.modalHeader.destroy()
+                    this.modalIllustration.destroy()
+                    this.modalDescription.destroy()
+                    this.modalBackButton.destroy()
+                    this.modalBackButton.destroy()
+                    this.modalNextButton.destroy()
+                    this.modalNextButton.destroy()
+                    this.modalStartButton.destroy()
+                    this.modalStartButton.destroy()
+                })
             }
         })
 
@@ -1593,18 +1812,17 @@ class SnakeScene extends Phaser.Scene {
             /* !SECTION Game end */
         });
 
-        snake = new Snake(
+        const helpGuideModal = new GuideModal(
             this,
-            20,
-            20
-        );
+            guides['move']
+        )
 
         //  Create our keyboard controls
         cursors = this.input.keyboard.createCursorKeys();
     }
 
     update (time, delta) {
-        if (!snake.alive)   {
+        if (!snake || !snake.alive)   {
             return;
         }
 

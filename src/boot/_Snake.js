@@ -28,4 +28,18 @@ export function snake_assets() {
     this.load.image('Snake:hamburger', require('../assets/snake/food/hamburger.png'));
     this.load.image('Snake:lemon', require('../assets/snake/food/lemon.png'));
     this.load.image('Snake:soda', require('../assets/snake/food/soda.png'));
+
+    // Guide assets
+    this.load.image('Snake:guide_barricade', require('../assets/snake/ui/guide/guide_barricade.png'))
+    this.load.image('Snake:guide_healthy', require('../assets/snake/ui/guide/guide_healthy.png'))
+    this.load.image('Snake:guide_unhealthy', require('../assets/snake/ui/guide/guide_unhealthy.png'))
+    this.load.image('Snake:guide_hit_other_player', require('../assets/snake/ui/guide/guide_hit_other_player.png'))
+    this.load.image('Snake:guide_hit_wall', require('../assets/snake/ui/guide/guide_hit_wall.png'))
+    this.load.image('Snake:guide_move', require('../assets/snake/ui/guide/guide_move.png'))
+    this.load.image('Snake:guide_score', require('../assets/snake/ui/guide/guide_score.png'))
+    this.load.image('Snake:guide_self_damage', require('../assets/snake/ui/guide/guide_self_damage.png'))
+    this.load.image('Snake:prev_button', require('../assets/snake/ui/guide/prev_button.png'))
+    this.load.image('Snake:next_button', require('../assets/snake/ui/guide/next_button.png'))
+    this.load.image('Snake:start_button', require('../assets/snake/ui/guide/start_button.png'))
+    this.load.image('Snake:guide_helper_background', require('../assets/snake/ui/guide/guide_background.png'))
 }
