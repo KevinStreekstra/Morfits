@@ -89,10 +89,6 @@ class OverviewScene extends Phaser.Scene {
         this.MyM_dollars = this.add.text(0, 0, this.player.morfos, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(0.5, 0.25);
         this.grid.placeAtIndex(12, this.MyM_dollars);
 
-
-
-        
-
         //bottom navbar & ground & icons
 
         this.ground2 = this.addImage(0, 0, 'overview:ground2').setOrigin(0.5, 0.42);
