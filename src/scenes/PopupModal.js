@@ -8,6 +8,7 @@ class PopupModalScene extends Phaser.Scene {
         this.textColor = '#fff';
         this.textFont = 'Bubblegum Sans';
         this.backgroundOverlay = 'rgba(0,0,0,0.5)';
+        this.align = 'center';
     }
     create(data){
         this.data = data;
@@ -24,6 +25,7 @@ class PopupModalScene extends Phaser.Scene {
                 color: this.textColor,
                 fontFamily: this.textFont,
                 fontSize: withDPI(el.fontSize),
+                align: this.align,
             });
             Phaser.Display.Align.In.Center(
                 text,
@@ -45,6 +47,12 @@ class PopupModalScene extends Phaser.Scene {
             if(el.UseDefinedScenes || Object.entries(el.scenes).length > 0){
                 asset.setInteractive().on('pointerdown', () => {
                     this.sceneHandler(el);
+                    el.resumeOnclick ? el.resumeOnclick.resume() : null;
+                });
+            } 
+            if(el.functions){
+                asset.setInteractive().on('pointerdown', () => {
+                    this.functionHandler(el);
                 });
             }
         });
@@ -52,13 +60,22 @@ class PopupModalScene extends Phaser.Scene {
     sceneHandler(elementData){
         const data = elementData.scenes.length > 0 ? data = elementData : this.data;
 
-        data.scenes.start.forEach(el => {
-            this.scene.start(el);
-        });
-        data.scenes.stop.forEach(el => {
-            this.scene.stop(el);
-        });
-
+        if(data.scenes.start){
+            data.scenes.start.forEach(el => {
+                this.scene.start(el);
+            });
+        }
+        if(data.scenes.stop){
+            data.scenes.stop.forEach(el => {
+                this.scene.stop(el);
+            });
+        }
+    }
+    functionHandler(elementData){
+        elementData.functions.forEach(elFunction => {
+            console.log(elFunction);
+            elFunction();
+        })
     }
 }
 

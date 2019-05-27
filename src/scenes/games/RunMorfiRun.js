@@ -33,7 +33,7 @@ class RunMorfiRun extends Phaser.Scene {
         console.log('run morfi run game created');      
         this.cameras.main.setBackgroundColor('#132B4B');
 
-        this.input.addPointer(2);
+        this.input.addPointer(3);
         console.log(this.input)
         this.key_W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.key_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -48,6 +48,56 @@ class RunMorfiRun extends Phaser.Scene {
         this.button_jump = this.add.sprite(0,0, 'games:jump').setOrigin(-2,-4.5).setDepth(2).setScale(withDPI(0.4)).setScrollFactor(0);
         this.button_run.setInteractive();
         this.button_jump.setInteractive();
+
+        this.physics.pause();
+
+
+        this.scene.launch('PopupModalScene', {
+            scenes: {
+                stop: [
+                    'PopupModalScene',
+                ],
+            },
+            woodenBackground: 'popup:background_big',
+            assets: [
+                {
+                    asset: 'popup:begin_spel',
+                    x: 0,
+                    y: 200,
+                    UseDefinedScenes: true,
+                    resumeOnclick: this.physics,
+                    scenes: {},
+                },
+                {
+                    asset: 'popup:food_list',
+                    x: 0,
+                    y: 50,
+                    UseDefinedScenes: false,
+                    scenes: {},
+                },
+            ],
+            content: [
+                {
+                    text: 'Speluitleg',
+                    fontSize: 42,
+                    x: 0,
+                    y: -250,
+                },
+                {
+                    text: `
+                    Zorg dat je binnen de bepaalde 
+                    tijd de finish lijn behaald.
+
+                    Als je gezond eten eet ren je sneller, 
+                    als je ongezond eten eet 
+                    ren je langzamer.
+                    `,
+                    fontSize: 23,
+                    x: -40,
+                    y: -120,
+                }
+            ]
+        });
 
         this.createPlatform();
         this.spawnPlayer();
