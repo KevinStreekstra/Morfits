@@ -76,14 +76,9 @@ class OverviewScene extends Phaser.Scene {
             this.scene.launch('StatsScene');
         });
         this.grid.placeAtIndex(3, this.whiteBg);
-        this.Mylevel = this.add.text(0, 0, this._player.getLevel(), { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'});
-        Phaser.Display.Align.In.Center(
-            this.Mylevel,
-            this.whiteBg,
-            -110 * (1 / window.devicePixelRatio),
-            5 / window.devicePixelRatio
-        );
-        this.Myname = this.add.text(0, 0, this.player.username, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(0.6, 0.25);
+        this.Mylevel = this.add.text(0, 0, this._player.getLevel(), { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(18 * window.devicePixelRatio)}px`, fill: 'black'});
+
+        this.Myname = this.add.text(0, 0, this.player.username, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black', Align: 'center'}).setOrigin(0.6, 0.25);
         this.grid.placeAtIndex(3, this.Myname);
         this.navPP = this.addImage(0, 0, 'overview:navPP').setOrigin(0.8, 0.43);
         this.grid.placeAtIndex(9, this.navPP);
@@ -151,9 +146,6 @@ class OverviewScene extends Phaser.Scene {
         this.morfitWalking = this.addImage(0, 0, 'overview:morfitWalking');
         this.grid.placeAtIndex(127, this.morfitWalking);
 
-        // this.txtXPbar = this.addImage(0, 0, 'overview:txtXPbar').setOrigin(0.6, 0);
-        // this.grid.scaleTo(this.txtXPbar, 0.15);
-        // this.grid.placeAtIndex(172, this.txtXPbar);
         this.txtXPbar = this.add.text(0, 0, `${this.player.xp}/${this._player.getRequiredXP(this._player.getLevel())}`, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(10 * window.devicePixelRatio)}px`});
         Phaser.Display.Align.In.Center(this.txtXPbar, this.bg, 0, 375 );
 
@@ -211,6 +203,12 @@ class OverviewScene extends Phaser.Scene {
 
     update() {
         this.Mylevel.text = this._player.getLevel();
+        Phaser.Display.Align.In.Center(
+            this.Mylevel,
+            this.whiteBg,
+            -110,
+            7      
+        );
     }
 }
 
