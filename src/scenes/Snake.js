@@ -221,7 +221,7 @@ class SnakeScene extends Phaser.Scene {
                         withDPI(116),
                         'Uitleg',
                         {
-                            fontFamily: 'BubblegumSans',
+                            fontFamily: 'Bubblegum Sans',
                             fontSize: '32px',
                             color: '#2E3A4B',
                             align: 'center',
@@ -247,7 +247,7 @@ class SnakeScene extends Phaser.Scene {
                         withDPI(413),
                         bodyText,
                         {
-                            fontFamily: 'BubblegumSans',
+                            fontFamily: 'Bubblegum Sans',
                             fontSize: '24px',
                             color: '#ffffff',
                             align: 'left',
@@ -512,7 +512,7 @@ class SnakeScene extends Phaser.Scene {
                         withDPI(551),
                         `Spectating`,
                         {
-                            fontFamily: 'BubblegumSans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
+                            fontFamily: 'Bubblegum Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
                             fontSize: '24px',
                             fontStyle: 'bold',
                             color: '#2E3A4B',
@@ -534,7 +534,7 @@ class SnakeScene extends Phaser.Scene {
                         withDPI(84),
                         `Huidige score: ${this.score}`,
                         {
-                            fontFamily: 'BubblegumSans',
+                            fontFamily: 'Bubblegum Sans',
                             fontSize: '24px',
                             color: '#fff',
                             align: 'left',
@@ -575,7 +575,7 @@ class SnakeScene extends Phaser.Scene {
                     .setVisible(false)
 
                 this.respawnText = scene.add.text(withDPI(125), withDPI(116), 'Doorgaan', {
-                    fontFamily: 'BubblegumSans',
+                    fontFamily: 'Bubblegum Sans',
                     fontSize: '32px',
                     color: '#2E3A4B',
                     align: 'left',
@@ -593,7 +593,7 @@ class SnakeScene extends Phaser.Scene {
                             'je Morfit een ongelukje had.'
                         ],
                         {
-                            fontFamily: 'BubblegumSans',
+                            fontFamily: 'Bubblegum Sans',
                             fontSize: '24px',
                             color: '#ffffff',
                             align: 'left',
@@ -645,7 +645,7 @@ class SnakeScene extends Phaser.Scene {
                         withDPI(187),
                         withDPI(116),
                         'Gefeliciteerd', {
-                            fontFamily: 'BubblegumSans',
+                            fontFamily: 'Bubblegum Sans',
                             fontSize: '32px',
                             color: '#2E3A4B',
                             align: 'center',
@@ -665,7 +665,7 @@ class SnakeScene extends Phaser.Scene {
                         withDPI(177),
                         '00.000',
                         {
-                            fontFamily: 'BubblegumSans',
+                            fontFamily: 'Bubblegum Sans',
                             fontSize: '56px',
                             color: '#ffffff',
                             align: 'center',
@@ -703,7 +703,7 @@ class SnakeScene extends Phaser.Scene {
 
                 this.endGameModalFirstName = scene.add
                     .text(withDPI(112), withDPI(275), 'Bobby', {
-                        fontFamily: 'BubblegumSans',
+                        fontFamily: 'Bubblegum Sans',
                         fontSize: '16px',
                         color: '#ffffff',
                         align: 'left',
@@ -716,7 +716,7 @@ class SnakeScene extends Phaser.Scene {
 
                 this.endGameModalFirstScore = scene.add
                     .text(withDPI(112), withDPI(298), '41.000 punten', {
-                        fontFamily: 'BubblegumSans',
+                        fontFamily: 'Bubblegum Sans',
                         fontSize: '16px',
                         color: 'rgba(255, 255, 255, 0.75)',
                         align: 'left',
@@ -754,7 +754,7 @@ class SnakeScene extends Phaser.Scene {
 
                 this.endGameModalSecondName = scene.add
                     .text(withDPI(112), withDPI(336), 'Nala', {
-                        fontFamily: 'BubblegumSans',
+                        fontFamily: 'Bubblegum Sans',
                         fontSize: '16px',
                         color: '#ffffff',
                         align: 'left',
@@ -767,7 +767,7 @@ class SnakeScene extends Phaser.Scene {
 
                 this.endGameModalSecondScore = scene.add
                     .text(withDPI(112), withDPI(359), '32.400 punten', {
-                        fontFamily: 'BubblegumSans',
+                        fontFamily: 'Bubblegum Sans',
                         fontSize: '16px',
                         color: 'rgba(255, 255, 255, 0.75)',
                         align: 'left',
@@ -805,7 +805,7 @@ class SnakeScene extends Phaser.Scene {
 
                 this.endGameModalThirdName = scene.add
                     .text(withDPI(112), withDPI(397), 'Rico', {
-                        fontFamily: 'BubblegumSans',
+                        fontFamily: 'Bubblegum Sans',
                         fontSize: '16px',
                         color: '#ffffff',
                         align: 'left',
@@ -818,7 +818,7 @@ class SnakeScene extends Phaser.Scene {
 
                 this.endGameModalThirdScore = scene.add
                     .text(withDPI(112), withDPI(420), '28.200 punten', {
-                        fontFamily: 'BubblegumSans',
+                        fontFamily: 'Bubblegum Sans',
                         fontSize: '16px',
                         color: 'rgba(255, 255, 255, 0.75)',
                         align: 'left',
@@ -833,7 +833,7 @@ class SnakeScene extends Phaser.Scene {
                 /* SECTION Reward */
                 this.endGameModalRewardLabel = scene.add
                     .text(withDPI(48), withDPI(489), 'Ontvangen beloning', {
-                        fontFamily: 'BubblegumSans',
+                        fontFamily: 'Bubblegum Sans',
                         fontSize: '24px',
                         color: '#ffffff',
                         align: 'left',
@@ -853,7 +853,7 @@ class SnakeScene extends Phaser.Scene {
 
                 this.endGameModalReward = scene.add
                     .text(withDPI(88), withDPI(526), '000', {
-                        fontFamily: 'BubblegumSans',
+                        fontFamily: 'Bubblegum Sans',
                         fontSize: '24px',
                         color: '#ffffff',
                         align: 'left',
@@ -1341,7 +1341,7 @@ class SnakeScene extends Phaser.Scene {
 
                     const scoreText = main_scene.add.text(apple.x, apple.y, '+100', {
                         fontSize: '24px',
-                        fontFamily: 'BubblegumSans',
+                        fontFamily: 'Bubblegum Sans',
                         color: '#257934',
                         align: 'center',
                         resolution: window.devicePixelRatio
@@ -1387,7 +1387,7 @@ class SnakeScene extends Phaser.Scene {
 
                     const scoreText = main_scene.add.text(pineapple.x, pineapple.y, '+200', {
                         fontSize: '24px',
-                        fontFamily: 'BubblegumSans',
+                        fontFamily: 'Bubblegum Sans',
                         color: '#257934',
                         align: 'center',
                         resolution: window.devicePixelRatio
@@ -1432,7 +1432,7 @@ class SnakeScene extends Phaser.Scene {
 
                     const scoreText = main_scene.add.text(hamburger.x, hamburger.y, '-150', {
                         fontSize: '24px',
-                        fontFamily: 'BubblegumSans',
+                        fontFamily: 'Bubblegum Sans',
                         color: '#9a001c',
                         align: 'center',
                         resolution: window.devicePixelRatio
@@ -1476,7 +1476,7 @@ class SnakeScene extends Phaser.Scene {
 
                     const scoreText = main_scene.add.text(soda.x, soda.y, '-50', {
                         fontSize: '24px',
-                        fontFamily: 'BubblegumSans',
+                        fontFamily: 'Bubblegum Sans',
                         color: '#9a001c',
                         align: 'center',
                         resolution: window.devicePixelRatio
@@ -1528,7 +1528,7 @@ class SnakeScene extends Phaser.Scene {
 
                     const scoreText = main_scene.add.text(lemon.x, lemon.y, '+50', {
                         fontSize: '24px',
-                        fontFamily: 'BubblegumSans',
+                        fontFamily: 'Bubblegum Sans',
                         color: '#257934',
                         align: 'center',
                         resolution: window.devicePixelRatio

@@ -55,8 +55,6 @@ class BootScene extends Phaser.Scene {
             height: this.sys.game.config.height
         });
 
-        this.load.css('master', './src/master.css');
-
         // START LOAD SCENE ASSETS
         this.overview_assets();
         this.dailyQuiz_assets();

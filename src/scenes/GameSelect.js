@@ -28,7 +28,7 @@ class GameSelectScene extends Phaser.Scene {
                 withDPI(116),
                 'Minigames',
                 {
-                    fontFamily: 'BubblegumSans',
+                    fontFamily: 'Bubblegum Sans',
                     fontSize: '32px',
                     color: '#2E3A4B',
                     align: 'center',
@@ -68,7 +68,7 @@ class GameSelectScene extends Phaser.Scene {
                 withDPI(335),
                 'Snake',
                 {
-                    fontFamily: 'BubblegumSans',
+                    fontFamily: 'Bubblegum Sans',
                     fontSize: '24px',
                     color: '#ffffff',
                     align: 'center',

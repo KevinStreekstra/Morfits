@@ -23,6 +23,9 @@ import Question4 from "./scenes/QuizScenes/Question4";
 import InfoQuestion from "./scenes/QuizScenes/InfoQuestion";
 import Question5 from "./scenes/QuizScenes/Question5";
 
+// Styling
+import './master.css';
+
 const devicePixelRatio = window.devicePixelRatio;
 const scaleDownRation = 1 / 3;
 
