@@ -93,6 +93,57 @@ class GameSelectScene extends Phaser.Scene {
             this.scene.start('SnakeScene')
         })
 
+        this.runMorfiRunPrice = this.add
+            .image(withDPI(193), withDPI(180), 'GameSelect:snake_cost')
+            .setScale(withDPI(0.2), withDPI(0.2))
+            .setOrigin(0, 0)
+            .setVisible(true)
+            .setDepth(42)
+
+        this.runMorfiRunThumbnail = this.add
+            .image(withDPI(199), withDPI(194), 'GameSelect:runMorfiRun_thumbnail')
+            .setScale(withDPI(0.2), withDPI(0.2))
+            .setOrigin(0, 0)
+            .setDepth(41)
+            .setVisible(true)
+            .setInteractive()
+
+        this.runMorfiRunThumbnail.on('pointerdown', () => {
+            this.scene.stop('GameSelect')
+            this.scene.start('SnakeScene')
+        })
+
+        this.runMorfiRunTitle = this.add
+            .text(
+                withDPI(262),
+                withDPI(335),
+                'Run Morfi Run',
+                {
+                    fontFamily: 'Bubblegum Sans',
+                    fontSize: '24px',
+                    color: '#ffffff',
+                    align: 'center',
+                    resolution: window.devicePixelRatio
+                }
+            )
+            .setOrigin(0.5, 0)
+            .setScale(withDPI(1), withDPI(1))
+            .setDepth(42)
+            .setVisible(true)
+
+        this.startRunMorfiRunButton = this.add
+            .image(withDPI(198), withDPI(370), 'GameSelect:start_button')
+            .setScale(withDPI(0.2), withDPI(0.2))
+            .setOrigin(0, 0)
+            .setDepth(42)
+            .setVisible(true)
+            .setInteractive()
+
+        this.startRunMorfiRunButton.on('pointerdown', () => {
+            this.scene.stop('GameSelect')
+            this.scene.start('RunMorfiRun')
+        })
+
         this.homeButton = this.add
             .image(withDPI(168), withDPI(618), 'Snake:home_button')
             .setScale(withDPI(0.2), withDPI(0.2))

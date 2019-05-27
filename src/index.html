@@ -35,7 +35,11 @@
 			input:-moz-placeholder { /* Firefox 18- */
 				color: #94A0B0;
 			}
-		</style>
+    </style>
+    <script src="https://browser.sentry-cdn.com/5.3.0/bundle.min.js" crossorigin="anonymous"></script>
+    <script>
+      Sentry.init({ dsn: 'https://448ec742cc7f4e678585aef565122b61@sentry.io/1469140' });
+    </script>
   	</head>
 	<body>
 		<div id="game"></div>
