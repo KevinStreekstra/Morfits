@@ -7,6 +7,8 @@ import OverviewScene from './scenes/Overview';
 import StatsScene from "./scenes/Stats";
 import DailyScenes from "./scenes/DailyQuiz";
 import WeeklyScenes from "./scenes/WeeklyMission";
+import SnakeScene from "./scenes/Snake";
+import GameSelectScene from "./scenes/GameSelect";
 import RunMorfiRun from "./scenes/games/RunMorfiRun";
 import PopupModalScene from './scenes/PopupModal';
 import ShopScene from './scenes/Shop';
@@ -21,12 +23,15 @@ import Question4 from "./scenes/QuizScenes/Question4";
 import InfoQuestion from "./scenes/QuizScenes/InfoQuestion";
 import Question5 from "./scenes/QuizScenes/Question5";
 
+// Styling
+import './master.css';
+
 const devicePixelRatio = window.devicePixelRatio;
 const scaleDownRation = 1 / 3;
 
 const game = new Phaser.Game({
     parent: 'game',
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 375,
     height: 675,
     dom: {
@@ -47,29 +52,40 @@ const game = new Phaser.Game({
         height: 675 * devicePixelRatio
     },
     scene: [
-      LoadingScene,
-      BootScene,
-      CreatePlayerScene,
-      OverviewScene,
-      DailyScenes,
-      WeeklyScenes,
-      StatsScene,
-      RunMorfiRun,
-      PopupModalScene,
-      ShopScene,
-      StartQuiz,
-      StopQuiz,
-      Question1,
-      Question2,
-      Question3,
-      Question4,
-      InfoQuestion,
-      Question5,
+        LoadingScene,
+        BootScene,
+        CreatePlayerScene,
+        OverviewScene,
+        DailyScenes,
+        WeeklyScenes,
+        StatsScene,
+        SnakeScene,
+        GameSelectScene,
+        RunMorfiRun,
+        PopupModalScene,
+        ShopScene,
+        StartQuiz,
+        StopQuiz,
+        Question1,
+        Question2,
+        Question3,
+        Question4,
+        InfoQuestion,
+        Question5,
     ],
 });
 
-WebFontConfig = {
+const WebFontConfig = {
   google: {
     families: ['Bubblegum Sans']
   }
+}
+
+if(typeof(module.hot) !== 'undefined') {
+    if (module.hot) {
+        module.hot.accept();
+        module.hot.dispose(function() {
+            location.reload()
+        });
+    }
 }

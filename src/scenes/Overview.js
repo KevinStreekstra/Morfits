@@ -66,10 +66,10 @@ class OverviewScene extends Phaser.Scene {
             height: this.sys.game.config.height
         });
 
-        this.bg = this.addImage(0, 0, 'overview:bg');   
+        this.bg = this.addImage(0, 0, 'overview:bg');
         this.grid.placeAtIndex(112, this.bg);
 
-        // Top Navbar 
+        // Top Navbar
         this.TopNavbar = this.addImage(0, 0, 'overview:BottomNavbar');
         this.grid.placeAtIndex(7, this.TopNavbar);
         this.whiteBg = this.addImage(0, 0, 'overview:whiteBG').setOrigin(0.55, 0.45).setInteractive();
@@ -113,12 +113,11 @@ class OverviewScene extends Phaser.Scene {
         this.txtKleding = this.add.text(0, 0, 'Kleding', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(0, 0.5);
         this.grid.placeAtIndex(210, this.txtKleding);
 
-        this.games = this.addImage(0, 0, 'overview:btnGames').setOrigin(0.5, 0.37);
+        this.games = this.addImage(0, 0, 'overview:btnGames').setOrigin(0.5, 0.37).setInteractive();
         this.grid.placeAtIndex(199, this.games);
-        this.games.setInteractive();
-        this.games.on('pointerdown', () => {	        
-            this.scene.launch('RunMorfiRun');
-         });
+        this.games.on('pointerdown', () => {
+            this.scene.start('GameSelect')
+        })
 
         this.txtGames = this.add.text(0, 0, 'Games', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(-0.1, 0.5);
         this.grid.placeAtIndex(213, this.txtGames);
@@ -177,7 +176,7 @@ class OverviewScene extends Phaser.Scene {
 
         // Healthbars
         // Mental
-        this.MentalBar = this.addImage(0, 0, 'overview:MentalBar').setOrigin(0.4, 0); 
+        this.MentalBar = this.addImage(0, 0, 'overview:MentalBar').setOrigin(0.4, 0);
         this.grid.placeAtIndex(17, this.MentalBar);
 
         this.txtMentalbar = this.add.text(0, 0, '0/100', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: '#2CD632'}).setOrigin(0.1, 0.9);
@@ -187,7 +186,7 @@ class OverviewScene extends Phaser.Scene {
         this.grid.placeAtIndex(15, this.IconMental);
 
         // Energy
-        this.EnergyBar = this.addImage(0, 0, 'overview:EnergyBar').setOrigin(0.4, 0); 
+        this.EnergyBar = this.addImage(0, 0, 'overview:EnergyBar').setOrigin(0.4, 0);
         this.grid.placeAtIndex(22, this.EnergyBar);
 
         this.txtEnergybar = this.add.text(0, 0, '100/100', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: '#3192C9'}).setOrigin(0.1, 0.9);
@@ -197,7 +196,7 @@ class OverviewScene extends Phaser.Scene {
         this.grid.placeAtIndex(20, this.IconEnergy);
 
         // Power
-        this.PowerBar = this.addImage(0, 0, 'overview:PowerBar').setOrigin(0.4, 0); 
+        this.PowerBar = this.addImage(0, 0, 'overview:PowerBar').setOrigin(0.4, 0);
         this.grid.placeAtIndex(27, this.PowerBar);
 
         this.txtPowerbar = this.add.text(0, 0, '100/100', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: '#FF6565'}).setOrigin(0.1, 0.8);

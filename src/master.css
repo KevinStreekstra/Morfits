@@ -27,7 +27,7 @@
     font-family: 'Bubblegum Sans', sans-serif;
     font-weight: 500;
     font-size: 17px;
-    background-image: url('./src/assets/inventaris/item/price-tag.png');
+    background-image: url('./assets/inventaris/item/price-tag.png');
     background-size: cover;
     box-sizing: border-box;
     transform: rotate(-14deg);
@@ -54,7 +54,7 @@
 .shopItem > button {
     border: none;
     background: transparent;
-    background-image: url('./src/assets/inventaris/item/kopen-knop.png');
+    background-image: url('./assets/inventaris/item/kopen-knop.png');
     background-size: cover;
     height: 40px;
     width: 100%;
