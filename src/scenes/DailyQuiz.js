@@ -42,8 +42,12 @@ class DailyScenes extends Phaser.Scene {
         this.grid.placeAtIndex(202, this.quit);
         this.grid.scaleTo(this.quit, 0);
 
-        this.start = this.addImage(0, 0, 'Daily:start');
+        this.start = this.addImage(0, 0, 'Daily:start').setInteractive();
         this.grid.placeAtIndex(172, this.start);
+        this.start.on('pointerdown', () => {
+            this.scene.stop('DailyScene');
+            this.scene.launch('StartQuiz');
+        });
         this.grid.scaleTo(this.start, 0);
 
         this.popupplank = this.addImage(0, 0, 'Daily:popupPlank');

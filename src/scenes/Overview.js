@@ -1,7 +1,7 @@
 import Player from '../classes/Player';
 import AlignGrid from '../classes/AlignGrid';
 
-import { addImage } from '../helpers';
+import { addImage, addElement } from '../helpers';
 
 class OverviewScene extends Phaser.Scene {
     constructor() {
@@ -29,16 +29,7 @@ class OverviewScene extends Phaser.Scene {
         this.inventory;
         this.quiz;
 
-        this.level;
-        this.Myname;
         this.whiteBg;
-
-        this.txtGym;
-        this.txtGames;
-        this.txtFeed;
-        this.txtInventory;
-        this.txtQuiz;
-        this.txtXPbar;
 
         this.MentalBar;
         this.EnergyBar;
@@ -48,23 +39,13 @@ class OverviewScene extends Phaser.Scene {
         this.IconEnergy;
         this.IconPower;
 
-        this.txtMentalbar;
-        this.txtEnergybar;
-        this.txtPowerbar;
-
         this._player = new Player();
         this.player = {};
 
-        this.energyTxt;
-        this.foodTxt;
-        this.healthTxt;
-
-        this.xpTxt;
-        this.levelTxt;
-        this.progressTxt;
 
         this.dailyQuestion = {};
         this.addImage = addImage.bind(this);
+        this.addElement = addElement.bind(this);
 
         this.scaleRatio = window.devicePixelRatio / 3;
     }
@@ -75,6 +56,7 @@ class OverviewScene extends Phaser.Scene {
 
     create() {
         console.log(this.player);
+        this.scene.get('RunMorfiRun');
 
         this.grid = new AlignGrid({
             scene: this,
@@ -84,10 +66,34 @@ class OverviewScene extends Phaser.Scene {
             height: this.sys.game.config.height
         });
 
-        // this.shopModal = this.add.dom(0, 0, document.createElement('div')).setHTML('dgwefgwe').setOrigin(0, 1);
-        // this.grid.placeAtIndex(0, this.shopModal);
+        this.bg = this.addImage(0, 0, 'overview:bg');
+        this.grid.placeAtIndex(112, this.bg);
 
-        this.bg = this.addImage(0, 0, 'overview:bg').setOrigin(0, 0);
+        // Top Navbar
+        this.TopNavbar = this.addImage(0, 0, 'overview:BottomNavbar');
+        this.grid.placeAtIndex(7, this.TopNavbar);
+        this.whiteBg = this.addImage(0, 0, 'overview:whiteBG').setOrigin(0.55, 0.45).setInteractive();
+        this.whiteBg.on('pointerdown', () => {
+            this.scene.launch('StatsScene');
+        });
+        this.grid.placeAtIndex(3, this.whiteBg);
+        this.Mylevel = this.add.text(0, 0, this._player.getLevel(), { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'});
+        Phaser.Display.Align.In.Center(
+            this.Mylevel,
+            this.whiteBg,
+            -110 * (1 / window.devicePixelRatio),
+            5 / window.devicePixelRatio
+        );
+        this.Myname = this.add.text(0, 0, this.player.username, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(0.6, 0.25);
+        this.grid.placeAtIndex(3, this.Myname);
+        this.navPP = this.addImage(0, 0, 'overview:navPP').setOrigin(0.8, 0.43);
+        this.grid.placeAtIndex(9, this.navPP);
+        this.MyPP = this.add.text(0, 0, this.player.powerpoints, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(1.4, 0.25);
+        this.grid.placeAtIndex(9, this.MyPP);
+        this.navM_Dollars = this.addImage(0, 0, 'overview:navM_Dollars').setOrigin(0.7, 0.4);
+        this.grid.placeAtIndex(13, this.navM_Dollars);
+        this.MyM_dollars = this.add.text(0, 0, this.player.morfos, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(0.5, 0.25);
+        this.grid.placeAtIndex(12, this.MyM_dollars);
 
         //bottom navbar & ground & icons
 
@@ -101,33 +107,35 @@ class OverviewScene extends Phaser.Scene {
         this.grid.placeAtIndex(217, this.BottomNavbar);
 
         //icons
-        this.gym = this.addImage(0, 0, 'overview:btnGym').setOrigin(0.5, 0.37);
-        this.grid.placeAtIndex(196, this.gym);
+        this.kleding = this.addImage(0, 0, 'overview:btnKleding').setOrigin(0.5, 0.37);
+        this.grid.placeAtIndex(196, this.kleding);
 
-        this.txtGym = this.addImage(0, 0, 'overview:txtGym');
-        this.grid.placeAtIndex(211, this.txtGym);
+        this.txtKleding = this.add.text(0, 0, 'Kleding', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(0, 0.5);
+        this.grid.placeAtIndex(210, this.txtKleding);
 
         this.games = this.addImage(0, 0, 'overview:btnGames').setOrigin(0.5, 0.37).setInteractive();
         this.grid.placeAtIndex(199, this.games);
-
         this.games.on('pointerdown', () => {
             this.scene.start('GameSelect')
         })
 
-        this.txtGames = this.addImage(0, 0, 'overview:txtGames');
-        this.grid.placeAtIndex(214, this.txtGames);
+        this.txtGames = this.add.text(0, 0, 'Games', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(-0.1, 0.5);
+        this.grid.placeAtIndex(213, this.txtGames);
 
-        this.feed = this.addImage(0, 0, 'overview:btnfeed').setOrigin(0.5, 0.37);
-        this.grid.placeAtIndex(202, this.feed);
+        this.market = this.addImage(0, 0, 'overview:btnMarket').setOrigin(0.5, 0.37).setInteractive();
+        this.grid.placeAtIndex(202, this.market);
+        this.market.on('pointerdown', () => {
+            this.scene.launch('ShopScene');
+        });
 
-        this.txtFeed = this.addImage(0, 0, 'overview:txtFeed');
-        this.grid.placeAtIndex(217, this.txtFeed);
+        this.txtMarket = this.add.text(0, 0, 'Markt', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(-0.2, 0.5);
+        this.grid.placeAtIndex(216, this.txtMarket);
 
         this.inventory = this.addImage(0, 0, 'overview:btnInventory').setOrigin(0.5, 0.37);
         this.grid.placeAtIndex(205, this.inventory);
 
-        this.txtInventory = this.addImage(0, 0, 'overview:txtInventory').setOrigin(0.5, 0.43);
-        this.grid.placeAtIndex(220, this.txtInventory);
+        this.txtInventory = this.add.text(0, 0, 'Rugzak', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(-0.05, 0.5);
+        this.grid.placeAtIndex(219, this.txtInventory);
 
         this.quiz = this.addImage(0, 0, 'overview:btnQuiz').setOrigin(0.5, 0.37).setInteractive();
         this.quiz.on('pointerdown', () => {
@@ -135,20 +143,22 @@ class OverviewScene extends Phaser.Scene {
         });
         this.grid.placeAtIndex(208, this.quiz);
 
-        this.txtQuiz = this.addImage(0, 0, 'overview:txtQuiz');
-        this.grid.placeAtIndex(223, this.txtQuiz);
+        this.txtQuiz = this.add.text(0, 0, 'Quiz', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(-0.3, 0.5);
+        this.grid.placeAtIndex(222, this.txtQuiz);
 
 
         //morfit & plants
         this.morfitWalking = this.addImage(0, 0, 'overview:morfitWalking');
         this.grid.placeAtIndex(127, this.morfitWalking);
 
-        this.txtXPbar = this.addImage(0, 0, 'overview:txtXPbar').setOrigin(0.6, 0);
-        this.grid.scaleTo(this.txtXPbar, 0.15);
-        this.grid.placeAtIndex(172, this.txtXPbar);
+        // this.txtXPbar = this.addImage(0, 0, 'overview:txtXPbar').setOrigin(0.6, 0);
+        // this.grid.scaleTo(this.txtXPbar, 0.15);
+        // this.grid.placeAtIndex(172, this.txtXPbar);
+        this.txtXPbar = this.add.text(0, 0, `${this.player.xp}/${this._player.getRequiredXP(this._player.getLevel())}`, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(10 * window.devicePixelRatio)}px`});
+        Phaser.Display.Align.In.Center(this.txtXPbar, this.bg, 0, 375 );
 
-        this.XPbar = this.addImage(0, 0, 'overview:XPbar').setOrigin(0.6, 1.3);
-        this.grid.placeAtIndex(187, this.XPbar);
+        this.XPbar = this.addImage(0, 0, 'overview:XPbar');
+        Phaser.Display.Align.In.Center(this.XPbar, this.bg, 0, 395);
 
         this.HomePlant = this.addImage(0, 0, 'overview:HomePlant2');
         this.grid.placeAtIndex(164, this.HomePlant);
@@ -162,78 +172,45 @@ class OverviewScene extends Phaser.Scene {
         this.friends = this.addImage(0, 0, 'overview:btnFriends').setOrigin(0.7, 0.6);
         this.grid.placeAtIndex(194, this.friends);
 
-        //top navbar & healthbars
-        this.MentalBar = this.addImage(0, 0, 'overview:MentalBar');
-        this.grid.placeAtIndex(32, this.MentalBar);
-
-        // this.txtMentalbar = this.addImage(0, 0, 'overview:Mental80').setOrigin(0.2, 1.9);
-        this.txtMentalbar = this.add.text(0, 0, '80/100', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'green'}).setOrigin(0.6, 1.8);
-        this.grid.placeAtIndex(47, this.txtMentalbar);
-
-        this.IconMental = this.addImage(0, 0, 'overview:IconMental').setOrigin(0.45, 0.5);
-        this.grid.placeAtIndex(30, this.IconMental);
-
-        this.EnergyBar = this.addImage(0, 0, 'overview:EnergyBar');
-        this.grid.placeAtIndex(37, this.EnergyBar);
-
-        this.txtEnergybar = this.add.text(0, 0, '100/100', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'blue'}).setOrigin(0.5, 1.8);
-        this.grid.placeAtIndex(52, this.txtEnergybar);
-
-        this.IconEnergy = this.addImage(0, 0, 'overview:IconEnergy').setOrigin(0.45, 0.5);
-        this.grid.placeAtIndex(35, this.IconEnergy);
-
-        this.PowerBar = this.addImage(0, 0, 'overview:PowerBar');
-        this.grid.placeAtIndex(42, this.PowerBar);
-
-        this.txtPowerbar = this.add.text(0, 0, '100/100', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'red'}).setOrigin(0.5, 1.8);
-        this.grid.placeAtIndex(57, this.txtPowerbar);
-
-        this.IconPower = this.addImage(0, 0, 'overview:IconPower').setOrigin(0.45, 0.5);
-        this.grid.placeAtIndex(40, this.IconPower);
-
-        this.nav = this.addImage(0, 0, 'overview:TopNavbar');
-        this.grid.placeAtIndex(7, this.nav);
-
-        this.whiteBg = this.addImage(0, 0, 'overview:whiteBG').setOrigin(0.6, 0.5);
-        this.grid.placeAtIndex(3, this.whiteBg);
-
-        this.Myname = this.addImage(0, 0, 'overview:Myname').setOrigin(0.6, 0.7);
-        this.grid.placeAtIndex(3, this.Myname);
-
-        this.level = this.addImage(0, 0, 'overview:level').setOrigin(0.6, 0.54).setInteractive();
-        this.level.on('pointerdown', () => {
-            this.scene.launch('StatsScene');
-        });
-        this.grid.placeAtIndex(1, this.level);
 
 
-        // this.energyTxt = this.add.text(20, 20, `Energy: ${this.player.energy}`);
-        // this.foodTxt = this.add.text(20, 40, `Food: ${this.player.food}`);
-        // this.healthTxt = this.add.text(20, 60, `Health: ${this.player.health}`);
+        // Healthbars
+        // Mental
+        this.MentalBar = this.addImage(0, 0, 'overview:MentalBar').setOrigin(0.4, 0);
+        this.grid.placeAtIndex(17, this.MentalBar);
 
-        // this.grid.placeAtIndex(60, this.energyTxt);
+        this.txtMentalbar = this.add.text(0, 0, '0/100', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: '#2CD632'}).setOrigin(0.1, 0.9);
+        this.grid.placeAtIndex(32, this.txtMentalbar);
 
-        // this.levelTxt = this.add.text(20, 100, `Level: ${this._player.getLevel()}`);
-        // // this.progressTxt = this.add.text(20, 120, `Progress: ${this._player.getLevelProgress()}`);
-        // this.xpTxt = this.add.text(20, 120, `XP: ${this.player.xp}/${this._player.getRequiredXP(this._player.getLevel())}`);
+        this.IconMental = this.addImage(0, 0, 'overview:IconMental').setOrigin(0.3, 0.2);
+        this.grid.placeAtIndex(15, this.IconMental);
 
-        // this.dailyQuestion = this._player.getDailyQuestion();
-        // this.add.text(20, 160, `${this.dailyQuestion.question}`);
+        // Energy
+        this.EnergyBar = this.addImage(0, 0, 'overview:EnergyBar').setOrigin(0.4, 0);
+        this.grid.placeAtIndex(22, this.EnergyBar);
 
-        // this.grid.showNumbers();
+        this.txtEnergybar = this.add.text(0, 0, '100/100', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: '#3192C9'}).setOrigin(0.1, 0.9);
+        this.grid.placeAtIndex(37, this.txtEnergybar);
+
+        this.IconEnergy = this.addImage(0, 0, 'overview:IconEnergy').setOrigin(0.3, 0.2);
+        this.grid.placeAtIndex(20, this.IconEnergy);
+
+        // Power
+        this.PowerBar = this.addImage(0, 0, 'overview:PowerBar').setOrigin(0.4, 0);
+        this.grid.placeAtIndex(27, this.PowerBar);
+
+        this.txtPowerbar = this.add.text(0, 0, '100/100', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: '#FF6565'}).setOrigin(0.1, 0.8);
+        this.grid.placeAtIndex(42, this.txtPowerbar);
+
+        this.IconPower = this.addImage(0, 0, 'overview:IconPower').setOrigin(0.3, 0.2);
+        this.grid.placeAtIndex(25, this.IconPower);
+
+
+        //this.grid.showNumbers();
     }
 
     update() {
-        // this.background_cloud.tilePositionX -= .5;
-
-        // this.player = this._player.get();
-        // this.energyTxt.text = `Energy: ${this.player.energy}`;
-        // this.foodTxt.text = `Food: ${this.player.food}`;
-        // this.healthTxt.text = `Health: ${this.player.health}`;
-
-        // this.levelTxt.text = `Level: ${this._player.getLevel()}`;
-        // // this.progressTxt.text = `Progress: ${this._player.getLevelProgress()}`;
-        // this.xpTxt.text = `XP: ${this.player.xp}/${this._player.getRequiredXP(this._player.getLevel())}`;
+        this.Mylevel.text = this._player.getLevel();
     }
 }
 

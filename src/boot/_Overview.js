@@ -1,4 +1,11 @@
 export function overview_assets() {
+
+    // Top navbar
+    this.load.image('overview:', 'src/assets/character_page/');
+    this.load.image('overview:whiteBG', 'src/assets/character_page/nav-level-tap@2x.png');
+    this.load.image('overview:navPP', 'src/assets/character_page/nav-pp-tab@2x.png');
+    this.load.image('overview:navM_Dollars', 'src/assets/character_page/nav-m-dollars-tab@2x.png');
+
     // Morfit
     this.load.image('overview:morfitWalking', require('../assets/caracter_page/morfit_character@2x.png'));
     this.load.image('overview:bg', require('../assets/caracter_page/background@2x.png'));
@@ -43,4 +50,9 @@ export function overview_assets() {
     //Foliage
     this.load.image('overview:HomePlant', require('../assets/caracter_page/plant-vase@2x.png'));
     this.load.image('overview:HomePlant2', require('../assets/caracter_page/plant-pot@2x.png'));
+
+    //bottom navbar
+    this.load.image('overview:BottomNavbar', 'src/assets/character_page/nav-bottom_background@2x.png');
+    this.load.image('overview:ground2', 'src/assets/character_page/ground-bottom@2x.png');
+    this.load.image('overview:ground3', 'src/assets/character_page/ground-top@2x.png');
 }
