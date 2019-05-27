@@ -886,6 +886,7 @@ class SnakeScene extends Phaser.Scene {
                     main_socket.emit('leaveSnake', ownPlayer)
 
                     // Send the user to the main screen
+                    snake = undefined;
                     main_scene.scene.launch('OverviewScene');
                     main_scene.scene.stop('SnakeScene')
                 })
