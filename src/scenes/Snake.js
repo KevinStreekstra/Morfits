@@ -1919,9 +1919,6 @@ class SnakeScene extends Phaser.Scene {
             return;
         }
 
-        this.physics.world.wrap(main_body, 32);
-        this.physics.world.wrap(main_soda, 32);
-
     /**
     * Check which key is pressed, and then change the direction the snake
     * is heading based on that. The checks ensure you don't double-back
