@@ -22,7 +22,7 @@ class LoadingScene extends Phaser.Scene {
         this.load.spritesheet('bird2', 'src/assets/boot/bird-2.png', {frameWidth: 400, frameHeight: 400});
         this.load.image('ground', 'src/assets/boot/ground.png');
         this.load.image('loadingText', 'src/assets/boot/loading-text.png');
-        this.load.image('morfitWalking', 'src/assets/caracter_page/morfit_character@2x.png');
+        this.load.image('morfitWalking', 'src/assets/character_page/morfit_character@2x.png');
         this.load.image('morfitLogo', 'src/assets/boot/morfit-logo.png');
         this.load.image('plant1', 'src/assets/boot/Plant_2.png');
         this.load.image('plant2', 'src/assets/boot/Plant_6.png');

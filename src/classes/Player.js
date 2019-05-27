@@ -24,6 +24,9 @@ class Player {
 
         if(!localStorage.getItem('morfos') || localStorage.getItem('morfos') === null)
             localStorage.setItem('morfos', JSON.stringify(0));
+
+        if(!localStorage.getItem('inventory') || localStorage.getItem('inventory') === null)
+            localStorage.setItem('inventory', JSON.stringify('{}'));
     }
 
     exists() {
@@ -42,6 +45,7 @@ class Player {
         this.player.xp = JSON.parse(localStorage.getItem('xp'));
         this.player.powerpoints = JSON.parse(localStorage.getItem('powerpoints'));
         this.player.morfos = JSON.parse(localStorage.getItem('morfos'));
+        this.player.inventory = JSON.parse(localStorage.getItem('inventory'));
         return this.player;
     }
 
@@ -85,37 +89,9 @@ class Player {
         return (0);
     }
 
-    getDailyQuestion() {
-        const questions = [
-            {
-              question: "Wat is het gezondst?",
-              answers: {
-                a: "Banaan",
-                b: "Hamburger",
-                c: "Spaghetti"
-              },
-              correctAnswer: "a"
-            },
-            {
-              question: "Je moet minimaal 30 minuten bewegen per dag?",
-              answers: {
-                a: "Waar",
-                b: "Niet waar",
-              },
-              correctAnswer: "a"
-            },
-            {
-              question: "Moet je minimaal 5 liter water per dag drinken?",
-              answers: {
-                a: "Ja",
-                b: "Nee",
-              },
-              correctAnswer: "b"
-            }
-        ];
-        return questions[Math.floor(Math.random() * questions.length)];
+    getInventory() {
+        return JSON.parse(localStorage.getItem('inventory'));
     }
-
 }
 
 export default Player;
