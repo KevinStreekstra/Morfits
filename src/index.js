@@ -7,6 +7,8 @@ import OverviewScene from './scenes/Overview';
 import StatsScene from "./scenes/Stats";
 import DailyScenes from "./scenes/DailyQuiz";
 import WeeklyScenes from "./scenes/WeeklyMission";
+import RunMorfiRun from "./scenes/games/RunMorfiRun";
+import PopupModalScene from './scenes/PopupModal';
 import ShopScene from './scenes/Shop';
 import StartQuiz from "./scenes/StartQuiz";
 import StopQuiz from "./scenes/StopQuiz";
@@ -27,6 +29,15 @@ const game = new Phaser.Game({
     type: Phaser.CANVAS,
     width: 375,
     height: 675,
+    dom: {
+      createContainer: true,
+    },
+    physics: {
+      default: 'arcade',
+      arcade: {
+          debug: true
+      }
+    },
     antialias: true,
     multiTexture: true,
     scale: {
@@ -34,9 +45,6 @@ const game = new Phaser.Game({
         scale: Phaser.Scale.NONE,
         width: 375 * devicePixelRatio,
         height: 675 * devicePixelRatio
-    },
-    dom: {
-      createContainer: true,
     },
     scene: [
       LoadingScene,
@@ -46,6 +54,8 @@ const game = new Phaser.Game({
       DailyScenes,
       WeeklyScenes,
       StatsScene,
+      RunMorfiRun,
+      PopupModalScene,
       ShopScene,
       StartQuiz,
       StopQuiz,

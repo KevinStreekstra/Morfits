@@ -56,6 +56,7 @@ class OverviewScene extends Phaser.Scene {
 
     create() {
         console.log(this.player);
+        this.scene.get('RunMorfiRun');
 
         this.grid = new AlignGrid({
             scene: this,
@@ -109,6 +110,10 @@ class OverviewScene extends Phaser.Scene {
 
         this.games = this.addImage(0, 0, 'overview:btnGames').setOrigin(0.5, 0.37);
         this.grid.placeAtIndex(199, this.games);
+        this.games.setInteractive();
+        this.games.on('pointerdown', () => {	        
+            this.scene.launch('RunMorfiRun');
+         });
 
         this.txtGames = this.add.text(0, 0, 'Games', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(-0.1, 0.5);
         this.grid.placeAtIndex(213, this.txtGames);
