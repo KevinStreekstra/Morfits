@@ -1,7 +1,68 @@
 .shopContainer {
+    display: grid !important;
+    grid-template-columns: auto auto auto;
     width: 375px;
-    height: 375px;
+    height: 400px;
     overflow-y: scroll;
     overflow-x: hidden;
     box-sizing: border-box;
+    padding: 15px 8px 8px;
+}
+
+.shopItem {
+    display: inline-block;
+    margin: 7px 7px 25px;
+    position: relative
+}
+
+.shopItem::after {
+    position: absolute;
+    content: attr(data-price);
+    top: -12px;
+    left: -8px;
+    padding: 6px 10px;
+    text-align: right;
+    height: 30px;
+    width:73px;
+    font-family: 'Bubblegum Sans', sans-serif;
+    font-weight: 500;
+    font-size: 17px;
+    background-image: url('./src/assets/inventaris/item/price-tag.png');
+    background-size: cover;
+    box-sizing: border-box;
+    transform: rotate(-14deg);
+}
+
+.shopItem > div {
+    height: 105px;
+    width: 105px;
+    background-size: cover;
+    background-color: #BA6D34;
+    border-radius: 10px;
+}
+
+.shopItem > div.locked::after {
+    position: absolute;
+    content: 'Level ' attr(data-level);
+    top: 75px;
+    width: 105px;
+    font-family: 'Bubblegum Sans', sans-serif;
+    text-align: center;
+    color: white;
+}
+
+.shopItem > button {
+    border: none;
+    background: transparent;
+    background-image: url('./src/assets/inventaris/item/kopen-knop.png');
+    background-size: cover;
+    height: 40px;
+    width: 100%;
+    cursor: pointer;
+    outline: 0;
+}
+
+::-webkit-scrollbar {
+    width: 0 !important;
+    background: transparent;
 }

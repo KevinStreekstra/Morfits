@@ -80,7 +80,8 @@ class OverviewScene extends Phaser.Scene {
         Phaser.Display.Align.In.Center(
             this.Mylevel,
             this.whiteBg,
-            -110,
+            -110 * (1 / window.devicePixelRatio),
+            5 / window.devicePixelRatio
         );
         this.Myname = this.add.text(0, 0, this.player.username, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(0.6, 0.25);
         this.grid.placeAtIndex(3, this.Myname);
@@ -209,7 +210,7 @@ class OverviewScene extends Phaser.Scene {
     }
 
     update() {
-
+        this.Mylevel.text = this._player.getLevel();
     }
 }
 

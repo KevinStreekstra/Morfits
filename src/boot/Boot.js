@@ -36,8 +36,8 @@ class BootScene extends Phaser.Scene {
     }
 
     preload() {
-        let canvas = document.querySelector('#game canvas');
-        canvas.style.width = 'auto';
+        let div = document.querySelector('#game div');
+        div.style.transform = "scale(" + (1 / window.devicePixelRatio) + ")";
 
         this.grid = new AlignGrid({
             scene: this, 

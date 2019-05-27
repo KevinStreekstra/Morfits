@@ -1,6 +1,8 @@
 import AlignGrid from '../classes/AlignGrid';
 import Player from '../classes/Player';
 
+import { _ITEMS } from '../_ITEMS';
+
 import { addImage, addElement, addRectangle } from '../helpers';
 
 class Shop extends Phaser.Scene {
@@ -59,23 +61,53 @@ class Shop extends Phaser.Scene {
         this.title = this.add.text(0, 0, 'Markt', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(38 * window.devicePixelRatio)}px`, fill: '#2E3A4B', stroke: '#fff', strokeThickness: 8,}).setOrigin(0.5, 0.4);
         this.grid.placeAtIndex(52, this.title);
 
-        this.shopContainer = this.addElement(0, 0, 'div').setClassName('shopContainer').setOrigin(.52, 1);
-        this.grid.placeAtIndex(187, this.shopContainer);
+        this.shopContainer = this.addElement(0, 0, 'div').setClassName('shopContainer').setOrigin(.5, 1.05);
+        this.grid.placeAtIndex(202, this.shopContainer);
 
-        this.prev = this.addImage(0, 0, 'shop:prev').setOrigin(.5, .35);
-        this.grid.placeAtIndex(197, this.prev);
-        this.grid.scaleTo(this.prev, .25);
-
-        this.next = this.addImage(0, 0, 'shop:next').setOrigin(.5, .35);
-        this.grid.placeAtIndex(207, this.next);
-        this.grid.scaleTo(this.next, .25);
-
-        this.home = this.addImage(0, 0, 'shop:home').setOrigin(.5, .3).setInteractive();
+        this.home = this.addImage(0, 0, 'shop:home').setOrigin(.5, 0.1).setInteractive();
         this.home.on('pointerdown', () => {
             this.scene.stop('ShopScene');
         });
         this.grid.placeAtIndex(202, this.home);
         this.grid.scaleTo(this.home, .13);
+
+        this._shopContainer = this.shopContainer.node;
+        for(let i = 0; i < _ITEMS.length; i++) {
+            this.shopItem = document.createElement('div');
+            this.shopItem.className = 'shopItem';
+            this.shopItem.setAttribute('data-name', _ITEMS[i].name);
+            this.shopItem.setAttribute('data-price', _ITEMS[i].price);
+            this.shopItemImage = document.createElement('div');
+            this.shopItemImage.setAttribute('data-level', _ITEMS[i].requiredLevel);
+            this.shopItem.appendChild(this.shopItemImage);
+
+            if(this._player.getLevel() >= _ITEMS[i].requiredLevel)
+            {
+                this.shopItemImage.style.backgroundImage = "url('" + _ITEMS[i].asset + "')";
+                this.shopItemButton = document.createElement('button');
+                this.shopItemButton.setAttribute('data-id', _ITEMS[i].id);
+                this.shopItemButton.setAttribute('data-level', _ITEMS[i].requiredLevel);
+                this.shopItem.appendChild(this.shopItemButton);
+            } else {
+                this.shopItemImage.className = "locked";
+                this.shopItemImage.style.backgroundImage = "url('./src/assets/item-states/locked-overlay.png'), url('" + _ITEMS[i].asset + "')";
+            }
+
+            this._shopContainer.appendChild(this.shopItem);
+        }
+
+        this.shopContainer.setScale(0);
+        this.tweens.add({
+            targets: [
+                this.shopContainer,
+             ],
+            scaleX: 1 * window.devicePixelRatio,
+            scaleY: 1 * window.devicePixelRatio,
+            ease: 'Circ',
+            duration: 300,
+            repeat: 0,
+            yoyo: false
+        });
 
         //this.grid.showNumbers();
     }
