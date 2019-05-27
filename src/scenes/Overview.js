@@ -107,8 +107,12 @@ class OverviewScene extends Phaser.Scene {
         this.txtGym = this.addImage(0, 0, 'overview:txtGym');
         this.grid.placeAtIndex(211, this.txtGym);
 
-        this.games = this.addImage(0, 0, 'overview:btnGames').setOrigin(0.5, 0.37);
+        this.games = this.addImage(0, 0, 'overview:btnGames').setOrigin(0.5, 0.37).setInteractive();
         this.grid.placeAtIndex(199, this.games);
+
+        this.games.on('pointerdown', () => {
+            this.scene.start('GameSelect')
+        })
 
         this.txtGames = this.addImage(0, 0, 'overview:txtGames');
         this.grid.placeAtIndex(214, this.txtGames);
@@ -190,7 +194,7 @@ class OverviewScene extends Phaser.Scene {
         this.nav = this.addImage(0, 0, 'overview:TopNavbar');
         this.grid.placeAtIndex(7, this.nav);
 
-        this.whiteBg = this.addImage(0, 0, 'overview:whiteBG').setOrigin(0.6, 0.5); 
+        this.whiteBg = this.addImage(0, 0, 'overview:whiteBG').setOrigin(0.6, 0.5);
         this.grid.placeAtIndex(3, this.whiteBg);
 
         this.Myname = this.addImage(0, 0, 'overview:Myname').setOrigin(0.6, 0.7);

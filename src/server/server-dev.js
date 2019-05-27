@@ -60,6 +60,10 @@ app.use(webpackDevMiddleware(compiler, {
     publicPath: config.output.publicPath
 }))
 
+app.use(webpackHotMiddleware(compiler, {
+    log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000
+}))
+
 // app.use(webpackHotMiddleware(compiler))
 
 app.get('*', (req, res, next) => {
@@ -79,10 +83,6 @@ httpServer.listen(PORT, () => {
     console.log(`App listening to ${PORT}....`)
     console.log('Press Ctrl+C to quit.')
 })
-
-io.use(sharedsession(expressSession, {
-    autoSave:true
-}));
 
 io.on('connection', function(socket){
     logger.log({
@@ -122,6 +122,8 @@ io.on('connection', function(socket){
 
             socket.join('snake_game')
             socket.to('snake_game').broadcast.emit('newPlayer', players[playerInfo.playerId])
+
+            socket.emit('currentPlayers', players);
         }
     )
 
@@ -135,6 +137,10 @@ io.on('connection', function(socket){
                 socket.to('snake_game').broadcast.emit('disconnected', players[id]);
 
                 delete players[id];
+
+                if (playerScores[id]) {
+                    delete playerScores[id];
+                }
             }
         })
     });

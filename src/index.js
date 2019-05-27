@@ -8,6 +8,7 @@ import StatsScene from "./scenes/Stats";
 import DailyScenes from "./scenes/DailyQuiz";
 import WeeklyScenes from "./scenes/WeeklyMission";
 import SnakeScene from "./scenes/Snake";
+import GameSelectScene from "./scenes/GameSelect";
 
 const devicePixelRatio = window.devicePixelRatio;
 const scaleDownRation = 1 / 3;
@@ -36,7 +37,8 @@ const game = new Phaser.Game({
         DailyScenes,
         WeeklyScenes,
         StatsScene,
-        SnakeScene
+        SnakeScene,
+        GameSelectScene
     ],
 });
 
@@ -47,7 +49,12 @@ const WebFontConfig = {
 }
 
 if(typeof(module.hot) !== 'undefined') {
-    module.hot.accept() // eslint-disable-line no-undef
+    if (module.hot) {
+        module.hot.accept();
+        module.hot.dispose(function() {
+            location.reload()
+        });
+      }
   }
 
 // game.config.width = window.innerWidth * window.devicePixelRatio;

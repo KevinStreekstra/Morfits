@@ -8,6 +8,7 @@ import { weeklyMission_assets } from './_WeeklyMission';
 import { shop } from './_Shop';
 import { stats } from './_Stats';
 import { snake_assets } from './_Snake';
+import { gameSelect_assets } from './_GameSelect';
 
 class BootScene extends Phaser.Scene {
     constructor() {
@@ -22,6 +23,7 @@ class BootScene extends Phaser.Scene {
         this.shop = shop.bind(this);
         this.stats = stats.bind(this);
         this.snake_assets = snake_assets.bind(this);
+        this.gameSelect_assets = gameSelect_assets.bind(this);
     }
 
     preload() {
@@ -40,6 +42,7 @@ class BootScene extends Phaser.Scene {
         this.shop();
         this.stats();
         this.snake_assets();
+        this.gameSelect_assets();
         // END LOAD SCENE ASSETS
 
         this.load.on('complete', () => {
@@ -51,7 +54,6 @@ class BootScene extends Phaser.Scene {
                 }
                 this.scene.stop('LoadingScene');
                 this.scene.stop('BootScene');
-                this.scene.start('SnakeScene');
             }, [], this);
         });
     }
