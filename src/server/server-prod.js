@@ -53,7 +53,7 @@ app.get('*', (req, res, next) => {
     res.sendFile(path.join(DIST_DIR, req.url))
 })
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 1337
 
 httpServer.listen(PORT, () => {
     console.log(`App listening to ${PORT}....`)
