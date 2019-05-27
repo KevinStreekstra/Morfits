@@ -77,7 +77,6 @@ class OverviewScene extends Phaser.Scene {
         });
         this.grid.placeAtIndex(3, this.whiteBg);
         this.Mylevel = this.add.text(0, 0, this._player.getLevel(), { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(18 * window.devicePixelRatio)}px`, fill: 'black'});
-
         this.Myname = this.add.text(0, 0, this.player.username, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black', Align: 'center'}).setOrigin(0.6, 0.25);
         this.grid.placeAtIndex(3, this.Myname);
         this.navPP = this.addImage(0, 0, 'overview:navPP').setOrigin(0.8, 0.43);
@@ -88,6 +87,7 @@ class OverviewScene extends Phaser.Scene {
         this.grid.placeAtIndex(13, this.navM_Dollars);
         this.MyM_dollars = this.add.text(0, 0, this.player.morfos, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(0.5, 0.25);
         this.grid.placeAtIndex(12, this.MyM_dollars);
+    
 
         //bottom navbar & ground & icons
 
@@ -205,6 +205,9 @@ class OverviewScene extends Phaser.Scene {
             -110,
             7      
         );
+        this.MyPP.text = this._player.getPowerPoints();
+        this.MyM_dollars.text = this._player.getMorfos();
+ 
     }
 }
 
