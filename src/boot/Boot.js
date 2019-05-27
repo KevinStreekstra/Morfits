@@ -7,6 +7,8 @@ import { dailyQuiz_assets } from './_DailyQuiz';
 import { weeklyMission_assets } from './_WeeklyMission';
 import { shop } from './_Shop';
 import { stats } from './_Stats';
+import { game_RunMorfiRun_assets } from './games/_RunMorfiRun';
+import { pop_up_modal } from './_PopUpModal';
 import { StartQuiz } from './_StartQuiz'; 
 import { StopQuiz } from './_StopQuiz';
 
@@ -27,6 +29,8 @@ class BootScene extends Phaser.Scene {
         this.weeklyMission_assets = weeklyMission_assets.bind(this);
         this.shop = shop.bind(this);
         this.stats = stats.bind(this);
+        this.game_RunMorfiRun_assets = game_RunMorfiRun_assets.bind(this);
+        this.pop_up_modal = pop_up_modal.bind(this);
         this.StartQuiz = StartQuiz.bind(this);
         this.StopQuiz = StopQuiz.bind(this);
 
@@ -55,6 +59,8 @@ class BootScene extends Phaser.Scene {
         this.weeklyMission_assets();
         this.shop();
         this.stats();
+        this.game_RunMorfiRun_assets();
+        this.pop_up_modal();
         this.StartQuiz();
         this.StopQuiz();
         this.Question1();
