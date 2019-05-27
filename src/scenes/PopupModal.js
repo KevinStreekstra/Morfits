@@ -48,6 +48,7 @@ class PopupModalScene extends Phaser.Scene {
                 asset.setInteractive().on('pointerdown', () => {
                     this.sceneHandler(el);
                     el.resumeOnclick ? el.resumeOnclick.resume() : null;
+                    el.resumeTime ? el.resumeTime.paused = false : null;
                 });
             } 
             if(el.functions){

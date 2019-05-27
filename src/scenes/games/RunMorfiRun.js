@@ -30,11 +30,12 @@ class RunMorfiRun extends Phaser.Scene {
     preload() {    }
 
     create() {
-        console.log('run morfi run game created');      
+        console.log('run morfi run game created');  
+        this.initialTime = 60;
+    
         this.cameras.main.setBackgroundColor('#132B4B');
 
         this.input.addPointer(3);
-        console.log(this.input)
         this.key_W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.key_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.key_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
@@ -43,7 +44,6 @@ class RunMorfiRun extends Phaser.Scene {
 
         this.you = this.physics.add.image(0,0, 'games:you').setScrollFactor(0).setScale(withDPI(1), withDPI(1));
 
-
         this.button_run = this.add.sprite(0,0, 'games:run').setOrigin(-0,-4.5).setDepth(2).setScale(withDPI(0.4)).setScrollFactor(0);
         this.button_jump = this.add.sprite(0,0, 'games:jump').setOrigin(-2,-4.5).setDepth(2).setScale(withDPI(0.4)).setScrollFactor(0);
         this.button_run.setInteractive();
@@ -51,6 +51,9 @@ class RunMorfiRun extends Phaser.Scene {
 
         this.physics.pause();
 
+        this.text = this.add.text(withDPI(32), withDPI(32), this.formatTime(this.initialTime)).setScrollFactor(0);
+        this.timedEvent = this.time.addEvent({ delay: 1000, callback: this.onTimeEvent, callbackScope: this, loop: true });      
+        this.timedEvent.paused = true;
 
         this.scene.launch('PopupModalScene', {
             scenes: {
@@ -66,6 +69,7 @@ class RunMorfiRun extends Phaser.Scene {
                     y: 200,
                     UseDefinedScenes: true,
                     resumeOnclick: this.physics,
+                    resumeTime: this.timedEvent,
                     scenes: {},
                 },
                 {
@@ -85,8 +89,8 @@ class RunMorfiRun extends Phaser.Scene {
                 },
                 {
                     text: `
-                    Zorg dat je binnen de bepaalde 
-                    tijd de finish lijn behaald.
+                    Zorg dat je binnen ${this.initialTime} seconde 
+                    de finish lijn behaald.
 
                     Als je gezond eten eet ren je sneller, 
                     als je ongezond eten eet 
@@ -123,16 +127,42 @@ class RunMorfiRun extends Phaser.Scene {
         });
 
     }
+ 
     update() {
         this.setSpeed();
         if(this.run){
-            console.log('ran-1')
             this.player.setVelocityX(withDPI(400)) 
         }
         if(this.jump && this.player.body.touching.down){
-            console.log('ran-2')
             this.player.setVelocityY(withDPI(-550));
         }
+    }
+
+    formatTime(seconds){
+        // Minutes
+        var minutes = Math.floor(seconds/60);
+        // Seconds
+        var partInSeconds = seconds%60;
+        // Adds left zeros to seconds
+        partInSeconds = partInSeconds.toString().padStart(2,'0');
+        // Returns formated time
+        return `${minutes}:${partInSeconds}`;
+    }
+    onTimeEvent ()
+    {
+        if(this.initialTime !== 0) {
+            this.initialTime -= 1; // One second
+            this.text.setText(this.formatTime(this.initialTime));
+        } else {
+            this.timedEvent.remove(false);
+            this.timeRanOut();
+        }
+    }
+
+    // Times up, lets do this. Leeeeerrroooooyyy Jankinsss!
+    timeRanOut(){
+        console.log('times up');
+        this.done(false);
     }
 
     randomizeFood(food){
@@ -234,8 +264,13 @@ class RunMorfiRun extends Phaser.Scene {
         player.body.setAccelerationX(0);
     };
 
-    done() {
+    done(won) {
+        this.timedEvent.paused = true;
         this.physics.pause();
+
+        const title = won ? 'Goed Gedaan!' : 'Helaas';
+        const amount = won ? 'x 20' : 'x 10';
+
         this.scene.launch('PopupModalScene', {
             scenes: {
                 start: ['OverviewScene'],
@@ -263,13 +298,13 @@ class RunMorfiRun extends Phaser.Scene {
             ],
             content: [
                 {
-                    text: 'Goed Gedaan!',
+                    text: title,
                     fontSize: 42,
                     x: 0,
                     y: -110,
                 },
                 {
-                    text: 'x 20',
+                    text: amount,
                     fontSize: 27,
                     x: 60,
                     y: -30,
