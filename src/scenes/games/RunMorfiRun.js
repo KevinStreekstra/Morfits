@@ -42,8 +42,6 @@ class RunMorfiRun extends Phaser.Scene {
 
         this.add.sprite(0,0, 'games:bg').setDepth(-1).setScrollFactor(0.04).setScale(withDPI(1), withDPI(1));
 
-        this.you = this.physics.add.image(0,0, 'games:you').setScrollFactor(0).setScale(withDPI(1), withDPI(1));
-
         this.button_run = this.add.sprite(0,0, 'games:run').setOrigin(-0,-4.5).setDepth(2).setScale(withDPI(0.4)).setScrollFactor(0);
         this.button_jump = this.add.sprite(0,0, 'games:jump').setOrigin(-2,-4.5).setDepth(2).setScale(withDPI(0.4)).setScrollFactor(0);
         this.button_run.setInteractive();
@@ -51,7 +49,16 @@ class RunMorfiRun extends Phaser.Scene {
 
         this.physics.pause();
 
-        this.text = this.add.text(withDPI(32), withDPI(32), this.formatTime(this.initialTime)).setScrollFactor(0);
+        this.text = this.add.text(
+            withDPI(32), 
+            withDPI(32), 
+            this.formatTime(this.initialTime),
+            {
+                color: '#132B4B',
+                fontFamily: 'Bubblegum Sans',
+                fontSize: withDPI(22),
+            }
+        ).setScrollFactor(0);
         this.timedEvent = this.time.addEvent({ delay: 1000, callback: this.onTimeEvent, callbackScope: this, loop: true });      
         this.timedEvent.paused = true;
 
@@ -175,13 +182,10 @@ class RunMorfiRun extends Phaser.Scene {
         }
         if(this.key_A.isDown) {
             this.player.setVelocityX(-x);
-            this.you.setVelocityX(-50);
         } else if(this.key_D.isDown) {
             this.player.setVelocityX(x);
-            this.you.setVelocityX(50);
         } else{
             this.player.setVelocityX(0);
-            this.you.setVelocityX(0);
         }
     };
 
@@ -197,11 +201,6 @@ class RunMorfiRun extends Phaser.Scene {
         this.physics.add.collider(this.player, this.grounds);
         this.physics.add.overlap(this.player, this.healty, this.collectHealty, null, this);
         this.physics.add.overlap(this.player, this.unhealty, this.reduceSpeed, null, this);
-
-        this.physics.add.collider(this.you, this.platforms, this.removeSpeed, null, this);
-        this.physics.add.collider(this.you, this.grounds);
-        this.physics.add.overlap(this.you, this.healty, this.collectHealty, null, this);
-        this.physics.add.overlap(this.you, this.unhealty, this.reduceSpeed, null, this);
 
         this.physics.add.overlap(this.player, this.finish, this.done, null, this);
         
