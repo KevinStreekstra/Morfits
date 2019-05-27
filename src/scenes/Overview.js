@@ -77,13 +77,8 @@ class OverviewScene extends Phaser.Scene {
             this.scene.launch('StatsScene');
         });
         this.grid.placeAtIndex(3, this.whiteBg);
-        this.Mylevel = this.add.text(0, 0, this._player.getLevel(), { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'});
-        Phaser.Display.Align.In.Center(
-            this.Mylevel,
-            this.whiteBg,
-            -110 * (1 / window.devicePixelRatio),
-            5 / window.devicePixelRatio
-        );
+        this.Mylevel = this.add.text(0, 0, this._player.getLevel(), { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(1.4, .2);
+        this.grid.placeAtIndex(1, this.Mylevel)
         this.Myname = this.add.text(0, 0, this.player.username, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(0.6, 0.25);
         this.grid.placeAtIndex(3, this.Myname);
         this.navPP = this.addImage(0, 0, 'overview:navPP').setOrigin(0.8, 0.43);
@@ -156,10 +151,10 @@ class OverviewScene extends Phaser.Scene {
         // this.grid.scaleTo(this.txtXPbar, 0.15);
         // this.grid.placeAtIndex(172, this.txtXPbar);
         this.txtXPbar = this.add.text(0, 0, `${this.player.xp}/${this._player.getRequiredXP(this._player.getLevel())}`, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(10 * window.devicePixelRatio)}px`});
-        Phaser.Display.Align.In.Center(this.txtXPbar, this.bg, 0, 375 );
+        this.grid.placeAtIndex(171, this.txtXPbar);
 
-        this.XPbar = this.addImage(0, 0, 'overview:XPbar');
-        Phaser.Display.Align.In.Center(this.XPbar, this.bg, 0, 395);
+        this.XPbar = this.addImage(0, 0, 'overview:XPbar').setOrigin(.28, 0);
+        this.grid.placeAtIndex(171, this.XPbar)
 
         this.HomePlant = this.addImage(0, 0, 'overview:HomePlant2');
         this.grid.placeAtIndex(164, this.HomePlant);
