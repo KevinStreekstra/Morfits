@@ -402,7 +402,7 @@ class SnakeScene extends Phaser.Scene {
                 this.head.setAngle(-90);
                 this.head.setDepth(10);
                 this.head.setOrigin(0.5);
-                this.head.setCircle(withDPI(15), withDPI(12.5), withDPI(12.5))
+                this.head.setCircle(30, 25, 25)
 
                 this.tail = new Phaser.Geom.Point(12.5, 12.5);
                 main_body = this.body
@@ -1131,7 +1131,7 @@ class SnakeScene extends Phaser.Scene {
                 secondPlayer.head.setOrigin(0.5);
                 secondPlayer.head.setAngle(playerInfo.rotation);
                 secondPlayer.head.setDepth(10);
-                secondPlayer.head.setCircle(withDPI(15), withDPI(12.5), withDPI(12.5))
+                secondPlayer.head.setCircle(30, 25, 25)
 
                 secondPlayer.tail = new Phaser.Geom.Point(12.5, 12.5);
                 secondPlayer.tails = playerInfo.tails;
@@ -1752,7 +1752,7 @@ class SnakeScene extends Phaser.Scene {
                 snakeSelf.head.setOrigin(0.5);
                 snakeSelf.head.setAngle(-90);
                 snakeSelf.head.setDepth(10);
-                snakeSelf.head.setCircle(withDPI(15), withDPI(12.5), withDPI(12.5))
+                snakeSelf.head.setCircle(30, 25, 25)
                 snakeSelf.heading = RIGHT;
                 snakeSelf.direction = RIGHT;
 
@@ -1799,7 +1799,7 @@ class SnakeScene extends Phaser.Scene {
                     secondPlayer.head.setOrigin(0.5);
                     secondPlayer.head.setAngle(-90);
                     secondPlayer.head.setDepth(10);
-                    secondPlayer.head.setCircle(withDPI(15), withDPI(12.5), withDPI(12.5))
+                    secondPlayer.head.setCircle(30, 25, 25)
                     secondPlayer.tails = playerInfo.tails
 
                     main_scene.physics.add.collider(snakeSelf.head, secondPlayer.body, snakeSelf.playerHitOtherPlayer, null, snakeSelf)
