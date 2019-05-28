@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
         <meta content="user-scalable=0, initial-scale=1,minimum-scale=1, maximum-scale=1, width=device-width, minimal-ui=1" name="viewport">
         <meta name="apple-mobile-web-app-capable" content="yes">
+        <title>Morfits</title>
 
         <link href="https://fonts.googleapis.com/css?family=Bubblegum+Sans&display=swap" rel="stylesheet">
 
@@ -38,7 +39,10 @@
     </style>
     <script src="https://browser.sentry-cdn.com/5.3.0/bundle.min.js" crossorigin="anonymous"></script>
     <script>
-      Sentry.init({ dsn: 'https://448ec742cc7f4e678585aef565122b61@sentry.io/1469140' });
+        Sentry.init({
+            dsn: 'https://448ec742cc7f4e678585aef565122b61@sentry.io/1469140',
+            release: 'V0.3.1'
+        });
     </script>
   	</head>
 	<body>
