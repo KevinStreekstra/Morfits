@@ -10,6 +10,7 @@ import { stats } from './_Stats';
 import { snake_assets } from './_Snake';
 import { gameSelect_assets } from './_GameSelect';
 import { game_RunMorfiRun_assets } from './games/_RunMorfiRun';
+import { character_assets } from './_Character';
 import { pop_up_modal } from './_PopUpModal';
 import { StartQuiz } from './_StartQuiz';
 import { StopQuiz } from './_StopQuiz';
@@ -34,6 +35,7 @@ class BootScene extends Phaser.Scene {
         this.stats = stats.bind(this);
         this.snake_assets = snake_assets.bind(this);
         this.gameSelect_assets = gameSelect_assets.bind(this);
+        this.character_assets = character_assets.bind(this);
         this.game_RunMorfiRun_assets = game_RunMorfiRun_assets.bind(this);
         this.pop_up_modal = pop_up_modal.bind(this);
         this.StartQuiz = StartQuiz.bind(this);
@@ -65,6 +67,7 @@ class BootScene extends Phaser.Scene {
         this.stats();
         this.snake_assets();
         this.gameSelect_assets();
+        this.character_assets();
         this.game_RunMorfiRun_assets();
         this.pop_up_modal();
         this.StartQuiz();
