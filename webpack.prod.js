@@ -5,6 +5,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require("terser-webpack-plugin");
+const HtmlReplaceWebpackPlugin = require('html-replace-webpack-plugin');
+const PACKAGE = require('./package.json');
+const version = PACKAGE.version
+
 
 module.exports = {
   entry: {
@@ -69,6 +73,16 @@ module.exports = {
       template: './src/index.html',
       filename: './index.html'
     }),
+    new HtmlReplaceWebpackPlugin([
+        {
+            pattern: '@@environment',
+            replacement: 'production'
+        },
+        {
+            pattern: '@@version',
+            replacement: version
+        }
+    ]),
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css'
