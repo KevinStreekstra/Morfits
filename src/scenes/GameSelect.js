@@ -110,7 +110,7 @@ class GameSelectScene extends Phaser.Scene {
 
         this.runMorfiRunThumbnail.on('pointerdown', () => {
             this.scene.stop('GameSelect')
-            this.scene.start('SnakeScene')
+            this.scene.start('RunMorfiRun')
         })
 
         this.runMorfiRunTitle = this.add
