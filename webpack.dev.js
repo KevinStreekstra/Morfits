@@ -3,6 +3,9 @@ const webpack = require('webpack')
 const nodeExternals = require('webpack-node-externals')
 const HtmlWebPackPlugin = require("html-webpack-plugin")
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const HtmlReplaceWebpackPlugin = require('html-replace-webpack-plugin');
+const PACKAGE = require('./package.json');
+const version = PACKAGE.version
 
 module.exports = {
     mode: 'development',
@@ -40,7 +43,9 @@ module.exports = {
                 // Loads the javacript into html template provided.
                 // Entry point is set below in HtmlWebPackPlugin in Plugins
                 test: /\.html$/,
-                use: [{loader: "html-loader"}]
+                use: [{
+                    loader: "html-loader",
+                }]
             },
             {
                 test:/\.css$/,
@@ -52,8 +57,18 @@ module.exports = {
         new HtmlWebPackPlugin({
             template: "./src/index.html",
             filename: "./index.html",
-            excludeChunks: [ 'server' ]
+            excludeChunks: ['server'],
         }),
+        new HtmlReplaceWebpackPlugin([
+            {
+                pattern: '@@environment',
+                replacement: 'dev'
+            },
+            {
+                pattern: '@@version',
+                replacement: version
+            }
+        ]),
         new webpack.DefinePlugin({
             CANVAS_RENDERER: JSON.stringify(true),
             WEBGL_RENDERER: JSON.stringify(true)
