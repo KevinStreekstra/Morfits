@@ -1,6 +1,16 @@
 import Phaser from 'phaser'
 import {withDPI} from '../helpers';
 
+const calcModalOffset = (window.innerHeight - 554) / 2
+
+const withModalOffset = (cordinate) => {
+    if (calcModalOffset > 8) {
+        return calcModalOffset + cordinate
+    } else {
+        return cordinate + 8
+    }
+}
+
 class GameSelectScene extends Phaser.Scene {
     constructor() {
         super({
@@ -11,13 +21,13 @@ class GameSelectScene extends Phaser.Scene {
     create() {
 
         this.backgroundBackdrop = this.add
-            .image(0, withDPI(68), 'Snake:guide_helper_background')
+            .image(0, withDPI(0), 'Snake:guide_helper_background')
             .setDepth(-1)
             .setScale(withDPI(0.2), withDPI(0.2))
             .setOrigin(0, 0)
 
         this.add
-            .image(withDPI(16), withDPI(84), 'Snake:modal_background')
+            .image(withDPI(16), withDPI(withModalOffset(0)), 'Snake:modal_background')
             .setDepth(40)
             .setDisplaySize(withDPI(343), withDPI(554))
             .setOrigin(0, 0)
@@ -25,7 +35,7 @@ class GameSelectScene extends Phaser.Scene {
         this.modalHeader = this.add
             .text(
                 withDPI(187),
-                withDPI(116),
+                withDPI(withModalOffset(32)),
                 'Minigames',
                 {
                     fontFamily: 'Bubblegum Sans',
@@ -43,14 +53,14 @@ class GameSelectScene extends Phaser.Scene {
             .setVisible(true)
 
         this.snakeGamePrice = this.add
-            .image(withDPI(42), withDPI(180), 'GameSelect:snake_cost')
+            .image(withDPI(42), withDPI(withModalOffset(96)), 'GameSelect:snake_cost')
             .setScale(withDPI(0.2), withDPI(0.2))
             .setOrigin(0, 0)
             .setVisible(true)
             .setDepth(42)
 
         this.snakeThumbnail = this.add
-            .image(withDPI(48), withDPI(194), 'GameSelect:snake_thumbnail')
+            .image(withDPI(48), withDPI(withModalOffset(110)), 'GameSelect:snake_thumbnail')
             .setScale(withDPI(0.2), withDPI(0.2))
             .setOrigin(0, 0)
             .setDepth(41)
@@ -65,7 +75,7 @@ class GameSelectScene extends Phaser.Scene {
         this.snakeGameTitle = this.add
             .text(
                 withDPI(112),
-                withDPI(335),
+                withDPI(withModalOffset(251)),
                 'Snake',
                 {
                     fontFamily: 'Bubblegum Sans',
@@ -81,7 +91,7 @@ class GameSelectScene extends Phaser.Scene {
             .setVisible(true)
 
         this.startSnakeButton = this.add
-            .image(withDPI(50), withDPI(370), 'GameSelect:start_button')
+            .image(withDPI(50), withDPI(withModalOffset(286)), 'GameSelect:start_button')
             .setScale(withDPI(0.2), withDPI(0.2))
             .setOrigin(0, 0)
             .setDepth(42)
@@ -94,14 +104,14 @@ class GameSelectScene extends Phaser.Scene {
         })
 
         this.runMorfiRunPrice = this.add
-            .image(withDPI(193), withDPI(180), 'GameSelect:snake_cost')
+            .image(withDPI(193), withDPI(withModalOffset(96)), 'GameSelect:snake_cost')
             .setScale(withDPI(0.2), withDPI(0.2))
             .setOrigin(0, 0)
             .setVisible(true)
             .setDepth(42)
 
         this.runMorfiRunThumbnail = this.add
-            .image(withDPI(199), withDPI(194), 'GameSelect:runMorfiRun_thumbnail')
+            .image(withDPI(199), withDPI(withModalOffset(110)), 'GameSelect:runMorfiRun_thumbnail')
             .setScale(withDPI(0.2), withDPI(0.2))
             .setOrigin(0, 0)
             .setDepth(41)
@@ -116,7 +126,7 @@ class GameSelectScene extends Phaser.Scene {
         this.runMorfiRunTitle = this.add
             .text(
                 withDPI(262),
-                withDPI(335),
+                withDPI(withModalOffset(251)),
                 'Run Morfi Run',
                 {
                     fontFamily: 'Bubblegum Sans',
@@ -132,7 +142,7 @@ class GameSelectScene extends Phaser.Scene {
             .setVisible(true)
 
         this.startRunMorfiRunButton = this.add
-            .image(withDPI(198), withDPI(370), 'GameSelect:start_button')
+            .image(withDPI(198), withDPI(withModalOffset(286)), 'GameSelect:start_button')
             .setScale(withDPI(0.2), withDPI(0.2))
             .setOrigin(0, 0)
             .setDepth(42)
@@ -145,7 +155,7 @@ class GameSelectScene extends Phaser.Scene {
         })
 
         this.homeButton = this.add
-            .image(withDPI(168), withDPI(618), 'Snake:home_button')
+            .image(withDPI(168), withDPI(withModalOffset(534)), 'Snake:home_button')
             .setScale(withDPI(0.2), withDPI(0.2))
             .setOrigin(0, 0)
             .setDepth(43)

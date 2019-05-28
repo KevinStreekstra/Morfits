@@ -46,9 +46,20 @@ const DOWN = 1;
 const LEFT = 2;
 const RIGHT = 3;
 
-const withOffset = (original) => original + withDPI(127);
 
 let direction;
+
+const yOffset = 67
+const withOffset = (original) => original + withDPI(yOffset);
+const calcModalOffset = (window.innerHeight - 554) / 2
+
+const withModalOffset = (cordinate) => {
+    if (calcModalOffset > 8) {
+        return calcModalOffset + cordinate
+    } else {
+        return cordinate + 8
+    }
+}
 
 class SnakeScene extends Phaser.Scene {
     constructor() {
@@ -58,7 +69,7 @@ class SnakeScene extends Phaser.Scene {
                 default: 'arcade',
                 arcade: {
                     x: 0,
-                    y: withDPI(127),
+                    y: withDPI(yOffset),
                     gravity: { y: 0 },
                     debug: false,
                     width: withDPI(375),
@@ -204,13 +215,13 @@ class SnakeScene extends Phaser.Scene {
                 let current = name
 
                 this.backgroundBackdrop = scene.add
-                    .image(0, withDPI(68), 'Snake:guide_helper_background')
+                    .image(0, 0, 'Snake:guide_helper_background')
                     .setDepth(-1)
                     .setScale(withDPI(0.2), withDPI(0.2))
                     .setOrigin(0, 0)
 
                 this.modalBackground = scene.add
-                    .image(withDPI(16), withDPI(84), 'Snake:modal_background')
+                    .image(withDPI(16), withDPI(withModalOffset(0)), 'Snake:modal_background')
                     .setDepth(40)
                     .setDisplaySize(withDPI(343), withDPI(554))
                     .setOrigin(0, 0)
@@ -218,7 +229,7 @@ class SnakeScene extends Phaser.Scene {
                 this.modalHeader = scene.add
                     .text(
                         withDPI(187),
-                        withDPI(116),
+                        withDPI(withModalOffset(32)),
                         'Uitleg',
                         {
                             fontFamily: 'Bubblegum Sans',
@@ -236,7 +247,7 @@ class SnakeScene extends Phaser.Scene {
                     .setVisible(true)
 
                 this.modalIllustration = scene.add
-                    .image(withDPI(48), withDPI(177), imageKey)
+                    .image(withDPI(48), withDPI(withModalOffset(93)), imageKey)
                     .setDepth(41)
                     .setScale(withDPI(0.2), withDPI(0.2))
                     .setOrigin(0, 0)
@@ -244,7 +255,7 @@ class SnakeScene extends Phaser.Scene {
                 this.modalDescription = scene.add
                     .text(
                         withDPI(48),
-                        withDPI(413),
+                        withDPI(withModalOffset(329)),
                         bodyText,
                         {
                             fontFamily: 'Bubblegum Sans',
@@ -261,7 +272,7 @@ class SnakeScene extends Phaser.Scene {
                     .setWordWrapWidth(295, true)
 
                 this.modalBackButton = scene.add
-                    .image(withDPI(44), withDPI(520), 'Snake:prev_button')
+                    .image(withDPI(44), withDPI(withModalOffset(436)), 'Snake:prev_button')
                     .setDepth(41)
                     .setInteractive()
                     .setOrigin(0, 0)
@@ -281,7 +292,7 @@ class SnakeScene extends Phaser.Scene {
                 })
 
                 this.modalNextButton = scene.add
-                    .image(withDPI(117), withDPI(520), 'Snake:next_button')
+                    .image(withDPI(117), withDPI(withModalOffset(436)), 'Snake:next_button')
                     .setDepth(41)
                     .setInteractive()
                     .setOrigin(0, 0)
@@ -301,7 +312,7 @@ class SnakeScene extends Phaser.Scene {
                 })
 
                 this.modalStartButton = scene.add
-                    .image(withDPI(117), withDPI(520), 'Snake:start_button')
+                    .image(withDPI(117), withDPI(withModalOffset(436)), 'Snake:start_button')
                     .setDepth(41)
                     .setInteractive()
                     .setOrigin(0, 0)
@@ -309,7 +320,7 @@ class SnakeScene extends Phaser.Scene {
                     .setVisible(isLast)
 
                 this.modalCloseButton = scene.add
-                    .image(withDPI(168), withDPI(618), 'Snake:close_button')
+                    .image(withDPI(168), withDPI(withModalOffset(534)), 'Snake:close_button')
                     .setDepth(41)
                     .setInteractive()
                     .setOrigin(0, 0)
@@ -489,22 +500,22 @@ class SnakeScene extends Phaser.Scene {
 
                 /* SECTION UI elements. */
                 this.background = scene.add
-                    .image(0, withDPI(127), 'Snake:board_background')
+                    .image(0, withDPI(yOffset), 'Snake:board_background')
                     .setDepth(-1)
                     .setDisplaySize(withDPI(375), withDPI(475))
                     .setOrigin(0);
 
                 this.backgroundTop = scene.add
-                    .image(0, withDPI(60), 'Snake:background_top')
+                    .image(0, 0, 'Snake:background_top')
                     .setDepth(15)
                     .setDisplaySize(withDPI(375), withDPI(67))
                     .setOrigin(0)
 
                 this.backgroundBottom = scene.add
-                    .image(0, withDPI(602), 'Snake:background_bottom')
+                    .image(0, withDPI(475 + yOffset), 'Snake:background_bottom')
                     .setDepth(15)
-                    .setDisplaySize(withDPI(375), withDPI(116))
-                    .setOrigin(0)
+                    .setScale(withDPI(0.2), withDPI(0.2))
+                    .setOrigin(0, 0)
 
                 this.spectatingText = scene.add
                     .text(
@@ -531,7 +542,7 @@ class SnakeScene extends Phaser.Scene {
                 this.scoreText = scene.add
                     .text(
                         withDPI(16),
-                        withDPI(84),
+                        withDPI(20),
                         `Huidige score: ${this.score}`,
                         {
                             fontFamily: 'Bubblegum Sans',
@@ -546,19 +557,19 @@ class SnakeScene extends Phaser.Scene {
 
                 /* Handle UI lives */
                 this.liveOne = scene.add
-                    .image(withDPI(262), withDPI(83), 'Snake:live_icon')
+                    .image(withDPI(262), withDPI(20), 'Snake:live_icon')
                     .setDepth(16)
                     .setDisplaySize(withDPI(27), withDPI(25))
                     .setOrigin(0)
 
                 this.liveTwo = scene.add
-                    .image(withDPI(297), withDPI(83), 'Snake:live_icon')
+                    .image(withDPI(297), withDPI(20), 'Snake:live_icon')
                     .setDepth(16)
                     .setDisplaySize(withDPI(27), withDPI(25))
                     .setOrigin(0)
 
                 this.liveThree = scene.add
-                    .image(withDPI(332), withDPI(83), 'Snake:live_icon')
+                    .image(withDPI(332), withDPI(20), 'Snake:live_icon')
                     .setDepth(16)
                     .setDisplaySize(withDPI(27), withDPI(25))
                     .setOrigin(0)
@@ -634,7 +645,7 @@ class SnakeScene extends Phaser.Scene {
                 /* SECTION End game modal */
                 this.endGameModal = scene.add.group()
                 this.endGameModalBackground = this.endGameModal
-                    .create(withDPI(16), withDPI(84), 'Snake:modal_background')
+                    .create(withDPI(16), withDPI(withModalOffset(0)), 'Snake:modal_background')
                     .setDepth(30)
                     .setDisplaySize(withDPI(343), withDPI(554))
                     .setOrigin(0)
@@ -643,7 +654,7 @@ class SnakeScene extends Phaser.Scene {
                 this.endGameModalHeader = scene.add
                     .text(
                         withDPI(187),
-                        withDPI(116),
+                        withDPI(withModalOffset(32)),
                         'Gefeliciteerd', {
                             fontFamily: 'Bubblegum Sans',
                             fontSize: '32px',
@@ -662,7 +673,7 @@ class SnakeScene extends Phaser.Scene {
                 this.endGameModalScore = scene.add
                     .text(
                         withDPI(187),
-                        withDPI(177),
+                        withDPI(withModalOffset(93)),
                         '00.000',
                         {
                             fontFamily: 'Bubblegum Sans',
@@ -679,14 +690,14 @@ class SnakeScene extends Phaser.Scene {
 
                 /* SECTION First place */
                 this.endGameModalFirstHead = scene.add
-                    .image(withDPI(48), withDPI(274), 'Snake:head_player_1')
+                    .image(withDPI(48), withDPI(withModalOffset(190)), 'Snake:head_player_1')
                     .setDepth(33)
                     .setOrigin(0, 0)
                     .setScale(withDPI(0.2), withDPI(0.2))
                     .setVisible(false)
 
                 this.endGameModalFirstHeadShadow = scene.add
-                    .image(withDPI(48), withDPI(276), 'Snake:head_player_1')
+                    .image(withDPI(48), withDPI(withModalOffset(192)), 'Snake:head_player_1')
                     .setAlpha(0.32)
                     .setDepth(32)
                     .setOrigin(0, 0)
@@ -695,14 +706,14 @@ class SnakeScene extends Phaser.Scene {
                     .setVisible(false)
 
                 this.endGameModalFirstMedal = scene.add
-                    .image(withDPI(50), withDPI(276), 'Snake:medal_first')
+                    .image(withDPI(50), withDPI(withModalOffset(192)), 'Snake:medal_first')
                     .setDepth(33)
                     .setOrigin(0, 0)
                     .setScale(withDPI(0.2), withDPI(0.2))
                     .setVisible(false)
 
                 this.endGameModalFirstName = scene.add
-                    .text(withDPI(112), withDPI(275), 'Bobby', {
+                    .text(withDPI(112), withDPI(withModalOffset(192)), 'Bobby', {
                         fontFamily: 'Bubblegum Sans',
                         fontSize: '16px',
                         color: '#ffffff',
@@ -715,7 +726,7 @@ class SnakeScene extends Phaser.Scene {
                     .setVisible(false)
 
                 this.endGameModalFirstScore = scene.add
-                    .text(withDPI(112), withDPI(298), '41.000 punten', {
+                    .text(withDPI(112), withDPI(withModalOffset(214)), '41.000 punten', {
                         fontFamily: 'Bubblegum Sans',
                         fontSize: '16px',
                         color: 'rgba(255, 255, 255, 0.75)',
@@ -730,14 +741,14 @@ class SnakeScene extends Phaser.Scene {
 
                 /* SECTION Second place */
                 this.endGameModalSecondHead = scene.add
-                    .image(withDPI(48), withDPI(335), 'Snake:head_player_1')
+                    .image(withDPI(48), withDPI(withModalOffset(251)), 'Snake:head_player_1')
                     .setDepth(33)
                     .setOrigin(0, 0)
                     .setScale(withDPI(0.2), withDPI(0.2))
                     .setVisible(false)
 
                 this.endGameModalSecondHeadShadow = scene.add
-                    .image(withDPI(48), withDPI(337), 'Snake:head_player_1')
+                    .image(withDPI(48), withDPI(withModalOffset(253)), 'Snake:head_player_1')
                     .setAlpha(0.32)
                     .setDepth(32)
                     .setOrigin(0, 0)
@@ -746,14 +757,14 @@ class SnakeScene extends Phaser.Scene {
                     .setVisible(false)
 
                 this.endGameModalSecondMedal = scene.add
-                    .image(withDPI(50), withDPI(337), 'Snake:medal_second')
+                    .image(withDPI(50), withDPI(withModalOffset(253)), 'Snake:medal_second')
                     .setDepth(33)
                     .setOrigin(0, 0)
                     .setScale(withDPI(0.2), withDPI(0.2))
                     .setVisible(false)
 
                 this.endGameModalSecondName = scene.add
-                    .text(withDPI(112), withDPI(336), 'Nala', {
+                    .text(withDPI(112), withDPI(withModalOffset(252)), 'Nala', {
                         fontFamily: 'Bubblegum Sans',
                         fontSize: '16px',
                         color: '#ffffff',
@@ -766,7 +777,7 @@ class SnakeScene extends Phaser.Scene {
                     .setVisible(false)
 
                 this.endGameModalSecondScore = scene.add
-                    .text(withDPI(112), withDPI(359), '32.400 punten', {
+                    .text(withDPI(112), withDPI(withModalOffset(275)), '32.400 punten', {
                         fontFamily: 'Bubblegum Sans',
                         fontSize: '16px',
                         color: 'rgba(255, 255, 255, 0.75)',
@@ -781,14 +792,14 @@ class SnakeScene extends Phaser.Scene {
 
                 /* SECTION Third place */
                 this.endGameModalThirdHead = scene.add
-                    .image(withDPI(48), withDPI(396), 'Snake:head_player_1')
+                    .image(withDPI(48), withDPI(withModalOffset(312)), 'Snake:head_player_1')
                     .setDepth(33)
                     .setOrigin(0, 0)
                     .setScale(withDPI(0.2), withDPI(0.2))
                     .setVisible(false)
 
                 this.endGameModalThirdHeadShadow = scene.add
-                    .image(withDPI(48), withDPI(398), 'Snake:head_player_1')
+                    .image(withDPI(48), withDPI(withModalOffset(314)), 'Snake:head_player_1')
                     .setAlpha(0.32)
                     .setDepth(32)
                     .setOrigin(0, 0)
@@ -797,14 +808,14 @@ class SnakeScene extends Phaser.Scene {
                     .setVisible(false)
 
                 this.endGameModalThirdMedal = scene.add
-                    .image(withDPI(50), withDPI(398), 'Snake:medal_third')
+                    .image(withDPI(50), withDPI(withModalOffset(314)), 'Snake:medal_third')
                     .setDepth(33)
                     .setOrigin(0, 0)
                     .setScale(withDPI(0.2), withDPI(0.2))
                     .setVisible(false)
 
                 this.endGameModalThirdName = scene.add
-                    .text(withDPI(112), withDPI(397), 'Rico', {
+                    .text(withDPI(112), withDPI(withModalOffset(313)), 'Rico', {
                         fontFamily: 'Bubblegum Sans',
                         fontSize: '16px',
                         color: '#ffffff',
@@ -817,7 +828,7 @@ class SnakeScene extends Phaser.Scene {
                     .setVisible(false)
 
                 this.endGameModalThirdScore = scene.add
-                    .text(withDPI(112), withDPI(420), '28.200 punten', {
+                    .text(withDPI(112), withDPI(withModalOffset(336)), '28.200 punten', {
                         fontFamily: 'Bubblegum Sans',
                         fontSize: '16px',
                         color: 'rgba(255, 255, 255, 0.75)',
@@ -828,11 +839,11 @@ class SnakeScene extends Phaser.Scene {
                     .setOrigin(0, 0)
                     .setScale(withDPI(1), withDPI(1))
                     .setVisible(false)
-                /* !SECTION Second place */
+                /* !SECTION Third place */
 
                 /* SECTION Reward */
                 this.endGameModalRewardLabel = scene.add
-                    .text(withDPI(48), withDPI(489), 'Ontvangen beloning', {
+                    .text(withDPI(48), withDPI(withModalOffset(405)), 'Ontvangen beloning', {
                         fontFamily: 'Bubblegum Sans',
                         fontSize: '24px',
                         color: '#ffffff',
@@ -845,14 +856,14 @@ class SnakeScene extends Phaser.Scene {
                     .setVisible(false)
 
                 this.endGameModalMorfitCoin = scene.add
-                    .image(withDPI(48), withDPI(522), 'Snake:morfit_coin')
+                    .image(withDPI(48), withDPI(withModalOffset(438)), 'Snake:morfit_coin')
                     .setDepth(33)
                     .setOrigin(0, 0)
                     .setScale(withDPI(0.2), withDPI(0.2))
                     .setVisible(false)
 
                 this.endGameModalReward = scene.add
-                    .text(withDPI(88), withDPI(526), '000', {
+                    .text(withDPI(88), withDPI(withModalOffset(442)), '000', {
                         fontFamily: 'Bubblegum Sans',
                         fontSize: '24px',
                         color: '#ffffff',
@@ -868,7 +879,7 @@ class SnakeScene extends Phaser.Scene {
                 /* !SECTION Reward */
 
                 this.endGameModalCloseButton = scene.add
-                    .image(withDPI(168), withDPI(618), 'Snake:home_button')
+                    .image(withDPI(168), withDPI(withModalOffset(534)), 'Snake:home_button')
                     .setScale(withDPI(0.2), withDPI(0.2))
                     .setOrigin(0, 0)
                     .setDepth(33)
@@ -894,7 +905,7 @@ class SnakeScene extends Phaser.Scene {
                 /* !SECTION End game modal */
 
                 this.goToHomeButton = scene.add
-                    .image(withDPI(168), withDPI(618), 'Snake:home_button')
+                    .image(withDPI(168), withDPI(475 + yOffset + 16), 'Snake:home_button')
                     .setScale(withDPI(0.2), withDPI(0.2))
                     .setOrigin(0, 0)
                     .setDepth(20)
@@ -990,7 +1001,7 @@ class SnakeScene extends Phaser.Scene {
                             .ShiftPosition(
                                 otherPlayer.body.getChildren(),
                                 otherPlayer.headPosition.x * withDPI(12.5),
-                                (otherPlayer.headPosition.y * withDPI(12.5)) + withDPI(127),
+                                withOffset((otherPlayer.headPosition.y * withDPI(12.5))),
                                 1,
                                 otherPlayer.tail
                             );
@@ -1244,7 +1255,7 @@ class SnakeScene extends Phaser.Scene {
                     .ShiftPosition(
                         this.body.getChildren(),
                         this.headPosition.x * withDPI(12.5),
-                        (this.headPosition.y * withDPI(12.5)) + withDPI(127),
+                        withOffset((this.headPosition.y * withDPI(12.5))),
                         1,
                         this.tail
                 );
