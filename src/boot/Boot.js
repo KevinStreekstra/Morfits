@@ -13,6 +13,7 @@ import { game_RunMorfiRun_assets } from './games/_RunMorfiRun';
 import { pop_up_modal } from './_PopUpModal';
 import { StartQuiz } from './_StartQuiz';
 import { StopQuiz } from './_StopQuiz';
+import { characterCustomize_assets } from './_CharacterCustomize';
 
 //Quiz Questions
 import { Question1 } from './BootQuiz/_Question1';
@@ -37,6 +38,7 @@ class BootScene extends Phaser.Scene {
         this.pop_up_modal = pop_up_modal.bind(this);
         this.StartQuiz = StartQuiz.bind(this);
         this.StopQuiz = StopQuiz.bind(this);
+        this.characterCustomize_assets = characterCustomize_assets.bind(this);
 
         this.Question1 = Question1.bind(this);
         this.InfoQuestion = InfoQuestion.bind(this);
@@ -70,12 +72,14 @@ class BootScene extends Phaser.Scene {
         this.Question1();
         this.InfoQuestion();
         this.Question5();
+        this.characterCustomize_assets();
         // END LOAD SCENE ASSETS
 
         this.load.on('complete', () => {
             this.time.delayedCall(10, () => {
                 if(new Player().exists()) {
-                    this.scene.start('OverviewScene');
+                    // this.scene.start('OverviewScene');
+                    this.scene.start('CustomizeCharacter')
                 } else {
                     this.scene.start('CreatePlayerScene');
                 }
