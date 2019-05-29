@@ -64,5 +64,7 @@ export function character_assets() {
   // Long pants
   this.load.image('Character:pants_long_blank', require('../assets/character/clothings/pants/pants_long_variant_blank.png'));
   this.load.image('Character:pants_long_damaged', require('../assets/character/clothings/pants/pants_long_variant_damaged.png'));
-  this.load.image('Character:pants_long_worn', require('../assets/character/clothings/pants/pants_long_variant_worn.png'));
+    this.load.image('Character:pants_long_worn', require('../assets/character/clothings/pants/pants_long_variant_worn.png'));
+
+    this.load.image('Character:full', require('../assets/character/character.png'))
 }
