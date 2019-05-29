@@ -70,23 +70,20 @@ class StatsScene extends Phaser.Scene {
 
         this.levelIndicator = this.add.text(0, 0, this._player.getLevel(), { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(32 * window.devicePixelRatio)}px`});
       
-        Phaser.Display.Align.In.Center(
-            this.levelIndicator,
-            this.levelIndicatorBG
-        );
+        Phaser.Display.Align.In.Center(this.levelIndicator,this.levelIndicatorBG,0 ,2 * window.devicePixelRatio);
         
 
         this.level = this.add.text(0, 0, 'Level', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(22 * window.devicePixelRatio)}px`, fill: '#75BBE2'}); 
-        Phaser.Display.Align.In.Center(this.level, this.bg, 0, -360);
+        Phaser.Display.Align.In.Center(this.level, this.bg, 0, -180 * window.devicePixelRatio);
 
         this.myUsername = this.add.text(0, 0, this.player.username, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`});
-        Phaser.Display.Align.In.Center(this.myUsername, this.bg, 0, -305);
+        Phaser.Display.Align.In.Center(this.myUsername, this.bg, 0, -155 * window.devicePixelRatio);
 
         this.xpCount = this.add.text(0, 0, `${this.player.xp}/${this._player.getRequiredXP(this._player.getLevel())}`, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(14 * window.devicePixelRatio)}px`});
-        Phaser.Display.Align.In.Center(this.xpCount,this.bg, 0, -225);
+        Phaser.Display.Align.In.Center(this.xpCount,this.bg, 0, -120 * window.devicePixelRatio);
 
         this.Xpbar = this.addImage(0, 0, 'Stats:XPBar');
-        Phaser.Display.Align.In.Center(this.Xpbar, this.bg, 0, -180);
+        Phaser.Display.Align.In.Center(this.Xpbar, this.bg, 0, -100 * window.devicePixelRatio);
         this.grid.scaleTo(this.Xpbar, 0);
 
         // Mentaliteit 
@@ -95,10 +92,10 @@ class StatsScene extends Phaser.Scene {
         this.grid.scaleTo(this.SmallHeart, 0);
 
         this.Mentality = this.add.text(0, 0, 'Mentaliteit', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(18 * window.devicePixelRatio)}px`}).setOrigin(0.05, 0.45);
-        Phaser.Display.Align.In.Center(this.Mentality, this.bg, -90, -90);
+        Phaser.Display.Align.In.Center(this.Mentality, this.bg, -45 * window.devicePixelRatio, -45 * window.devicePixelRatio);
 
         this.mentalityStat = this.add.text(0, 0, this.player.mentality, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(18 * window.devicePixelRatio)}px`});
-        Phaser.Display.Align.In.Center(this.mentalityStat, this.bg, 150, -90);
+        Phaser.Display.Align.In.Center(this.mentalityStat, this.bg, 75 * window.devicePixelRatio, -45 * window.devicePixelRatio);
 
         // Energie
         this.SmallEnergy = this.addImage(0, 0, 'Stats:SmallEnergy');
@@ -106,10 +103,10 @@ class StatsScene extends Phaser.Scene {
         this.grid.scaleTo(this.SmallEnergy, 0);
 
         this.Energy = this.add.text(0, 0, 'Energie', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(18 * window.devicePixelRatio)}px`});
-        Phaser.Display.Align.In.Center(this.Energy, this.bg, -106, 0);
+        Phaser.Display.Align.In.Center(this.Energy, this.bg, -55 * window.devicePixelRatio, 0);
 
         this.energyStat = this.add.text(0, 0, this.player.energy, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(18 * window.devicePixelRatio)}px`});
-        Phaser.Display.Align.In.Center(this.energyStat, this.bg, 150, 0)
+        Phaser.Display.Align.In.Center(this.energyStat, this.bg, 75 * window.devicePixelRatio, 0)
 
         // Kracht
         this.SmallPower = this.addImage(0, 0, 'Stats:SmallPower');
