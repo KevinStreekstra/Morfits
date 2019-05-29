@@ -38,8 +38,8 @@ class WeeklyScene extends Phaser.Scene {
         this.popupplank = this.addImage(0, 0, 'Daily:popupPlank');
         this.grid.placeAtIndex(97, this.popupplank);
 
-        this.plank1 = this.addImage(0, 0, 'Weekly:Plank1');
-        this.grid.placeAtIndex(96, this.plank1);
+        this.plank1 = this.add.text(0, 0, 'Loop 10km in de week!', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(24 * window.devicePixelRatio)}px`});
+        Phaser.Display.Align.In.Center(this.plank1, this.popupplank, -35 * window.devicePixelRatio);
 
         this.check = this.addImage(0, 0, 'Weekly:Check');
         this.grid.placeAtIndex(102, this.check);
@@ -65,18 +65,20 @@ class WeeklyScene extends Phaser.Scene {
         this.active = this.addImage(0, 0, 'Daily:active');
         this.grid.placeAtIndex(56, this.active);
 
-        this.Quiz = this.addImage(0, 0, 'Daily:Quiz').setInteractive();
+        this.Quiz = this.add.text(0, 0, 'Quiz van de dag!', 
+        { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(25 * window.devicePixelRatio)}px`, align: 'center', wordWrap: {width: (100 * window.devicePixelRatio), useAdvancedWrap: true}});
+        Phaser.Display.Align.In.Center(this.Quiz, this.active, -200 * window.devicePixelRatio).setInteractive();
         this.Quiz.on('pointerdown', () => {
             this.scene.stop('WeeklyScene');
             this.scene.wake('DailyScene');
         });
-        this.grid.placeAtIndex(48, this.Quiz);    
+
 
         this.seperator = this.addImage(0, 0, 'Daily:seperator');
         this.grid.placeAtIndex(52, this.seperator);   
 
-        this.mission = this.addImage(0, 0, 'Daily:Mission');
-        this.grid.placeAtIndex(56, this.mission);
+        this.mission = this.add.text(0, 0, 'Missie van de week!', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(25 * window.devicePixelRatio)}px`, align: 'center', wordWrap: {width: (100 * window.devicePixelRatio), useAdvancedWrap: true}});
+        Phaser.Display.Align.In.Center(this.mission, this.active);
        
 
         // this.grid.showNumbers();

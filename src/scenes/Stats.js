@@ -115,10 +115,10 @@ class StatsScene extends Phaser.Scene {
 
 
         this.Kracht = this.add.text(0, 0, 'Kracht', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(18 * window.devicePixelRatio)}px`});
-        Phaser.Display.Align.In.Center(this.Kracht, this.bg, -116, 90);
+        Phaser.Display.Align.In.Center(this.Kracht, this.bg, -59 * window.devicePixelRatio, 45 * window.devicePixelRatio);
 
         this.krachtStat = this.add.text(0, 0, this.player.power, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(18 * window.devicePixelRatio)}px`});
-        Phaser.Display.Align.In.Center(this.krachtStat, this.bg, 150, 90);
+        Phaser.Display.Align.In.Center(this.krachtStat, this.bg, 75 * window.devicePixelRatio, 45 * window.devicePixelRatio);
 
         // Stop scene
         this.quit = this.addImage(0, 0, 'Daily:quit').setOrigin(.5, .675).setInteractive();
@@ -137,10 +137,10 @@ class StatsScene extends Phaser.Scene {
         Phaser.Display.Align.In.Center(this.BigHeart, this.popupplank, -200, -60);
         this.grid.scaleTo(this.BigHeart, 0);
 
-        this.mentalitytxt = this.add.text(0, 0, 'Mentaliteit', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(20 * window.devicePixelRatio)}px`});
+        this.mentalitytxt = this.add.text(0, 0, 'Mentaliteit', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`});
         Phaser.Display.Align.In.Center(this.mentalitytxt,this.popupplank,-200,30);
         
-        this.mentalityView = this.add.text(0, 0, `${this.player.mentality}/100`, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(20 * window.devicePixelRatio)}px`});
+        this.mentalityView = this.add.text(0, 0, `${this.player.mentality}/100`, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`});
         Phaser.Display.Align.In.Center(this.mentalityView,this.popupplank, -200, 80);
       
 
@@ -149,10 +149,10 @@ class StatsScene extends Phaser.Scene {
         this.grid.scaleTo(this.BigEnergy, 0);
         Phaser.Display.Align.In.Center(this.BigEnergy,this.popupplank,0,-60);
 
-        this.energytxt = this.add.text(0, 0, 'Energie', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(20 * window.devicePixelRatio)}px`});
+        this.energytxt = this.add.text(0, 0, 'Energie', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`});
         Phaser.Display.Align.In.Center(this.energytxt,this.popupplank,0,30);
         
-        this.energyView = this.add.text(0, 0, `${this.player.energy}/100`, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(20 * window.devicePixelRatio)}px`});
+        this.energyView = this.add.text(0, 0, `${this.player.energy}/100`, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`});
         Phaser.Display.Align.In.Center(this.energyView,this.popupplank, 0, 80);
 
         // Kracht
@@ -160,10 +160,10 @@ class StatsScene extends Phaser.Scene {
         Phaser.Display.Align.In.Center(this.BigPower,this.popupplank,200,-60);
         this.grid.scaleTo(this.BigPower, 0);
 
-        this.powertxt = this.add.text(0, 0, 'Power', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(20 * window.devicePixelRatio)}px`});
+        this.powertxt = this.add.text(0, 0, 'Power', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`});
         Phaser.Display.Align.In.Center(this.powertxt,this.popupplank,200,30);
         
-        this.powerView = this.add.text(0, 0, `${this.player.power}/100`, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(20 * window.devicePixelRatio)}px`});
+        this.powerView = this.add.text(0, 0, `${this.player.power}/100`, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`});
         Phaser.Display.Align.In.Center(this.powerView,this.popupplank, 200, 80);
 
         this.tweens.add({

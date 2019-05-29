@@ -14,6 +14,7 @@ import PopupModalScene from './scenes/PopupModal';
 import ShopScene from './scenes/Shop';
 import StartQuiz from "./scenes/StartQuiz";
 import StopQuiz from "./scenes/StopQuiz";
+import TopNavBar from "./scenes/TopNavBar";
 
 //Quiz questions
 import Question1 from "./scenes/QuizScenes/Question1";
@@ -66,6 +67,7 @@ const game = new Phaser.Game({
         ShopScene,
         StartQuiz,
         StopQuiz,
+        TopNavBar,
         Question1,
         Question2,
         Question3,

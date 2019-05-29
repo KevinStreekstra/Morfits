@@ -17,13 +17,9 @@ class StartQuiz extends Phaser.Scene {
         this.quiz;
         this.btn;
         this.plank1;
-        this.txt1;
         this.plank2;
-        this.txt2;
         this.plank3;
-        this.txt3;
         this.plank4;
-        this.txt4;
 
         this.addImage = addImage.bind(this);
     }
@@ -69,27 +65,21 @@ class StartQuiz extends Phaser.Scene {
         this.plank1 = this.addImage(0, 0, 'Quiz:Plank_1');
         this.grid.placeAtIndex(67, this.plank1);
 
-        this.txt1 = this.add.text(0, 0, 'Doe mee met de quiz van de', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 1.8).setAngle(4, 1);
+        this.txt1 = this.add.text(0, 0, 'Doe mee met de quiz van de week en win 5 M-Dollars voor vandaag!', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, wordWrap: {width: (175 * window.devicePixelRatio), useAdvancedWrap: true}}).setOrigin(0.5, 0.5).setAngle(4, 1);
         this.grid.placeAtIndex(67, this.txt1);
-        this.txt1 = this.add.text(0, 0, 'week en win 5 M-Dollars', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.5).setAngle(4, 1);
-        this.grid.placeAtIndex(67, this.txt1);
-        this.txt1 = this.add.text(0, 0, 'voor vandaag!', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`,}).setOrigin(0.5, -0.7).setAngle(4, 1);
-        this.grid.placeAtIndex(67, this.txt1);
+  
 
         this.plank2= this.addImage(0, 0, 'Quiz:Plank_2');
         this.grid.placeAtIndex(97, this.plank2);
 
-        this.txt2 = this.add.text(0, 0, 'Er zijn 5 vragen, voor elke', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 1);
+        this.txt2 = this.add.text(0, 0, 'Er zijn 5 vragen, voor elke vraag krijg je een punt!', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, wordWrap: {width: (175 * window.devicePixelRatio), useAdvancedWrap: true}}).setOrigin(0.5, 0.5);
         this.grid.placeAtIndex(97, this.txt2);
-        this.txt2 = this.add.text(0, 0, 'vraag krijg je een punt!', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.1);
-        this.grid.placeAtIndex(97, this.txt2);
+  
 
         this.plank3 = this.addImage(0, 0, 'Quiz:Plank_3');
         this.grid.placeAtIndex(127, this.plank3);
 
-        this.txt3 = this.add.text(0, 0, 'De laatste is een bonus vraag waarop', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 1.3).setAngle(357, 1);
-        this.grid.placeAtIndex(127, this.txt3);
-        this.txt3 = this.add.text(0, 0, 'je extra je M-Dollar voor krijgt', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.5).setAngle(357, 1);
+        this.txt3 = this.add.text(0, 0, 'De laatste is een bonus vraag waarop je extra M-Dollars voor krijgt!', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, wordWrap: {width: (175 * window.devicePixelRatio), useAdvancedWrap: true}}).setOrigin(0.5, 0.5).setAngle(357, 1);
         this.grid.placeAtIndex(127, this.txt3);
 
         this.plank4 = this.addImage(0, 0, 'Quiz:Plank_4').setOrigin(0.5, 0.45);
