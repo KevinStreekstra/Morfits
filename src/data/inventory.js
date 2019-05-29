@@ -18,7 +18,7 @@ export const INVENTORY = [
         id: 'dfb25653-0196-4458-80f1-dd83a1cfb147',
         itemLevel: 1,
         upgradeCost: 20,
-        textureKey: 'tShirt_blank',
+        textureKey: 'Character:tShirt_blank',
         category: 'SHIRT'
     },
     {
