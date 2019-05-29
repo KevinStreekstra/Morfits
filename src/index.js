@@ -14,6 +14,7 @@ import PopupModalScene from './scenes/PopupModal';
 import ShopScene from './scenes/Shop';
 import StartQuiz from "./scenes/StartQuiz";
 import StopQuiz from "./scenes/StopQuiz";
+import CustomizeCharacterScene from "./scenes/CustomizeCharacter";
 
 //Quiz questions
 import Question1 from "./scenes/QuizScenes/Question1";
@@ -34,7 +35,7 @@ const game = new Phaser.Game({
     parent: 'game',
     type: Phaser.AUTO,
     width: 375,
-    height: 675,
+    height: window.innerHeight,
     dom: {
       createContainer: true,
     },
@@ -50,7 +51,7 @@ const game = new Phaser.Game({
         zoom: 1 / devicePixelRatio,
         scale: Phaser.Scale.NONE,
         width: 375 * devicePixelRatio,
-        height: 675 * devicePixelRatio
+        height: window.innerHeight * devicePixelRatio
     },
     scene: [
         LoadingScene,
@@ -74,6 +75,7 @@ const game = new Phaser.Game({
         InfoQuestion,
         Question5,
         QuizReward,
+        CustomizeCharacterScene,
     ],
 });
 

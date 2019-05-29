@@ -1,5 +1,4 @@
 import AlignGrid from '../classes/AlignGrid';
-
 import { addImage } from '../helpers';
 
 class DailyScenes extends Phaser.Scene {
@@ -54,9 +53,9 @@ class DailyScenes extends Phaser.Scene {
         this.grid.placeAtIndex(142, this.popupplank);
         this.grid.scaleTo(this.popupplank, 0);
 
-        this.popuptxt = this.addImage(0, 0, 'Daily:Planktxt');
-        this.grid.placeAtIndex(142, this.popuptxt);
-        this.grid.scaleTo(this.popuptxt, 0);
+        this.popuptxt = this.add.text(0, 0, 'Doe mee met de Quiz van de week en win 5 M-Dollars voor vandaag!', 
+        { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(20 * window.devicePixelRatio)}px`, wordWrap: {width: (300 * window.devicePixelRatio), useAdvancedWrap: true}});
+        Phaser.Display.Align.In.Center(this.popuptxt, this.popupplank);
 
         this.ribbonCoins = this.addImage(0, 0, 'Daily:ribbonCoins');
         this.grid.placeAtIndex(97, this.ribbonCoins);
@@ -66,21 +65,22 @@ class DailyScenes extends Phaser.Scene {
         this.grid.placeAtIndex(48, this.active);
         this.grid.scaleTo(this.active, 0);
 
-        this.Quiz = this.addImage(0, 0, 'Daily:Quiz');
-        this.grid.placeAtIndex(48, this.Quiz);
-        this.grid.scaleTo(this.Quiz, 0);
+
+        this.Quiz = this.add.text(0, 0, 'Quiz van de dag!', 
+        { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(25 * window.devicePixelRatio)}px`, align: 'center', wordWrap: {width: (100 * window.devicePixelRatio), useAdvancedWrap: true}});
+        Phaser.Display.Align.In.Center(this.Quiz, this.active);
 
         this.seperator = this.addImage(0, 0, 'Daily:seperator');
         this.grid.placeAtIndex(52, this.seperator);
         this.grid.scaleTo(this.seperator, 0);
 
-        this.mission = this.addImage(0, 0, 'Daily:Mission').setInteractive();
-        this.grid.placeAtIndex(56, this.mission);
+        this.mission = this.add.text(0, 0, 'Missie van de week!', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(25 * window.devicePixelRatio)}px`, align: 'center', wordWrap: {width: (100 * window.devicePixelRatio), useAdvancedWrap: true}});
+        Phaser.Display.Align.In.Center(this.mission, this.active, 200 * window.devicePixelRatio).setInteractive();
         this.mission.on('pointerdown', () => {
             this.scene.sleep('DailyScene');
             this.scene.launch('WeeklyScene');
         });
-        this.grid.scaleTo(this.mission, 0);
+   
 
         this.tweens.add({
             targets: [
@@ -89,12 +89,10 @@ class DailyScenes extends Phaser.Scene {
                 this.start,
                 this.quit,
                 this.popupplank,
-                this.popuptxt,
                 this.ribbonCoins,
                 this.active,
-                this.Quiz,
                 this.seperator,
-                this.mission,
+         
              ],
             scaleX: 1 * window.devicePixelRatio,
             scaleY: 1 * window.devicePixelRatio,
