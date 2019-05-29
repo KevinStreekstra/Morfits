@@ -66,10 +66,10 @@ class OverviewScene extends Phaser.Scene {
             height: this.sys.game.config.height
         });
 
-        this.bg = this.addImage(0, 0, 'overview:bg');   
+        this.bg = this.addImage(0, 0, 'overview:bg');
         this.grid.placeAtIndex(112, this.bg);
 
-        // Top Navbar 
+        // Top Navbar
         this.TopNavbar = this.addImage(0, 0, 'overview:BottomNavbar');
         this.grid.placeAtIndex(7, this.TopNavbar);
         this.whiteBg = this.addImage(0, 0, 'overview:whiteBG').setOrigin(0.55, 0.45).setInteractive();
@@ -77,9 +77,9 @@ class OverviewScene extends Phaser.Scene {
             this.scene.launch('StatsScene');
         });
         this.grid.placeAtIndex(3, this.whiteBg);
-        this.Mylevel = this.add.text(0, 0, this._player.getLevel(), { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(18 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(1.4, 0.2);
-        this.grid.placeAtIndex(1, this.Mylevel);
-        this.Myname = this.add.text(0, 0, this.player.username, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black', Align: 'center'}).setOrigin(0.6, 0.25);
+        this.Mylevel = this.add.text(0, 0, this._player.getLevel(), { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(1.4, .2);
+        this.grid.placeAtIndex(1, this.Mylevel)
+        this.Myname = this.add.text(0, 0, this.player.username, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(0.6, 0.25);
         this.grid.placeAtIndex(3, this.Myname);
         this.navPP = this.addImage(0, 0, 'overview:navPP').setOrigin(0.8, 0.43);
         this.grid.placeAtIndex(9, this.navPP);
@@ -109,12 +109,11 @@ class OverviewScene extends Phaser.Scene {
         this.txtKleding = this.add.text(0, 0, 'Kleding', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(0, 0.5);
         this.grid.placeAtIndex(210, this.txtKleding);
 
-        this.games = this.addImage(0, 0, 'overview:btnGames').setOrigin(0.5, 0.37);
+        this.games = this.addImage(0, 0, 'overview:btnGames').setOrigin(0.5, 0.37).setInteractive();
         this.grid.placeAtIndex(199, this.games);
-        this.games.setInteractive();
-        this.games.on('pointerdown', () => {	        
-            this.scene.launch('RunMorfiRun');
-         });
+        this.games.on('pointerdown', () => {
+            this.scene.start('GameSelect')
+        })
 
         this.txtGames = this.add.text(0, 0, 'Games', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(-0.1, 0.5);
         this.grid.placeAtIndex(213, this.txtGames);
@@ -151,8 +150,8 @@ class OverviewScene extends Phaser.Scene {
         this.txtXPbar = this.add.text(0, 0, `${this.player.xp}/${this._player.getRequiredXP(this._player.getLevel())}`, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(10 * window.devicePixelRatio)}px`});
         this.grid.placeAtIndex(171, this.txtXPbar);
 
-        this.XPbar = this.addImage(0, 0, 'overview:XPbar').setOrigin(0.28, 0);
-        this.grid.placeAtIndex(171, this.XPbar);
+        this.XPbar = this.addImage(0, 0, 'overview:XPbar').setOrigin(.28, 0);
+        this.grid.placeAtIndex(171, this.XPbar)
 
         this.HomePlant = this.addImage(0, 0, 'overview:HomePlant2');
         this.grid.placeAtIndex(164, this.HomePlant);
@@ -170,7 +169,7 @@ class OverviewScene extends Phaser.Scene {
 
         // Healthbars
         // Mental
-        this.MentalBar = this.addImage(0, 0, 'overview:MentalBar').setOrigin(0.4, 0); 
+        this.MentalBar = this.addImage(0, 0, 'overview:MentalBar').setOrigin(0.4, 0);
         this.grid.placeAtIndex(17, this.MentalBar);
 
         this.txtMentalbar = this.add.text(0, 0, '0/100', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: '#2CD632'}).setOrigin(0.1, 0.9);
@@ -180,7 +179,7 @@ class OverviewScene extends Phaser.Scene {
         this.grid.placeAtIndex(15, this.IconMental);
 
         // Energy
-        this.EnergyBar = this.addImage(0, 0, 'overview:EnergyBar').setOrigin(0.4, 0); 
+        this.EnergyBar = this.addImage(0, 0, 'overview:EnergyBar').setOrigin(0.4, 0);
         this.grid.placeAtIndex(22, this.EnergyBar);
 
         this.txtEnergybar = this.add.text(0, 0, '100/100', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: '#3192C9'}).setOrigin(0.1, 0.9);
@@ -190,7 +189,7 @@ class OverviewScene extends Phaser.Scene {
         this.grid.placeAtIndex(20, this.IconEnergy);
 
         // Power
-        this.PowerBar = this.addImage(0, 0, 'overview:PowerBar').setOrigin(0.4, 0); 
+        this.PowerBar = this.addImage(0, 0, 'overview:PowerBar').setOrigin(0.4, 0);
         this.grid.placeAtIndex(27, this.PowerBar);
 
         this.txtPowerbar = this.add.text(0, 0, '100/100', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: '#FF6565'}).setOrigin(0.1, 0.8);
@@ -200,7 +199,7 @@ class OverviewScene extends Phaser.Scene {
         this.grid.placeAtIndex(25, this.IconPower);
 
 
-        this.grid.showNumbers();
+        //this.grid.showNumbers();
     }
 
     update() {

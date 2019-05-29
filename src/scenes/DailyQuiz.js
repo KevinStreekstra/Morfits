@@ -1,5 +1,4 @@
 import AlignGrid from '../classes/AlignGrid';
-
 import { addImage } from '../helpers';
 
 class DailyScenes extends Phaser.Scene {
@@ -54,9 +53,12 @@ class DailyScenes extends Phaser.Scene {
         this.grid.placeAtIndex(142, this.popupplank);
         this.grid.scaleTo(this.popupplank, 0);
 
-        this.popuptxt = this.addImage(0, 0, 'Daily:Planktxt');
-        this.grid.placeAtIndex(142, this.popuptxt);
-        this.grid.scaleTo(this.popuptxt, 0);
+        // this.popuptxt = this.addImage(0, 0, 'Daily:Planktxt');
+        // this.grid.placeAtIndex(142, this.popuptxt);
+        // this.grid.scaleTo(this.popuptxt, 0);
+        this.popuptxt = this.add.text(0, 0, 'Doe mee met de Quiz van de week en win 5 M-Dollars voor vandaag!', 
+        { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(20 * window.devicePixelRatio)}px`, wordWrap: {width: (300 * window.devicePixelRatio), useAdvancedWrap: true}});
+        Phaser.Display.Align.In.Center(this.popuptxt, this.popupplank);
 
         this.ribbonCoins = this.addImage(0, 0, 'Daily:ribbonCoins');
         this.grid.placeAtIndex(97, this.ribbonCoins);
@@ -89,7 +91,6 @@ class DailyScenes extends Phaser.Scene {
                 this.start,
                 this.quit,
                 this.popupplank,
-                this.popuptxt,
                 this.ribbonCoins,
                 this.active,
                 this.Quiz,

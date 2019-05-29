@@ -24,10 +24,10 @@ class Shop extends Phaser.Scene {
 
     create() {
         this.grid = new AlignGrid({
-            scene: this, 
-            rows: 15, 
-            cols: 15, 
-            width: this.sys.game.config.width, 
+            scene: this,
+            rows: 15,
+            cols: 15,
+            width: this.sys.game.config.width,
             height: this.sys.game.config.height
         });
 
@@ -35,7 +35,7 @@ class Shop extends Phaser.Scene {
 
         this.TopNavbar = this.addImage(0, 0, 'overview:BottomNavbar');
         this.grid.placeAtIndex(7, this.TopNavbar);
-        this.whiteBg = this.addImage(0, 0, 'overview:whiteBG').setOrigin(0.55, 0.45); 
+        this.whiteBg = this.addImage(0, 0, 'overview:whiteBG').setOrigin(0.55, 0.45);
         this.grid.placeAtIndex(3, this.whiteBg);
         this.Mylevel = this.add.text(0, 0, this._player.getLevel(), { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(1, 0.25);
         this.grid.placeAtIndex(1, this.Mylevel);
@@ -81,8 +81,7 @@ class Shop extends Phaser.Scene {
             this.shopItemImage.setAttribute('data-level', _ITEMS[i].requiredLevel);
             this.shopItem.appendChild(this.shopItemImage);
 
-            if(this._player.getLevel() >= _ITEMS[i].requiredLevel)
-            {
+            if (this._player.getLevel() >= _ITEMS[i].requiredLevel) {
                 this.shopItemImage.style.backgroundImage = "url('" + _ITEMS[i].asset + "')";
                 this.shopItemButton = document.createElement('button');
                 this.shopItemButton.setAttribute('data-id', _ITEMS[i].id);
@@ -90,7 +89,8 @@ class Shop extends Phaser.Scene {
                 this.shopItem.appendChild(this.shopItemButton);
             } else {
                 this.shopItemImage.className = "locked";
-                this.shopItemImage.style.backgroundImage = "url('./src/assets/item-states/locked-overlay.png'), url('" + _ITEMS[i].asset + "')";
+                this.shopItemImage.style.backgroundImage = `url(${require('../assets/item-states/locked-overlay.png')
+            }), url('` + _ITEMS[i].asset + "')";
             }
 
             this._shopContainer.appendChild(this.shopItem);

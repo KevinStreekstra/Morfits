@@ -1,17 +1,21 @@
 import Player from '../classes/Player';
-import FormUtil from '../classes/FormUtil';
+import AlignGrid from '../classes/AlignGrid';
+
+import { addImage, addElement, addRectangle } from '../helpers';
 
 class CreatePlayerScene extends Phaser.Scene {
     constructor() {
         super({
             key: 'CreatePlayerScene'
         });
+
+        this.addElement = addElement.bind(this);
     }
     
     preload() {}
 
     create() {
-        this.formUtil = new FormUtil({
+        this.grid = new AlignGrid({
             scene: this,
             rows: 11,
             cols: 11,
@@ -19,23 +23,22 @@ class CreatePlayerScene extends Phaser.Scene {
             height: this.sys.game.config.height,
         });
 
-        this.formUtil.show('formUtil');
+        this.input_username = this.addElement(0, 0, "input");
+        this.grid.placeAtIndex(38, this.input_username);
 
-        this.formUtil.scaleToGameW('player:username', 0.5);
-        this.formUtil.placeElementAt(37, 'player:username', true);
-
-        this.formUtil.scaleToGameW('player:submit', 0.5);
-        this.formUtil.placeElementAt(48, 'player:submit', true);
-        this.formUtil.addClickCallback('player:submit', ()=>{
-            let txt = this.formUtil.getTextValue('player:username');
+        this.submit = this.addElement(0, 0, "button").setText('Klaar');
+        this.submit.addListener('click');
+        this.submit.on('click', function(e) {
+            let txt = this.input_username.node.value;
             if(txt.length > 0) {
-                new Player().init(txt);
-                this.formUtil.hide('formUtil');
+                new Player().init(txt)
                 this.scene.start('OverviewScene');
+                this.scene.stop('CreatePlayerScene');
             }
-        }, this);
+        }, this)
+        this.grid.placeAtIndex(49, this.submit);
 
-        //this.formUtil.showNumbers();
+        //this.grid.showNumbers();
     }
 }
 

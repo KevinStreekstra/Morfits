@@ -7,9 +7,12 @@ import { dailyQuiz_assets } from './_DailyQuiz';
 import { weeklyMission_assets } from './_WeeklyMission';
 import { shop } from './_Shop';
 import { stats } from './_Stats';
+import { snake_assets } from './_Snake';
+import { gameSelect_assets } from './_GameSelect';
 import { game_RunMorfiRun_assets } from './games/_RunMorfiRun';
+import { character_assets } from './_Character';
 import { pop_up_modal } from './_PopUpModal';
-import { StartQuiz } from './_StartQuiz'; 
+import { StartQuiz } from './_StartQuiz';
 import { StopQuiz } from './_StopQuiz';
 
 //Quiz Questions
@@ -29,6 +32,9 @@ class BootScene extends Phaser.Scene {
         this.weeklyMission_assets = weeklyMission_assets.bind(this);
         this.shop = shop.bind(this);
         this.stats = stats.bind(this);
+        this.snake_assets = snake_assets.bind(this);
+        this.gameSelect_assets = gameSelect_assets.bind(this);
+        this.character_assets = character_assets.bind(this);
         this.game_RunMorfiRun_assets = game_RunMorfiRun_assets.bind(this);
         this.pop_up_modal = pop_up_modal.bind(this);
         this.StartQuiz = StartQuiz.bind(this);
@@ -44,14 +50,12 @@ class BootScene extends Phaser.Scene {
         div.style.transform = "scale(" + (1 / window.devicePixelRatio) + ")";
 
         this.grid = new AlignGrid({
-            scene: this, 
-            rows: 13, 
+            scene: this,
+            rows: 13,
             cols: 11,
-            width: this.sys.game.config.width,         
+            width: this.sys.game.config.width,
             height: this.sys.game.config.height
         });
-
-        this.load.css('master', './src/master.css');
 
         // START LOAD SCENE ASSETS
         this.overview_assets();
@@ -59,6 +63,9 @@ class BootScene extends Phaser.Scene {
         this.weeklyMission_assets();
         this.shop();
         this.stats();
+        this.snake_assets();
+        this.gameSelect_assets();
+        this.character_assets();
         this.game_RunMorfiRun_assets();
         this.pop_up_modal();
         this.StartQuiz();
@@ -69,7 +76,7 @@ class BootScene extends Phaser.Scene {
         // END LOAD SCENE ASSETS
 
         this.load.on('complete', () => {
-            this.time.delayedCall(1000, () => {
+            this.time.delayedCall(10, () => {
                 if(new Player().exists()) {
                     this.scene.start('OverviewScene');
                 } else {
