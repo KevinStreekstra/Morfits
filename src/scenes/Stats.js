@@ -70,20 +70,17 @@ class StatsScene extends Phaser.Scene {
 
         this.levelIndicator = this.add.text(0, 0, this._player.getLevel(), { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(32 * window.devicePixelRatio)}px`});
       
-        Phaser.Display.Align.In.Center(
-            this.levelIndicator,
-            this.levelIndicatorBG
-        );
+        Phaser.Display.Align.In.Center(this.levelIndicator,this.levelIndicatorBG,0 ,2 * window.devicePixelRatio);
         
 
         this.level = this.add.text(0, 0, 'Level', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(22 * window.devicePixelRatio)}px`, fill: '#75BBE2'}); 
-        Phaser.Display.Align.In.Center(this.level, this.bg, 0, -360);
+        Phaser.Display.Align.In.Center(this.level, this.bg, 0, -180 * window.devicePixelRatio);
 
         this.myUsername = this.add.text(0, 0, this.player.username, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`});
-        Phaser.Display.Align.In.Center(this.myUsername, this.bg, 0, -305);
+        Phaser.Display.Align.In.Center(this.myUsername, this.bg, 0, -155 * window.devicePixelRatio);
 
         this.xpCount = this.add.text(0, 0, `${this.player.xp}/${this._player.getRequiredXP(this._player.getLevel())}`, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(14 * window.devicePixelRatio)}px`});
-        Phaser.Display.Align.In.Center(this.xpCount,this.bg, 0, -225);
+        Phaser.Display.Align.In.Center(this.xpCount,this.bg, 0, -125 * window.devicePixelRatio);
 
         this.Xpbar = this.addImage(0, 0, 'Stats:XPBar');
         Phaser.Display.Align.In.Center(this.Xpbar, this.bg, 0, -180);
