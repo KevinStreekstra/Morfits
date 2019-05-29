@@ -135,6 +135,7 @@ class OverviewScene extends Phaser.Scene {
         this.quiz = this.addImage(0, 0, 'overview:btnQuiz').setOrigin(0.5, 0.37).setInteractive();
         this.quiz.on('pointerdown', () => {
             this.scene.launch('DailyScene');
+            this.scene.stop('ShopScene');
         });
         this.grid.placeAtIndex(208, this.quiz);
 

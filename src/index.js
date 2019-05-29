@@ -22,6 +22,7 @@ import Question3 from "./scenes/QuizScenes/Question3";
 import Question4 from "./scenes/QuizScenes/Question4";
 import InfoQuestion from "./scenes/QuizScenes/InfoQuestion";
 import Question5 from "./scenes/QuizScenes/Question5";
+import QuizReward from "./scenes/QuizScenes/QuizReward";
 
 // Styling
 import './master.css';
@@ -72,6 +73,7 @@ const game = new Phaser.Game({
         Question4,
         InfoQuestion,
         Question5,
+        QuizReward,
     ],
 });
 
