@@ -8,6 +8,24 @@ export function characterCustomize_assets () {
     this.load.image('CharacterCustomize:button_shirt', require('../assets/character_customize/button_shirt.png'))
     this.load.image('CharacterCustomize:button_shoes', require('../assets/character_customize/button_shoes.png'))
 
+    // Active navigation buttons
+    this.load.image(
+        'CharacterCustomize:button_hat_active',
+        require('../assets/character_customize/button_hat_active.png')
+    )
+    this.load.image(
+        'CharacterCustomize:button_pants_active',
+        require('../assets/character_customize/button_pants_active.png')
+    )
+    this.load.image(
+        'CharacterCustomize:button_shirt_active',
+        require('../assets/character_customize/button_shirt_active.png')
+    )
+    this.load.image(
+        'CharacterCustomize:button_shoes_active',
+        require('../assets/character_customize/button_shoes_active.png')
+    )
+
     this.load.image('CharacterCustomize:navigation_background', require('../assets/character_customize/navigation_background.png'))
     this.load.image('CharacterCustomize:inventory_background', require('../assets/character_customize/inventory_background.png'))
 
