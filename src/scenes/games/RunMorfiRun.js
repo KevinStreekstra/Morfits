@@ -15,8 +15,8 @@ class RunMorfiRun extends Phaser.Scene {
             'h' = H ealty food
             'u' = U nhealty food
             '.' = End of platform boundary
-        */ 
-        this.map = 
+        */
+        this.map =
         '.                              1                                                                                                       1                                     1                                                                                                       1                             .'+
         '.                      h                         u                1         h                                   h              h                                     h                         u                1         h                                   h              h                         u           .'+
         '.        1                               1             1                                               1                                         1     1                               1             1                                               1                                         1                   .'+
@@ -26,13 +26,12 @@ class RunMorfiRun extends Phaser.Scene {
         '.                                                                                                                                                                                                                                                                                                                  .'+
         '4444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444';
     }
-    
+
     preload() {    }
 
     create() {
-        console.log('run morfi run game created');  
         this.initialTime = 60;
-    
+
         this.cameras.main.setBackgroundColor('#132B4B');
 
         this.input.addPointer(3);
@@ -50,8 +49,8 @@ class RunMorfiRun extends Phaser.Scene {
         this.physics.pause();
 
         this.text = this.add.text(
-            withDPI(32), 
-            withDPI(32), 
+            withDPI(32),
+            withDPI(32),
             this.formatTime(this.initialTime),
             {
                 color: '#132B4B',
@@ -59,7 +58,7 @@ class RunMorfiRun extends Phaser.Scene {
                 fontSize: withDPI(22),
             }
         ).setScrollFactor(0);
-        this.timedEvent = this.time.addEvent({ delay: 1000, callback: this.onTimeEvent, callbackScope: this, loop: true });      
+        this.timedEvent = this.time.addEvent({ delay: 1000, callback: this.onTimeEvent, callbackScope: this, loop: true });
         this.timedEvent.paused = true;
 
         this.scene.launch('PopupModalScene', {
@@ -96,11 +95,11 @@ class RunMorfiRun extends Phaser.Scene {
                 },
                 {
                     text: `
-                    Zorg dat je binnen ${this.initialTime} seconde 
+                    Zorg dat je binnen ${this.initialTime} seconde
                     de finish lijn behaald.
 
-                    Als je gezond eten eet ren je sneller, 
-                    als je ongezond eten eet 
+                    Als je gezond eten eet ren je sneller,
+                    als je ongezond eten eet
                     ren je langzamer.
                     `,
                     fontSize: 23,
@@ -115,30 +114,26 @@ class RunMorfiRun extends Phaser.Scene {
         this.spawnMinimap();
 
         this.button_jump.on('pointerdown', (pointer1) => {
-            console.log({ buttonJumpDown: pointer1 })
-            this.jump = pointer1.isDown;        
+            this.jump = pointer1.isDown;
         });
-        
+
         this.button_run.on('pointerdown', (pointer2) => {
-            console.log({ buttonRunDown: pointer2 })
             this.run = pointer2.isDown;
         });
         this.button_jump.on('pointerup', (pointer1) => {
-            console.log({ buttonJumpUp: pointer1 })
-            this.jump = false;        
+            this.jump = false;
         });
-        
+
         this.button_run.on('pointerup', (pointer2) => {
-            console.log({ buttonRunUp: pointer2 })
             this.run = false;
         });
 
     }
- 
+
     update() {
         this.setSpeed();
         if(this.run){
-            this.player.setVelocityX(withDPI(400)) 
+            this.player.setVelocityX(withDPI(400))
         }
         if(this.jump && this.player.body.touching.down){
             this.player.setVelocityY(withDPI(-550));
@@ -168,7 +163,6 @@ class RunMorfiRun extends Phaser.Scene {
 
     // Times up, lets do this. Leeeeerrroooooyyy Jankinsss!
     timeRanOut(){
-        console.log('times up');
         this.done(false);
     }
 
@@ -203,7 +197,7 @@ class RunMorfiRun extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.unhealty, this.reduceSpeed, null, this);
 
         this.physics.add.overlap(this.player, this.finish, this.done, null, this);
-        
+
         this.cameras.main.startFollow(this.player, true, true, 0);
     }
     spawnMinimap(){
@@ -211,7 +205,7 @@ class RunMorfiRun extends Phaser.Scene {
     }
     createPlatform(){
         this.platforms = this.physics.add.staticGroup();
-        this.grounds = this.physics.add.staticGroup(); 
+        this.grounds = this.physics.add.staticGroup();
         this.healty = this.physics.add.staticGroup();
         this.unhealty = this.physics.add.staticGroup();
         this.finish = this.physics.add.staticGroup();
@@ -230,7 +224,7 @@ class RunMorfiRun extends Phaser.Scene {
                     } else if(row.charAt(i-1)==='1'){
                         this.spawnPlayer(drawX+withDPI(4), drawY-withDPI(12));
                     } else {
-                        this.spawnPlayer(drawX, drawY-withDPI(12));					
+                        this.spawnPlayer(drawX, drawY-withDPI(12));
                     }
                 } else if(row.charAt(i+1)==='h') {
                     this.healty.create(drawX, drawY, this.randomizeFood(["games:pineapple", "games:lemon","games:cherry","games:carrot"])).setScale(withDPI(0.15),withDPI(0.15)).setOrigin(0, 4).refreshBody();

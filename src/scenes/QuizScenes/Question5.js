@@ -99,7 +99,7 @@ class Question5 extends Phaser.Scene {
        this.BonusPlank = this.addImage(0, 0, 'Info:bonusPlank');
        this.grid.placeAtIndex(67, this.BonusPlank);
 
-        this.grid.showNumbers();
+        //this.grid.showNumbers();
     }
     
 }

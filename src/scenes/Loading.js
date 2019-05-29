@@ -11,33 +11,33 @@ class LoadingScene extends Phaser.Scene {
 
     preload() {
         this.grid = new AlignGrid({
-            scene: this, 
-            rows: 13, 
+            scene: this,
+            rows: 13,
             cols: 11,
-            width: this.sys.game.config.width,         
+            width: this.sys.game.config.width,
             height: this.sys.game.config.height
         });
 
-        this.load.spritesheet('bird1', 'src/assets/boot/bird-1.png', {frameWidth: 400, frameHeight: 400});
-        this.load.spritesheet('bird2', 'src/assets/boot/bird-2.png', {frameWidth: 400, frameHeight: 400});
-        this.load.image('ground', 'src/assets/boot/ground.png');
-        this.load.image('loadingText', 'src/assets/boot/loading-text.png');
-        this.load.image('morfitWalking', 'src/assets/character_page/morfit_character@2x.png');
-        this.load.image('morfitLogo', 'src/assets/boot/morfit-logo.png');
-        this.load.image('plant1', 'src/assets/boot/Plant_2.png');
-        this.load.image('plant2', 'src/assets/boot/Plant_6.png');
+        this.load.spritesheet('bird1', require('../assets/boot/bird-1.png'), {frameWidth: 400, frameHeight: 400});
+        this.load.spritesheet('bird2', require('../assets/boot/bird-2.png'), {frameWidth: 400, frameHeight: 400});
+        this.load.image('ground', require('../assets/boot/ground.png'));
+        this.load.image('loadingText', require('../assets/boot/loading-text.png'));
+        this.load.image('morfitWalking', require('../assets/character_page/morfit_character@2x.png'));
+        this.load.image('morfitLogo', require('../assets/boot/morfit-logo.png'));
+        this.load.image('plant1', require('../assets/boot/Plant_2.png'));
+        this.load.image('plant2', require('../assets/boot/Plant_6.png'));
 
-        this.load.image('bg', 'src/assets/boot/bg/background.png');
-        this.load.image('bg_mntn1', 'src/assets/boot/bg/mountain-depth-5.png');
-        this.load.image('bg_mntn2', 'src/assets/boot/bg/mountain-depth-4.png');
-        this.load.image('bg_mntn3', 'src/assets/bg/mountain-depth-3.png');
-        this.load.image('bg_terrain_front', 'src/assets/boot/bg/terrain-front.png');
-        this.load.image('bg_trees_front', 'src/assets/boot/bg/trees-front.png');
-        this.load.image('bg_trees1', 'src/assets/boot/bg/trees-depth-4.png');
-        this.load.image('bg_cloud6', 'src/assets/boot/bg/clouds-depth-6.png');
-        this.load.image('bg_cloud5', 'src/assets/boot/bg/clouds-depth-5.png');
-        this.load.image('sun', 'src/assets/bg/Sun.png');
-        this.load.image('bg_sky', 'src/assets/bg/Sky cloud.png');
+        this.load.image('bg', require('../assets/boot/bg/background.png'));
+        this.load.image('bg_mntn1', require('../assets/boot/bg/mountain-depth-5.png'));
+        this.load.image('bg_mntn2', require('../assets/boot/bg/mountain-depth-4.png'));
+        this.load.image('bg_mntn3', require('../assets/bg/mountain-depth-3.png'));
+        this.load.image('bg_terrain_front', require('../assets/boot/bg/terrain-front.png'));
+        this.load.image('bg_trees_front', require('../assets/boot/bg/trees-front.png'));
+        this.load.image('bg_trees1', require('../assets/boot/bg/trees-depth-4.png'));
+        this.load.image('bg_cloud6', require('../assets/boot/bg/clouds-depth-6.png'));
+        this.load.image('bg_cloud5', require('../assets/boot/bg/clouds-depth-5.png'));
+        this.load.image('sun', require('../assets/bg/Sun.png'));
+        this.load.image('bg_sky', require('../assets/bg/sky_cloud.png'));
 
         this.load.on('complete', () => {
             this.scene.launch('BootScene');
@@ -45,7 +45,7 @@ class LoadingScene extends Phaser.Scene {
         });
     }
 
-    create() {        
+    create() {
         this.anims.create({
             key: 'fly',
             repeat: -1,
@@ -62,23 +62,23 @@ class LoadingScene extends Phaser.Scene {
         });
 
         // De achtergrond van het scherm
-        
+
         this.bg = this.addImage(0, 0, 'bg');
-        this.grid.placeAtIndex(60, this.bg); 
+        this.grid.placeAtIndex(60, this.bg);
         this.bg_cloud6 = this.addImage(0, 0, 'bg_cloud6').setOrigin(0, 0.19);
         this.mntn1 = this.addImage(0, 0, 'bg_mntn1').setOrigin(0, 0);
         this.grid.scaleX(this.mntn1, 2.5);
-       
+
         this.mntn2 = this.addImage(0, 0, 'bg_mntn2').setOrigin(0.13, 0);
-       
+
         this.bg_trees1 = this.addImage(0, 0, 'bg_trees1').setOrigin(0.134, 0);
         this.bg_terrain_front = this.addImage(0, 0, 'bg_terrain_front').setOrigin(0, 0.17);
         this.bg_trees_front = this.addImage(0, 0, 'bg_trees_front').setOrigin(0, 0.17);
         this.bg_cloud5 = this.addImage(0, 0, 'bg_cloud5').setOrigin(0.05, 0.1);
-       
+
         // Het morfit logo aan de bovenkant
         this.morfitLogo = this.addImage(0, 0, 'morfitLogo').setOrigin(0, 0);
-        this.grid.placeAtIndex(2, this.morfitLogo); 
+        this.grid.placeAtIndex(2, this.morfitLogo);
         this.grid.scaleTo(this.morfitLogo, 0.5, 500);
         // Beide vogels die in de lucht zweven
         this.bird1 = this.add.sprite(0, 0, 'bird1', 0);
@@ -102,15 +102,15 @@ class LoadingScene extends Phaser.Scene {
         this.grid.scaleTo(this.plant1, 0.28, 500);
         // De morfit in het midden van het scherm
         this.morfitWalking = this.addImage(0, 0, 'morfitWalking');
-        this.morfitWalking.flipX = true;                                   
+        this.morfitWalking.flipX = true;
         this.grid.placeAtIndex(93, this.morfitWalking);
-    
+
         // De laad tekst onderaan het scherm
         this.loadingText = this.add.text(0, 0, 'Je Morfit is onderweg', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(35 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(0.5, 0.5);
         this.grid.placeAtIndex(137, this.loadingText);
 
         this.time.addEvent({ delay: 300, callback: () => {
-            if ((this.loadingText.text += '.').length == 25) 
+            if ((this.loadingText.text += '.').length == 25)
                 this.loadingText.text = 'Je Morfit is onderweg';
         }, callbackScope: this, loop: true });
     }
