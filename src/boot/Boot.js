@@ -81,8 +81,7 @@ class BootScene extends Phaser.Scene {
         this.load.on('complete', () => {
             this.time.delayedCall(10, () => {
                 if(new Player().exists()) {
-                    // this.scene.start('OverviewScene');
-                    this.scene.start('CustomizeCharacter')
+                    this.scene.start('OverviewScene');
                 } else {
                     this.scene.start('CreatePlayerScene');
                 }

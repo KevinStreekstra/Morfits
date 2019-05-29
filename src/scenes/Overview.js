@@ -102,8 +102,13 @@ class OverviewScene extends Phaser.Scene {
         this.grid.placeAtIndex(217, this.BottomNavbar);
 
         //icons
-        this.kleding = this.addImage(0, 0, 'overview:btnKleding').setOrigin(0.5, 0.37);
+        this.kleding = this.addImage(0, 0, 'overview:btnKleding').setOrigin(0.5, 0.37).setInteractive();
         this.grid.placeAtIndex(196, this.kleding);
+
+        this.kleding.on('pointerdown', () => {
+            this.scene.start('CustomizeCharacter')
+            this.scene.stop('OverviewScene')
+        })
 
         this.txtKleding = this.add.text(0, 0, 'Kleding', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(0, 0.5);
         this.grid.placeAtIndex(210, this.txtKleding);

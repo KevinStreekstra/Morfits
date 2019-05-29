@@ -318,10 +318,14 @@ class CustomizeCharacterScene extends Phaser.Scene {
             .setOrigin(0.5, 0.5)
             .setScale(withDPI(0.1), withDPI(0.1))
 
+        const canvasHeight = window.innerHeight > this.sys.game.config.height / window.devicePixelRatio ?
+            this.sys.game.config.height / window.devicePixelRatio
+            : window.innerHeight
+
         this.homeButton = this.add
             .image(
                 withDPI(235),
-                withDPI(window.innerHeight - 8),
+                withDPI(canvasHeight - 8),
                 'Snake:home_button'
             )
             .setScale(withDPI(0.2), withDPI(0.2))
