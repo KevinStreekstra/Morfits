@@ -54,7 +54,7 @@ class Question1 extends Phaser.Scene {
         this.substraction = this.addImage(0, 0, 'Question1:substraction');
         this.grid.placeAtIndex(24, this.substraction);
 
-        this.txt1 = this.add.text(0, 0, '1/5', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.5);
+        this.txt1 = this.add.text(0, 0, '1/5', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(24 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.5);
         this.grid.placeAtIndex(24, this.txt1);
 
         this.vraag = this.addImage(0, 0, 'Question1:Vraag').setOrigin(0.5, 0.7);
