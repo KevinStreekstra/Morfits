@@ -33,7 +33,7 @@ const game = new Phaser.Game({
     parent: 'game',
     type: Phaser.AUTO,
     width: 375,
-    height: 675,
+    height: window.innerHeight,
     dom: {
       createContainer: true,
     },
@@ -49,7 +49,7 @@ const game = new Phaser.Game({
         zoom: 1 / devicePixelRatio,
         scale: Phaser.Scale.NONE,
         width: 375 * devicePixelRatio,
-        height: 675 * devicePixelRatio
+        height: window.innerHeight * devicePixelRatio
     },
     scene: [
         LoadingScene,
