@@ -1,7 +1,7 @@
 import Player from '../classes/Player';
 import AlignGrid from '../classes/AlignGrid';
 
-import { addImage, addElement } from '../helpers';
+import { addImage, addElement, withDPI } from '../helpers';
 
 class OverviewScene extends Phaser.Scene {
     constructor() {
@@ -90,7 +90,7 @@ class OverviewScene extends Phaser.Scene {
         this.grid.placeAtIndex(13, this.navM_Dollars);
         this.MyM_dollars = this.add.text(0, 0, this.player.morfos, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(0.5, 0.25);
         this.grid.placeAtIndex(12, this.MyM_dollars);
-    
+
 
         //bottom navbar & ground & icons
 
@@ -151,7 +151,7 @@ class OverviewScene extends Phaser.Scene {
 
 
         //morfit & plants
-        this.morfitWalking = this.addImage(0, 0, 'overview:morfitWalking');
+        this.morfitWalking = this.addImage(0, 0, 'Character:full').setScale(withDPI(0.2), withDPI(0.2));
         this.grid.placeAtIndex(127, this.morfitWalking);
 
         this.txtXPbar = this.add.text(0, 0, `${this.player.xp}/${this._player.getRequiredXP(this._player.getLevel())}`, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(10 * window.devicePixelRatio)}px`});
@@ -210,10 +210,10 @@ class OverviewScene extends Phaser.Scene {
     }
 
     update() {
-        this.Mylevel.text = this._player.getLevel();  
+        this.Mylevel.text = this._player.getLevel();
         this.MyPP.text = this._player.getPowerPoints();
         this.MyM_dollars.text = this._player.getMorfos();
- 
+
     }
 }
 
