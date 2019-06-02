@@ -58,7 +58,14 @@ module.exports = {
       },
         {
             test: /\.(png|svg|jpg|gif)$/,
-            use: ['file-loader']
+            use: [
+                {
+                    loader: 'file-loader',
+                    options: {
+                        outputPath: 'assets'
+                    }
+                }
+            ]
         },
       {
         // Loads CSS into a file when you import it via Javascript
