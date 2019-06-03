@@ -102,6 +102,8 @@ class OverviewScene extends Phaser.Scene {
         this.grid.placeAtIndex(199, this.games);
         this.games.on('pointerdown', () => {
             this.scene.start('GameSelect')
+            this.scene.stop('TopNavBar')
+            this.scene.stop()
         })
 
         this.txtGames = this.add.text(0, 0, 'Games', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(-0.1, 0.5);
