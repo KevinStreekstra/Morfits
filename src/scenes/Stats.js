@@ -115,10 +115,10 @@ class StatsScene extends Phaser.Scene {
 
 
         this.Kracht = this.add.text(0, 0, 'Kracht', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(18 * window.devicePixelRatio)}px`});
-        Phaser.Display.Align.In.Center(this.Kracht, this.bg, -59 * window.devicePixelRatio, 45 * window.devicePixelRatio);
+        Phaser.Display.Align.In.Center(this.Kracht, this.bg, -59 * window.devicePixelRatio, 50 * window.devicePixelRatio);
 
         this.krachtStat = this.add.text(0, 0, this.player.powerpoints, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(18 * window.devicePixelRatio)}px`});
-        Phaser.Display.Align.In.Center(this.krachtStat, this.bg, 75 * window.devicePixelRatio, 45 * window.devicePixelRatio);
+        Phaser.Display.Align.In.Center(this.krachtStat, this.bg, 75 * window.devicePixelRatio, 50 * window.devicePixelRatio);
 
         // Stop scene
         this.quit = this.addImage(0, 0, 'Daily:quit').setOrigin(.5, .675).setInteractive();
