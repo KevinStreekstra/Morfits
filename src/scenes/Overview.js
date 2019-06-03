@@ -55,6 +55,9 @@ class OverviewScene extends Phaser.Scene {
     }
 
     create() {
+        Sentry.configureScope((scope) => {
+            scope.setUser(this.player);
+        });
         console.log(this.player);
         this.scene.get('RunMorfiRun');
 
@@ -113,8 +116,11 @@ class OverviewScene extends Phaser.Scene {
         this.txtMarket = this.add.text(0, 0, 'Markt', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(-0.2, 0.5);
         this.grid.placeAtIndex(216, this.txtMarket);
 
-        this.inventory = this.addImage(0, 0, 'overview:btnInventory').setOrigin(0.5, 0.37);
+        this.inventory = this.addImage(0, 0, 'overview:btnInventory').setOrigin(0.5, 0.37).setInteractive();
         this.grid.placeAtIndex(205, this.inventory);
+        this.inventory.on('pointerdown', () => {
+            this.scene.launch('InventoryScene');
+        });
 
         this.txtInventory = this.add.text(0, 0, 'Rugzak', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(-0.05, 0.5);
         this.grid.placeAtIndex(219, this.txtInventory);
