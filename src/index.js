@@ -15,6 +15,7 @@ import ShopScene from './scenes/Shop';
 import InventoryScene from './scenes/Inventory';
 import StartQuiz from "./scenes/StartQuiz";
 import StopQuiz from "./scenes/StopQuiz";
+import TopNavBar from "./scenes/TopNavBar";
 import CustomizeCharacterScene from "./scenes/CustomizeCharacter";
 
 //Quiz questions
@@ -69,6 +70,7 @@ const game = new Phaser.Game({
         InventoryScene,
         StartQuiz,
         StopQuiz,
+        TopNavBar,
         Question1,
         Question2,
         Question3,

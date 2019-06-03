@@ -45,6 +45,7 @@ class DailyScenes extends Phaser.Scene {
         this.grid.placeAtIndex(172, this.start);
         this.start.on('pointerdown', () => {
             this.scene.stop('DailyScene');
+            this.scene.bringToTop('StartQuiz');
             this.scene.launch('StartQuiz');
         });
         this.grid.scaleTo(this.start, 0);
@@ -78,6 +79,7 @@ class DailyScenes extends Phaser.Scene {
         Phaser.Display.Align.In.Center(this.mission, this.active, 200 * window.devicePixelRatio).setInteractive();
         this.mission.on('pointerdown', () => {
             this.scene.sleep('DailyScene');
+            this.scene.bringToTop('WeeklyScene');
             this.scene.launch('WeeklyScene');
         });
    
