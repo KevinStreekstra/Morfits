@@ -84,18 +84,18 @@ class CustomizeCharacterScene extends Phaser.Scene {
         this.grid.placeAtIndex(3, this.whiteBg)
 
         this.Mylevel = this.add
-            .text(0, 0, this._player.getLevel(), {
+        .text(28 * window.devicePixelRatio, 24 * window.devicePixelRatio, this._player.getLevel(), {
                 fontFamily: 'Bubblegum Sans',
                 fontSize: `${Math.round(16 * window.devicePixelRatio)}px`,
-                fill: 'black'
+                fill: 'black',
+                align: 'center'
             })
-            .setOrigin(1, 0.25)
+            .setOrigin(0.5, 0.2)
             .setDepth(1)
 
-        this.grid.placeAtIndex(1, this.Mylevel)
 
         this.Myname = this.add
-            .text(0, 0, this.player.username, {
+            .text(90 * window.devicePixelRatio, 25 * window.devicePixelRatio, this.player.username, {
                 fontFamily: 'Bubblegum Sans',
                 fontSize: `${Math.round(16 * window.devicePixelRatio)}px`,
                 fill: 'black'
@@ -103,7 +103,7 @@ class CustomizeCharacterScene extends Phaser.Scene {
             .setOrigin(0.6, 0.25)
             .setDepth(1)
 
-        this.grid.placeAtIndex(3, this.Myname)
+       
 
         this.navPP = this
             .addImage(0, 0, 'overview:navPP')
@@ -113,16 +113,15 @@ class CustomizeCharacterScene extends Phaser.Scene {
         this.grid.placeAtIndex(9, this.navPP)
 
         this.MyPP = this.add
-            .text(0, 0, this.player.powerpoints, {
+            .text(225 * window.devicePixelRatio, 26 * window.devicePixelRatio, this.player.powerpoints, {
                 fontFamily: 'Bubblegum Sans',
                 fontSize: `${Math.round(16 * window.devicePixelRatio)}px`,
                 fill: 'black'
             })
-            .setOrigin(1.4, 0.25)
-            .setDepth(1)
+            .setOrigin(0.5, 0.25)
+            .setDepth(1);
 
-        this.grid.placeAtIndex(9, this.MyPP)
-
+     
         this.navM_Dollars = this
             .addImage(0, 0, 'overview:navM_Dollars')
             .setOrigin(0.7, 0.4)
@@ -131,7 +130,7 @@ class CustomizeCharacterScene extends Phaser.Scene {
         this.grid.placeAtIndex(13, this.navM_Dollars)
 
         this.MyM_dollars = this.add
-            .text(0, 0, this.player.morfos, {
+            .text(315 * window.devicePixelRatio, 26 * window.devicePixelRatio, this.player.morfos, {
                 fontFamily: 'Bubblegum Sans',
                 fontSize: `${Math.round(16 * window.devicePixelRatio)}px`,
                 fill: 'black'
@@ -139,7 +138,6 @@ class CustomizeCharacterScene extends Phaser.Scene {
             .setOrigin(0.5, 0.25)
             .setDepth(1)
 
-        this.grid.placeAtIndex(12, this.MyM_dollars)
 
         this.background = this.add
             .image(withDPI(-102), withDPI(399), 'CharacterCustomize:background')
