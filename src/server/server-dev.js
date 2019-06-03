@@ -410,6 +410,19 @@ io.on('connection', function(socket){
                         players
                     })
 
+                    logger.log({
+                        level: 'info',
+                        message: 'Snake game ended',
+                        extraInfo: {
+                            playerScores,
+                            players,
+                            socketInfo: {
+                                socketId: socket.id,
+                                server: socket.handshake.headers
+                            }
+                        }
+                    })
+
                     socket.to('snake_game').broadcast.emit('snakeGameEnd', {
                         scores: playerScores,
                         players
