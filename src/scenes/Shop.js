@@ -97,18 +97,12 @@ class Shop extends Phaser.Scene {
         this.shopContainer = this.addElement(0, 0, 'div').setClassName('shopContainer').setOrigin(.5, 1.05);
         this.grid.placeAtIndex(202, this.shopContainer);
 
-        this.home = this.addImage(0, 0, 'shop:home').setOrigin(.5, 0.1).setInteractive();
-        this.home.on('pointerdown', () => {
-            this.scene.stop('ShopScene');
-        });
-        this.grid.placeAtIndex(202, this.home);
-        this.grid.scaleTo(this.home, .13);
-
         this._shopContainer = this.shopContainer.node;
         for(let i = 0; i < _ITEMS.length; i++) {
             this.shopItem = document.createElement('div');
             this.shopItem.className = 'shopItem';
             this.shopItem.setAttribute('data-name', _ITEMS[i].name);
+            this.shopItem.setAttribute('data-category', _ITEMS[i].category);
             this.shopItem.setAttribute('data-price', _ITEMS[i].price);
             this.shopItemImage = document.createElement('div');
             this.shopItemImage.setAttribute('data-level', _ITEMS[i].requiredLevel);
@@ -131,10 +125,18 @@ class Shop extends Phaser.Scene {
                 this.shopItemImage.className = "locked";
                 this.shopItemImage.style.backgroundImage = `url(${require('../assets/item-states/locked-overlay.png')
             }), url('` + _ITEMS[i].asset + "')";
+                this.shopItemImage.style.backgroundSize = "cover, auto 80px";
             }
 
             this._shopContainer.appendChild(this.shopItem);
         }
+
+        this.home = this.addImage(0, 0, 'shop:home').setOrigin(.5, 0.1).setInteractive();
+        this.home.on('pointerdown', () => {
+            this.scene.stop('ShopScene');
+        });
+        this.grid.placeAtIndex(202, this.home);
+        this.grid.scaleTo(this.home, .13);
 
         this.shopContainer.setScale(0);
         this.tweens.add({
@@ -158,22 +160,27 @@ class Shop extends Phaser.Scene {
             case 'hair':
                 this.resetPage();
                 this.navHair.setTexture('shop:hairActive');
+                this.displayItemsByQuery("[data-category='hair']");
                 break;
             case 'shirt':
                 this.resetPage();
                 this.navShirt.setTexture('shop:shirtActive');
+                this.displayItemsByQuery("[data-category='shirt']");
                 break;
             case 'pants':
                 this.resetPage();
                 this.navPants.setTexture('shop:pantsActive');
+                this.displayItemsByQuery("[data-category='pants']");
                 break;
             case 'shoes':
                 this.resetPage();
                 this.navShoes.setTexture('shop:shoesActive');
+                this.displayItemsByQuery("[data-category='shoes']");
                 break;
             case 'food':
                 this.resetPage();
                 this.navFood.setTexture('shop:foodActive');
+                this.displayItemsByQuery("[data-category='food']");
                 break;
         }
     }
@@ -184,6 +191,21 @@ class Shop extends Phaser.Scene {
         this.navPants.setTexture('shop:pants');
         this.navShoes.setTexture('shop:shoes');
         this.navFood.setTexture('shop:food');
+        this.hideItemsByQuery('.shopItem');
+    }
+
+    displayItemsByQuery(query) {
+        Array.from(document.querySelectorAll(query))
+            .forEach(function(el) {
+                el.style.display = 'inline-block';
+        });
+    }
+
+    hideItemsByQuery(query) {
+        Array.from(document.querySelectorAll(query))
+            .forEach(function(el) {
+                el.style.display = 'none';
+        });
     }
 }
 
