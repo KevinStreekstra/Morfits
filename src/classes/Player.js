@@ -26,7 +26,7 @@ class Player {
             localStorage.setItem('morfos', JSON.stringify(0));
 
         if(!localStorage.getItem('inventory') || localStorage.getItem('inventory') === null)
-            localStorage.setItem('inventory', JSON.stringify('{}'));
+            localStorage.setItem('inventory', JSON.stringify([]));
     }
 
     exists() {
@@ -77,6 +77,10 @@ class Player {
         return JSON.parse(localStorage.getItem('morfos'));
     }
 
+    setMorfos(value) {
+        localStorage.setItem('morfos', JSON.stringify(value));
+    }
+
     getLevel() {
         return Math.floor(Math.floor(25 + Math.sqrt(625 + 100 * this.getXP())) / 50);
     }
@@ -91,6 +95,10 @@ class Player {
 
     getInventory() {
         return JSON.parse(localStorage.getItem('inventory'));
+    }
+
+    setInventory(new_inventory) {
+        localStorage.setItem('inventory', JSON.stringify(new_inventory));
     }
 }
 

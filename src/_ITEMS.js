@@ -2,6 +2,7 @@ export const _ITEMS = [
     {
         id: 0,
         name: 'Item',
+        category: 'shirt',
         price: 25,
         requiredLevel: 1,
         asset: require('./assets/clothing/items/item-1.png'),
@@ -9,6 +10,7 @@ export const _ITEMS = [
     {
         id: 1,
         name: 'Item',
+        category: 'shirt',
         price: 100,
         requiredLevel: 1,
         asset: require('./assets/clothing/items/item-2.png'),
@@ -16,6 +18,7 @@ export const _ITEMS = [
     {
         id: 2,
         name: 'Item',
+        category: 'shirt',
         price: 80,
         requiredLevel: 1,
         asset: require('./assets/clothing/items/item-3.png'),
@@ -23,6 +26,7 @@ export const _ITEMS = [
     {
         id: 3,
         name: 'Item',
+        category: 'shirt',
         price: 10,
         requiredLevel: 3,
         asset: require('./assets/clothing/items/item-4.png'),
@@ -30,6 +34,7 @@ export const _ITEMS = [
     {
         id: 3,
         name: 'Item',
+        category: 'shirt',
         price: 10,
         requiredLevel: 5,
         asset: require('./assets/clothing/items/item-5.png'),
@@ -37,6 +42,7 @@ export const _ITEMS = [
     {
         id: 3,
         name: 'Item',
+        category: 'shirt',
         price: 10,
         requiredLevel: 5,
         asset: require('./assets/clothing/items/item-6.png'),
@@ -44,6 +50,7 @@ export const _ITEMS = [
     {
         id: 3,
         name: 'Item',
+        category: 'shirt',
         price: 10,
         requiredLevel: 5,
         asset: require('./assets/clothing/items/item-7.png'),
@@ -51,6 +58,7 @@ export const _ITEMS = [
     {
         id: 3,
         name: 'Item',
+        category: 'shirt',
         price: 10,
         requiredLevel: 10,
         asset: require('./assets/clothing/items/item-8.png'),
@@ -58,6 +66,7 @@ export const _ITEMS = [
     {
         id: 3,
         name: 'Item',
+        category: 'shirt',
         price: 10,
         requiredLevel: 10,
         asset: require('./assets/clothing/items/item-9.png'),

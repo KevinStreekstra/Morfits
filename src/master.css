@@ -60,6 +60,36 @@
     width: 100%;
     cursor: pointer;
     outline: 0;
+    user-select: none;
+}
+
+.invContainer {
+    display: grid !important;
+    grid-template-columns: auto auto auto;
+    width: 375px;
+    height: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    padding: 15px 8px 8px;
+}
+
+.invItem {
+    display: inline-block;
+    margin: 7px 7px;
+    position: relative
+}
+
+.invItem > div {
+    height: 105px;
+    width: 105px;
+    background-size: cover;
+    background-color: #BA6D34;
+    border-radius: 10px;
+}
+
+.infoButton {
+    /* Empty for now */
 }
 
 ::-webkit-scrollbar {
