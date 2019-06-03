@@ -6,6 +6,7 @@ import { overview_assets } from './_Overview';
 import { dailyQuiz_assets } from './_DailyQuiz';
 import { weeklyMission_assets } from './_WeeklyMission';
 import { shop } from './_Shop';
+import { inventory } from './_Inventory';
 import { stats } from './_Stats';
 import { snake_assets } from './_Snake';
 import { gameSelect_assets } from './_GameSelect';
@@ -32,6 +33,7 @@ class BootScene extends Phaser.Scene {
         this.dailyQuiz_assets = dailyQuiz_assets.bind(this);
         this.weeklyMission_assets = weeklyMission_assets.bind(this);
         this.shop = shop.bind(this);
+        this.inventory = inventory.bind(this);
         this.stats = stats.bind(this);
         this.snake_assets = snake_assets.bind(this);
         this.gameSelect_assets = gameSelect_assets.bind(this);
@@ -64,6 +66,7 @@ class BootScene extends Phaser.Scene {
         this.dailyQuiz_assets();
         this.weeklyMission_assets();
         this.shop();
+        this.inventory();
         this.stats();
         this.snake_assets();
         this.gameSelect_assets();

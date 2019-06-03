@@ -413,7 +413,7 @@ class SnakeScene extends Phaser.Scene {
                 this.head.setAngle(-90);
                 this.head.setDepth(10);
                 this.head.setOrigin(0.5);
-                this.head.setCircle(30, 25, 25)
+                this.head.setCircle(30, 25, 25);
 
                 this.tail = new Phaser.Geom.Point(12.5, 12.5);
                 main_body = this.body

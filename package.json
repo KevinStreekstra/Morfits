@@ -4,8 +4,8 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "buildDev": "rm -rf dist && webpack --mode development --config webpack.server.js && webpack --mode development --config webpack.dev.js",
-    "buildProd": "rm -rf dist && webpack --mode production --config webpack.server.js && webpack --mode production --config webpack.prod.js",
+    "buildDev": "webpack --mode development --config webpack.server.js && webpack --mode development --config webpack.dev.js",
+    "buildProd": "webpack --mode production --config webpack.server.js && webpack --mode production --config webpack.prod.js",
     "nodeStart": "node ./dist/server.js",
     "start": "npm run buildDev && npm run nodeStart",
     "build": "npm run buildProd",
