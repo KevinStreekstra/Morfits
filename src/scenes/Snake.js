@@ -1005,6 +1005,8 @@ class SnakeScene extends Phaser.Scene {
                                 1,
                                 otherPlayer.tail
                             );
+                    } else {
+                        Sentry.captureMessage(`Player tried moving but is not defined ${playerInfo}`, 'debug')
                     }
                 })
 
@@ -1570,6 +1572,7 @@ class SnakeScene extends Phaser.Scene {
                     try {
                         grid[by][bx] = false;
                     } catch (err) {
+                        Sentry.captureException(err)
                         console.warn({ bx, by, err });
                     }
                 });

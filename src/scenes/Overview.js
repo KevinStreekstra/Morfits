@@ -55,6 +55,9 @@ class OverviewScene extends Phaser.Scene {
     }
 
     create() {
+        Sentry.configureScope((scope) => {
+            scope.setUser(this.player);
+        });
         console.log(this.player);
         this.scene.get('RunMorfiRun');
 
