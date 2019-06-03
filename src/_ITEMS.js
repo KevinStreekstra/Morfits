@@ -5,7 +5,7 @@ export const _ITEMS = [
         category: 'shirt',
         price: 25,
         requiredLevel: 1,
-        asset: require('./assets/clothing/items/item-1.png'),
+        asset: require('./assets/clothing/items/shirt_short/shirt_stripes.png'),
     },
     {
         id: 1,
@@ -13,7 +13,7 @@ export const _ITEMS = [
         category: 'shirt',
         price: 100,
         requiredLevel: 1,
-        asset: require('./assets/clothing/items/item-2.png'),
+        asset: require('./assets/clothing/items/shirt_long/shirt_blank.png'),
     },
     {
         id: 2,
@@ -21,7 +21,7 @@ export const _ITEMS = [
         category: 'shirt',
         price: 80,
         requiredLevel: 1,
-        asset: require('./assets/clothing/items/item-3.png'),
+        asset: require('./assets/clothing/items/shirt_short/shirt_blank.png'),
     },
     {
         id: 3,
@@ -29,7 +29,7 @@ export const _ITEMS = [
         category: 'shirt',
         price: 10,
         requiredLevel: 3,
-        asset: require('./assets/clothing/items/item-4.png'),
+        asset: require('./assets/clothing/items/shirt_long/shirt_circle.png'),
     },
     {
         id: 3,
@@ -37,7 +37,7 @@ export const _ITEMS = [
         category: 'shirt',
         price: 10,
         requiredLevel: 5,
-        asset: require('./assets/clothing/items/item-5.png'),
+        asset: require('./assets/clothing/items/shirt_long/shirt_circle.png'),
     },
     {
         id: 3,
@@ -45,7 +45,7 @@ export const _ITEMS = [
         category: 'shirt',
         price: 10,
         requiredLevel: 5,
-        asset: require('./assets/clothing/items/item-6.png'),
+        asset: require('./assets/clothing/items/shirt_short/shirt_circle.png'),
     },
     {
         id: 3,
@@ -53,7 +53,7 @@ export const _ITEMS = [
         category: 'shirt',
         price: 10,
         requiredLevel: 5,
-        asset: require('./assets/clothing/items/item-7.png'),
+        asset: require('./assets/clothing/items/shirt_long/shirt_circle.png'),
     },
     {
         id: 3,
@@ -61,7 +61,7 @@ export const _ITEMS = [
         category: 'shirt',
         price: 10,
         requiredLevel: 10,
-        asset: require('./assets/clothing/items/item-8.png'),
+        asset: require('./assets/clothing/items/shirt_short/shirt_squares.png'),
     },
     {
         id: 3,
@@ -69,6 +69,6 @@ export const _ITEMS = [
         category: 'shirt',
         price: 10,
         requiredLevel: 10,
-        asset: require('./assets/clothing/items/item-9.png'),
+        asset: require('./assets/clothing/items/shirt_short/shirt_squares.png'),
     },
 ];
