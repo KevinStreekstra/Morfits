@@ -55,7 +55,7 @@ class StartQuiz extends Phaser.Scene {
         this.quiz = this.addImage(0, 0, 'Quiz:Start');
         this.grid.placeAtIndex(37, this.quiz);
 
-        this.btn = this.addImage(0, 0, 'Quiz:Btn').setInteractive();
+        this.btn = this.addImage(0, 0, 'Quiz:Btn').setOrigin(0.5, 0.6).setInteractive();
         this.btn.on('pointerdown', () => {
             this.scene.stop('StartQuiz');
             this.scene.launch('Question1');

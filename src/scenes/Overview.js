@@ -101,6 +101,7 @@ class OverviewScene extends Phaser.Scene {
         this.games = this.addImage(0, 0, 'overview:btnGames').setOrigin(0.5, 0.37).setInteractive();
         this.grid.placeAtIndex(199, this.games);
         this.games.on('pointerdown', () => {
+            this.scene.bringToTop('GameSelect');
             this.scene.start('GameSelect')
             this.scene.stop('TopNavBar')
             this.scene.stop()
@@ -112,7 +113,9 @@ class OverviewScene extends Phaser.Scene {
         this.market = this.addImage(0, 0, 'overview:btnMarket').setOrigin(0.5, 0.37).setInteractive();
         this.grid.placeAtIndex(202, this.market);
         this.market.on('pointerdown', () => {
+        
             this.scene.launch('ShopScene');
+           
         });
 
         this.txtMarket = this.add.text(0, 0, 'Markt', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(-0.2, 0.5);
@@ -121,6 +124,7 @@ class OverviewScene extends Phaser.Scene {
         this.inventory = this.addImage(0, 0, 'overview:btnInventory').setOrigin(0.5, 0.37).setInteractive();
         this.grid.placeAtIndex(205, this.inventory);
         this.inventory.on('pointerdown', () => {
+       
             this.scene.launch('InventoryScene');
         });
 
