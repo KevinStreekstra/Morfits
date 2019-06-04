@@ -30,7 +30,10 @@ class LoadingScene extends Phaser.Scene {
             { frameWidth: 400, frameHeight: 400 }
         )
 
-        this.load.image('ground', require('../assets/loading/assets/ground.png'))
+        this.load.image(
+            'ground',
+            require('../assets/loading/assets/ground.png')
+        )
 
         this.load.image(
             'loadingText',
@@ -42,11 +45,23 @@ class LoadingScene extends Phaser.Scene {
             require('../assets/character/character.png')
         )
 
-        this.load.image('morfitLogo', require('../assets/loading/assets/logo.png'))
-        this.load.image('plant1', require('../assets/loading/plants/plant_aabranium.png'))
-        this.load.image('plant2', require('../assets/loading/plants/plant_eostraboom.png'))
+        this.load.image(
+            'morfitLogo',
+            require('../assets/loading/assets/logo.png')
+        )
+        this.load.image(
+            'plant1',
+            require('../assets/loading/plants/plant_aabranium.png')
+        )
+        this.load.image(
+            'plant2',
+            require('../assets/loading/plants/plant_eostraboom.png')
+        )
 
-        this.load.image('bg', require('../assets/loading/backgrounds/background.png'))
+        this.load.image(
+            'bg',
+            require('../assets/loading/backgrounds/background.png')
+        )
         this.load.image(
             'bg_mntn1',
             require('../assets/loading/backgrounds/mountain-depth-5.png')
@@ -80,7 +95,10 @@ class LoadingScene extends Phaser.Scene {
             require('../assets/loading/backgrounds/clouds-depth-5.png')
         )
         this.load.image('sun', require('../assets/loading/backgrounds/sun.png'))
-        this.load.image('bg_sky', require('../assets/loading/backgrounds/sky_cloud.png'))
+        this.load.image(
+            'bg_sky',
+            require('../assets/loading/backgrounds/sky_cloud.png')
+        )
 
         this.load.on('complete', () => {
             this.scene.launch('BootScene')
@@ -155,7 +173,9 @@ class LoadingScene extends Phaser.Scene {
         this.grid.placeAtIndex(89, this.plant1)
         this.grid.scaleTo(this.plant1, 0.28, 500)
         // De morfit in het midden van het scherm
-        this.morfitWalking = this.add.image(0, 0, 'morfitWalking').setScale(withDPI(0.2), withDPI(0.2))
+        this.morfitWalking = this.add
+            .image(0, 0, 'morfitWalking')
+            .setScale(withDPI(0.2), withDPI(0.2))
         this.morfitWalking.flipX = true
         this.grid.placeAtIndex(93, this.morfitWalking)
 

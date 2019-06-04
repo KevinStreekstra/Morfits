@@ -13,7 +13,9 @@
  * @param frame An optional frame from the Texture this Game Object is rendering with.
  */
 export function addImage(x, y, texture, frame) {
-    return this.add.image(x, y, texture, frame).setScale(window.devicePixelRatio, window.devicePixelRatio)
+    return this.add
+        .image(x, y, texture, frame)
+        .setScale(window.devicePixelRatio, window.devicePixelRatio)
 }
 
 /**
@@ -26,9 +28,13 @@ export function withDPI(original) {
 }
 
 export function addElement(x, y, tag, style) {
-    return this.add.dom(x, y, document.createElement(tag), style).setScale(window.devicePixelRatio, window.devicePixelRatio);
+    return this.add
+        .dom(x, y, document.createElement(tag), style)
+        .setScale(window.devicePixelRatio, window.devicePixelRatio)
 }
 
 export function addRectangle(x, y, width, height, fillColor) {
-    return this.add.rectangle(x, y, width, height, fillColor).setScale(window.devicePixelRatio, window.devicePixelRatio);
+    return this.add
+        .rectangle(x, y, width, height, fillColor)
+        .setScale(window.devicePixelRatio, window.devicePixelRatio)
 }
