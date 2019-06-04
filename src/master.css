@@ -1,3 +1,7 @@
+#game > div {
+    pointer-events: unset !important;
+}
+
 .shopContainer {
     display: grid !important;
     grid-template-columns: auto auto auto;
