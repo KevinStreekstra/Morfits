@@ -21,6 +21,7 @@ class Inventory extends Phaser.Scene {
     preload() {
         this.player = this._player.get();
         this.items = [];
+        this.invPage = 'shirt';
     }
 
     create() {
@@ -54,20 +55,35 @@ class Inventory extends Phaser.Scene {
         this.grid.placeAtIndex(22, this.nav);
         this.grid.scaleTo(this.nav, 1);
 
-        this.navHair = this.add.image(0, 0, 'shop:hair').setScale(withDPI(0.2), withDPI(0.2)).setOrigin(.8, 0);
+        this.navHair = this.add.image(0, 0, 'shop:hair').setScale(withDPI(0.2), withDPI(0.2)).setOrigin(.8, 0).setInteractive();
         this.grid.placeAtIndex(18, this.navHair);
+        this.navHair.on('pointerdown', () => {
+            this.invPage = 'hair';
+        });
 
-        this.navShirt = this.add.image(0, 0, 'shop:shirt').setScale(withDPI(0.2), withDPI(0.2)).setOrigin(.65, 0);
+        this.navShirt = this.add.image(0, 0, 'shop:shirt').setScale(withDPI(0.2), withDPI(0.2)).setOrigin(.65, 0).setInteractive();
         this.grid.placeAtIndex(20, this.navShirt);
+        this.navShirt.on('pointerdown', () => {
+            this.invPage = 'shirt';
+        });
 
-        this.navPants = this.add.image(0, 0, 'shop:pants').setScale(withDPI(0.2), withDPI(0.2)).setOrigin(.5, 0);
+        this.navPants = this.add.image(0, 0, 'shop:pants').setScale(withDPI(0.2), withDPI(0.2)).setOrigin(.5, 0).setInteractive();
         this.grid.placeAtIndex(22, this.navPants);
+        this.navPants.on('pointerdown', () => {
+            this.invPage = 'pants';
+        });
 
-        this.navShoes = this.add.image(0, 0, 'shop:shoes').setScale(withDPI(0.2), withDPI(0.2)).setOrigin(.30, 0);
+        this.navShoes = this.add.image(0, 0, 'shop:shoes').setScale(withDPI(0.2), withDPI(0.2)).setOrigin(.30, 0).setInteractive();
         this.grid.placeAtIndex(24, this.navShoes);
+        this.navShoes.on('pointerdown', () => {
+            this.invPage = 'shoes';
+        });
 
-        this.navFood = this.add.image(0, 0, 'shop:food').setScale(withDPI(0.2), withDPI(0.2)).setOrigin(.1, 0);
+        this.navFood = this.add.image(0, 0, 'shop:food').setScale(withDPI(0.2), withDPI(0.2)).setOrigin(.1, 0).setInteractive();
         this.grid.placeAtIndex(26, this.navFood);
+        this.navFood.on('pointerdown', () => {
+            this.invPage = 'food';
+        });
 
         this.title = this.add.text(0, 0, 'Rugzak', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(38 * window.devicePixelRatio)}px`, fill: '#2E3A4B', stroke: '#fff', strokeThickness: 8,}).setOrigin(0.5, 0.4);
         this.grid.placeAtIndex(52, this.title);
@@ -83,15 +99,23 @@ class Inventory extends Phaser.Scene {
         this.grid.scaleTo(this.home, .13);
 
         this._invContainer = this.invContainer.node;
-        for(let i = 0; i < this.items.length; i++) {
-            this.invItem = document.createElement('div');
-            this.invItem.className = 'invItem';
-            this.invItem.setAttribute('data-name', this.items[i].name);
-            this.invItemImage = document.createElement('div');
-            this.invItemImage.style.backgroundImage = "url('" + this.items[i].asset + "')";
-            this.invItem.appendChild(this.invItemImage);
-            this._invContainer.appendChild(this.invItem);
+        if(this.items.length > 0) {
+            for(let i = 0; i < this.items.length; i++) {
+                this.invItem = document.createElement('div');
+                this.invItem.className = 'invItem';
+                this.invItem.setAttribute('data-name', this.items[i].name);
+                this.invItem.setAttribute('data-category', this.items[i].category);
+                this.invItemImage = document.createElement('div');
+                this.invItemImage.style.backgroundImage = "url('" + this.items[i].asset + "')";
+                this.invItem.appendChild(this.invItemImage);
+                this._invContainer.appendChild(this.invItem);
+            }
         }
+
+        this.noItems = document.createElement('h2');
+        this.noItems.className = 'no-items';
+        this.noItems.innerHTML = 'Je hebt dit niet in je rugzak &#9785';
+        this._invContainer.appendChild(this.noItems);
 
         this.invContainer.setScale(0);
         this.tweens.add({
@@ -108,6 +132,71 @@ class Inventory extends Phaser.Scene {
 
 
         //this.grid.showNumbers();
+    }
+
+    update() {
+        switch(this.invPage) {
+            case 'hair':
+                this.resetPage();
+                this.navHair.setTexture('shop:hairActive');
+                this.isEmpty('hair');
+                this.displayItemsByQuery("[data-category='hair']");
+                break;
+            case 'shirt':
+                this.resetPage();
+                this.navShirt.setTexture('shop:shirtActive');
+                this.isEmpty('shirt');
+                this.displayItemsByQuery("[data-category='shirt']");
+                break;
+            case 'pants':
+                this.resetPage();
+                this.navPants.setTexture('shop:pantsActive');
+                this.isEmpty('pants');
+                this.displayItemsByQuery("[data-category='pants']");
+                break;
+            case 'shoes':
+                this.resetPage();
+                this.navShoes.setTexture('shop:shoesActive');
+                this.isEmpty('shoes');
+                this.displayItemsByQuery("[data-category='shoes']");
+                break;
+            case 'food':
+                this.resetPage();
+                this.navFood.setTexture('shop:foodActive');
+                this.isEmpty('food');
+                this.displayItemsByQuery("[data-category='food']");
+                break;
+        }
+    }
+
+    resetPage() {
+        this.navHair.setTexture('shop:hair');
+        this.navShirt.setTexture('shop:shirt');
+        this.navPants.setTexture('shop:pants');
+        this.navShoes.setTexture('shop:shoes');
+        this.navFood.setTexture('shop:food');
+        this.hideItemsByQuery('.invItem');
+        this.noItems.style.display = 'none';
+    }
+
+    isEmpty(page) {
+        if(this.items.filter(key => Object.values(key).includes(page)).length < 1) {
+            this.noItems.style.display = 'block';
+        }
+    }
+
+    displayItemsByQuery(query) {
+        Array.from(document.querySelectorAll(query))
+            .forEach(function(el) {
+                el.style.display = 'inline-block';
+        });
+    }
+
+    hideItemsByQuery(query) {
+        Array.from(document.querySelectorAll(query))
+            .forEach(function(el) {
+                el.style.display = 'none';
+        });
     }
 }
 

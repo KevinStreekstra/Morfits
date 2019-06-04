@@ -37,7 +37,7 @@
 .shopItem > div {
     height: 105px;
     width: 105px;
-    background-size: auto 80px;
+    background-size: auto 70px;
     background-color: #BA6D34;
     background-repeat: no-repeat;
     background-position: center;
@@ -78,7 +78,7 @@
 }
 
 .invItem {
-    display: inline-block;
+    display: none;
     margin: 7px 7px;
     position: relative
 }
@@ -86,13 +86,23 @@
 .invItem > div {
     height: 105px;
     width: 105px;
-    background-size: cover;
+    background-size: auto 70px;
     background-color: #BA6D34;
+    background-repeat: no-repeat;
+    background-position: center;
     border-radius: 10px;
 }
 
 .infoButton {
     /* Empty for now */
+}
+
+.no-items {
+    display: none;
+    grid-column-start: 2;
+    font-family: 'Bubblegum Sans', sans-serif;
+    text-align: center;
+    color: #2E3A4B;
 }
 
 ::-webkit-scrollbar {
