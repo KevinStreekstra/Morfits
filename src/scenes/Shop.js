@@ -46,7 +46,7 @@ class Shop extends Phaser.Scene {
         this.grid.placeAtIndex(22, this.nav);
         this.grid.scaleTo(this.nav, 1);
 
-        this.navHair = this.add.image(0, 0, 'shop:hair').setScale(withDPI(0.2), withDPI(0.2)).setOrigin(.8, 0).setInteractive();
+        this.navHair = this.add.image(0, 0, 'shop:hair').setScale(withDPI(0.2), withDPI(0.2)).setOrigin(.8, 0);
         this.grid.placeAtIndex(18, this.navHair);
         this.navHair.on('pointerdown', () => {
             this.shopPage = 'hair';
@@ -64,7 +64,7 @@ class Shop extends Phaser.Scene {
             this.shopPage = 'pants';
         });
 
-        this.navShoes = this.add.image(0, 0, 'shop:shoes').setScale(withDPI(0.2), withDPI(0.2)).setOrigin(.30, 0).setInteractive();
+        this.navShoes = this.add.image(0, 0, 'shop:shoes').setScale(withDPI(0.2), withDPI(0.2)).setOrigin(.30, 0);
         this.grid.placeAtIndex(24, this.navShoes);
         this.navShoes.on('pointerdown', () => {
             this.shopPage = 'shoes';
@@ -110,7 +110,7 @@ class Shop extends Phaser.Scene {
                 this.shopItemImage.className = "locked";
                 this.shopItemImage.style.backgroundImage = `url(${require('../assets/item-states/locked-overlay.png')
             }), url('` + _ITEMS[i].asset + "')";
-                this.shopItemImage.style.backgroundSize = "cover, auto 80px";
+                this.shopItemImage.style.backgroundSize = "cover, auto 70px";
             }
 
             this._shopContainer.appendChild(this.shopItem);
