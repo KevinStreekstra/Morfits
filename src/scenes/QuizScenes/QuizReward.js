@@ -49,6 +49,10 @@ class QuizReward extends Phaser.Scene {
         this.txt1 = this.add.text(0, 0, 'Goed gedaan!', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(48 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.2);
         this.grid.placeAtIndex(52, this.txt1);
 
+        this.txt1 = this.add.text(0, 0, 'Je hebt 5 M-Dollars gewonnen!',
+        { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(32 * window.devicePixelRatio)}px`, wordWrap: {width: (300 * window.devicePixelRatio), useAdvancedWrap: true}}).setOrigin(0.5, 0.5);
+        this.grid.placeAtIndex(127, this.txt1);
+
         this.innen = this.addImage(0, 0, 'QuizReward:Innen').setOrigin(0.5, 0.8).setInteractive();
         this.innen.on('pointerdown', () => {
             this.scene.stop('QuizReward');
@@ -58,10 +62,16 @@ class QuizReward extends Phaser.Scene {
         this.confetti1 = this.addImage(0, 0, 'QuizReward:Confetti1');
         this.grid.placeAtIndex(52, this.confetti1);
         
-       
+        this.confetti1 = this.addImage(0, 0, 'QuizReward:Confetti2');
+        this.grid.placeAtIndex(122, this.confetti1);
 
+        this.confetti1 = this.addImage(0, 0, 'QuizReward:Confetti3');
+        this.grid.placeAtIndex(132, this.confetti1);
 
-       // this.grid.showNumbers();
+        this.confetti1 = this.addImage(0, 0, 'QuizReward:Confetti4');
+        this.grid.placeAtIndex(88, this.confetti1);
+
+       //this.grid.showNumbers();
     }
     
 }
