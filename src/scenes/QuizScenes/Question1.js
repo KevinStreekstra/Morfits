@@ -1,6 +1,6 @@
 import AlignGrid from '../../classes/AlignGrid';
 
-import { addImage } from '../../helpers';
+import { addImage, withDPI } from '../../helpers';
 
 class Question1 extends Phaser.Scene {
     constructor() {
@@ -21,6 +21,7 @@ class Question1 extends Phaser.Scene {
         this.txt1;
 
         this.addImage = addImage.bind(this);
+        this.withDPI = withDPI.bind(this);
     }
 
     preload() {
@@ -36,7 +37,9 @@ class Question1 extends Phaser.Scene {
             height: this.sys.game.config.height
         });
 
-        this.bg = this.addImage(0, 0, 'Stats:bg').setOrigin(0, 0).setScale(2.4);
+        this.bg = this.addImage(0, 0, 'Stats:bg').setOrigin(0, 0);
+        this.grid.scaleX(this.bg, 1);
+        this.grid.scaleY(this.bg, 1);
 
         this.vines2 = this.addImage(0, 0, 'Question1:Vines');
         this.grid.placeAtIndex(77, this.vines2);
