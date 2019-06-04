@@ -5,7 +5,7 @@ export const _ITEMS = [
         category: 'shirt',
         price: 20,
         requiredLevel: 1,
-        asset: require('./assets/character/clothings/shirts/tshirt_variant_blank.png'),
+        asset: require('./assets/character/clothings/shirts/tshirt_variant_blank.png')
     },
     {
         id: 1,
@@ -13,7 +13,7 @@ export const _ITEMS = [
         category: 'shirt',
         price: 25,
         requiredLevel: 1,
-        asset: require('./assets/character/clothings/shirts/shirt_long_variant_blank.png'),
+        asset: require('./assets/character/clothings/shirts/shirt_long_variant_blank.png')
     },
     {
         id: 2,
@@ -21,7 +21,7 @@ export const _ITEMS = [
         category: 'shirt',
         price: 40,
         requiredLevel: 1,
-        asset: require('./assets/character/clothings/shirts/tshirt_variant_circle.png'),
+        asset: require('./assets/character/clothings/shirts/tshirt_variant_circle.png')
     },
     {
         id: 3,
@@ -29,7 +29,7 @@ export const _ITEMS = [
         category: 'shirt',
         price: 50,
         requiredLevel: 5,
-        asset: require('./assets/character/clothings/shirts/shirt_long_variant_circle.png'),
+        asset: require('./assets/character/clothings/shirts/shirt_long_variant_circle.png')
     },
     {
         id: 4,
@@ -37,7 +37,7 @@ export const _ITEMS = [
         category: 'shirt',
         price: 100,
         requiredLevel: 5,
-        asset: require('./assets/character/clothings/shirts/tshirt_variant_squares.png'),
+        asset: require('./assets/character/clothings/shirts/tshirt_variant_squares.png')
     },
     {
         id: 5,
@@ -45,7 +45,7 @@ export const _ITEMS = [
         category: 'shirt',
         price: 125,
         requiredLevel: 10,
-        asset: require('./assets/character/clothings/shirts/shirt_long_variant_squares.png'),
+        asset: require('./assets/character/clothings/shirts/shirt_long_variant_squares.png')
     },
     {
         id: 6,
@@ -53,7 +53,7 @@ export const _ITEMS = [
         category: 'shirt',
         price: 150,
         requiredLevel: 10,
-        asset: require('./assets/character/clothings/shirts/tshirt_variant_stripes.png'),
+        asset: require('./assets/character/clothings/shirts/tshirt_variant_stripes.png')
     },
     {
         id: 7,
@@ -61,7 +61,7 @@ export const _ITEMS = [
         category: 'shirt',
         price: 200,
         requiredLevel: 10,
-        asset: require('./assets/character/clothings/shirts/shirt_long_variant_stripes.png'),
+        asset: require('./assets/character/clothings/shirts/shirt_long_variant_stripes.png')
     },
 
     // PANTS
@@ -71,7 +71,7 @@ export const _ITEMS = [
         category: 'pants',
         price: 30,
         requiredLevel: 1,
-        asset: require('./assets/character/clothings/pants/pants_variant_blank.png'),
+        asset: require('./assets/character/clothings/pants/pants_variant_blank.png')
     },
     {
         id: 9,
@@ -79,7 +79,7 @@ export const _ITEMS = [
         category: 'pants',
         price: 50,
         requiredLevel: 1,
-        asset: require('./assets/character/clothings/pants/pants_long_variant_blank.png'),
+        asset: require('./assets/character/clothings/pants/pants_long_variant_blank.png')
     },
     {
         id: 10,
@@ -87,7 +87,7 @@ export const _ITEMS = [
         category: 'pants',
         price: 75,
         requiredLevel: 5,
-        asset: require('./assets/character/clothings/pants/pants_variant_worn.png'),
+        asset: require('./assets/character/clothings/pants/pants_variant_worn.png')
     },
     {
         id: 11,
@@ -95,7 +95,7 @@ export const _ITEMS = [
         category: 'pants',
         price: 100,
         requiredLevel: 5,
-        asset: require('./assets/character/clothings/pants/pants_long_variant_worn.png'),
+        asset: require('./assets/character/clothings/pants/pants_long_variant_worn.png')
     },
     {
         id: 12,
@@ -103,7 +103,7 @@ export const _ITEMS = [
         category: 'pants',
         price: 80,
         requiredLevel: 10,
-        asset: require('./assets/character/clothings/pants/pants_variant_damaged.png'),
+        asset: require('./assets/character/clothings/pants/pants_variant_damaged.png')
     },
     {
         id: 13,
@@ -111,7 +111,7 @@ export const _ITEMS = [
         category: 'pants',
         price: 110,
         requiredLevel: 10,
-        asset: require('./assets/character/clothings/pants/pants_long_variant_damaged.png'),
+        asset: require('./assets/character/clothings/pants/pants_long_variant_damaged.png')
     },
 
     //FOOD
@@ -121,7 +121,7 @@ export const _ITEMS = [
         category: 'food',
         price: 5,
         requiredLevel: 1,
-        asset: require('./assets/snake/food/apple.png'),
+        asset: require('./assets/snake/food/apple.png')
     },
     {
         id: 15,
@@ -129,7 +129,7 @@ export const _ITEMS = [
         category: 'food',
         price: 5,
         requiredLevel: 1,
-        asset: require('./assets/snake/food/pineapple.png'),
+        asset: require('./assets/snake/food/pineapple.png')
     },
     {
         id: 16,
@@ -137,7 +137,7 @@ export const _ITEMS = [
         category: 'food',
         price: 10,
         requiredLevel: 1,
-        asset: require('./assets/snake/food/lemon.png'),
+        asset: require('./assets/snake/food/lemon.png')
     },
     {
         id: 17,
@@ -145,7 +145,7 @@ export const _ITEMS = [
         category: 'food',
         price: 20,
         requiredLevel: 1,
-        asset: require('./assets/snake/food/soda.png'),
+        asset: require('./assets/snake/food/soda.png')
     },
     {
         id: 18,
@@ -153,6 +153,6 @@ export const _ITEMS = [
         category: 'food',
         price: 25,
         requiredLevel: 1,
-        asset: require('./assets/snake/food/hamburger.png'),
-    },
-];
+        asset: require('./assets/snake/food/hamburger.png')
+    }
+]
