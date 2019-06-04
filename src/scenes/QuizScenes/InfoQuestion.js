@@ -23,7 +23,7 @@ class InfoQuestion extends Phaser.Scene {
         this.BonusPlank;
         this.inleveren;
 
-        this.txt1;
+
 
         this.addImage = addImage.bind(this);
     }
@@ -90,31 +90,18 @@ class InfoQuestion extends Phaser.Scene {
        });
        this.grid.placeAtIndex(217, this.quit);
 
-       //bovenste plank
-       this.txt1 = this.add.text(0, 0, 'Bij de volgende vraag', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.1);
-       this.grid.placeAtIndex(22, this.txt1);
-
-       this.txt1 = this.add.text(0, 0, 'hoort de onderste uitleg', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.5);
+       this.txt1 = this.add.text(0, 0, 'Bij de volgende vraag hoort de onderste uitleg bij, snap jij wat er staat?',
+       { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`, align: 'center', wordWrap: {width: (250 * window.devicePixelRatio), useAdvancedWrap: true}}).setOrigin(0.5, 0.7);
        this.grid.placeAtIndex(37, this.txt1);
-
-       this.txt1 = this.add.text(0, 0, 'bij, snap jij wat er staat?', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.9);
-       this.grid.placeAtIndex(52, this.txt1);
+       //bovenste plank
+    
 
        //Middelste plank
-       this.txt1 = this.add.text(0, 0, 'Calorieën worden', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.3);
-       this.grid.placeAtIndex(82, this.txt1);
-
-       this.txt1 = this.add.text(0, 0, 'omgezet in energie', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, -0.40);
-       this.grid.placeAtIndex(82, this.txt1);
-
-       this.txt1 = this.add.text(0, 0, 'waardoor je kan bewegen', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.1);
-       this.grid.placeAtIndex(97, this.txt1);
-
-       this.txt1 = this.add.text(0, 0, 'als je teveel calorieën', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.6);
+       this.txt1 = this.add.text(0, 0, 'Calorieën worden omgezet in energie waardoor je kan bewegen. Als je te veel calorieën eet word je dik',
+       { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`, align: 'center', wordWrap: {width: (270 * window.devicePixelRatio), useAdvancedWrap: true}}).setOrigin(0.5, 0.7);
        this.grid.placeAtIndex(112, this.txt1);
 
-       this.txt1 = this.add.text(0, 0, 'eet word je dik', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 1.1);
-       this.grid.placeAtIndex(127, this.txt1);
+
 
 
         //this.grid.showNumbers();

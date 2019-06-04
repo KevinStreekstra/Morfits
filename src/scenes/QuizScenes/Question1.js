@@ -15,9 +15,8 @@ class Question1 extends Phaser.Scene {
         this.smallPlank;
         this.answer;
         this.back;
-        this.question;
         this.substraction;
-        this.vraag;
+   
 
         this.txt1;
 
@@ -48,7 +47,8 @@ class Question1 extends Phaser.Scene {
         this.popupPlank = this.addImage(0, 0, 'StopQuiz:popupPlank');
        this.grid.placeAtIndex(37, this.popupPlank);
 
-        this.question = this.addImage(0, 0, 'Question1:question');
+        this.question = this.add.text(0, 0, 'Vraag',
+        { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(30 * window.devicePixelRatio)}px`}).setOrigin(0.5, 0.6);
         this.grid.placeAtIndex(21, this.question);
 
         this.substraction = this.addImage(0, 0, 'Question1:substraction');
@@ -56,8 +56,9 @@ class Question1 extends Phaser.Scene {
 
         this.txt1 = this.add.text(0, 0, '1/5', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.5);
         this.grid.placeAtIndex(24, this.txt1);
-
-        this.vraag = this.addImage(0, 0, 'Question1:Vraag').setOrigin(0.5, 0.7);
+        // Wat kan je beter niet teveel eten volgens de schijf van 5
+        this.vraag = this.add.text(0, 0, 'Wat kan je beter niet teveel eten volgens de schijf van 5?',
+        { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(28 * window.devicePixelRatio)}px`, align: 'center', wordWrap: {width: (250 * window.devicePixelRatio), useAdvancedWrap: true}}).setOrigin(0.5, 0.7);
         this.grid.placeAtIndex(52, this.vraag);
 
        this.smallPlank = this.addImage(0, 0, 'Question1:smallPlank').setOrigin(0.5, 0.7);

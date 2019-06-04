@@ -23,7 +23,7 @@ class GameSelectScene extends Phaser.Scene {
         this.backgroundBackdrop = this.add
             .image(0, withDPI(0), 'Snake:guide_helper_background')
             .setDepth(-1)
-            .setScale(withDPI(0.2), withDPI(0.2))
+            .setScale(withDPI(0.5), withDPI(0.5))
             .setOrigin(0, 0)
 
         this.add

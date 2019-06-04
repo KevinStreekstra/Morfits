@@ -217,7 +217,7 @@ class SnakeScene extends Phaser.Scene {
                 this.backgroundBackdrop = scene.add
                     .image(0, 0, 'Snake:guide_helper_background')
                     .setDepth(-1)
-                    .setScale(withDPI(0.2), withDPI(0.2))
+                    .setScale(withDPI(0.5), withDPI(0.5))
                     .setOrigin(0, 0)
 
                 this.modalBackground = scene.add
