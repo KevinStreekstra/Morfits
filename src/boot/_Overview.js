@@ -1,47 +1,107 @@
 export function overview_assets() {
-
     // Top navbar
-    this.load.image('overview:', 'src/assets/character_page/');
-    this.load.image('overview:whiteBG', 'src/assets/character_page/nav-level-tap@2x.png');
-    this.load.image('overview:navPP', 'src/assets/character_page/nav-pp-tab@2x.png');
-    this.load.image('overview:navM_Dollars', 'src/assets/character_page/nav-m-dollars-tab@2x.png');
-    this.load.image('overview:Myname', 'src/assets/level-tap/Myname@2x.png');
-    this.load.image('overview:level', 'src/assets/level-tap/Group 242@2x.png');
+    this.load.image(
+        'overview:whiteBG',
+        require('../assets/overview/backgrounds/nav_top_player_info.png')
+    )
+    this.load.image(
+        'overview:navPP',
+        require('../assets/overview/backgrounds/nav_top_powerpoints.png')
+    )
+    this.load.image(
+        'overview:navM_Dollars',
+        require('../assets/overview/backgrounds/nav_top_morfit_dollars.png')
+    )
 
-    // Morfit
-    this.load.image('overview:morfitWalking', 'src/assets/character_page/morfit_character@2x.png');
-    this.load.image('overview:bg', 'src/assets/character_page/background@2x.png');
-    this.load.image('overview:XPbar', 'src/assets/character_page/exp_bar@2x.png');
-    this.load.image('overview:txtXPbar', 'src/assets/character_page/250-486XP@2x.png');
+    // Bars
+    this.load.image(
+        'overview:XPbar',
+        require('../assets/overview/bars/experience_bar.png')
+    )
+    this.load.image(
+        'overview:MentalBar',
+        require('../assets/overview/bars/mentality_bar_empty.png')
+    )
+    this.load.image(
+        'overview:EnergyBar',
+        require('../assets/overview/bars/energy_bar_full.png')
+    )
+    this.load.image(
+        'overview:PowerBar',
+        require('../assets/overview/bars/power_bar_growing.png')
+    )
 
-    // bottomnavbar & bars
-    this.load.image('overview:MentalBar', 'src/assets/character_page/mental_bar@2x.png');
-    this.load.image('overview:Mental80', 'src/assets/character_page/80-100@2x.png');
-    this.load.image('overview:IconMental', 'src/assets/character_page/icon_mental_fill@2x.png');
-    this.load.image('overview:EnergyBar', 'src/assets/character_page/energie_bar@2x.png');
-    this.load.image('overview:Energy100', 'src/assets/character_page/100-100@2x.png');
-    this.load.image('overview:IconEnergy', 'src/assets/character_page/icon_energie_bar_fill@2x.png');
-    this.load.image('overview:PowerBar', 'src/assets/character_page/kracht_bar@2x.png');
-    this.load.image('overview:Power100', 'src/assets/character_page/100-100@2x.png');
-    this.load.image('overview:IconPower', 'src/assets/character_page/icon_kracht_fill@2x.png');
-  
+    // Icons
+    this.load.image(
+        'overview:IconMental',
+        require('../assets/overview/icons/mentality_icon.png')
+    )
+    this.load.image(
+        'overview:IconEnergy',
+        require('../assets/overview/icons/energy_icon.png')
+    )
+    this.load.image(
+        'overview:IconPower',
+        require('../assets/overview/icons/power_icon.png')
+    )
 
+    // Buttons
+    this.load.image(
+        'overview:btnSettings',
+        require('../assets/overview/buttons/btn_settings.png')
+    )
+    this.load.image(
+        'overview:btnFriends',
+        require('../assets/overview/buttons/btn_friends.png')
+    )
+    this.load.image(
+        'overview:btnKleding',
+        require('../assets/overview/buttons/btn_clothing.png')
+    )
+    this.load.image(
+        'overview:btnGames',
+        require('../assets/overview/buttons/btn_games.png')
+    )
+    this.load.image(
+        'overview:btnMarket',
+        require('../assets/overview/buttons/btn_market.png')
+    )
+    this.load.image(
+        'overview:btnInventory',
+        require('../assets/overview/buttons/btn_inventory.png')
+    )
+    this.load.image(
+        'overview:btnQuiz',
+        require('../assets/overview/buttons/btn_quiz.png')
+    )
 
-    //bottom navbar icons / tekst
-    this.load.image('overview:btnSettings', 'src/assets/character_page/btn_setting@2x.png');
-    this.load.image('overview:btnFriends', 'src/assets/character_page/btn_freinds@2x.png');
-    this.load.image('overview:btnKleding', 'src/assets/character_page/brn_gym@2x.png');
-    this.load.image('overview:btnGames', 'src/assets/character_page/btn_games@2x.png');
-    this.load.image('overview:btnMarket', 'src/assets/character_page/btn_feed@2x.png');
-    this.load.image('overview:btnInventory', 'src/assets/character_page/btn_inventory@2x.png');
-    this.load.image('overview:btnQuiz', 'src/assets/character_page/btn_daily-reward@2x.png');
+    // Backgrounds
+    this.load.image(
+        'overview:bg',
+        require('../assets/overview/backgrounds/overview_background.png')
+    )
+    this.load.image(
+        'overview:BottomNavbar',
+        require('../assets/overview/backgrounds/nav_bottom_background.png')
+    )
 
-    //bottom navbar
-    this.load.image('overview:BottomNavbar', 'src/assets/character_page/nav-bottom_background@2x.png');
-    this.load.image('overview:ground2', 'src/assets/character_page/ground-bottom@2x.png');
-    this.load.image('overview:ground3', 'src/assets/character_page/ground-top@2x.png');
+    // Grounds
+    this.load.image(
+        'overview:ground2',
+        require('../assets/overview/grounds/ground_bottom.png')
+    )
+    this.load.image(
+        'overview:ground3',
+        require('../assets/overview/grounds/ground_top.png')
+    )
 
-    //Foliage 
-    this.load.image('overview:HomePlant', 'src/assets/character_page/plant-vase@2x.png');
-    this.load.image('overview:HomePlant2', 'src/assets/character_page/plant-pot@2x.png');
+    // Plants
+    this.load.image(
+        'overview:HomePlant',
+        require('../assets/overview/plants/plant-ismirin.png')
+    )
+    this.load.image(
+        'overview:HomePlant2',
+        require('../assets/overview/plants/plant-buhoo.png')
+    )
 }

@@ -2,20 +2,18 @@ class EnergyLevel extends Phaser.Scene {
     constructor(props) {
         super({
             key: 'EnergyLevel'
-        });
+        })
     }
 
-    preload() {
+    preload() {}
 
-    }
-
-    create () {
-        let energy_level = 100;
+    create() {
+        let energy_level = 100
         function minigame() {
-          energy_level -= 30;
-          console.log(energy_level);
+            energy_level -= 30
+            console.log(energy_level)
+        }
+        minigame()
     }
-    minigame();
-};
 }
-export default EnergyLevel;
+export default EnergyLevel

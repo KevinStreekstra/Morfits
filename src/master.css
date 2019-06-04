@@ -1,7 +1,139 @@
+#game > div {
+    pointer-events: unset !important;
+}
+
 .shopContainer {
+    display: grid !important;
+    grid-template-columns: auto auto auto;
+    grid-auto-rows: max-content;
     width: 375px;
-    height: 375px;
+    height: 400px;
     overflow-y: scroll;
     overflow-x: hidden;
     box-sizing: border-box;
+    padding: 15px 8px 8px;
+}
+
+.shopItem {
+    display: none;
+    margin: 7px 7px 25px;
+    position: relative;
+}
+
+.shopItem::after {
+    position: absolute;
+    content: attr(data-price);
+    top: -12px;
+    left: -8px;
+    padding: 6px 10px;
+    text-align: right;
+    height: 30px;
+    width: 73px;
+    font-family: 'Bubblegum Sans', sans-serif;
+    font-weight: 500;
+    font-size: 17px;
+    background-image: url('./assets/inventaris/item/price-tag.png');
+    background-size: cover;
+    box-sizing: border-box;
+    transform: rotate(-14deg);
+}
+
+.shopItem > div {
+    height: 105px;
+    width: 105px;
+    background-size: auto 70px;
+    background-color: #ba6d34;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
+}
+
+.shopItem > div.locked::after {
+    position: absolute;
+    content: 'Level ' attr(data-level);
+    top: 75px;
+    width: 105px;
+    font-family: 'Bubblegum Sans', sans-serif;
+    text-align: center;
+    color: white;
+}
+
+.shopItem > button {
+    border: none;
+    background: transparent;
+    background-image: url('./assets/inventaris/item/kopen-knop.png');
+    background-size: cover;
+    height: 40px;
+    width: 100%;
+    cursor: pointer;
+    outline: 0;
+    user-select: none;
+}
+
+.invContainer {
+    display: grid !important;
+    grid-template-columns: auto auto auto;
+    width: 375px;
+    height: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    padding: 15px 8px 8px;
+}
+
+.invItem {
+    display: none;
+    margin: 7px 7px;
+    position: relative;
+}
+
+.invItem > div {
+    height: 105px;
+    width: 105px;
+    background-size: auto 70px;
+    background-color: #ba6d34;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
+}
+
+.infoButton {
+    /* Empty for now */
+}
+
+.no-items {
+    display: none;
+    grid-column-start: 2;
+    font-family: 'Bubblegum Sans', sans-serif;
+    text-align: center;
+    color: #2e3a4b;
+}
+
+::-webkit-scrollbar {
+    width: 0 !important;
+    background: transparent;
+}
+
+input {
+    padding: 10px;
+    border-radius: 50px;
+    font-size: 20px;
+    font-family: 'Bubblegum Sans', sans-serif;
+    outline: none;
+    width: 300px;
+    text-align: center;
+    border: none;
+}
+
+.submitPlayer {
+    width: 300px;
+    padding: 10px;
+    border-radius: 50px;
+    font-size: 18px;
+    outline: none;
+    text-align: center;
+    border: 4px solid white;
+    background-color: #fa9a26;
+    color: white;
+    font-family: 'Bubblegum Sans', sans-serif;
 }

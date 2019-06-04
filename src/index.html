@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="NL">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            content="user-scalable=0, initial-scale=1,minimum-scale=1, maximum-scale=1, width=device-width, minimal-ui=1"
+            name="viewport"
+        />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <title>Morfits</title>
+
+        <!-- iPhone Xr (828px x 1792px) -->
+        <link
+            rel="apple-touch-startup-image"
+            media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)"
+            href="./loading-screen/boot-iphone-xr.png"
+        />
+        <!-- iPhone X, Xs (1125px x 2436px) -->
+        <link
+            rel="apple-touch-startup-image"
+            media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
+            href="./loading-screen/boot-iphone-xs.png"
+        />
+        <!-- iPhone 8 Plus, 7 Plus, 6s Plus, 6 Plus (1242px x 2208px) -->
+        <link
+            rel="apple-touch-startup-image"
+            media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)"
+            href="./loading-screen/boot-iphone-8-plus.png"
+        />
+        <!-- iPhone 8, 7, 6s, 6 (750px x 1334px) -->
+        <link
+            rel="apple-touch-startup-image"
+            media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
+            href="./loading-screen/boot-iphone-8.png"
+        />
+
+        <link
+            href="https://fonts.googleapis.com/css?family=Bubblegum+Sans&display=swap"
+            rel="stylesheet"
+        />
+
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+            #game {
+                display: inline-block;
+                position: relative;
+            }
+        </style>
+        <script
+            src="https://browser.sentry-cdn.com/5.3.0/bundle.min.js"
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            Sentry.init({
+                dsn: 'https://448ec742cc7f4e678585aef565122b61@sentry.io/1469140',
+                release: 'V@@version',
+                environment: '@@environment'
+            })
+        </script>
+    </head>
+    <body>
+        <div id="game"></div>
+        <div id="formUtil" style="display: none;">
+            <div id="create:step1">
+                <input
+                    type="text"
+                    id="player:username"
+                    placeholder="Typ hier je naam"
+                />
+                <button id="player:submit">Klaar!</button>
+            </div>
+        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io()
+        </script>
+    </body>
+</html>
