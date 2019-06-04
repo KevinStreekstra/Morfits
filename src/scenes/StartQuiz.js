@@ -38,7 +38,9 @@ class StartQuiz extends Phaser.Scene {
         });
 
 
-        this.bg = this.addImage(0, 0, 'Stats:bg').setOrigin(0, 0).setScale(2.4);
+        this.bg = this.addImage(0, 0, 'Stats:bg').setOrigin(0, 0);
+        this.grid.scaleX(this.bg, 1);
+        this.grid.scaleY(this.bg, 1);
 
         this.vines2 = this.addImage(0, 0, 'Stats:Vines');
         this.grid.placeAtIndex(17, this.vines2);

@@ -43,13 +43,14 @@ class Inventory extends Phaser.Scene {
             });
          }
 
-        this.bg = this.addRectangle(0, 0, 375, 675, 0xffffff).setOrigin(0, 0);
+        this.bg = this.addRectangle(0, 0, 375, this.sys.game.config.height, 0xffffff).setOrigin(0, 0);
 
         this.scene.launch("TopNavBar");
 
-        this.bgOverlay = this.addImage(0, 0, 'shop:bg').setOrigin(0.5, 0);
+        this.bgOverlay = this.addImage(0, 0, 'inv:bg').setOrigin(0.5, 0);
         this.grid.placeAtIndex(22, this.bgOverlay);
-        this.grid.scaleTo(this.bgOverlay, 1);
+        this.grid.scaleY(this.bgOverlay, 1);
+        this.grid.scaleX(this.bgOverlay, 1);
 
         this.nav = this.addImage(0, 0, 'shop:nav').setOrigin(0.5, .205);
         this.grid.placeAtIndex(22, this.nav);
