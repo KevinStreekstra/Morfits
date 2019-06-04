@@ -24,6 +24,7 @@ import Question4 from "./scenes/QuizScenes/Question4";
 import InfoQuestion from "./scenes/QuizScenes/InfoQuestion";
 import Question5 from "./scenes/QuizScenes/Question5";
 import QuizReward from "./scenes/QuizScenes/QuizReward";
+import QuizAnswer from "./scenes/QuizScenes/QuizAnswer";
 
 // Styling
 import './master.css';
@@ -76,6 +77,7 @@ const game = new Phaser.Game({
         Question5,
         QuizReward,
         CustomizeCharacterScene,
+        QuizAnswer,
     ],
 });
 

@@ -1,3 +1,4 @@
 export function QuizReward() {
-    this.load.image('QuizReward:Confetti1', 'src/assets/daily_reward_quiz/daily_reward_quiz_congratz/confett_1@2x.png');
+    this.load.image('QuizReward:Confetti1', require('../../assets/daily_reward/quiz/Confetti/confetti_1@2x.png'));
+    this.load.image('QuizReward:Innen', require('../../assets/daily_reward/quiz/Confetti/btn_claim@2x.png'));
 }

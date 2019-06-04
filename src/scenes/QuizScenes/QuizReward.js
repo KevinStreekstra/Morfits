@@ -11,6 +11,12 @@ class QuizReward extends Phaser.Scene {
 
         this.bg;
         this.confetti1;
+        this.popup;
+        this.Mask;
+        this.ribbonCoins;
+        this.innen;
+
+        this.txt1;
 
         this.addImage = addImage.bind(this);
     }
@@ -28,12 +34,34 @@ class QuizReward extends Phaser.Scene {
             height: this.sys.game.config.height
         });
 
-        this.bg = this.addImage(0, 0, 'Stats:bg').setOrigin(0, 0).setScale(2.4);
+        this.overlay = this.addImage(0, 0, 'Daily:bg').setOrigin(0, 0);
+        this.grid.scaleY(this.overlay, 1);
+
+        this.popup = this.addImage(0, 0, 'Daily:popup');
+        this.grid.placeAtIndex(112, this.popup);
+
+        this.Mask = this.addImage(0, 0, 'Daily:BgMask');
+        this.grid.placeAtIndex(112, this.Mask);
+
+        this.ribbonCoins = this.addImage(0, 0, 'Daily:ribbonCoins').setOrigin(0.5, 0.6);
+        this.grid.placeAtIndex(97, this.ribbonCoins);
+
+        this.txt1 = this.add.text(0, 0, 'Goed gedaan!', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(48 * window.devicePixelRatio)}px`,}).setOrigin(0.5, 0.2);
+        this.grid.placeAtIndex(52, this.txt1);
+
+        this.innen = this.addImage(0, 0, 'QuizReward:Innen').setOrigin(0.5, 0.8).setInteractive();
+        this.innen.on('pointerdown', () => {
+            this.scene.stop('QuizReward');
+        });
+        this.grid.placeAtIndex(172, this.innen);
 
         this.confetti1 = this.addImage(0, 0, 'QuizReward:Confetti1');
-        this.grid.placeAtIndex(52, this.confetti1);    
+        this.grid.placeAtIndex(52, this.confetti1);
+        
+       
 
-        //this.grid.showNumbers();
+
+       // this.grid.showNumbers();
     }
     
 }

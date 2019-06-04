@@ -51,6 +51,8 @@ class Question1 extends Phaser.Scene {
         this.question = this.addImage(0, 0, 'Question1:question');
         this.grid.placeAtIndex(21, this.question);
 
+       
+
         this.substraction = this.addImage(0, 0, 'Question1:substraction');
         this.grid.placeAtIndex(24, this.substraction);
 

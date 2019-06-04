@@ -67,7 +67,7 @@ class OverviewScene extends Phaser.Scene {
         });
 
         this.bg = this.addImage(0, 0, 'overview:bg');
-        this.grid.placeAtIndex(112, this.bg);
+        this.grid.placeAtIndex(97, this.bg);
 
         // Top Navbar
         this.TopNavbar = this.addImage(0, 0, 'overview:BottomNavbar');
@@ -77,7 +77,7 @@ class OverviewScene extends Phaser.Scene {
             this.scene.launch('StatsScene');
         });
         this.grid.placeAtIndex(3, this.whiteBg);
-        this.Mylevel = this.add.text(0, 0, this._player.getLevel(), { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(1.5, 0.2);
+        this.Mylevel = this.add.text(0, 0, this._player.getLevel(), { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(2.3, 0.3);
         this.grid.placeAtIndex(1, this.Mylevel);
 
         this.Myname = this.add.text(0, 0, this.player.username, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'black'}).setOrigin(0.6, 0.25);
@@ -108,8 +108,8 @@ class OverviewScene extends Phaser.Scene {
         this.grid.placeAtIndex(196, this.kleding);
 
         this.kleding.on('pointerdown', () => {
-            this.scene.start('CustomizeCharacter')
-            this.scene.stop('OverviewScene')
+            this.scene.start('CustomizeCharacter');
+            this.scene.stop('OverviewScene');
         })
 
         this.txtKleding = this.add.text(0, 0, 'Kleding', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(0, 0.5);
@@ -118,7 +118,8 @@ class OverviewScene extends Phaser.Scene {
         this.games = this.addImage(0, 0, 'overview:btnGames').setOrigin(0.5, 0.37).setInteractive();
         this.grid.placeAtIndex(199, this.games);
         this.games.on('pointerdown', () => {
-            this.scene.start('GameSelect')
+            this.scene.start('GameSelect');
+            this.scene.pause('OverviewScene');
         })
 
         this.txtGames = this.add.text(0, 0, 'Games', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(-0.1, 0.5);
@@ -128,6 +129,7 @@ class OverviewScene extends Phaser.Scene {
         this.grid.placeAtIndex(202, this.market);
         this.market.on('pointerdown', () => {
             this.scene.launch('ShopScene');
+            this.scene.pause('OverviewScene');
         });
 
         this.txtMarket = this.add.text(0, 0, 'Markt', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(-0.2, 0.5);
@@ -142,7 +144,7 @@ class OverviewScene extends Phaser.Scene {
         this.quiz = this.addImage(0, 0, 'overview:btnQuiz').setOrigin(0.5, 0.37).setInteractive();
         this.quiz.on('pointerdown', () => {
             this.scene.launch('DailyScene');
-            this.scene.stop('ShopScene');
+            this.scene.pause('OverviewScene');
         });
         this.grid.placeAtIndex(208, this.quiz);
 
@@ -151,8 +153,8 @@ class OverviewScene extends Phaser.Scene {
 
 
         //morfit & plants
-        this.morfitWalking = this.addImage(0, 0, 'Character:full').setScale(withDPI(0.2), withDPI(0.2));
-        this.grid.placeAtIndex(127, this.morfitWalking);
+        this.morfitWalking = this.addImage(0, 0, 'Character:full').setScale(withDPI(0.2), withDPI(0.2)).setOrigin(0.5, 0.58);
+        this.grid.placeAtIndex(142, this.morfitWalking);
 
         this.txtXPbar = this.add.text(0, 0, `${this.player.xp}/${this._player.getRequiredXP(this._player.getLevel())}`, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(10 * window.devicePixelRatio)}px`});
         this.grid.placeAtIndex(171, this.txtXPbar);
