@@ -37,11 +37,12 @@ class DailyScenes extends Phaser.Scene {
         this.quit = this.addImage(0, 0, 'Daily:quit').setInteractive();
         this.quit.on('pointerdown', () => {
             this.scene.stop('DailyScene');
+            this.scene.launch('OverviewScene');
         });
         this.grid.placeAtIndex(202, this.quit);
         this.grid.scaleTo(this.quit, 0);
 
-        this.start = this.addImage(0, 0, 'Daily:start').setInteractive();
+        this.start = this.addImage(0, 0, 'Daily:start').setInteractive().setOrigin(0.5, 0.8);
         this.grid.placeAtIndex(172, this.start);
         this.start.on('pointerdown', () => {
             this.scene.stop('DailyScene');
@@ -50,20 +51,20 @@ class DailyScenes extends Phaser.Scene {
         });
         this.grid.scaleTo(this.start, 0);
 
-        this.popupplank = this.addImage(0, 0, 'Daily:popupPlank');
+        this.popupplank = this.addImage(0, 0, 'Daily:popupPlank').setOrigin(0.5, 0.7);
         this.grid.placeAtIndex(142, this.popupplank);
         this.grid.scaleTo(this.popupplank, 0);
 
         this.popuptxt = this.add.text(0, 0, 'Doe mee met de Quiz van de week en win 5 M-Dollars voor vandaag!', 
         { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(20 * window.devicePixelRatio)}px`, wordWrap: {width: (300 * window.devicePixelRatio), useAdvancedWrap: true}});
-        Phaser.Display.Align.In.Center(this.popuptxt, this.popupplank);
+        Phaser.Display.Align.In.Center(this.popuptxt, this.popupplank).setOrigin(0, 0.3);
 
-        this.ribbonCoins = this.addImage(0, 0, 'Daily:ribbonCoins');
-        this.grid.placeAtIndex(97, this.ribbonCoins);
+        this.ribbonCoins = this.addImage(0, 0, 'Daily:ribbonCoins').setOrigin(0.5, 0.6);
+        this.grid.placeAtIndex(112, this.ribbonCoins);
         this.grid.scaleTo(this.ribbonCoins, 0);
 
         this.active = this.addImage(0, 0, 'Daily:active');
-        this.grid.placeAtIndex(48, this.active);
+        this.grid.placeAtIndex(63, this.active);
         this.grid.scaleTo(this.active, 0);
 
 
@@ -72,7 +73,7 @@ class DailyScenes extends Phaser.Scene {
         Phaser.Display.Align.In.Center(this.Quiz, this.active);
 
         this.seperator = this.addImage(0, 0, 'Daily:seperator');
-        this.grid.placeAtIndex(52, this.seperator);
+        this.grid.placeAtIndex(67, this.seperator);
         this.grid.scaleTo(this.seperator, 0);
 
         this.mission = this.add.text(0, 0, 'Missie van de week!', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(25 * window.devicePixelRatio)}px`, align: 'center', wordWrap: {width: (100 * window.devicePixelRatio), useAdvancedWrap: true}});
@@ -104,7 +105,7 @@ class DailyScenes extends Phaser.Scene {
             yoyo: false
         });
 
-        //this.grid.showNumbers();
+       // this.grid.showNumbers();
     }
 }
 

@@ -70,7 +70,7 @@ class OverviewScene extends Phaser.Scene {
         });
 
         this.bg = this.addImage(0, 0, 'overview:bg');
-        this.grid.placeAtIndex(112, this.bg);
+        this.grid.placeAtIndex(97, this.bg);
 
         // Top Navbar
         this.scene.launch("TopNavBar");
@@ -91,8 +91,8 @@ class OverviewScene extends Phaser.Scene {
         this.grid.placeAtIndex(196, this.kleding);
 
         this.kleding.on('pointerdown', () => {
-            this.scene.start('CustomizeCharacter')
-            this.scene.stop('OverviewScene')
+            this.scene.start('CustomizeCharacter');
+            this.scene.stop('OverviewScene');
         })
 
         this.txtKleding = this.add.text(0, 0, 'Kleding', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, fill: 'white'}).setOrigin(0, 0.5);
@@ -135,6 +135,7 @@ class OverviewScene extends Phaser.Scene {
         this.quiz.on('pointerdown', () => {
             this.scene.bringToTop('DailyScene');
             this.scene.launch('DailyScene');
+            this.scene.pause('OverviewScene');
         });
         this.grid.placeAtIndex(208, this.quiz);
 
@@ -143,8 +144,8 @@ class OverviewScene extends Phaser.Scene {
 
 
         //morfit & plants
-        this.morfitWalking = this.addImage(0, 0, 'Character:full').setScale(withDPI(0.2), withDPI(0.2));
-        this.grid.placeAtIndex(127, this.morfitWalking);
+        this.morfitWalking = this.addImage(0, 0, 'Character:full').setScale(withDPI(0.2), withDPI(0.2)).setOrigin(0.5, 0.58);
+        this.grid.placeAtIndex(142, this.morfitWalking);
 
         this.txtXPbar = this.add.text(0, 0, `${this.player.xp}/${this._player.getRequiredXP(this._player.getLevel())}`, { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(10 * window.devicePixelRatio)}px`}).setOrigin(0.5, 0);
         this.grid.placeAtIndex(172, this.txtXPbar);
