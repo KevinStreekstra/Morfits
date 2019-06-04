@@ -1,36 +1,38 @@
-import Phaser from "phaser";
+import Phaser from 'phaser'
 
-import BootScene from './boot/Boot';
-import LoadingScene from './scenes/Loading';
-import CreatePlayerScene from './scenes/CreatePlayer';
-import OverviewScene from './scenes/Overview';
-import StatsScene from "./scenes/Stats";
-import DailyScenes from "./scenes/DailyQuiz";
-import WeeklyScenes from "./scenes/WeeklyMission";
-import SnakeScene from "./scenes/Snake";
-import GameSelectScene from "./scenes/GameSelect";
-import RunMorfiRun from "./scenes/games/RunMorfiRun";
-import PopupModalScene from './scenes/PopupModal';
-import ShopScene from './scenes/Shop';
-import InventoryScene from './scenes/Inventory';
-import StartQuiz from "./scenes/StartQuiz";
-import StopQuiz from "./scenes/StopQuiz";
-import TopNavBar from "./scenes/TopNavBar";
-import CustomizeCharacterScene from "./scenes/CustomizeCharacter";
+import BootScene from './boot/Boot'
+import LoadingScene from './scenes/Loading'
+import CreatePlayerScene from './scenes/CreatePlayer'
+import OverviewScene from './scenes/Overview'
+import StatsScene from './scenes/Stats'
+import DailyScenes from './scenes/DailyQuiz'
+import WeeklyScenes from './scenes/WeeklyMission'
+import SnakeScene from './scenes/Snake'
+import GameSelectScene from './scenes/GameSelect'
+import RunMorfiRun from './scenes/games/RunMorfiRun'
+import PopupModalScene from './scenes/PopupModal'
+import ShopScene from './scenes/Shop'
+import InventoryScene from './scenes/Inventory'
+import StartQuiz from './scenes/StartQuiz'
+import StopQuiz from './scenes/StopQuiz'
+import TopNavBar from './scenes/TopNavBar'
+import CustomizeCharacterScene from './scenes/CustomizeCharacter'
 
 //Quiz questions
-import Question1 from "./scenes/QuizScenes/Question1";
-import Question2 from "./scenes/QuizScenes/Question2";
-import Question3 from "./scenes/QuizScenes/Question3";
-import Question4 from "./scenes/QuizScenes/Question4";
-import InfoQuestion from "./scenes/QuizScenes/InfoQuestion";
-import Question5 from "./scenes/QuizScenes/Question5";
+import Question1 from './scenes/QuizScenes/Question1'
+import Question2 from './scenes/QuizScenes/Question2'
+import Question3 from './scenes/QuizScenes/Question3'
+import Question4 from './scenes/QuizScenes/Question4'
+import InfoQuestion from './scenes/QuizScenes/InfoQuestion'
+import Question5 from './scenes/QuizScenes/Question5'
+import QuizReward from './scenes/QuizScenes/QuizReward'
+import QuizAnswer from './scenes/QuizScenes/QuizAnswer'
 
 // Styling
-import './master.css';
+import './master.css'
 
-const devicePixelRatio = window.devicePixelRatio;
-const scaleDownRation = 1 / 3;
+const devicePixelRatio = window.devicePixelRatio
+const scaleDownRation = 1 / 3
 
 const game = new Phaser.Game({
     parent: 'game',
@@ -38,13 +40,13 @@ const game = new Phaser.Game({
     width: 375,
     height: window.innerHeight,
     dom: {
-      createContainer: true,
+        createContainer: true
     },
     physics: {
-      default: 'arcade',
-      arcade: {
-          debug: false
-      }
+        default: 'arcade',
+        arcade: {
+            debug: false
+        }
     },
     antialias: true,
     multiTexture: true,
@@ -77,21 +79,23 @@ const game = new Phaser.Game({
         Question4,
         InfoQuestion,
         Question5,
-        CustomizeCharacterScene
-    ],
-});
+        QuizReward,
+        CustomizeCharacterScene,
+        QuizAnswer
+    ]
+})
 
 const WebFontConfig = {
-  google: {
-    families: ['Bubblegum Sans']
-  }
+    google: {
+        families: ['Bubblegum Sans']
+    }
 }
 
-if(typeof(module.hot) !== 'undefined') {
+if (typeof module.hot !== 'undefined') {
     if (module.hot) {
-        module.hot.accept();
+        module.hot.accept()
         module.hot.dispose(function() {
             location.reload()
-        });
+        })
     }
 }

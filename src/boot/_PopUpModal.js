@@ -1,9 +1,6 @@
 export function pop_up_modal() {
     // Elements
-    this.load.image(
-        'popup:food_list',
-        require('../assets/popup/good-bad-food.png')
-    )
+    this.load.image('popup:food_list', require('../assets/popup/good-bad-food.png'))
 
     // Backgrounds
     this.load.image(
@@ -22,8 +19,5 @@ export function pop_up_modal() {
         require('../assets/popup/buttons/btn_start.png')
     )
 
-    this.load.image(
-        'popup:button',
-        require('../assets/popup/buttons/btn_claim.png')
-    )
+    this.load.image('popup:button', require('../assets/popup/buttons/btn_claim.png'))
 }

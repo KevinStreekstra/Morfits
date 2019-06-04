@@ -5,19 +5,19 @@
  * @author Yannick Frisart
  */
 
-import Phaser from 'phaser';
-import { withDPI } from '../helpers';
-import SwipeListener from 'swipe-listener';
+import Phaser from 'phaser'
+import { withDPI } from '../helpers'
+import SwipeListener from 'swipe-listener'
 
 import { snakeGuideLang } from '../language/Snake'
 
-let snake;
-let main_body;
-let main_soda;
-let cursors;
-let main_socket;
-let main_scene;
-let snakeSelf;
+let snake
+let main_body
+let main_soda
+let cursors
+let main_socket
+let main_scene
+let snakeSelf
 let main_others
 let morfosReward = 0
 let ateFood = false
@@ -39,21 +39,22 @@ const possibleNames = [
     'Hope'
 ]
 
-let playerName = localStorage.getItem('username') || possibleNames[Math.floor(Math.random()*possibleNames.length)];
+let playerName =
+    localStorage.getItem('username') ||
+    possibleNames[Math.floor(Math.random() * possibleNames.length)]
 
-const UP = 0;
-const DOWN = 1;
-const LEFT = 2;
-const RIGHT = 3;
+const UP = 0
+const DOWN = 1
+const LEFT = 2
+const RIGHT = 3
 
-
-let direction;
+let direction
 
 const yOffset = 67
-const withOffset = (original) => original + withDPI(yOffset);
+const withOffset = original => original + withDPI(yOffset)
 const calcModalOffset = (window.innerHeight - 554) / 2
 
-const withModalOffset = (cordinate) => {
+const withModalOffset = cordinate => {
     if (calcModalOffset > 8) {
         return calcModalOffset + cordinate
     } else {
@@ -75,14 +76,14 @@ class SnakeScene extends Phaser.Scene {
                     width: withDPI(375),
                     height: withDPI(475)
                 }
-            },
-        });
+            }
+        })
 
         const gameCanvas = document.querySelector('#game')
         const listener = SwipeListener(gameCanvas)
 
-        gameCanvas.addEventListener('swipe', (ev) => {
-            const directions = ev.detail.directions;
+        gameCanvas.addEventListener('swipe', ev => {
+            const directions = ev.detail.directions
 
             if (directions.left) {
                 direction = 'left'
@@ -109,7 +110,7 @@ class SnakeScene extends Phaser.Scene {
     }
 
     create() {
-        var self = this;
+        var self = this
 
         const ownPlayer = {
             playerId: Phaser.Math.RND.uuid(),
@@ -211,7 +212,15 @@ class SnakeScene extends Phaser.Scene {
              * @param {string} guideInfo.current - the name of the current step
              */
             initialize: function GuideModal(scene, guideInfo) {
-                const { imageKey, bodyText, hasBack, isLast, nextStep, previous, name } = guideInfo
+                const {
+                    imageKey,
+                    bodyText,
+                    hasBack,
+                    isLast,
+                    nextStep,
+                    previous,
+                    name
+                } = guideInfo
                 let current = name
 
                 this.backgroundBackdrop = scene.add
@@ -221,26 +230,25 @@ class SnakeScene extends Phaser.Scene {
                     .setOrigin(0, 0)
 
                 this.modalBackground = scene.add
-                    .image(withDPI(16), withDPI(withModalOffset(0)), 'Snake:modal_background')
+                    .image(
+                        withDPI(16),
+                        withDPI(withModalOffset(0)),
+                        'Snake:modal_background'
+                    )
                     .setDepth(40)
                     .setDisplaySize(withDPI(343), withDPI(554))
                     .setOrigin(0, 0)
 
                 this.modalHeader = scene.add
-                    .text(
-                        withDPI(187),
-                        withDPI(withModalOffset(32)),
-                        'Uitleg',
-                        {
-                            fontFamily: 'Bubblegum Sans',
-                            fontSize: '32px',
-                            color: '#2E3A4B',
-                            align: 'center',
-                            stroke: '#ffffff',
-                            strokeThickness: 8,
-                            resolution: window.devicePixelRatio
-                        }
-                    )
+                    .text(withDPI(187), withDPI(withModalOffset(32)), 'Uitleg', {
+                        fontFamily: 'Bubblegum Sans',
+                        fontSize: '32px',
+                        color: '#2E3A4B',
+                        align: 'center',
+                        stroke: '#ffffff',
+                        strokeThickness: 8,
+                        resolution: window.devicePixelRatio
+                    })
                     .setDepth(41)
                     .setOrigin(0.5, 0)
                     .setScale(withDPI(1), withDPI(1))
@@ -253,18 +261,13 @@ class SnakeScene extends Phaser.Scene {
                     .setOrigin(0, 0)
 
                 this.modalDescription = scene.add
-                    .text(
-                        withDPI(48),
-                        withDPI(withModalOffset(329)),
-                        bodyText,
-                        {
-                            fontFamily: 'Bubblegum Sans',
-                            fontSize: '24px',
-                            color: '#ffffff',
-                            align: 'left',
-                            resolution: window.devicePixelRatio
-                        }
-                    )
+                    .text(withDPI(48), withDPI(withModalOffset(329)), bodyText, {
+                        fontFamily: 'Bubblegum Sans',
+                        fontSize: '24px',
+                        color: '#ffffff',
+                        align: 'left',
+                        resolution: window.devicePixelRatio
+                    })
                     .setDepth(44)
                     .setOrigin(0, 0)
                     .setScale(withDPI(1), withDPI(1))
@@ -272,7 +275,11 @@ class SnakeScene extends Phaser.Scene {
                     .setWordWrapWidth(295, true)
 
                 this.modalBackButton = scene.add
-                    .image(withDPI(44), withDPI(withModalOffset(436)), 'Snake:prev_button')
+                    .image(
+                        withDPI(44),
+                        withDPI(withModalOffset(436)),
+                        'Snake:prev_button'
+                    )
                     .setDepth(41)
                     .setInteractive()
                     .setOrigin(0, 0)
@@ -292,7 +299,11 @@ class SnakeScene extends Phaser.Scene {
                 })
 
                 this.modalNextButton = scene.add
-                    .image(withDPI(117), withDPI(withModalOffset(436)), 'Snake:next_button')
+                    .image(
+                        withDPI(117),
+                        withDPI(withModalOffset(436)),
+                        'Snake:next_button'
+                    )
                     .setDepth(41)
                     .setInteractive()
                     .setOrigin(0, 0)
@@ -312,7 +323,11 @@ class SnakeScene extends Phaser.Scene {
                 })
 
                 this.modalStartButton = scene.add
-                    .image(withDPI(117), withDPI(withModalOffset(436)), 'Snake:start_button')
+                    .image(
+                        withDPI(117),
+                        withDPI(withModalOffset(436)),
+                        'Snake:start_button'
+                    )
                     .setDepth(41)
                     .setInteractive()
                     .setOrigin(0, 0)
@@ -320,18 +335,18 @@ class SnakeScene extends Phaser.Scene {
                     .setVisible(isLast)
 
                 this.modalCloseButton = scene.add
-                    .image(withDPI(168), withDPI(withModalOffset(534)), 'Snake:close_button')
+                    .image(
+                        withDPI(168),
+                        withDPI(withModalOffset(534)),
+                        'Snake:close_button'
+                    )
                     .setDepth(41)
                     .setInteractive()
                     .setOrigin(0, 0)
                     .setScale(withDPI(0.2), withDPI(0.2))
 
                 const finishTutorial = () => {
-                    snake = new Snake(
-                        scene,
-                        20,
-                        20
-                    )
+                    snake = new Snake(scene, 20, 20)
 
                     this.backgroundBackdrop.destroy()
                     this.modalBackground.destroy()
@@ -359,47 +374,48 @@ class SnakeScene extends Phaser.Scene {
 
         const Snake = new Phaser.Class({
             initialize: function Snake(scene, x, y) {
-                this.socket = io();
-                main_socket = this.socket;
+                this.socket = io()
+                main_socket = this.socket
 
                 main_socket.emit('joinSnake', ownPlayer)
 
                 /* Handles the player reconnecting if they get disconnected. */
-                main_socket.on('playerShouldReconnect', function (playerId) {
+                main_socket.on('playerShouldReconnect', function(playerId) {
                     if (playerId === ownPlayer.playerId) {
                         main_socket.emit('joinSnake', ownPlayer)
                     }
                 })
 
-                snakeSelf = this;
-                main_scene = scene;
-                playerName = localStorage.getItem('username') || possibleNames[Math.floor(Math.random()*possibleNames.length)];
+                snakeSelf = this
+                main_scene = scene
+                playerName =
+                    localStorage.getItem('username') ||
+                    possibleNames[Math.floor(Math.random() * possibleNames.length)]
 
                 // Game variables
-                this.alive = true;
-                this.lives = 3;
-                this.moveTime = 0;
-                this.score = 0;
-                this.scoreModifier = 0;
-                this.speed = 100;
-                this.tails = 0;
-                this.total = 0;
+                this.alive = true
+                this.lives = 3
+                this.moveTime = 0
+                this.score = 0
+                this.scoreModifier = 0
+                this.speed = 100
+                this.tails = 0
+                this.total = 0
 
                 // Define code for other players
-                this.otherPlayers = {};
+                this.otherPlayers = {}
 
                 /* SECTION CreateOwnPlayer */
                 // Start defining the snake
-                this.headPosition = new Phaser.Geom.Point(12.5, 12.5);
-
+                this.headPosition = new Phaser.Geom.Point(12.5, 12.5)
 
                 // Create a physics group that will contain the head and all snake heads.
-                this.body = scene.physics.add.group();
+                this.body = scene.physics.add.group()
                 playerIsImmune = true
 
                 setTimeout(() => {
                     playerIsImmune = false
-                }, 2000);
+                }, 2000)
 
                 // Create the head.
                 this.head = this.body
@@ -408,14 +424,14 @@ class SnakeScene extends Phaser.Scene {
                         withOffset(y * withDPI(12.5)),
                         'Snake:player1_head'
                     )
-                    .setScale(withDPI(0.33), withDPI(0.33));
+                    .setScale(withDPI(0.33), withDPI(0.33))
 
-                this.head.setAngle(-90);
-                this.head.setDepth(10);
-                this.head.setOrigin(0.5);
-                this.head.setCircle(30, 25, 25);
+                this.head.setAngle(-90)
+                this.head.setDepth(10)
+                this.head.setOrigin(0.5)
+                this.head.setCircle(30, 25, 25)
 
-                this.tail = new Phaser.Geom.Point(12.5, 12.5);
+                this.tail = new Phaser.Geom.Point(12.5, 12.5)
                 main_body = this.body
 
                 /* !SECTION CreateOwnPlayer */
@@ -427,7 +443,11 @@ class SnakeScene extends Phaser.Scene {
 
                 /* ANCHOR Apple */
                 this.apple = this.foods
-                    .create(3 * withDPI(12.5), withOffset(4 * withDPI(12.5)), 'Snake:apple')
+                    .create(
+                        3 * withDPI(12.5),
+                        withOffset(4 * withDPI(12.5)),
+                        'Snake:apple'
+                    )
                     .setName('Apple')
                     .setOrigin(0)
                     .setScale(withDPI(0.333), withDPI(0.333))
@@ -469,33 +489,63 @@ class SnakeScene extends Phaser.Scene {
                 /* !SECTION Define foods */
 
                 /* ANCHOR Define physics overlaps. */
-                scene.physics.add.overlap(this.head, this.apple, this.eatApple, null, this);
-                scene.physics.add.overlap(this.head, this.pineapple, this.eatPineapple, null, this);
-                scene.physics.add.overlap(this.head, this.hamburger, this.eatHamburger, null, this);
-                scene.physics.add.overlap(this.head, this.lemon, this.eatLemon, null, this);
-                scene.physics.add.overlap(this.head, this.soda, this.drinkSoda, null, this);
+                scene.physics.add.overlap(
+                    this.head,
+                    this.apple,
+                    this.eatApple,
+                    null,
+                    this
+                )
+                scene.physics.add.overlap(
+                    this.head,
+                    this.pineapple,
+                    this.eatPineapple,
+                    null,
+                    this
+                )
+                scene.physics.add.overlap(
+                    this.head,
+                    this.hamburger,
+                    this.eatHamburger,
+                    null,
+                    this
+                )
+                scene.physics.add.overlap(
+                    this.head,
+                    this.lemon,
+                    this.eatLemon,
+                    null,
+                    this
+                )
+                scene.physics.add.overlap(
+                    this.head,
+                    this.soda,
+                    this.drinkSoda,
+                    null,
+                    this
+                )
 
                 // Variables to define the direction of the snake.
-                this.heading = RIGHT;
-                this.direction = RIGHT;
+                this.heading = RIGHT
+                this.direction = RIGHT
 
                 // Define change percentages
-                this.healthyFood = [];
+                this.healthyFood = []
                 for (let i = 0; i < 4; i++) {
-                    this.healthyFood.push(this.pineapple);
+                    this.healthyFood.push(this.pineapple)
                 }
 
                 for (let i = 0; i < 1; i++) {
-                    this.healthyFood.push(this.lemon);
+                    this.healthyFood.push(this.lemon)
                 }
 
-                this.notHealthy = [];
+                this.notHealthy = []
                 for (let i = 0; i < 4; i++) {
-                    this.notHealthy.push(this.hamburger);
+                    this.notHealthy.push(this.hamburger)
                 }
 
                 for (let i = 0; i < 3; i++) {
-                    this.notHealthy.push(this.soda);
+                    this.notHealthy.push(this.soda)
                 }
 
                 /* SECTION UI elements. */
@@ -503,7 +553,7 @@ class SnakeScene extends Phaser.Scene {
                     .image(0, withDPI(yOffset), 'Snake:board_background')
                     .setDepth(-1)
                     .setDisplaySize(withDPI(375), withDPI(475))
-                    .setOrigin(0);
+                    .setOrigin(0)
 
                 this.backgroundTop = scene.add
                     .image(0, 0, 'Snake:background_top')
@@ -518,21 +568,17 @@ class SnakeScene extends Phaser.Scene {
                     .setOrigin(0, 0)
 
                 this.spectatingText = scene.add
-                    .text(
-                        withDPI(187),
-                        withDPI(551),
-                        `Spectating`,
-                        {
-                            fontFamily: 'Bubblegum Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
-                            fontSize: '24px',
-                            fontStyle: 'bold',
-                            color: '#2E3A4B',
-                            stroke: '#ffffff',
-                            strokeThickness: 8,
-                            align: 'center',
-                            resolution: window.devicePixelRatio
-                        }
-                    )
+                    .text(withDPI(187), withDPI(551), `Spectating`, {
+                        fontFamily:
+                            'Bubblegum Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
+                        fontSize: '24px',
+                        fontStyle: 'bold',
+                        color: '#2E3A4B',
+                        stroke: '#ffffff',
+                        strokeThickness: 8,
+                        align: 'center',
+                        resolution: window.devicePixelRatio
+                    })
                     .setScale(withDPI(1), withDPI(1))
                     .setDepth(17)
                     .setOrigin(0.5, 0)
@@ -540,18 +586,13 @@ class SnakeScene extends Phaser.Scene {
 
                 /* SECTION Top bar */
                 this.scoreText = scene.add
-                    .text(
-                        withDPI(16),
-                        withDPI(20),
-                        `Huidige score: ${this.score}`,
-                        {
-                            fontFamily: 'Bubblegum Sans',
-                            fontSize: '24px',
-                            color: '#fff',
-                            align: 'left',
-                            resolution: window.devicePixelRatio
-                        }
-                    )
+                    .text(withDPI(16), withDPI(20), `Huidige score: ${this.score}`, {
+                        fontFamily: 'Bubblegum Sans',
+                        fontSize: '24px',
+                        color: '#fff',
+                        align: 'left',
+                        resolution: window.devicePixelRatio
+                    })
                     .setScale(withDPI(1), withDPI(1))
                     .setDepth(16)
 
@@ -585,24 +626,26 @@ class SnakeScene extends Phaser.Scene {
                     .setOrigin(0)
                     .setVisible(false)
 
-                this.respawnText = scene.add.text(withDPI(125), withDPI(116), 'Doorgaan', {
-                    fontFamily: 'Bubblegum Sans',
-                    fontSize: '32px',
-                    color: '#2E3A4B',
-                    align: 'left',
-                    stroke: '#ffffff',
-                    strokeThickness: 8,
-                    resolution: window.devicePixelRatio
-                }).setScale(withDPI(1), withDPI(1)).setDepth(31).setOrigin(0, 0).setVisible(false);
+                this.respawnText = scene.add
+                    .text(withDPI(125), withDPI(116), 'Doorgaan', {
+                        fontFamily: 'Bubblegum Sans',
+                        fontSize: '32px',
+                        color: '#2E3A4B',
+                        align: 'left',
+                        stroke: '#ffffff',
+                        strokeThickness: 8,
+                        resolution: window.devicePixelRatio
+                    })
+                    .setScale(withDPI(1), withDPI(1))
+                    .setDepth(31)
+                    .setOrigin(0, 0)
+                    .setVisible(false)
 
                 this.respawnDescription = scene.add
                     .text(
                         withDPI(48),
                         withDPI(177),
-                        [
-                            'Oops, het lijkt erop dat',
-                            'je Morfit een ongelukje had.'
-                        ],
+                        ['Oops, het lijkt erop dat', 'je Morfit een ongelukje had.'],
                         {
                             fontFamily: 'Bubblegum Sans',
                             fontSize: '24px',
@@ -645,44 +688,39 @@ class SnakeScene extends Phaser.Scene {
                 /* SECTION End game modal */
                 this.endGameModal = scene.add.group()
                 this.endGameModalBackground = this.endGameModal
-                    .create(withDPI(16), withDPI(withModalOffset(0)), 'Snake:modal_background')
+                    .create(
+                        withDPI(16),
+                        withDPI(withModalOffset(0)),
+                        'Snake:modal_background'
+                    )
                     .setDepth(30)
                     .setDisplaySize(withDPI(343), withDPI(554))
                     .setOrigin(0)
                     .setVisible(false)
 
                 this.endGameModalHeader = scene.add
-                    .text(
-                        withDPI(187),
-                        withDPI(withModalOffset(32)),
-                        'Gefeliciteerd', {
-                            fontFamily: 'Bubblegum Sans',
-                            fontSize: '32px',
-                            color: '#2E3A4B',
-                            align: 'center',
-                            stroke: '#ffffff',
-                            strokeThickness: 8,
-                            resolution: window.devicePixelRatio
-                        }
-                    )
+                    .text(withDPI(187), withDPI(withModalOffset(32)), 'Gefeliciteerd', {
+                        fontFamily: 'Bubblegum Sans',
+                        fontSize: '32px',
+                        color: '#2E3A4B',
+                        align: 'center',
+                        stroke: '#ffffff',
+                        strokeThickness: 8,
+                        resolution: window.devicePixelRatio
+                    })
                     .setDepth(31)
                     .setOrigin(0.5, 0)
                     .setScale(withDPI(1), withDPI(1))
                     .setVisible(false)
 
                 this.endGameModalScore = scene.add
-                    .text(
-                        withDPI(187),
-                        withDPI(withModalOffset(93)),
-                        '00.000',
-                        {
-                            fontFamily: 'Bubblegum Sans',
-                            fontSize: '56px',
-                            color: '#ffffff',
-                            align: 'center',
-                            resolution: window.devicePixelRatio
-                        }
-                    )
+                    .text(withDPI(187), withDPI(withModalOffset(93)), '00.000', {
+                        fontFamily: 'Bubblegum Sans',
+                        fontSize: '56px',
+                        color: '#ffffff',
+                        align: 'center',
+                        resolution: window.devicePixelRatio
+                    })
                     .setDepth(31)
                     .setOrigin(0.5, 0)
                     .setScale(withDPI(1), withDPI(1))
@@ -690,14 +728,22 @@ class SnakeScene extends Phaser.Scene {
 
                 /* SECTION First place */
                 this.endGameModalFirstHead = scene.add
-                    .image(withDPI(48), withDPI(withModalOffset(190)), 'Snake:head_player_1')
+                    .image(
+                        withDPI(48),
+                        withDPI(withModalOffset(190)),
+                        'Snake:head_player_1'
+                    )
                     .setDepth(33)
                     .setOrigin(0, 0)
                     .setScale(withDPI(0.2), withDPI(0.2))
                     .setVisible(false)
 
                 this.endGameModalFirstHeadShadow = scene.add
-                    .image(withDPI(48), withDPI(withModalOffset(192)), 'Snake:head_player_1')
+                    .image(
+                        withDPI(48),
+                        withDPI(withModalOffset(192)),
+                        'Snake:head_player_1'
+                    )
                     .setAlpha(0.32)
                     .setDepth(32)
                     .setOrigin(0, 0)
@@ -706,7 +752,11 @@ class SnakeScene extends Phaser.Scene {
                     .setVisible(false)
 
                 this.endGameModalFirstMedal = scene.add
-                    .image(withDPI(50), withDPI(withModalOffset(192)), 'Snake:medal_first')
+                    .image(
+                        withDPI(50),
+                        withDPI(withModalOffset(192)),
+                        'Snake:medal_first'
+                    )
                     .setDepth(33)
                     .setOrigin(0, 0)
                     .setScale(withDPI(0.2), withDPI(0.2))
@@ -741,14 +791,22 @@ class SnakeScene extends Phaser.Scene {
 
                 /* SECTION Second place */
                 this.endGameModalSecondHead = scene.add
-                    .image(withDPI(48), withDPI(withModalOffset(251)), 'Snake:head_player_1')
+                    .image(
+                        withDPI(48),
+                        withDPI(withModalOffset(251)),
+                        'Snake:head_player_1'
+                    )
                     .setDepth(33)
                     .setOrigin(0, 0)
                     .setScale(withDPI(0.2), withDPI(0.2))
                     .setVisible(false)
 
                 this.endGameModalSecondHeadShadow = scene.add
-                    .image(withDPI(48), withDPI(withModalOffset(253)), 'Snake:head_player_1')
+                    .image(
+                        withDPI(48),
+                        withDPI(withModalOffset(253)),
+                        'Snake:head_player_1'
+                    )
                     .setAlpha(0.32)
                     .setDepth(32)
                     .setOrigin(0, 0)
@@ -757,7 +815,11 @@ class SnakeScene extends Phaser.Scene {
                     .setVisible(false)
 
                 this.endGameModalSecondMedal = scene.add
-                    .image(withDPI(50), withDPI(withModalOffset(253)), 'Snake:medal_second')
+                    .image(
+                        withDPI(50),
+                        withDPI(withModalOffset(253)),
+                        'Snake:medal_second'
+                    )
                     .setDepth(33)
                     .setOrigin(0, 0)
                     .setScale(withDPI(0.2), withDPI(0.2))
@@ -792,14 +854,22 @@ class SnakeScene extends Phaser.Scene {
 
                 /* SECTION Third place */
                 this.endGameModalThirdHead = scene.add
-                    .image(withDPI(48), withDPI(withModalOffset(312)), 'Snake:head_player_1')
+                    .image(
+                        withDPI(48),
+                        withDPI(withModalOffset(312)),
+                        'Snake:head_player_1'
+                    )
                     .setDepth(33)
                     .setOrigin(0, 0)
                     .setScale(withDPI(0.2), withDPI(0.2))
                     .setVisible(false)
 
                 this.endGameModalThirdHeadShadow = scene.add
-                    .image(withDPI(48), withDPI(withModalOffset(314)), 'Snake:head_player_1')
+                    .image(
+                        withDPI(48),
+                        withDPI(withModalOffset(314)),
+                        'Snake:head_player_1'
+                    )
                     .setAlpha(0.32)
                     .setDepth(32)
                     .setOrigin(0, 0)
@@ -808,7 +878,11 @@ class SnakeScene extends Phaser.Scene {
                     .setVisible(false)
 
                 this.endGameModalThirdMedal = scene.add
-                    .image(withDPI(50), withDPI(withModalOffset(314)), 'Snake:medal_third')
+                    .image(
+                        withDPI(50),
+                        withDPI(withModalOffset(314)),
+                        'Snake:medal_third'
+                    )
                     .setDepth(33)
                     .setOrigin(0, 0)
                     .setScale(withDPI(0.2), withDPI(0.2))
@@ -843,20 +917,29 @@ class SnakeScene extends Phaser.Scene {
 
                 /* SECTION Reward */
                 this.endGameModalRewardLabel = scene.add
-                    .text(withDPI(48), withDPI(withModalOffset(405)), 'Ontvangen beloning', {
-                        fontFamily: 'Bubblegum Sans',
-                        fontSize: '24px',
-                        color: '#ffffff',
-                        align: 'left',
-                        resolution: window.devicePixelRatio
-                    })
+                    .text(
+                        withDPI(48),
+                        withDPI(withModalOffset(405)),
+                        'Ontvangen beloning',
+                        {
+                            fontFamily: 'Bubblegum Sans',
+                            fontSize: '24px',
+                            color: '#ffffff',
+                            align: 'left',
+                            resolution: window.devicePixelRatio
+                        }
+                    )
                     .setDepth(31)
                     .setOrigin(0, 0)
                     .setScale(withDPI(1), withDPI(1))
                     .setVisible(false)
 
                 this.endGameModalMorfitCoin = scene.add
-                    .image(withDPI(48), withDPI(withModalOffset(438)), 'Snake:morfit_coin')
+                    .image(
+                        withDPI(48),
+                        withDPI(withModalOffset(438)),
+                        'Snake:morfit_coin'
+                    )
                     .setDepth(33)
                     .setOrigin(0, 0)
                     .setScale(withDPI(0.2), withDPI(0.2))
@@ -879,12 +962,16 @@ class SnakeScene extends Phaser.Scene {
                 /* !SECTION Reward */
 
                 this.endGameModalCloseButton = scene.add
-                    .image(withDPI(168), withDPI(withModalOffset(534)), 'Snake:home_button')
+                    .image(
+                        withDPI(168),
+                        withDPI(withModalOffset(534)),
+                        'Snake:home_button'
+                    )
                     .setScale(withDPI(0.2), withDPI(0.2))
                     .setOrigin(0, 0)
                     .setDepth(33)
                     .setVisible(false)
-                    .setInteractive();
+                    .setInteractive()
 
                 this.endGameModalCloseButton.on('pointerdown', () => {
                     // Give the user the reward
@@ -897,8 +984,8 @@ class SnakeScene extends Phaser.Scene {
                     main_socket.emit('leaveSnake', ownPlayer)
 
                     // Send the user to the main screen
-                    snake = undefined;
-                    main_scene.scene.launch('OverviewScene');
+                    snake = undefined
+                    main_scene.scene.launch('OverviewScene')
                     main_scene.scene.stop('SnakeScene')
                 })
 
@@ -910,13 +997,13 @@ class SnakeScene extends Phaser.Scene {
                     .setOrigin(0, 0)
                     .setDepth(20)
                     .setVisible(true)
-                    .setInteractive();
+                    .setInteractive()
 
                 this.goToHomeButton.on('pointerdown', () => {
                     const ownScores = {}
                     ownScores[ownPlayer.playerId] = {
                         score: snakeSelf.score,
-                        name: playerName,
+                        name: playerName
                     }
 
                     this.handleGameEnd(ownScores)
@@ -930,83 +1017,89 @@ class SnakeScene extends Phaser.Scene {
                 /**
                  * @description Place all the current players in the field.
                  */
-                main_socket.on('currentPlayers', function (players) {
-                    Object.keys(players).forEach(function (id) {
+                main_socket.on('currentPlayers', function(players) {
+                    Object.keys(players).forEach(function(id) {
                         if (players[id].playerId !== ownPlayer.playerId) {
                             const { playerId } = players[id]
                             createPlayer(players[id], scene)
                         }
-                    });
-                });
+                    })
+                })
 
                 /**
                  * @description Creates a new snake if a new player joins.
                  */
-                main_socket.on('newPlayer', function (playerInfo) {
+                main_socket.on('newPlayer', function(playerInfo) {
                     createPlayer(playerInfo, scene)
-                  });
+                })
 
                 /**
                  * @description Handle a user leaving the game.
                  */
-                main_socket.on('disconnected', function (playerInfo) {
-                    const otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId];
+                main_socket.on('disconnected', function(playerInfo) {
+                    const otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId]
                     otherPlayer.body.clear(true, true)
-                  });
+                })
 
                 /**
                  * @description Handle other playing changing direction
                  */
-                main_socket.on('playerChangedDirection', (playerInfo) => {
-                    const otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId];
+                main_socket.on('playerChangedDirection', playerInfo => {
+                    const otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId]
                     otherPlayer.head.setAngle(playerInfo.rotation)
-                });
+                })
 
                 /**
                  * @description Handle other player growing in size.
                  */
-                main_socket.on('playerGrew', function (playerInfo) {
-                    const otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId];
+                main_socket.on('playerGrew', function(playerInfo) {
+                    const otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId]
 
                     const bodyElement = otherPlayer.body
                         .create(-200, -200, 'Snake:player2_body')
-                        .setScale(withDPI(0.5), withDPI(0.5));
+                        .setScale(withDPI(0.5), withDPI(0.5))
 
-                    bodyElement.setOrigin(0.5);
+                    bodyElement.setOrigin(0.5)
                 })
 
                 /**
                  * @description Handle other player shrinking in size.
                  */
-                main_socket.on('playerShrank', function (playerInfo) {
+                main_socket.on('playerShrank', function(playerInfo) {
                     const otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId]
 
                     if (otherPlayer.body.children.size > 1) {
-                        otherPlayer.body.remove(otherPlayer.body.getLast(true), true, true);
+                        otherPlayer.body.remove(
+                            otherPlayer.body.getLast(true),
+                            true,
+                            true
+                        )
                     }
                 })
 
                 /**
                  * @description Handle other player moving.
                  */
-                main_socket.on('playerPositionChanged', function (playerInfo) {
-                    let otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId];
+                main_socket.on('playerPositionChanged', function(playerInfo) {
+                    let otherPlayer = snakeSelf.otherPlayers[playerInfo.playerId]
                     if (otherPlayer !== undefined) {
-                        otherPlayer.head.enableBody(false);
-                        otherPlayer.head.setVisible(true);
-                        otherPlayer.headPosition.x = playerInfo.x;
-                        otherPlayer.headPosition.y = playerInfo.y;
+                        otherPlayer.head.enableBody(false)
+                        otherPlayer.head.setVisible(true)
+                        otherPlayer.headPosition.x = playerInfo.x
+                        otherPlayer.headPosition.y = playerInfo.y
 
-                        Phaser.Actions
-                            .ShiftPosition(
-                                otherPlayer.body.getChildren(),
-                                otherPlayer.headPosition.x * withDPI(12.5),
-                                withOffset((otherPlayer.headPosition.y * withDPI(12.5))),
-                                1,
-                                otherPlayer.tail
-                            );
+                        Phaser.Actions.ShiftPosition(
+                            otherPlayer.body.getChildren(),
+                            otherPlayer.headPosition.x * withDPI(12.5),
+                            withOffset(otherPlayer.headPosition.y * withDPI(12.5)),
+                            1,
+                            otherPlayer.tail
+                        )
                     } else {
-                        Sentry.captureMessage(`Player tried moving but is not defined ${playerInfo}`, 'debug')
+                        Sentry.captureMessage(
+                            `Player tried moving but is not defined ${playerInfo}`,
+                            'debug'
+                        )
                     }
                 })
 
@@ -1014,104 +1107,104 @@ class SnakeScene extends Phaser.Scene {
                 /**
                  * @description Sync food with the other clients.
                  */
-                main_socket.on('repositionAllItems', function (itemInfo) {
-                    snakeSelf.pineapple.disableBody(true, true);
-                    snakeSelf.lemon.disableBody(true, true);
-                    snakeSelf.hamburger.disableBody(true, true);
-                    snakeSelf.soda.disableBody(true, true);
+                main_socket.on('repositionAllItems', function(itemInfo) {
+                    snakeSelf.pineapple.disableBody(true, true)
+                    snakeSelf.lemon.disableBody(true, true)
+                    snakeSelf.hamburger.disableBody(true, true)
+                    snakeSelf.soda.disableBody(true, true)
 
                     // Reposition the apple
                     snakeSelf.apple.setPosition(
                         itemInfo.applePosition.x * withDPI(12.5),
                         withOffset(itemInfo.applePosition.y * withDPI(12.5))
-                    );
-                    snakeSelf.apple.enableBody(false);
-
+                    )
+                    snakeSelf.apple.enableBody(false)
 
                     // Place the healthy item
                     if (itemInfo.healthy.visible) {
-                        let foundItem = false;
-                        let healthyItem;
+                        let foundItem = false
+                        let healthyItem
 
                         switch (itemInfo.healthy.name) {
                             case 'Apple':
                                 healthyItem = snakeSelf.apple
                                 foundItem = true
-                                break;
+                                break
 
                             case 'Pineapple':
                                 healthyItem = snakeSelf.pineapple
                                 foundItem = true
-                                break;
+                                break
 
                             case 'Lemon':
                                 healthyItem = snakeSelf.lemon
                                 foundItem = true
-                                break;
+                                break
                         }
 
                         if (foundItem) {
                             healthyItem.setPosition(
                                 itemInfo.healthy.pos.x * withDPI(12.5),
                                 withOffset(itemInfo.healthy.pos.y * withDPI(12.5))
-                            );
-                            healthyItem.enableBody(false);
-                            healthyItem.setVisible(true);
+                            )
+                            healthyItem.enableBody(false)
+                            healthyItem.setVisible(true)
                         }
-
                     }
 
                     // Place the unhealthy item
                     if (itemInfo.unhealthy.visible) {
-                        let foundUnhealthy = false;
-                        let unhealthyItem;
+                        let foundUnhealthy = false
+                        let unhealthyItem
 
                         switch (itemInfo.unhealthy.name) {
                             case 'Soda':
                                 unhealthyItem = snakeSelf.soda
                                 foundUnhealthy = true
-                                break;
+                                break
 
                             case 'Hamburger':
                                 unhealthyItem = snakeSelf.hamburger
                                 foundUnhealthy = true
-                                break;
+                                break
                         }
 
                         if (foundUnhealthy) {
                             unhealthyItem.setPosition(
                                 itemInfo.unhealthy.pos.x * withDPI(12.5),
                                 withOffset(itemInfo.unhealthy.pos.y * withDPI(12.5))
-                            );
-                            unhealthyItem.enableBody(false);
-                            unhealthyItem.setVisible(true);
+                            )
+                            unhealthyItem.enableBody(false)
+                            unhealthyItem.setVisible(true)
                         }
                     }
                 })
 
                 /* ANCHOR Multiplayer - handle other player dying */
-                main_socket.on('aPlayerDied', function (playerData) {
-                    snakeSelf.playerDiesAnimation(snakeSelf.otherPlayers[playerData.playerId].body)
+                main_socket.on('aPlayerDied', function(playerData) {
+                    snakeSelf.playerDiesAnimation(
+                        snakeSelf.otherPlayers[playerData.playerId].body
+                    )
                 })
 
                 /* ANCHOR Multiplayer - handle other player respawning */
-                main_socket.on('aPlayerRespawned', function (playerData) {
+                main_socket.on('aPlayerRespawned', function(playerData) {
                     snakeSelf.playerRespawnOther(playerData)
                 })
 
-                main_socket.on('snakeGameEnd', function (data) {
+                main_socket.on('snakeGameEnd', function(data) {
                     snakeSelf.handleGameEnd(data.scores, data.players)
                 })
-            /* !SECTION Multiplayer listeners */
+                /* !SECTION Multiplayer listeners */
             },
 
-            update: function (time) {
+            update: function(time) {
                 if (time >= this.moveTime) {
-                    return this.move(time);
+                    return this.move(time)
                 }
             },
 
-            playerHitOtherPlayer: function () {
+            playerHitOtherPlayer: function() {
                 if (hitAOtherPlayer === false && playerIsImmune === false) {
                     hitAOtherPlayer = true
                     main_body.clear(true, true)
@@ -1125,45 +1218,47 @@ class SnakeScene extends Phaser.Scene {
                 }, 300)
             },
 
-            createSecondPlayer: function (playerInfo, scene) {
-                const { playerId } = playerInfo;
-                snakeSelf.otherPlayers[playerId] = {};
-                const secondPlayer = snakeSelf.otherPlayers[playerId];
-                secondPlayer.headPosition = new Phaser.Geom.Point(12.5, 12.5);
-                secondPlayer.body = scene.physics.add.group();
+            createSecondPlayer: function(playerInfo, scene) {
+                const { playerId } = playerInfo
+                snakeSelf.otherPlayers[playerId] = {}
+                const secondPlayer = snakeSelf.otherPlayers[playerId]
+                secondPlayer.headPosition = new Phaser.Geom.Point(12.5, 12.5)
+                secondPlayer.body = scene.physics.add.group()
 
                 secondPlayer.head = secondPlayer.body
-                    .create(
-                        12 * 25,
-                        withOffset(12 * 25),
-                        'Snake:player1_head'
-                    )
+                    .create(12 * 25, withOffset(12 * 25), 'Snake:player1_head')
                     .setScale(withDPI(0.33), withDPI(0.33))
-                    .disableBody(true, true);
+                    .disableBody(true, true)
 
-                secondPlayer.head.setOrigin(0.5);
-                secondPlayer.head.setAngle(playerInfo.rotation);
-                secondPlayer.head.setDepth(10);
+                secondPlayer.head.setOrigin(0.5)
+                secondPlayer.head.setAngle(playerInfo.rotation)
+                secondPlayer.head.setDepth(10)
                 secondPlayer.head.setCircle(30, 25, 25)
 
-                secondPlayer.tail = new Phaser.Geom.Point(12.5, 12.5);
-                secondPlayer.tails = playerInfo.tails;
+                secondPlayer.tail = new Phaser.Geom.Point(12.5, 12.5)
+                secondPlayer.tails = playerInfo.tails
 
-                scene.physics.add.collider(snakeSelf.head, secondPlayer.body, snakeSelf.playerHitOtherPlayer, null, snakeSelf)
+                scene.physics.add.collider(
+                    snakeSelf.head,
+                    secondPlayer.body,
+                    snakeSelf.playerHitOtherPlayer,
+                    null,
+                    snakeSelf
+                )
 
                 while (playerInfo.tails + 1 > secondPlayer.body.getLength()) {
                     const bodyElement = secondPlayer.body
                         .create(200, 200, 'Snake:player2_body')
-                        .setScale(withDPI(0.5), withDPI(0.5));
+                        .setScale(withDPI(0.5), withDPI(0.5))
 
-                    bodyElement.setOrigin(0.5);
+                    bodyElement.setOrigin(0.5)
                 }
             },
 
-            faceLeft: function () {
+            faceLeft: function() {
                 if (this.direction === UP || this.direction === DOWN) {
-                    this.heading = LEFT;
-                    this.head.setAngle(90);
+                    this.heading = LEFT
+                    this.head.setAngle(90)
                     main_socket.emit('directionChange', {
                         playerId: ownPlayer.playerId,
                         rotation: 90
@@ -1171,10 +1266,10 @@ class SnakeScene extends Phaser.Scene {
                 }
             },
 
-            faceRight: function () {
+            faceRight: function() {
                 if (this.direction === UP || this.direction === DOWN) {
-                    this.heading = RIGHT;
-                    this.head.setAngle(-90);
+                    this.heading = RIGHT
+                    this.head.setAngle(-90)
                     main_socket.emit('directionChange', {
                         playerId: ownPlayer.playerId,
                         rotation: -90
@@ -1182,10 +1277,10 @@ class SnakeScene extends Phaser.Scene {
                 }
             },
 
-            faceUp: function () {
+            faceUp: function() {
                 if (this.direction === LEFT || this.direction === RIGHT) {
-                    this.heading = UP;
-                    this.head.setAngle(180);
+                    this.heading = UP
+                    this.head.setAngle(180)
                     main_socket.emit('directionChange', {
                         playerId: ownPlayer.playerId,
                         rotation: 180
@@ -1193,10 +1288,10 @@ class SnakeScene extends Phaser.Scene {
                 }
             },
 
-            faceDown: function () {
+            faceDown: function() {
                 if (this.direction === LEFT || this.direction === RIGHT) {
-                    this.heading = DOWN;
-                    this.head.setAngle(0);
+                    this.heading = DOWN
+                    this.head.setAngle(0)
                     main_socket.emit('directionChange', {
                         playerId: ownPlayer.playerId,
                         rotation: 0
@@ -1204,100 +1299,115 @@ class SnakeScene extends Phaser.Scene {
                 }
             },
 
-            move: function (time) {
+            move: function(time) {
                 /**
-                * Based on the heading property (which is the direction the pgroup pressed)
-                * we update the headPosition value accordingly.
-                *
-                * The Math.wrap call allow the snake to wrap around the screen, so when
-                * it goes off any of the sides it re-appears on the other.
-                */
+                 * Based on the heading property (which is the direction the pgroup pressed)
+                 * we update the headPosition value accordingly.
+                 *
+                 * The Math.wrap call allow the snake to wrap around the screen, so when
+                 * it goes off any of the sides it re-appears on the other.
+                 */
                 switch (this.heading) {
                     case LEFT:
-                        this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x - 1, 0, 30);
+                        this.headPosition.x = Phaser.Math.Wrap(
+                            this.headPosition.x - 1,
+                            0,
+                            30
+                        )
                         main_socket.emit('playerMovement', {
                             playerId: ownPlayer.playerId,
                             x: this.headPosition.x,
                             y: this.headPosition.y
                         })
-                        break;
+                        break
 
                     case RIGHT:
-                        this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x + 1, 0, 30);
+                        this.headPosition.x = Phaser.Math.Wrap(
+                            this.headPosition.x + 1,
+                            0,
+                            30
+                        )
                         main_socket.emit('playerMovement', {
                             playerId: ownPlayer.playerId,
                             x: this.headPosition.x,
                             y: this.headPosition.y
                         })
-                        break;
+                        break
 
                     case UP:
-                        this.headPosition.y = Phaser.Math.Wrap(this.headPosition.y - 1, 0, 38);
+                        this.headPosition.y = Phaser.Math.Wrap(
+                            this.headPosition.y - 1,
+                            0,
+                            38
+                        )
                         main_socket.emit('playerMovement', {
                             playerId: ownPlayer.playerId,
                             x: this.headPosition.x,
                             y: this.headPosition.y
                         })
-                        break;
+                        break
 
                     case DOWN:
-                        this.headPosition.y = Phaser.Math.Wrap(this.headPosition.y + 1, 0, 38);
+                        this.headPosition.y = Phaser.Math.Wrap(
+                            this.headPosition.y + 1,
+                            0,
+                            38
+                        )
                         main_socket.emit('playerMovement', {
                             playerId: ownPlayer.playerId,
                             x: this.headPosition.x,
                             y: this.headPosition.y
                         })
-                        break;
+                        break
                 }
 
-                this.direction = this.heading;
+                this.direction = this.heading
 
                 //  Update the body segments and place the last coordinate into this.tail
-                Phaser.Actions
-                    .ShiftPosition(
-                        this.body.getChildren(),
-                        this.headPosition.x * withDPI(12.5),
-                        withOffset((this.headPosition.y * withDPI(12.5))),
-                        1,
-                        this.tail
-                );
+                Phaser.Actions.ShiftPosition(
+                    this.body.getChildren(),
+                    this.headPosition.x * withDPI(12.5),
+                    withOffset(this.headPosition.y * withDPI(12.5)),
+                    1,
+                    this.tail
+                )
 
                 //  Check to see if any of the body pieces have the same x/y as the head
                 //  If they do, the head ran into the body
 
-                var hitBody = Phaser.Actions
-                    .GetFirst(
-                        this.body.getChildren(),
-                        {
-                            x: this.head.x,
-                            y: this.head.y
-                        },
-                        1
-                    );
+                var hitBody = Phaser.Actions.GetFirst(
+                    this.body.getChildren(),
+                    {
+                        x: this.head.x,
+                        y: this.head.y
+                    },
+                    1
+                )
 
                 if (hitBody) {
                     this.onPlayerDead()
-                    return false;
-                }
-                else {
+                    return false
+                } else {
                     //  Update the timer ready for the next movement
-                    this.moveTime = time + this.speed;
+                    this.moveTime = time + this.speed
 
                     // Update the score
-                    this.score = Math.floor((this.moveTime / 500) + (this.total * 100)) + this.scoreModifier;
+                    this.score =
+                        Math.floor(this.moveTime / 500 + this.total * 100) +
+                        this.scoreModifier
                     // Make the score visible to the user.
-                    this.scoreText.setText(`Huidige score: ${this.score}`);
+                    this.scoreText.setText(`Huidige score: ${this.score}`)
 
-                    return true;
+                    return true
                 }
             },
 
-            grow: function () {
+            grow: function() {
                 const newPart = this.body
                     .create(this.tail.x, this.tail.y, 'Snake:player1_body')
-                    .setScale(withDPI(0.5), withDPI(0.5));
+                    .setScale(withDPI(0.5), withDPI(0.5))
 
-                newPart.setOrigin(0.5);
+                newPart.setOrigin(0.5)
 
                 ownPlayer.tails += 1
 
@@ -1310,9 +1420,9 @@ class SnakeScene extends Phaser.Scene {
             /**
              * @description Shrink the snake by 1.
              */
-            shrink: function () {
+            shrink: function() {
                 if (this.body.children.size > 1) {
-                    this.body.remove(this.body.getLast(true), true, true);
+                    this.body.remove(this.body.getLast(true), true, true)
                     ownPlayer.tails -= 1
                 }
 
@@ -1325,9 +1435,9 @@ class SnakeScene extends Phaser.Scene {
             /**
              * @description Handles changing the speed depending on the current total.
              */
-            handleSpeedIncrease: function () {
+            handleSpeedIncrease: function() {
                 if (this.speed > 20 && this.total % 5 === 0) {
-                    this.speed -= 5;
+                    this.speed -= 5
                 }
             },
 
@@ -1346,27 +1456,31 @@ class SnakeScene extends Phaser.Scene {
              * @fires this.repositionItems
              * @fires this.handleSpeedIncrease
              */
-            eatApple: function (head, apple) {
+            eatApple: function(head, apple) {
                 if (ateFood === false) {
                     ateFood = true
-                    apple.disableBody(true, false);
-                    this.total++;
+                    apple.disableBody(true, false)
+                    this.total++
 
-                    const scoreText = main_scene.add.text(apple.x, apple.y, '+100', {
-                        fontSize: '24px',
-                        fontFamily: 'Bubblegum Sans',
-                        color: '#257934',
-                        align: 'center',
-                        resolution: window.devicePixelRatio
-                    }).setScale(withDPI(1), withDPI(1)).setAngle(-14).setDepth(12)
+                    const scoreText = main_scene.add
+                        .text(apple.x, apple.y, '+100', {
+                            fontSize: '24px',
+                            fontFamily: 'Bubblegum Sans',
+                            color: '#257934',
+                            align: 'center',
+                            resolution: window.devicePixelRatio
+                        })
+                        .setScale(withDPI(1), withDPI(1))
+                        .setAngle(-14)
+                        .setDepth(12)
 
                     setTimeout(() => {
                         scoreText.destroy()
                     }, 1000)
 
-                    this.grow();
-                    this.repositionItems();
-                    this.handleSpeedIncrease();
+                    this.grow()
+                    this.repositionItems()
+                    this.handleSpeedIncrease()
                 }
 
                 ateFood = true
@@ -1391,28 +1505,32 @@ class SnakeScene extends Phaser.Scene {
              * @fires this.repositionItems
              * @fires this.handleSpeedIncrease
              */
-            eatPineapple: function (head, pineapple) {
+            eatPineapple: function(head, pineapple) {
                 if (ateFood === false) {
                     ateFood = true
-                    pineapple.disableBody(true, true);
-                    this.total++;
-                    this.scoreModifier += 100;
+                    pineapple.disableBody(true, true)
+                    this.total++
+                    this.scoreModifier += 100
 
-                    const scoreText = main_scene.add.text(pineapple.x, pineapple.y, '+200', {
-                        fontSize: '24px',
-                        fontFamily: 'Bubblegum Sans',
-                        color: '#257934',
-                        align: 'center',
-                        resolution: window.devicePixelRatio
-                    }).setScale(withDPI(1), withDPI(1)).setAngle(-14).setDepth(12)
+                    const scoreText = main_scene.add
+                        .text(pineapple.x, pineapple.y, '+200', {
+                            fontSize: '24px',
+                            fontFamily: 'Bubblegum Sans',
+                            color: '#257934',
+                            align: 'center',
+                            resolution: window.devicePixelRatio
+                        })
+                        .setScale(withDPI(1), withDPI(1))
+                        .setAngle(-14)
+                        .setDepth(12)
 
                     setTimeout(() => {
                         scoreText.destroy()
                     }, 1000)
 
-                    this.grow();
-                    this.repositionItems();
-                    this.handleSpeedIncrease();
+                    this.grow()
+                    this.repositionItems()
+                    this.handleSpeedIncrease()
                 }
 
                 ateFood = true
@@ -1434,30 +1552,34 @@ class SnakeScene extends Phaser.Scene {
              * @fires this.grow
              * @fires this.repositionItems
              */
-            eatHamburger: function (head, hamburger) {
+            eatHamburger: function(head, hamburger) {
                 if (ateFood === false) {
                     ateFood = true
-                    hamburger.disableBody(true, true);
+                    hamburger.disableBody(true, true)
 
                     if (this.score - 150 > 0) {
-                        this.scoreModifier -= 150;
+                        this.scoreModifier -= 150
                     }
 
-                    const scoreText = main_scene.add.text(hamburger.x, hamburger.y, '-150', {
-                        fontSize: '24px',
-                        fontFamily: 'Bubblegum Sans',
-                        color: '#9a001c',
-                        align: 'center',
-                        resolution: window.devicePixelRatio
-                    }).setScale(withDPI(1), withDPI(1)).setAngle(-14).setDepth(12)
+                    const scoreText = main_scene.add
+                        .text(hamburger.x, hamburger.y, '-150', {
+                            fontSize: '24px',
+                            fontFamily: 'Bubblegum Sans',
+                            color: '#9a001c',
+                            align: 'center',
+                            resolution: window.devicePixelRatio
+                        })
+                        .setScale(withDPI(1), withDPI(1))
+                        .setAngle(-14)
+                        .setDepth(12)
 
                     setTimeout(() => {
                         scoreText.destroy()
                     }, 1000)
 
-                    this.grow();
-                    this.grow();
-                    this.repositionItems();
+                    this.grow()
+                    this.grow()
+                    this.repositionItems()
                 }
 
                 ateFood = true
@@ -1480,34 +1602,38 @@ class SnakeScene extends Phaser.Scene {
              * @fires this.grow
              * @fires this.repositionItems
              */
-            drinkSoda: function (head, soda) {
+            drinkSoda: function(head, soda) {
                 if (ateFood === false) {
                     ateFood = true
 
-                    soda.disableBody(true, true);
-                    this.scoreModifier -= 50;
+                    soda.disableBody(true, true)
+                    this.scoreModifier -= 50
 
-                    const scoreText = main_scene.add.text(soda.x, soda.y, '-50', {
-                        fontSize: '24px',
-                        fontFamily: 'Bubblegum Sans',
-                        color: '#9a001c',
-                        align: 'center',
-                        resolution: window.devicePixelRatio
-                    }).setScale(withDPI(1), withDPI(1)).setAngle(-14).setDepth(12)
+                    const scoreText = main_scene.add
+                        .text(soda.x, soda.y, '-50', {
+                            fontSize: '24px',
+                            fontFamily: 'Bubblegum Sans',
+                            color: '#9a001c',
+                            align: 'center',
+                            resolution: window.devicePixelRatio
+                        })
+                        .setScale(withDPI(1), withDPI(1))
+                        .setAngle(-14)
+                        .setDepth(12)
 
                     setTimeout(() => {
                         scoreText.destroy()
                     }, 1000)
 
-                    this.grow();
-                    this.repositionItems();
+                    this.grow()
+                    this.repositionItems()
 
                     if (this.speed > 20) {
-                        const prevSpeed = this.speed;
-                        this.speed = 20;
+                        const prevSpeed = this.speed
+                        this.speed = 20
 
                         setTimeout(() => {
-                            this.speed = prevSpeed;
+                            this.speed = prevSpeed
                         }, 2000)
                     }
                 }
@@ -1532,27 +1658,31 @@ class SnakeScene extends Phaser.Scene {
              * @fires this.repositionItems
              *
              */
-            eatLemon: function (head, lemon) {
+            eatLemon: function(head, lemon) {
                 if (ateFood === false) {
                     ateFood = true
 
-                    lemon.disableBody(true, true);
-                    this.scoreModifier += 50;
+                    lemon.disableBody(true, true)
+                    this.scoreModifier += 50
 
-                    const scoreText = main_scene.add.text(lemon.x, lemon.y, '+50', {
-                        fontSize: '24px',
-                        fontFamily: 'Bubblegum Sans',
-                        color: '#257934',
-                        align: 'center',
-                        resolution: window.devicePixelRatio
-                    }).setScale(withDPI(1), withDPI(1)).setAngle(-14).setDepth(12)
+                    const scoreText = main_scene.add
+                        .text(lemon.x, lemon.y, '+50', {
+                            fontSize: '24px',
+                            fontFamily: 'Bubblegum Sans',
+                            color: '#257934',
+                            align: 'center',
+                            resolution: window.devicePixelRatio
+                        })
+                        .setScale(withDPI(1), withDPI(1))
+                        .setAngle(-14)
+                        .setDepth(12)
 
                     setTimeout(() => {
                         scoreText.destroy()
                     }, 1000)
 
-                    this.shrink();
-                    this.repositionItems();
+                    this.shrink()
+                    this.repositionItems()
                 }
 
                 ateFood = true
@@ -1562,40 +1692,39 @@ class SnakeScene extends Phaser.Scene {
                 }, 400)
             },
 
-            updateGrid: function (grid) {
+            updateGrid: function(grid) {
                 //  Remove all body pieces from valid positions list
-                this.body.children.each(function (segment) {
-
-                    var bx = Math.floor(segment.x / withDPI(12.5));
-                    var by = Math.floor(segment.y / withDPI(12.5));
+                this.body.children.each(function(segment) {
+                    var bx = Math.floor(segment.x / withDPI(12.5))
+                    var by = Math.floor(segment.y / withDPI(12.5))
 
                     try {
-                        grid[by][bx] = false;
+                        grid[by][bx] = false
                     } catch (err) {
                         Sentry.captureException(err)
-                        console.warn({ bx, by, err });
+                        console.warn({ bx, by, err })
                     }
-                });
-                return grid;
+                })
+                return grid
             },
 
-            repositionItems: function () {
-                let testGrid = [];
+            repositionItems: function() {
+                let testGrid = []
 
                 /**
                  * First we assume all are safe, this should cover all blocks the player could go.
                  * If not all cords are covered this will cause warnings in console.
                  */
                 for (let y = 0; y < 50; y++) {
-                    testGrid[y] = [];
+                    testGrid[y] = []
 
                     for (let x = 0; x < 29; x++) {
-                        testGrid[y][x] = true;
+                        testGrid[y][x] = true
                     }
                 }
 
                 /* Test all cords for the block the player is in. */
-                this.updateGrid(testGrid);
+                this.updateGrid(testGrid)
 
                 let validLocations = []
 
@@ -1606,7 +1735,7 @@ class SnakeScene extends Phaser.Scene {
                     for (let x = 2; x < 27; x++) {
                         if (testGrid[y][x] === true) {
                             //  Is this position valid for food? If so, add it here ...
-                            validLocations.push({ x, y });
+                            validLocations.push({ x, y })
                         }
                     }
                 }
@@ -1614,22 +1743,22 @@ class SnakeScene extends Phaser.Scene {
                 // Place the food
                 if (validLocations.length > 0) {
                     // Set all items to be invisible
-                    this.pineapple.disableBody(true, true);
-                    this.lemon.disableBody(true, true);
-                    this.hamburger.disableBody(true, true);
-                    this.soda.disableBody(true, true);
+                    this.pineapple.disableBody(true, true)
+                    this.lemon.disableBody(true, true)
+                    this.hamburger.disableBody(true, true)
+                    this.soda.disableBody(true, true)
 
                     //  Use the RNG to pick a random food position
-                    const applePos = Phaser.Math.RND.pick(validLocations);
-                    const healthyPos = Phaser.Math.RND.pick(validLocations);
-                    const unHealthyPos = Phaser.Math.RND.pick(validLocations);
+                    const applePos = Phaser.Math.RND.pick(validLocations)
+                    const healthyPos = Phaser.Math.RND.pick(validLocations)
+                    const unHealthyPos = Phaser.Math.RND.pick(validLocations)
 
                     // Pick 2 random extra's.
-                    const healthy = Phaser.Utils.Array.GetRandom(this.healthyFood);
-                    const unHealthy = Phaser.Utils.Array.GetRandom(this.notHealthy);
+                    const healthy = Phaser.Utils.Array.GetRandom(this.healthyFood)
+                    const unHealthy = Phaser.Utils.Array.GetRandom(this.notHealthy)
 
                     // Should the following update
-                    const showHealthy = Math.random() >= 0.5;
+                    const showHealthy = Math.random() >= 0.5
                     const showUnhealthy = Math.random() >= 0.5
 
                     // Tell socket to reposition the items.
@@ -1648,35 +1777,41 @@ class SnakeScene extends Phaser.Scene {
                     })
 
                     // Reposition the apple
-                    this.apple.setPosition(applePos.x * withDPI(12.5), withOffset(applePos.y * withDPI(12.5)));
-                    this.apple.enableBody(false);
-
+                    this.apple.setPosition(
+                        applePos.x * withDPI(12.5),
+                        withOffset(applePos.y * withDPI(12.5))
+                    )
+                    this.apple.enableBody(false)
 
                     // Place the healthy item
                     if (showHealthy) {
-                        healthy.setPosition(healthyPos.x * withDPI(12.5), withOffset(healthyPos.y * withDPI(12.5)));
-                        healthy.enableBody(false);
-                        healthy.setVisible(true);
+                        healthy.setPosition(
+                            healthyPos.x * withDPI(12.5),
+                            withOffset(healthyPos.y * withDPI(12.5))
+                        )
+                        healthy.enableBody(false)
+                        healthy.setVisible(true)
                     }
 
                     // Place the unhealthy item
                     if (showUnhealthy) {
-                        unHealthy.setPosition(unHealthyPos.x * withDPI(12.5), withOffset(unHealthyPos.y * withDPI(12.5)));
-                        unHealthy.enableBody(false);
-                        unHealthy.setVisible(true);
+                        unHealthy.setPosition(
+                            unHealthyPos.x * withDPI(12.5),
+                            withOffset(unHealthyPos.y * withDPI(12.5))
+                        )
+                        unHealthy.enableBody(false)
+                        unHealthy.setVisible(true)
                     }
 
                     ateFood = false
-                    return true;
+                    return true
+                } else {
+                    return false
                 }
-                else {
-                    return false;
-                }
-
             },
 
             /* SECTION Player dies */
-            onPlayerDead: function () {
+            onPlayerDead: function() {
                 snakeSelf.alive = false
                 snakeSelf.lives -= 1
                 let activeHearts = [true, true, true]
@@ -1691,27 +1826,27 @@ class SnakeScene extends Phaser.Scene {
                     case 0:
                         activeHearts = [false, false, false]
                         this.playerRanOutOfLives()
-                        break;
+                        break
 
                     case 1:
                         activeHearts = [true, false, false]
                         this.showRespawn()
-                        break;
+                        break
 
                     case 2:
                         activeHearts = [true, true, false]
                         this.showRespawn()
-                        break;
+                        break
 
                     case 3:
                         activeHearts = [true, true, true]
                         this.showRespawn()
-                        break;
+                        break
 
                     default:
                         activeHearts = [false, false, false]
                         this.playerRanOutOfLives()
-                        break;
+                        break
                 }
 
                 snakeSelf.liveOne.setVisible(activeHearts[0])
@@ -1721,7 +1856,7 @@ class SnakeScene extends Phaser.Scene {
                 this.playerDiesAnimation(main_body)
             },
 
-            playerDiesAnimation: function (playerElement) {
+            playerDiesAnimation: function(playerElement) {
                 setTimeout(() => {
                     playerElement.toggleVisible()
 
@@ -1744,15 +1879,15 @@ class SnakeScene extends Phaser.Scene {
                 }, 300)
             },
 
-            playerRespawn: function () {
+            playerRespawn: function() {
                 hitAOtherPlayer = false
-                snakeSelf.respawnModalBackground.setVisible(false);
-                snakeSelf.respawnText.setVisible(false);
-                snakeSelf.respawnDescription.setVisible(false);
-                snakeSelf.respawnButton.setVisible(false);
-                snakeSelf.closeRespawnButton.setVisible(false);
+                snakeSelf.respawnModalBackground.setVisible(false)
+                snakeSelf.respawnText.setVisible(false)
+                snakeSelf.respawnDescription.setVisible(false)
+                snakeSelf.respawnButton.setVisible(false)
+                snakeSelf.closeRespawnButton.setVisible(false)
 
-                snakeSelf.body = main_scene.physics.add.group();
+                snakeSelf.body = main_scene.physics.add.group()
                 main_body = snakeSelf.body
 
                 snakeSelf.head = snakeSelf.body
@@ -1761,46 +1896,81 @@ class SnakeScene extends Phaser.Scene {
                         withOffset(30 * withDPI(12.5)),
                         'Snake:player1_head'
                     )
-                    .setScale(withDPI(0.33), withDPI(0.33));
+                    .setScale(withDPI(0.33), withDPI(0.33))
 
-                snakeSelf.head.setOrigin(0.5);
-                snakeSelf.head.setAngle(-90);
-                snakeSelf.head.setDepth(10);
+                snakeSelf.head.setOrigin(0.5)
+                snakeSelf.head.setAngle(-90)
+                snakeSelf.head.setDepth(10)
                 snakeSelf.head.setCircle(30, 25, 25)
-                snakeSelf.heading = RIGHT;
-                snakeSelf.direction = RIGHT;
+                snakeSelf.heading = RIGHT
+                snakeSelf.direction = RIGHT
 
-                snakeSelf.speed = 95;
-                snakeSelf.alive = true;
+                snakeSelf.speed = 95
+                snakeSelf.alive = true
 
                 playerIsImmune = true
 
                 setTimeout(() => {
                     playerIsImmune = false
-                }, 2000);
+                }, 2000)
 
-                main_scene.physics.add.overlap(snakeSelf.head, snakeSelf.apple, this.eatApple, null, snakeSelf);
-                main_scene.physics.add.overlap(snakeSelf.head, snakeSelf.pineapple, this.eatPineapple, null, snakeSelf);
-                main_scene.physics.add.overlap(snakeSelf.head, snakeSelf.hamburger, this.eatHamburger, null, snakeSelf);
-                main_scene.physics.add.overlap(snakeSelf.head, snakeSelf.lemon, this.eatLemon, null, snakeSelf);
-                main_scene.physics.add.overlap(snakeSelf.head, snakeSelf.soda, this.drinkSoda, null, snakeSelf);
+                main_scene.physics.add.overlap(
+                    snakeSelf.head,
+                    snakeSelf.apple,
+                    this.eatApple,
+                    null,
+                    snakeSelf
+                )
+                main_scene.physics.add.overlap(
+                    snakeSelf.head,
+                    snakeSelf.pineapple,
+                    this.eatPineapple,
+                    null,
+                    snakeSelf
+                )
+                main_scene.physics.add.overlap(
+                    snakeSelf.head,
+                    snakeSelf.hamburger,
+                    this.eatHamburger,
+                    null,
+                    snakeSelf
+                )
+                main_scene.physics.add.overlap(
+                    snakeSelf.head,
+                    snakeSelf.lemon,
+                    this.eatLemon,
+                    null,
+                    snakeSelf
+                )
+                main_scene.physics.add.overlap(
+                    snakeSelf.head,
+                    snakeSelf.soda,
+                    this.drinkSoda,
+                    null,
+                    snakeSelf
+                )
 
                 Object.keys(snakeSelf.otherPlayers).forEach(id => {
-                    main_scene.physics.add.collider(snakeSelf.head, snakeSelf.otherPlayers[id].body, snakeSelf.playerHitOtherPlayer, null, snakeSelf)
+                    main_scene.physics.add.collider(
+                        snakeSelf.head,
+                        snakeSelf.otherPlayers[id].body,
+                        snakeSelf.playerHitOtherPlayer,
+                        null,
+                        snakeSelf
+                    )
                 })
 
                 socket.emit('playerRespawned', {
                     playerId: ownPlayer.playerId,
-                    tails: 0,
-
+                    tails: 0
                 })
             },
 
-            playerRespawnOther: function (playerInfo) {
+            playerRespawnOther: function(playerInfo) {
                 if (playerInfo.playerId !== ownPlayer.playerId) {
                     const secondPlayer = snakeSelf.otherPlayers[playerInfo.playerId]
 
-                    secondPlayer.body = main_scene.physics.add.group();
+                    secondPlayer.body = main_scene.physics.add.group()
 
                     secondPlayer.head = secondPlayer.body
                         .create(
@@ -1808,19 +1978,25 @@ class SnakeScene extends Phaser.Scene {
                             withOffset(30 * withDPI(12.5)),
                             'Snake:player1_head'
                         )
-                        .setScale(withDPI(0.33), withDPI(0.33));
+                        .setScale(withDPI(0.33), withDPI(0.33))
 
-                    secondPlayer.head.setOrigin(0.5);
-                    secondPlayer.head.setAngle(-90);
-                    secondPlayer.head.setDepth(10);
+                    secondPlayer.head.setOrigin(0.5)
+                    secondPlayer.head.setAngle(-90)
+                    secondPlayer.head.setDepth(10)
                     secondPlayer.head.setCircle(30, 25, 25)
                     secondPlayer.tails = playerInfo.tails
 
-                    main_scene.physics.add.collider(snakeSelf.head, secondPlayer.body, snakeSelf.playerHitOtherPlayer, null, snakeSelf)
+                    main_scene.physics.add.collider(
+                        snakeSelf.head,
+                        secondPlayer.body,
+                        snakeSelf.playerHitOtherPlayer,
+                        null,
+                        snakeSelf
+                    )
                 }
             },
 
-            playerRanOutOfLives: function () {
+            playerRanOutOfLives: function() {
                 snakeSelf.spectatingText.setVisible(true)
                 main_socket.emit('playerRanOutLives', {
                     playerId: ownPlayer.playerId,
@@ -1829,12 +2005,12 @@ class SnakeScene extends Phaser.Scene {
                 })
             },
 
-            showRespawn: function () {
-                snakeSelf.respawnModalBackground.setVisible(true);
-                snakeSelf.respawnText.setVisible(true);
-                snakeSelf.respawnDescription.setVisible(true);
-                snakeSelf.respawnButton.setVisible(true);
-                snakeSelf.closeRespawnButton.setVisible(true);
+            showRespawn: function() {
+                snakeSelf.respawnModalBackground.setVisible(true)
+                snakeSelf.respawnText.setVisible(true)
+                snakeSelf.respawnDescription.setVisible(true)
+                snakeSelf.respawnButton.setVisible(true)
+                snakeSelf.closeRespawnButton.setVisible(true)
             },
             /* !SECTION Player dies */
 
@@ -1849,7 +2025,7 @@ class SnakeScene extends Phaser.Scene {
              * @param {Object} scores - object containing Player. Properties are named after the player id.
              * @param {Player} scores.id
              */
-            handleGameEnd: function (scores, players) {
+            handleGameEnd: function(scores, players) {
                 // Convert the scores to a array
                 const scorePlayersArray = []
                 Object.keys(scores).forEach(id => {
@@ -1857,9 +2033,7 @@ class SnakeScene extends Phaser.Scene {
                 })
 
                 // Define first second and third.
-                const sortedPlayers = scorePlayersArray.sort((a, b) => (
-                    b.score - a.score
-                ))
+                const sortedPlayers = scorePlayersArray.sort((a, b) => b.score - a.score)
 
                 // Calculate the reward
                 morfosReward = Math.ceil(snakeSelf.score * 0.006)
@@ -1880,7 +2054,6 @@ class SnakeScene extends Phaser.Scene {
                 }
 
                 snakeSelf.endGameModalReward.setText(`${morfosReward}`)
-
 
                 // Make elements visible
                 snakeSelf.endGameModalBackground.setVisible(true)
@@ -1918,40 +2091,34 @@ class SnakeScene extends Phaser.Scene {
                 main_socket.emit('leaveSnake', ownPlayer)
             }
             /* !SECTION Game end */
-        });
+        })
 
-        new GuideModal(
-            this,
-            guides['move']
-        )
+        new GuideModal(this, guides['move'])
 
         //  Create our keyboard controls
-        cursors = this.input.keyboard.createCursorKeys();
+        cursors = this.input.keyboard.createCursorKeys()
     }
 
-    update (time, delta) {
-        if (!snake || !snake.alive)   {
-            return;
+    update(time, delta) {
+        if (!snake || !snake.alive) {
+            return
         }
 
-    /**
-    * Check which key is pressed, and then change the direction the snake
-    * is heading based on that. The checks ensure you don't double-back
-    * on yourself, for example if you're moving to the right and you press
-    * the LEFT cursor, it ignores it, because the only valid directions you
-    * can move in at that time is up and down.
-    */
+        /**
+         * Check which key is pressed, and then change the direction the snake
+         * is heading based on that. The checks ensure you don't double-back
+         * on yourself, for example if you're moving to the right and you press
+         * the LEFT cursor, it ignores it, because the only valid directions you
+         * can move in at that time is up and down.
+         */
         if (cursors.left.isDown || direction === 'left') {
-            snake.faceLeft();
-        }
-        else if (cursors.right.isDown || direction === 'right') {
-            snake.faceRight();
-        }
-        else if (cursors.up.isDown || direction === 'up') {
-            snake.faceUp();
-        }
-        else if (cursors.down.isDown || direction === 'down') {
-            snake.faceDown();
+            snake.faceLeft()
+        } else if (cursors.right.isDown || direction === 'right') {
+            snake.faceRight()
+        } else if (cursors.up.isDown || direction === 'up') {
+            snake.faceUp()
+        } else if (cursors.down.isDown || direction === 'down') {
+            snake.faceDown()
         }
 
         if (snake.update(time)) {
@@ -1960,4 +2127,4 @@ class SnakeScene extends Phaser.Scene {
     }
 }
 
-export default SnakeScene;
+export default SnakeScene
