@@ -69,6 +69,7 @@
 .invContainer {
     display: grid !important;
     grid-template-columns: auto auto auto;
+    grid-auto-rows: max-content;
     width: 375px;
     height: 400px;
     overflow-y: scroll;
