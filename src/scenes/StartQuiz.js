@@ -72,14 +72,14 @@ class StartQuiz extends Phaser.Scene {
         this.plank2= this.addImage(0, 0, 'Quiz:Plank_2').setOrigin(0.5, 0.6);
         this.grid.placeAtIndex(97, this.plank2);
 
-        this.txt2 = this.add.text(0, 0, 'Er zijn 5 vragen, voor elke vraag krijg je een punt!', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, wordWrap: {width: (175 * window.devicePixelRatio), useAdvancedWrap: true}}).setOrigin(0.5, 0.5);
+        this.txt2 = this.add.text(0, 0, 'Er zijn 5 vragen, voor elke vraag krijg je een punt!', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, wordWrap: {width: (175 * window.devicePixelRatio), useAdvancedWrap: true}}).setOrigin(0.5, 1);
         this.grid.placeAtIndex(97, this.txt2);
   
 
         this.plank3 = this.addImage(0, 0, 'Quiz:Plank_3').setOrigin(0.5, 0.7);
         this.grid.placeAtIndex(127, this.plank3);
 
-        this.txt3 = this.add.text(0, 0, 'De laatste is een bonus vraag waarop je extra M-Dollars voor krijgt!', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, wordWrap: {width: (175 * window.devicePixelRatio), useAdvancedWrap: true}}).setOrigin(0.5, 0.5).setAngle(357, 1);
+        this.txt3 = this.add.text(0, 0, 'De laatste is een bonus vraag waarop je extra M-Dollars voor krijgt!', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(16 * window.devicePixelRatio)}px`, wordWrap: {width: (175 * window.devicePixelRatio), useAdvancedWrap: true}}).setOrigin(0.5, 1).setAngle(357, 1);
         this.grid.placeAtIndex(127, this.txt3);
 
         this.plank4 = this.addImage(0, 0, 'Quiz:Plank_4').setOrigin(0.5, 0.75);
