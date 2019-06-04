@@ -63,7 +63,7 @@ class WeeklyScene extends Phaser.Scene {
         this.grid.placeAtIndex(162, this.check2);
 
         this.active = this.addImage(0, 0, 'Daily:active');
-        this.grid.placeAtIndex(56, this.active);
+        this.grid.placeAtIndex(71, this.active);
 
         this.Quiz = this.add.text(0, 0, 'Quiz van de dag!', 
         { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(25 * window.devicePixelRatio)}px`, align: 'center', wordWrap: {width: (100 * window.devicePixelRatio), useAdvancedWrap: true}});
@@ -75,7 +75,7 @@ class WeeklyScene extends Phaser.Scene {
 
 
         this.seperator = this.addImage(0, 0, 'Daily:seperator');
-        this.grid.placeAtIndex(52, this.seperator);   
+        this.grid.placeAtIndex(67, this.seperator);   
 
         this.mission = this.add.text(0, 0, 'Missie van de week!', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(25 * window.devicePixelRatio)}px`, align: 'center', wordWrap: {width: (100 * window.devicePixelRatio), useAdvancedWrap: true}});
         Phaser.Display.Align.In.Center(this.mission, this.active);
