@@ -126,5 +126,5 @@ export const INVENTORY = [
         textureKey: 'Character:pants_long_worn',
         category: 'PANTS',
         scale: 0.075
-    },
+    }
 ]

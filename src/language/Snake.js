@@ -1,6 +1,8 @@
 export const snakeGuideLang = {
-    barricade: 'Er zal soms een blokkade opduiken, deze zijn gevaarlijk en wil je dus vermijden.',
-    hitOtherPlayer: 'Met jouw Morfit kan je andere spelers uitschakelen door hun tegen jouw Morfit te laten gaan.',
+    barricade:
+        'Er zal soms een blokkade opduiken, deze zijn gevaarlijk en wil je dus vermijden.',
+    hitOtherPlayer:
+        'Met jouw Morfit kan je andere spelers uitschakelen door hun tegen jouw Morfit te laten gaan.',
     hitWall: 'Vermijd opstakels en muren!',
     eatSelf: 'Wees voorzichtig zodat je niet jezelf opeet.',
     eatUnhealthy: 'Het eten van ongezond eten geeft je negatieve effecten.',

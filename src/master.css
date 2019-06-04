@@ -24,7 +24,7 @@
     padding: 6px 10px;
     text-align: right;
     height: 30px;
-    width:73px;
+    width: 73px;
     font-family: 'Bubblegum Sans', sans-serif;
     font-weight: 500;
     font-size: 17px;
@@ -38,7 +38,7 @@
     height: 105px;
     width: 105px;
     background-size: auto 70px;
-    background-color: #BA6D34;
+    background-color: #ba6d34;
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 10px;
@@ -81,14 +81,14 @@
 .invItem {
     display: none;
     margin: 7px 7px;
-    position: relative
+    position: relative;
 }
 
 .invItem > div {
     height: 105px;
     width: 105px;
     background-size: auto 70px;
-    background-color: #BA6D34;
+    background-color: #ba6d34;
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 10px;
@@ -103,7 +103,7 @@
     grid-column-start: 2;
     font-family: 'Bubblegum Sans', sans-serif;
     text-align: center;
-    color: #2E3A4B;
+    color: #2e3a4b;
 }
 
 ::-webkit-scrollbar {
@@ -117,20 +117,20 @@ input {
     font-size: 20px;
     font-family: 'Bubblegum Sans', sans-serif;
     outline: none;
-    width: 60%;
+    width: 300px;
     text-align: center;
     border: none;
 }
 
 .submitPlayer {
-    width: 60%;
+    width: 300px;
     padding: 10px;
     border-radius: 50px;
     font-size: 18px;
     outline: none;
     text-align: center;
     border: 4px solid white;
-    background-color: #FA9A26;
+    background-color: #fa9a26;
     color: white;
     font-family: 'Bubblegum Sans', sans-serif;
 }

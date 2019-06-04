@@ -68,76 +68,85 @@ class CustomizeCharacterScene extends Phaser.Scene {
             height: this.sys.game.config.height
         })
 
-        this.TopNavbar = this
-            .addImage(0, 0, 'overview:BottomNavbar')
-            .setDepth(1)
+        this.TopNavbar = this.addImage(0, 0, 'overview:BottomNavbar').setDepth(
+            1
+        )
         this.grid.placeAtIndex(7, this.TopNavbar)
 
-        this.whiteBg = this
-            .addImage(0, 0, 'overview:whiteBG')
-            .setOrigin(
-                0.55,
-                0.45
-            )
+        this.whiteBg = this.addImage(0, 0, 'overview:whiteBG')
+            .setOrigin(0.55, 0.45)
             .setDepth(1)
 
         this.grid.placeAtIndex(3, this.whiteBg)
 
         this.Mylevel = this.add
-        .text(28 * window.devicePixelRatio, 24 * window.devicePixelRatio, this._player.getLevel(), {
-                fontFamily: 'Bubblegum Sans',
-                fontSize: `${Math.round(16 * window.devicePixelRatio)}px`,
-                fill: 'black',
-                align: 'center'
-            })
+            .text(
+                28 * window.devicePixelRatio,
+                24 * window.devicePixelRatio,
+                this._player.getLevel(),
+                {
+                    fontFamily: 'Bubblegum Sans',
+                    fontSize: `${Math.round(16 * window.devicePixelRatio)}px`,
+                    fill: 'black',
+                    align: 'center'
+                }
+            )
             .setOrigin(0.5, 0.2)
             .setDepth(1)
 
-
         this.Myname = this.add
-            .text(90 * window.devicePixelRatio, 25 * window.devicePixelRatio, this.player.username, {
-                fontFamily: 'Bubblegum Sans',
-                fontSize: `${Math.round(16 * window.devicePixelRatio)}px`,
-                fill: 'black'
-            })
+            .text(
+                90 * window.devicePixelRatio,
+                25 * window.devicePixelRatio,
+                this.player.username,
+                {
+                    fontFamily: 'Bubblegum Sans',
+                    fontSize: `${Math.round(16 * window.devicePixelRatio)}px`,
+                    fill: 'black'
+                }
+            )
             .setOrigin(0.6, 0.25)
             .setDepth(1)
 
-       
-
-        this.navPP = this
-            .addImage(0, 0, 'overview:navPP')
+        this.navPP = this.addImage(0, 0, 'overview:navPP')
             .setOrigin(0.8, 0.43)
             .setDepth(1)
 
         this.grid.placeAtIndex(9, this.navPP)
 
         this.MyPP = this.add
-            .text(225 * window.devicePixelRatio, 26 * window.devicePixelRatio, this.player.powerpoints, {
-                fontFamily: 'Bubblegum Sans',
-                fontSize: `${Math.round(16 * window.devicePixelRatio)}px`,
-                fill: 'black'
-            })
+            .text(
+                225 * window.devicePixelRatio,
+                26 * window.devicePixelRatio,
+                this.player.powerpoints,
+                {
+                    fontFamily: 'Bubblegum Sans',
+                    fontSize: `${Math.round(16 * window.devicePixelRatio)}px`,
+                    fill: 'black'
+                }
+            )
             .setOrigin(0.5, 0.25)
-            .setDepth(1);
+            .setDepth(1)
 
-     
-        this.navM_Dollars = this
-            .addImage(0, 0, 'overview:navM_Dollars')
+        this.navM_Dollars = this.addImage(0, 0, 'overview:navM_Dollars')
             .setOrigin(0.7, 0.4)
             .setDepth(1)
 
         this.grid.placeAtIndex(13, this.navM_Dollars)
 
         this.MyM_dollars = this.add
-            .text(315 * window.devicePixelRatio, 26 * window.devicePixelRatio, this.player.morfos, {
-                fontFamily: 'Bubblegum Sans',
-                fontSize: `${Math.round(16 * window.devicePixelRatio)}px`,
-                fill: 'black'
-            })
+            .text(
+                315 * window.devicePixelRatio,
+                26 * window.devicePixelRatio,
+                this.player.morfos,
+                {
+                    fontFamily: 'Bubblegum Sans',
+                    fontSize: `${Math.round(16 * window.devicePixelRatio)}px`,
+                    fill: 'black'
+                }
+            )
             .setOrigin(0.5, 0.25)
             .setDepth(1)
-
 
         this.background = this.add
             .image(withDPI(-102), withDPI(399), 'CharacterCustomize:background')
@@ -316,16 +325,14 @@ class CustomizeCharacterScene extends Phaser.Scene {
             .setOrigin(0.5, 0.5)
             .setScale(withDPI(0.1), withDPI(0.1))
 
-        const canvasHeight = window.innerHeight > this.sys.game.config.height / window.devicePixelRatio ?
+        const canvasHeight =
+            window.innerHeight >
             this.sys.game.config.height / window.devicePixelRatio
-            : window.innerHeight
+                ? this.sys.game.config.height / window.devicePixelRatio
+                : window.innerHeight
 
         this.homeButton = this.add
-            .image(
-                withDPI(235),
-                withDPI(canvasHeight - 8),
-                'Snake:home_button'
-            )
+            .image(withDPI(235), withDPI(canvasHeight - 8), 'Snake:home_button')
             .setScale(withDPI(0.2), withDPI(0.2))
             .setOrigin(0.5, 1)
             .setDepth(8)
