@@ -76,7 +76,7 @@ class DailyScenes extends Phaser.Scene {
         this.grid.placeAtIndex(67, this.seperator);
         this.grid.scaleTo(this.seperator, 0);
 
-        this.mission = this.add.text(0, 0, 'Missie van de week!', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(25 * window.devicePixelRatio)}px`, align: 'center', wordWrap: {width: (100 * window.devicePixelRatio), useAdvancedWrap: true}});
+        this.mission = this.add.text(0, 0, 'Missie van de week!', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(25 * window.devicePixelRatio)}px`, align: 'center', wordWrap: {width: (125 * window.devicePixelRatio), useAdvancedWrap: true}});
         Phaser.Display.Align.In.Center(this.mission, this.active, 200 * window.devicePixelRatio).setInteractive();
         this.mission.on('pointerdown', () => {
             this.scene.sleep('DailyScene');
