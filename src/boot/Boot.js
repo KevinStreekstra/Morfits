@@ -97,6 +97,7 @@ class BootScene extends Phaser.Scene {
                         this.scene.start('CreatePlayerScene')
                     }
                     this.scene.stop('LoadingScene')
+                    this.scene.start('FlappyGame')
                     this.scene.stop('BootScene')
                 },
                 [],
