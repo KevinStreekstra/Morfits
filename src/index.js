@@ -10,6 +10,7 @@ import WeeklyScenes from "./scenes/WeeklyMission";
 import ShopScene from './scenes/Shop';
 import StartQuiz from "./scenes/StartQuiz";
 import StopQuiz from "./scenes/StopQuiz";
+import FlappyGame from "./scenes/FlappyGame";
 
 //Quiz questions
 import Question1 from "./scenes/QuizScenes/Question1";
@@ -18,6 +19,8 @@ import Question3 from "./scenes/QuizScenes/Question3";
 import Question4 from "./scenes/QuizScenes/Question4";
 import InfoQuestion from "./scenes/QuizScenes/InfoQuestion";
 import Question5 from "./scenes/QuizScenes/Question5";
+
+
 
 const devicePixelRatio = window.devicePixelRatio;
 const scaleDownRation = 1 / 3;
@@ -55,11 +58,12 @@ const game = new Phaser.Game({
       Question4,
       InfoQuestion,
       Question5,
+      FlappyGame
     ],
-});
+}); 
 
 WebFontConfig = {
   google: {
     families: ['Bubblegum Sans']
   }
-}
+};
