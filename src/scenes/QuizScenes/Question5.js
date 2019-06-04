@@ -72,14 +72,14 @@ class Question5 extends Phaser.Scene {
         this.answer1 = this.addImage(0, 0, 'Question5:answer1').setInteractive();
         this.answer1.on('pointerdown', () => {
             this.scene.stop('Question5');
-            this.scene.launch('QuizReward');
+            this.scene.launch('QuizAnswer');
         });
         this.grid.placeAtIndex(82, this.answer1);
 
         this.answer2 = this.addImage(0, 0, 'Question5:answer2').setInteractive();
         this.answer2.on('pointerdown', () => {
             this.scene.stop('Question5');
-            this.scene.launch('QuizReward');
+            this.scene.launch('QuizAnswer');
         });
         this.grid.placeAtIndex(112, this.answer2);
 
