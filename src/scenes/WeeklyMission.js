@@ -47,8 +47,8 @@ class WeeklyScene extends Phaser.Scene {
         this.popupplank = this.addImage(0, 0, 'Daily:popupPlank');
         this.grid.placeAtIndex(127, this.popupplank);
 
-        this.plank2 = this.addImage(0, 0, 'Weekly:Plank2');
-        this.grid.placeAtIndex(125, this.plank2);
+        this.plank2 = this.add.text(0, 0, 'Sprint voor 0.5km!', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(24 * window.devicePixelRatio)}px`});
+        Phaser.Display.Align.In.Center(this.plank2, this.popupplank, -50 * window.devicePixelRatio);
 
         this.check2 = this.addImage(0, 0, 'Weekly:Check2');
         this.grid.placeAtIndex(132, this.check2);
@@ -56,8 +56,8 @@ class WeeklyScene extends Phaser.Scene {
         this.popupplank = this.addImage(0, 0, 'Daily:popupPlank');
         this.grid.placeAtIndex(157, this.popupplank);
 
-        this.plank3 = this.addImage(0, 0, 'Weekly:Plank3');
-        this.grid.placeAtIndex(156, this.plank3);
+        this.plank3 = this.add.text(0, 0, 'Zet de muis stil voor 20 min!', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(24 * window.devicePixelRatio)}px`, wordWrap: {width: (200 * window.devicePixelRatio), useAdvancedWrap: true}});
+        Phaser.Display.Align.In.Center(this.plank3, this.popupplank, -45 * window.devicePixelRatio);
 
         this.check2 = this.addImage(0, 0, 'Weekly:Check2');
         this.grid.placeAtIndex(162, this.check2);
@@ -77,7 +77,7 @@ class WeeklyScene extends Phaser.Scene {
         this.seperator = this.addImage(0, 0, 'Daily:seperator');
         this.grid.placeAtIndex(52, this.seperator);   
 
-        this.mission = this.add.text(0, 0, 'Missie van de week!', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(25 * window.devicePixelRatio)}px`, align: 'center', wordWrap: {width: (100 * window.devicePixelRatio), useAdvancedWrap: true}});
+        this.mission = this.add.text(0, 0, 'Missie van de week!', { fontFamily: 'Bubblegum Sans', fontSize: `${Math.round(25 * window.devicePixelRatio)}px`, align: 'center', wordWrap: {width: (125 * window.devicePixelRatio), useAdvancedWrap: true}});
         Phaser.Display.Align.In.Center(this.mission, this.active);
        
 
