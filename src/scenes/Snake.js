@@ -217,7 +217,7 @@ class SnakeScene extends Phaser.Scene {
                 this.backgroundBackdrop = scene.add
                     .image(0, 0, 'Snake:guide_helper_background')
                     .setDepth(-1)
-                    .setScale(withDPI(0.2), withDPI(0.2))
+                    .setScale(withDPI(0.5), withDPI(0.5))
                     .setOrigin(0, 0)
 
                 this.modalBackground = scene.add
@@ -413,7 +413,7 @@ class SnakeScene extends Phaser.Scene {
                 this.head.setAngle(-90);
                 this.head.setDepth(10);
                 this.head.setOrigin(0.5);
-                this.head.setCircle(30, 25, 25)
+                this.head.setCircle(30, 25, 25);
 
                 this.tail = new Phaser.Geom.Point(12.5, 12.5);
                 main_body = this.body
@@ -1005,6 +1005,8 @@ class SnakeScene extends Phaser.Scene {
                                 1,
                                 otherPlayer.tail
                             );
+                    } else {
+                        Sentry.captureMessage(`Player tried moving but is not defined ${playerInfo}`, 'debug')
                     }
                 })
 
@@ -1570,6 +1572,7 @@ class SnakeScene extends Phaser.Scene {
                     try {
                         grid[by][bx] = false;
                     } catch (err) {
+                        Sentry.captureException(err)
                         console.warn({ bx, by, err });
                     }
                 });

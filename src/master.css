@@ -1,6 +1,7 @@
 .shopContainer {
     display: grid !important;
     grid-template-columns: auto auto auto;
+    grid-auto-rows: max-content;
     width: 375px;
     height: 400px;
     overflow-y: scroll;
@@ -10,9 +11,9 @@
 }
 
 .shopItem {
-    display: inline-block;
+    display: none;
     margin: 7px 7px 25px;
-    position: relative
+    position: relative;
 }
 
 .shopItem::after {
@@ -36,8 +37,10 @@
 .shopItem > div {
     height: 105px;
     width: 105px;
-    background-size: cover;
+    background-size: auto 70px;
     background-color: #BA6D34;
+    background-repeat: no-repeat;
+    background-position: center;
     border-radius: 10px;
 }
 
@@ -60,6 +63,46 @@
     width: 100%;
     cursor: pointer;
     outline: 0;
+    user-select: none;
+}
+
+.invContainer {
+    display: grid !important;
+    grid-template-columns: auto auto auto;
+    width: 375px;
+    height: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    padding: 15px 8px 8px;
+}
+
+.invItem {
+    display: none;
+    margin: 7px 7px;
+    position: relative
+}
+
+.invItem > div {
+    height: 105px;
+    width: 105px;
+    background-size: auto 70px;
+    background-color: #BA6D34;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
+}
+
+.infoButton {
+    /* Empty for now */
+}
+
+.no-items {
+    display: none;
+    grid-column-start: 2;
+    font-family: 'Bubblegum Sans', sans-serif;
+    text-align: center;
+    color: #2E3A4B;
 }
 
 ::-webkit-scrollbar {

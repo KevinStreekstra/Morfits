@@ -81,6 +81,7 @@ module.exports = {
             WEBGL_RENDERER: JSON.stringify(true)
         }),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin()
+        new webpack.NoEmitOnErrorsPlugin(),
+        new CleanWebpackPlugin()
     ]
 }
