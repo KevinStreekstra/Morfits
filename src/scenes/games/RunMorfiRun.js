@@ -32,14 +32,14 @@ class RunMorfiRun extends Phaser.Scene {
     create() {
         this.initialTime = 60;
 
-        this.cameras.main.setBackgroundColor('#132B4B');
+        this.cameras.main.setBackgroundColor('#AEF7F1');
 
         this.input.addPointer(3);
         this.key_W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.key_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.key_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
-        this.add.sprite(0,0, 'games:bg').setDepth(-1).setScrollFactor(0.04).setScale(withDPI(1), withDPI(1));
+        this.add.sprite(0,0, 'games:bg').setDepth(-1).setOrigin(withDPI(0.02),withDPI(-0.05)).setScrollFactor(0.04).setScale(withDPI(1), withDPI(1));
 
         this.button_run = this.add.sprite(0,0, 'games:run').setOrigin(-0,-4.5).setDepth(2).setScale(withDPI(0.4)).setScrollFactor(0);
         this.button_jump = this.add.sprite(0,0, 'games:jump').setOrigin(-2,-4.5).setDepth(2).setScale(withDPI(0.4)).setScrollFactor(0);
