@@ -43,7 +43,7 @@ class CreatePlayerScene extends Phaser.Scene {
                 this.scene.stop('CreatePlayerScene');
             }
         }, this)
-        this.grid.placeAtIndex(68, this.submit);
+        this.grid.placeAtIndex(69, this.submit);
 
         //this.grid.showNumbers();
     }

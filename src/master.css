@@ -116,13 +116,13 @@ input {
     font-size: 20px;
     font-family: 'Bubblegum Sans', sans-serif;
     outline: none;
-    width: 60%;
+    width: 300px;
     text-align: center;
     border: none;
 }
 
 .submitPlayer {
-    width: 60%;
+    width: 300px;
     padding: 10px;
     border-radius: 50px;
     font-size: 18px;
