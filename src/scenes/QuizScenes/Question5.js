@@ -43,11 +43,11 @@ class Question5 extends Phaser.Scene {
         this.grid.scaleX(this.bg, 1);
         this.grid.scaleY(this.bg, 1);
 
-        this.vines2 = this.addImage(0, 0, 'Question1:Vines');
-        this.grid.placeAtIndex(77, this.vines2);
+        this.vines2 = this.addImage(0, 0, 'Question1:Vines').setScale(2.18);
+        this.grid.placeAtIndex(92, this.vines2);
 
-        this.vines = this.addImage(0, 0, 'Question1:Vines');
-        this.grid.placeAtIndex(87, this.vines);
+        this.vines = this.addImage(0, 0, 'Question1:Vines').setScale(2.18);
+        this.grid.placeAtIndex(102, this.vines);
 
         this.popupPlank = this.addImage(0, 0, 'StopQuiz:popupPlank');
        this.grid.placeAtIndex(37, this.popupPlank);
@@ -69,10 +69,18 @@ class Question5 extends Phaser.Scene {
        this.smallPlank = this.addImage(0, 0, 'Question1:smallPlank').setOrigin(0.5, 0.7);
        this.grid.placeAtIndex(157, this.smallPlank);
 
-        this.answer1 = this.addImage(0, 0, 'Question5:answer1');
+        this.answer1 = this.addImage(0, 0, 'Question5:answer1').setInteractive();
+        this.answer1.on('pointerdown', () => {
+            this.scene.stop('Question5');
+            this.scene.launch('QuizReward');
+        });
         this.grid.placeAtIndex(82, this.answer1);
 
-        this.answer2 = this.addImage(0, 0, 'Question5:answer2');
+        this.answer2 = this.addImage(0, 0, 'Question5:answer2').setInteractive();
+        this.answer2.on('pointerdown', () => {
+            this.scene.stop('Question5');
+            this.scene.launch('QuizReward');
+        });
         this.grid.placeAtIndex(112, this.answer2);
 
         this.back = this.addImage(0, 0, 'Question1:back').setOrigin(0.5, 0.8).setInteractive();
@@ -85,21 +93,21 @@ class Question5 extends Phaser.Scene {
         this.plank = this.addImage(0, 0, 'Info:plank');
        this.grid.placeAtIndex(187, this.plank);
 
-       this.inleveren = this.addImage(0, 0, 'Info:Inleveren');
-       this.inleveren.on('pointerodwn', () => {
-           this.scene.stop('Question5');
-           this.scene.launch('OverviewScene');
-       })
+       this.inleveren = this.addImage(0, 0, 'Info:Inleveren').setInteractive();
+       this.inleveren.on('pointerdown', () => {
+        this.scene.stop('Question5');
+        this.scene.launch('QuizAnswer');
+    });
        this.grid.placeAtIndex(187, this.inleveren);
 
        this.quit = this.addImage(0, 0, 'Daily:quit').setOrigin(.5, .675).setInteractive();
        this.quit.on('pointerdown', () => {
-           this.scene.sleep('Question4');
+           this.scene.sleep('Question5');
            this.scene.launch('StopQuiz');
        });
        this.grid.placeAtIndex(217, this.quit);
 
-       this.BonusPlank = this.addImage(0, 0, 'Info:bonusPlank');
+       this.BonusPlank = this.addImage(0, 0, 'Info:bonusPlank').setOrigin(0.5, 0.8);
        this.grid.placeAtIndex(67, this.BonusPlank);
 
         //this.grid.showNumbers();

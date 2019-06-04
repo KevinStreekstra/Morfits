@@ -7,9 +7,9 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require("terser-webpack-plugin");
 const HtmlReplaceWebpackPlugin = require('html-replace-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
+const CopyPlugin = require('copy-webpack-plugin');
 const PACKAGE = require('./package.json');
 const version = PACKAGE.version
-
 
 module.exports = {
   entry: {
@@ -77,6 +77,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.ProgressPlugin(),
     new HtmlWebPackPlugin({
       template: './src/index.html',
       filename: './index.html'
@@ -107,8 +108,14 @@ module.exports = {
         theme_color: '#ac452a',
         'theme-color': '#ac452a',
         start_url: '/',
-        display: 'standalone',
+        display: 'fullscreen',
         orientation: 'portrait'
-      })
+    }),
+    new CopyPlugin([
+        {
+            from: './src/loading-screen',
+            to: './loading-screen'
+        },
+    ])
   ]
 }

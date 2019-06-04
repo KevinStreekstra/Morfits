@@ -21,6 +21,8 @@ import { characterCustomize_assets } from './_CharacterCustomize';
 import { Question1 } from './BootQuiz/_Question1';
 import { InfoQuestion } from './BootQuiz/_InfoQuestion';
 import { Question5 } from './BootQuiz/_Question5';
+import { QuizReward } from './BootQuiz/_QuizReward';
+import { QuizAnswer } from './BootQuiz/_QuizAnswer';
 
 class BootScene extends Phaser.Scene {
     constructor() {
@@ -47,6 +49,8 @@ class BootScene extends Phaser.Scene {
         this.Question1 = Question1.bind(this);
         this.InfoQuestion = InfoQuestion.bind(this);
         this.Question5 = Question5.bind(this);
+        this.QuizReward = QuizReward.bind(this);
+        this.QuizAnswer = QuizAnswer.bind(this);
     }
 
     preload() {
@@ -78,7 +82,9 @@ class BootScene extends Phaser.Scene {
         this.Question1();
         this.InfoQuestion();
         this.Question5();
+        this.QuizReward();
         this.characterCustomize_assets();
+        this.QuizAnswer();
         // END LOAD SCENE ASSETS
 
         this.load.on('complete', () => {
