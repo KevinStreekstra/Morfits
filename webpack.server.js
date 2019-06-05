@@ -1,6 +1,7 @@
 const path = require('path')
 /* eslint-disable-next-line */
 const webpack = require('webpack')
+const Stylish = require('webpack-stylish')
 const RemovePlugin = require('remove-files-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
 
@@ -24,6 +25,11 @@ module.exports = (env, argv) => {
             __dirname: false, // if you don't put this is, __dirname
             __filename: false // and __filename return blank or /
         },
+        stats: {
+            all: false,
+            errors: true,
+            performance: true
+        },
         externals: [nodeExternals()], // Need this to avoid error when working with Express
         module: {
             rules: [
@@ -42,7 +48,8 @@ module.exports = (env, argv) => {
                 before: {
                     include: ['dist']
                 }
-            })
+            }),
+            new Stylish()
         ]
     }
 }

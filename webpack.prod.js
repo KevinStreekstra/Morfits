@@ -7,6 +7,9 @@ const TerserPlugin = require('terser-webpack-plugin')
 const HtmlReplaceWebpackPlugin = require('html-replace-webpack-plugin')
 const WebpackPwaManifest = require('webpack-pwa-manifest')
 const CopyPlugin = require('copy-webpack-plugin')
+const Stylish = require('webpack-stylish')
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const chalk = require('chalk')
 const PACKAGE = require('./package.json')
 const version = PACKAGE.version
 
@@ -21,7 +24,15 @@ module.exports = {
     },
     target: 'web',
     devtool: '#source-map',
-
+    performance: {
+        maxEntrypointSize: 90000000,
+        maxAssetSize: 90000000
+    },
+    stats: {
+        all: false,
+        errors: true,
+        performance: true
+    },
     optimization: {
         minimizer: [
             new OptimizeCSSAssetsPlugin({
@@ -53,9 +64,7 @@ module.exports = {
                 // Transpiles ES6-8 into ES5
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader'
-                }
+                use: ['babel-loader', 'eslint-loader']
             },
             {
                 // Loads the javacript into html template provided.
@@ -88,7 +97,9 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.ProgressPlugin(),
+        new ProgressBarPlugin({
+            format: `  ${chalk.blue('build')} ${chalk.yellow('[:bar]')} ${chalk.green.bold(':percent')} (:elapsed seconds) ${chalk.cyan(':msg')}`
+        }),
         new HtmlWebPackPlugin({
             template: './src/index.html',
             filename: './index.html'
@@ -127,6 +138,9 @@ module.exports = {
                 from: './src/loading-screen',
                 to: './loading-screen'
             }
-        ])
+        ]),
+        new Stylish()
     ]
 }
+
+console.log('Compiled succesfully')

@@ -66,7 +66,7 @@ class PopupModalScene extends Phaser.Scene {
     }
     sceneHandler(elementData) {
         const data =
-            elementData.scenes.length > 0 ? (data = elementData) : this.data
+            elementData.scenes.length > 0 ? elementData : this.data
 
         if (data.scenes.start) {
             data.scenes.start.forEach(el => {

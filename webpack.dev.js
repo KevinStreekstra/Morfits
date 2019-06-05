@@ -3,6 +3,9 @@ const webpack = require('webpack')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlReplaceWebpackPlugin = require('html-replace-webpack-plugin')
+const Stylish = require('webpack-stylish')
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const chalk = require('chalk')
 const PACKAGE = require('./package.json')
 const version = PACKAGE.version
 
@@ -21,14 +24,17 @@ module.exports = {
     },
     target: 'web',
     devtool: 'eval-source-map',
+    stats: {
+        all: false,
+        errors: true,
+        performance: false
+    },
     module: {
         rules: [
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader'
-                }
+                use: ['babel-loader', 'eslint-loader']
             },
             {
                 test: [/\.vert$/, /\.frag$/],
@@ -62,7 +68,9 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.ProgressPlugin(),
+        new ProgressBarPlugin({
+            format: `  ${chalk.blue('build')} ${chalk.yellow('[:bar]')} ${chalk.green.bold(':percent')} (:elapsed seconds) ${chalk.cyan(':msg')}`
+        }),
         new HtmlWebPackPlugin({
             template: './src/index.html',
             filename: './index.html',
@@ -84,6 +92,7 @@ module.exports = {
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new Stylish()
     ]
 }

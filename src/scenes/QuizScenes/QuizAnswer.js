@@ -235,8 +235,7 @@ class QuizAnswer extends Phaser.Scene {
             ease: 'linear',
             duration: 300,
             repeat: 0,
-            yoyo: false,
-            repeat: 0
+            yoyo: false
         })
 
         //this.grid.showNumbers();

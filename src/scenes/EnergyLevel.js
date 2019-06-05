@@ -1,5 +1,5 @@
 class EnergyLevel extends Phaser.Scene {
-    constructor(props) {
+    constructor() {
         super({
             key: 'EnergyLevel'
         })

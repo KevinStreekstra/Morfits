@@ -376,8 +376,8 @@ class CustomizeCharacterScene extends Phaser.Scene {
         `
         SwipeArea.id = 'swipe-area__kleding'
 
-        const domElement = this.add.dom(0, 340, SwipeArea).setOrigin(0, 0)
-        const listener = SwipeListener(SwipeArea)
+        this.add.dom(0, 340, SwipeArea).setOrigin(0, 0)
+        SwipeListener(SwipeArea)
 
         SwipeArea.addEventListener('swipe', ev => {
             const directions = ev.detail.directions

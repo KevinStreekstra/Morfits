@@ -41,9 +41,10 @@ class AlignGrid {
             this.graphics.moveTo(i, 0)
             this.graphics.lineTo(i, this.h)
         }
-        for (var i = 0; i < this.h; i += this.ch) {
-            this.graphics.moveTo(0, i)
-            this.graphics.lineTo(this.w, i)
+
+        for (var ib = 0; ib < this.h; ib += this.ch) {
+            this.graphics.moveTo(0, ib)
+            this.graphics.lineTo(this.w, ib)
         }
         this.graphics.strokePath()
     }

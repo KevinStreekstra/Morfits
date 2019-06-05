@@ -32,7 +32,6 @@ import QuizAnswer from './scenes/QuizScenes/QuizAnswer'
 import './master.css'
 
 const devicePixelRatio = window.devicePixelRatio
-const scaleDownRation = 1 / 3
 
 const game = new Phaser.Game({
     parent: 'game',
@@ -99,3 +98,6 @@ if (typeof module.hot !== 'undefined') {
         })
     }
 }
+
+export { WebFontConfig }
+export default game
