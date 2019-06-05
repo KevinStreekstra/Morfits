@@ -142,5 +142,3 @@ module.exports = {
         new Stylish()
     ]
 }
-
-console.log('Compiled succesfully')
