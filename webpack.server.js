@@ -1,15 +1,17 @@
 const path = require('path')
+/* eslint-disable-next-line */
 const webpack = require('webpack')
 const RemovePlugin = require('remove-files-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
 
 module.exports = (env, argv) => {
-    const SERVER_PATH = (argv.mode === 'production') ?
-        './src/server/server-prod.js' :
-        './src/server/server-dev.js'
-    return ({
+    const SERVER_PATH =
+        argv.mode === 'production'
+            ? './src/server/server-prod.js'
+            : './src/server/server-dev.js'
+    return {
         entry: {
-            server: SERVER_PATH,
+            server: SERVER_PATH
         },
         output: {
             path: path.join(__dirname, 'dist'),
@@ -19,8 +21,8 @@ module.exports = (env, argv) => {
         target: 'node',
         node: {
             // Need this when working with express, otherwise the build fails
-            __dirname: false,   // if you don't put this is, __dirname
-            __filename: false,  // and __filename return blank or /
+            __dirname: false, // if you don't put this is, __dirname
+            __filename: false // and __filename return blank or /
         },
         externals: [nodeExternals()], // Need this to avoid error when working with Express
         module: {
@@ -30,7 +32,7 @@ module.exports = (env, argv) => {
                     test: /\.js$/,
                     exclude: /node_modules/,
                     use: {
-                        loader: "babel-loader"
+                        loader: 'babel-loader'
                     }
                 }
             ]
@@ -40,7 +42,7 @@ module.exports = (env, argv) => {
                 before: {
                     include: ['dist']
                 }
-            }),
+            })
         ]
-    })
+    }
 }
