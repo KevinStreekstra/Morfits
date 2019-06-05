@@ -24,7 +24,19 @@ module.exports = {
 
     optimization: {
         minimizer: [
-            new OptimizeCSSAssetsPlugin({}),
+            new OptimizeCSSAssetsPlugin({
+                cssProcessorPluginOptions: {
+                    preset: [
+                        'default',
+                        {
+                            discardComments: {
+                                removeAll: true
+                            },
+                            minifyFontValues: false
+                        }
+                    ]
+                }
+            }),
             new TerserPlugin({
                 terserOptions: {
                     output: {
