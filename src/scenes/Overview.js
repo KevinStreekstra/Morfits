@@ -116,7 +116,7 @@ class OverviewScene extends Phaser.Scene {
             this.scene.bringToTop('GameSelect')
             this.scene.start('GameSelect')
             this.scene.stop('TopNavBar')
-            this.scene.stop()
+            this.scene.stop('OverviewScene')
         })
 
         this.txtGames = this.add
@@ -134,6 +134,7 @@ class OverviewScene extends Phaser.Scene {
         this.grid.placeAtIndex(202, this.market)
         this.market.on('pointerdown', () => {
             this.scene.launch('ShopScene')
+            this.scene.pause('OverviewScene')
         })
 
         this.txtMarket = this.add
@@ -151,6 +152,7 @@ class OverviewScene extends Phaser.Scene {
         this.grid.placeAtIndex(205, this.inventory)
         this.inventory.on('pointerdown', () => {
             this.scene.launch('InventoryScene')
+            this.scene.pause('OverviewScene')
         })
 
         this.txtInventory = this.add
@@ -169,6 +171,7 @@ class OverviewScene extends Phaser.Scene {
             this.scene.bringToTop('DailyScene')
             this.scene.launch('DailyScene')
             this.scene.pause('OverviewScene')
+            this.scene.pause('TopNavBar')
         })
         this.grid.placeAtIndex(208, this.quiz)
 

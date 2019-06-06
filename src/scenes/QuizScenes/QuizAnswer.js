@@ -225,6 +225,7 @@ class QuizAnswer extends Phaser.Scene {
             this.scene.stop('InfoQuestion')
             this.scene.launch('QuizReward')
             this.scene.launch('OverviewScene')
+            this.scene.resume('TopNavBar')
         })
         this.grid.placeAtIndex(202, this.quit)
 

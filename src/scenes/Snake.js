@@ -172,24 +172,15 @@ class SnakeScene extends Phaser.Scene {
                 hasBack: true,
                 isLast: false,
                 previous: 'hitWall',
-                nextStep: 'barricade',
-                name: 'hitOtherPlayer'
-            },
-            barricade: {
-                imageKey: 'Snake:guide_barricade',
-                bodyText: snakeGuideLang.barricade,
-                hasBack: true,
-                isLast: false,
-                previous: 'hitOtherPlayer',
                 nextStep: 'score',
-                name: 'barricade'
+                name: 'hitOtherPlayer'
             },
             score: {
                 imageKey: 'Snake:guide_score',
                 bodyText: snakeGuideLang.score,
                 hasBack: true,
                 isLast: true,
-                previous: 'barricade',
+                previous: 'hitOtherPlayer',
                 name: 'score'
             }
         }
