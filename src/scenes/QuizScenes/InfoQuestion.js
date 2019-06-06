@@ -104,7 +104,7 @@ class InfoQuestion extends Phaser.Scene {
             .text(
                 0,
                 0,
-                'Bij de volgende vraag hoort de onderste uitleg bij, snap jij wat er staat?',
+                'Bij de volgende vraag hoort onderstaande uitleg, snap jij wat er staat?',
                 {
                     fontFamily: 'Bubblegum Sans',
                     fontSize: `${Math.round(28 * window.devicePixelRatio)}px`,

@@ -103,7 +103,7 @@ class StartQuiz extends Phaser.Scene {
             .text(
                 0,
                 0,
-                'De laatste is een bonus vraag waarop je extra M-Dollars voor krijgt!',
+                'De laatste vraag is een bonusvraag waarvoor je extra M-dollars krijgt.',
                 {
                     fontFamily: 'Bubblegum Sans',
                     fontSize: `${Math.round(16 * window.devicePixelRatio)}px`,

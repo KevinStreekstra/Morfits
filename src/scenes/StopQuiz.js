@@ -44,6 +44,7 @@ class StopQuiz extends Phaser.Scene {
         this.btnYes.on('pointerdown', () => {
             this.scene.sleep('StopQuiz')
             this.scene.launch('OverviewScene')
+            this.scene.resume('TopNavBar')
         })
 
         this.btnNo = this.addImage(0, 0, 'StopQuiz:btnNo').setInteractive()
