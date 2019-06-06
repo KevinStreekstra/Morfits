@@ -36,6 +36,7 @@ class DailyScenes extends Phaser.Scene {
         this.quit.on('pointerdown', () => {
             this.scene.stop('DailyScene')
             this.scene.launch('OverviewScene')
+            this.scene.resume('TopNavBar')
         })
         this.grid.placeAtIndex(202, this.quit)
         this.grid.scaleTo(this.quit, 0)

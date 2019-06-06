@@ -34,6 +34,8 @@ class TopNavBar extends Phaser.Scene {
         this.whiteBg.on('pointerdown', () => {
             this.scene.bringToTop('StatsScene')
             this.scene.launch('StatsScene')
+            this.scene.pause('OverviewScene')
+            this.scene.pause('TopNavBar')
             this.scene.stop('InventoryScene')
             this.scene.stop('ShopScene')
         })

@@ -215,6 +215,8 @@ class StatsScene extends Phaser.Scene {
             .setInteractive()
         this.quit.on('pointerdown', () => {
             this.scene.stop('StatsScene')
+            this.scene.resume('TopNavBar')
+            this.scene.resume('OverviewScene')
         })
         this.grid.placeAtIndex(217, this.quit)
         this.grid.scaleTo(this.quit, 0)
