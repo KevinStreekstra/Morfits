@@ -169,6 +169,7 @@ class Shop extends Phaser.Scene {
             .setInteractive()
         this.home.on('pointerdown', () => {
             this.scene.stop('ShopScene')
+            this.scene.resume('OverviewScene')
         })
         this.grid.placeAtIndex(202, this.home)
         this.grid.scaleTo(this.home, 0.13)

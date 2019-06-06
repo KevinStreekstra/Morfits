@@ -1,4 +1,3 @@
-import PopupModalScene from '../PopupModal'
 import { withDPI } from '../../helpers'
 
 class RunMorfiRun extends Phaser.Scene {
@@ -135,11 +134,11 @@ class RunMorfiRun extends Phaser.Scene {
         this.button_run.on('pointerdown', pointer2 => {
             this.run = pointer2.isDown
         })
-        this.button_jump.on('pointerup', pointer1 => {
+        this.button_jump.on('pointerup', () => {
             this.jump = false
         })
 
-        this.button_run.on('pointerup', pointer2 => {
+        this.button_run.on('pointerup', () => {
             this.run = false
         })
     }

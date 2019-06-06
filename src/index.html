@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="NL">
     <head>
         <meta charset="utf-8" />
         <meta
@@ -12,25 +12,25 @@
         <!-- iPhone Xr (828px x 1792px) -->
         <link
             rel="apple-touch-startup-image"
-            media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)"
+            media="screen and (width: 414px) and (min-height: 890px) and (max-height: 896px) and (-webkit-device-pixel-ratio: 2)"
             href="./loading-screen/boot-iphone-xr.png"
         />
         <!-- iPhone X, Xs (1125px x 2436px) -->
         <link
             rel="apple-touch-startup-image"
-            media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
+            media="screen and (width: 375px) and (min-height: 669px) and (max-height: 812px) and (-webkit-device-pixel-ratio: 3)"
             href="./loading-screen/boot-iphone-xs.png"
         />
         <!-- iPhone 8 Plus, 7 Plus, 6s Plus, 6 Plus (1242px x 2208px) -->
         <link
             rel="apple-touch-startup-image"
-            media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)"
+            media="screen and (width: 414px) and (max-height: 736px) and (-webkit-device-pixel-ratio: 3)"
             href="./loading-screen/boot-iphone-8-plus.png"
         />
         <!-- iPhone 8, 7, 6s, 6 (750px x 1334px) -->
         <link
             rel="apple-touch-startup-image"
-            media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
+            media="screen and (width: 375px) and (max-height: 667px) and (-webkit-device-pixel-ratio: 2)"
             href="./loading-screen/boot-iphone-8.png"
         />
 
@@ -62,7 +62,8 @@
         ></script>
         <script>
             Sentry.init({
-                dsn: 'https://448ec742cc7f4e678585aef565122b61@sentry.io/1469140',
+                dsn:
+                    'https://448ec742cc7f4e678585aef565122b61@sentry.io/1469140',
                 release: 'V@@version',
                 environment: '@@environment'
             })

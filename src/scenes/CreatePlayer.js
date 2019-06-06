@@ -1,7 +1,7 @@
 import Player from '../classes/Player'
 import AlignGrid from '../classes/AlignGrid'
 
-import { addImage, addElement, addRectangle } from '../helpers'
+import { addElement, addRectangle } from '../helpers'
 
 class CreatePlayerScene extends Phaser.Scene {
     constructor() {
@@ -53,7 +53,8 @@ class CreatePlayerScene extends Phaser.Scene {
         this.submit.addListener('click')
         this.submit.on(
             'click',
-            function(e) {
+            function (ev) {
+                ev.preventDefault()
                 let txt = this.input_username.node.value
                 if (txt.length > 0) {
                     new Player().init(txt)
@@ -64,8 +65,6 @@ class CreatePlayerScene extends Phaser.Scene {
             this
         )
         this.grid.placeAtIndex(69, this.submit)
-
-        //this.grid.showNumbers();
     }
 }
 

@@ -7,7 +7,7 @@ import winston from 'winston'
 import dateFns from 'date-fns'
 
 const logFormat = winston.format.printf(
-    ({ level, message, label, timestamp, extraInfo }) =>
+    ({ level, message, timestamp, extraInfo }) =>
         `${timestamp} ${level}: ${message} ${
             extraInfo ? `Extra info: ${JSON.stringify(extraInfo, null, 2)}` : ''
         }`
@@ -38,12 +38,11 @@ const logger = winston.createLogger({
     ]
 })
 
-const app = express(),
-    DIST_DIR = __dirname,
-    HTML_FILE = path.join(DIST_DIR, 'index.html')
+const app = express()
+const DIST_DIR = __dirname
 
 const expressSession = session({
-    secret: 'my-secret',
+    secret: '881d167a-f4f1-4a03-bebc-c0bfba9cda35',
     resave: true,
     saveUninitialized: true
 })
@@ -55,7 +54,7 @@ const playerScores = {}
 
 app.use(expressSession)
 
-app.get('*', (req, res, next) => {
+app.get('*', (req, res) => {
     res.sendFile(path.join(DIST_DIR, req.url))
 })
 

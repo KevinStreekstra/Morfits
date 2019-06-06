@@ -4,7 +4,7 @@ import SwipeListener from 'swipe-listener'
 import Player from '../classes/Player'
 import AlignGrid from '../classes/AlignGrid'
 
-import { addImage, addElement, withDPI } from '../helpers'
+import { addImage, withDPI } from '../helpers'
 
 // Data
 import { INVENTORY } from '../data/inventory'
@@ -342,8 +342,8 @@ class CustomizeCharacterScene extends Phaser.Scene {
             })
 
         this.homeButton.on('pointerdown', () => {
-            this.scene.start('OverviewScene')
             this.scene.stop('CustomizeCharacter')
+            this.scene.start('OverviewScene')
         })
 
         this.updateAssets(firstOfPage)
@@ -376,8 +376,8 @@ class CustomizeCharacterScene extends Phaser.Scene {
         `
         SwipeArea.id = 'swipe-area__kleding'
 
-        const domElement = this.add.dom(0, 340, SwipeArea).setOrigin(0, 0)
-        const listener = SwipeListener(SwipeArea)
+        this.add.dom(0, 340, SwipeArea).setOrigin(0, 0)
+        SwipeListener(SwipeArea)
 
         SwipeArea.addEventListener('swipe', ev => {
             const directions = ev.detail.directions

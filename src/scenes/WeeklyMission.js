@@ -32,6 +32,8 @@ class WeeklyScene extends Phaser.Scene {
         this.quit = this.addImage(0, 0, 'Daily:quit').setInteractive()
         this.quit.on('pointerdown', () => {
             this.scene.stop('WeeklyScene')
+            this.scene.resume('OverviewScene')
+            this.scene.resume('TopNavBar')
         })
         this.grid.placeAtIndex(202, this.quit)
 

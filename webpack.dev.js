@@ -1,10 +1,12 @@
 const path = require('path')
 const webpack = require('webpack')
-const nodeExternals = require('webpack-node-externals')
-const HtmlWebPackPlugin = require("html-webpack-plugin")
-const CleanWebpackPlugin = require("clean-webpack-plugin");
-const HtmlReplaceWebpackPlugin = require('html-replace-webpack-plugin');
-const PACKAGE = require('./package.json');
+const HtmlWebPackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const HtmlReplaceWebpackPlugin = require('html-replace-webpack-plugin')
+const Stylish = require('webpack-stylish')
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const chalk = require('chalk')
+const PACKAGE = require('./package.json')
 const version = PACKAGE.version
 
 module.exports = {
@@ -15,25 +17,28 @@ module.exports = {
             './src/index.js'
         ]
     },
-  output: {
-    path: path.join(__dirname, 'dist'),
-    publicPath: '/',
-    filename: '[name].js'
-  },
+    output: {
+        path: path.join(__dirname, 'dist'),
+        publicPath: '/',
+        filename: '[name].js'
+    },
     target: 'web',
     devtool: 'eval-source-map',
-  module: {
+    stats: {
+        all: false,
+        errors: true,
+        performance: false
+    },
+    module: {
         rules: [
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader"
-                }
+                use: ['babel-loader', 'eslint-loader']
             },
             {
                 test: [/\.vert$/, /\.frag$/],
-                use: "raw-loader"
+                use: 'raw-loader'
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
@@ -50,22 +55,26 @@ module.exports = {
                 // Loads the javacript into html template provided.
                 // Entry point is set below in HtmlWebPackPlugin in Plugins
                 test: /\.html$/,
-                use: [{
-                    loader: "html-loader",
-                }]
+                use: [
+                    {
+                        loader: 'html-loader'
+                    }
+                ]
             },
             {
-                test:/\.css$/,
-                use:['style-loader','css-loader']
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
             }
         ]
     },
     plugins: [
-        new webpack.ProgressPlugin(),
+        new ProgressBarPlugin({
+            format: `  ${chalk.blue('build')} ${chalk.yellow('[:bar]')} ${chalk.green.bold(':percent')} (:elapsed seconds) ${chalk.cyan(':msg')}`
+        }),
         new HtmlWebPackPlugin({
-            template: "./src/index.html",
-            filename: "./index.html",
-            excludeChunks: ['server'],
+            template: './src/index.html',
+            filename: './index.html',
+            excludeChunks: ['server']
         }),
         new HtmlReplaceWebpackPlugin([
             {
@@ -83,6 +92,7 @@ module.exports = {
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new Stylish()
     ]
 }

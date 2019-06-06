@@ -13,12 +13,10 @@ import { snakeGuideLang } from '../language/Snake'
 
 let snake
 let main_body
-let main_soda
 let cursors
 let main_socket
 let main_scene
 let snakeSelf
-let main_others
 let morfosReward = 0
 let ateFood = false
 let hitAOtherPlayer = false
@@ -80,7 +78,7 @@ class SnakeScene extends Phaser.Scene {
         })
 
         const gameCanvas = document.querySelector('#game')
-        const listener = SwipeListener(gameCanvas)
+        SwipeListener(gameCanvas)
 
         gameCanvas.addEventListener('swipe', ev => {
             const directions = ev.detail.directions
@@ -110,8 +108,6 @@ class SnakeScene extends Phaser.Scene {
     }
 
     create() {
-        var self = this
-
         const ownPlayer = {
             playerId: Phaser.Math.RND.uuid(),
             rotation: -90,
@@ -176,24 +172,15 @@ class SnakeScene extends Phaser.Scene {
                 hasBack: true,
                 isLast: false,
                 previous: 'hitWall',
-                nextStep: 'barricade',
-                name: 'hitOtherPlayer'
-            },
-            barricade: {
-                imageKey: 'Snake:guide_barricade',
-                bodyText: snakeGuideLang.barricade,
-                hasBack: true,
-                isLast: false,
-                previous: 'hitOtherPlayer',
                 nextStep: 'score',
-                name: 'barricade'
+                name: 'hitOtherPlayer'
             },
             score: {
                 imageKey: 'Snake:guide_score',
                 bodyText: snakeGuideLang.score,
                 hasBack: true,
                 isLast: true,
-                previous: 'barricade',
+                previous: 'hitOtherPlayer',
                 name: 'score'
             }
         }
@@ -217,8 +204,6 @@ class SnakeScene extends Phaser.Scene {
                     bodyText,
                     hasBack,
                     isLast,
-                    nextStep,
-                    previous,
                     name
                 } = guideInfo
                 let current = name
@@ -475,8 +460,6 @@ class SnakeScene extends Phaser.Scene {
                     .setName('Soda')
                     .setOrigin(0)
                     .setScale(withDPI(0.333), withDPI(0.333))
-
-                main_soda = this.soda
 
                 /* ANCHOR Lemon */
                 this.lemon = this.foods
@@ -1020,7 +1003,6 @@ class SnakeScene extends Phaser.Scene {
                 main_socket.on('currentPlayers', function(players) {
                     Object.keys(players).forEach(function(id) {
                         if (players[id].playerId !== ownPlayer.playerId) {
-                            const { playerId } = players[id]
                             createPlayer(players[id], scene)
                         }
                     })
@@ -2025,7 +2007,7 @@ class SnakeScene extends Phaser.Scene {
              * @param {Object} scores - object containing Player. Properties are named after the player id.
              * @param {Player} scores.id
              */
-            handleGameEnd: function(scores, players) {
+            handleGameEnd: function(scores) {
                 // Convert the scores to a array
                 const scorePlayersArray = []
                 Object.keys(scores).forEach(id => {
@@ -2099,7 +2081,7 @@ class SnakeScene extends Phaser.Scene {
         cursors = this.input.keyboard.createCursorKeys()
     }
 
-    update(time, delta) {
+    update(time) {
         if (!snake || !snake.alive) {
             return
         }

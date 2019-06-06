@@ -90,7 +90,7 @@ class Question3 extends Phaser.Scene {
             .setInteractive()
         this.answer.on('pointerdown', () => {
             this.scene.stop('Question3')
-            this.scene.launch('Question3')
+            this.scene.launch('Question4')
         })
         this.grid.placeAtIndex(112, this.answer)
 

@@ -1,7 +1,6 @@
 import AlignGrid from '../../classes/AlignGrid'
 
 import { addImage } from '../../helpers'
-import OverviewScene from '../Overview'
 
 class Question5 extends Phaser.Scene {
     constructor() {

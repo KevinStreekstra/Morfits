@@ -3,16 +3,16 @@ import express from 'express'
 import http from 'http'
 import ioPackage from 'socket.io'
 import session from 'express-session'
-import sharedsession from 'express-socket.io-session'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import winston from 'winston'
 import dateFns from 'date-fns'
+import open from 'open'
 import config from '../../webpack.dev.js'
 
 const logFormat = winston.format.printf(
-    ({ level, message, label, timestamp, extraInfo }) =>
+    ({ level, message, timestamp, extraInfo }) =>
         `${timestamp} ${level}: ${message} ${
             extraInfo ? `Extra info: ${JSON.stringify(extraInfo, null, 2)}` : ''
         }`
@@ -93,6 +93,8 @@ const PORT = process.env.PORT || 8080
 
 httpServer.listen(PORT, () => {
     console.log(`App listening to ${PORT}....`)
+    console.log(`View on http://localhost:${PORT}`)
+    open(`http://localhost:${PORT}`)
     console.log('Press Ctrl+C to quit.')
 })
 
