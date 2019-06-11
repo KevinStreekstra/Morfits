@@ -33,8 +33,11 @@ export function addElement(x, y, tag, style) {
         .setScale(window.devicePixelRatio, window.devicePixelRatio)
 }
 
-export function addRectangle(x, y, width, height, fillColor) {
+export function addRectangle(x, y, width, height, fillColor, alpha) {
+    if (alpha === undefined || alpha === '') {
+        alpha = 1;
+    }
     return this.add
-        .rectangle(x, y, width, height, fillColor)
-        .setScale(window.devicePixelRatio, window.devicePixelRatio)
+        .rectangle(x, y, width, height, fillColor, alpha)
+        .setScale(window.devicePixelRatio, window.devicePixelRatio);
 }
