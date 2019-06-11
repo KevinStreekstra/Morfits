@@ -66,19 +66,24 @@ class Inventory extends Phaser.Scene {
             .image(0, 0, 'shop:hair')
             .setScale(withDPI(0.2), withDPI(0.2))
             .setOrigin(0.8, 0)
-            .setInteractive()
         this.grid.placeAtIndex(18, this.navHair)
-        this.navHair.on('pointerdown', () => {
-            this.invPage = 'hair'
-        })
 
         this.navShirt = this.add
             .image(0, 0, 'shop:shirt')
             .setScale(withDPI(0.2), withDPI(0.2))
             .setOrigin(0.65, 0)
-            .setInteractive()
         this.grid.placeAtIndex(20, this.navShirt)
-        this.navShirt.on('pointerdown', () => {
+        this.shirtHitbox = this.addRectangle(
+            0,
+            0,
+            this.navShirt.displayWidth + 5,
+            this.navShirt.displayHeight + 5,
+            0xffffff,
+            0
+        ).setOrigin(0.62, 0.15)
+        .setInteractive()
+        this.grid.placeAtIndex(20, this.shirtHitbox)
+        this.shirtHitbox.on('pointerdown', () => {
             this.invPage = 'shirt'
         })
 
@@ -88,7 +93,17 @@ class Inventory extends Phaser.Scene {
             .setOrigin(0.5, 0)
             .setInteractive()
         this.grid.placeAtIndex(22, this.navPants)
-        this.navPants.on('pointerdown', () => {
+        this.pantsHitbox = this.addRectangle(
+            0,
+            0,
+            this.navPants.displayWidth + 5,
+            this.navPants.displayHeight + 5,
+            0xffffff,
+            0
+        ).setOrigin(0.5, 0.15)
+        .setInteractive()
+        this.grid.placeAtIndex(22, this.pantsHitbox)
+        this.pantsHitbox.on('pointerdown', () => {
             this.invPage = 'pants'
         })
 
@@ -96,19 +111,24 @@ class Inventory extends Phaser.Scene {
             .image(0, 0, 'shop:shoes')
             .setScale(withDPI(0.2), withDPI(0.2))
             .setOrigin(0.3, 0)
-            .setInteractive()
         this.grid.placeAtIndex(24, this.navShoes)
-        this.navShoes.on('pointerdown', () => {
-            this.invPage = 'shoes'
-        })
 
         this.navFood = this.add
             .image(0, 0, 'shop:food')
             .setScale(withDPI(0.2), withDPI(0.2))
             .setOrigin(0.1, 0)
-            .setInteractive()
         this.grid.placeAtIndex(26, this.navFood)
-        this.navFood.on('pointerdown', () => {
+        this.foodHitbox = this.addRectangle(
+            0,
+            0,
+            this.navFood.displayWidth + 5,
+            this.navFood.displayHeight + 5,
+            0xffffff,
+            0
+        ).setOrigin(0.2, 0.15)
+        .setInteractive()
+        this.grid.placeAtIndex(26, this.foodHitbox)
+        this.foodHitbox.on('pointerdown', () => {
             this.invPage = 'food'
         })
 
